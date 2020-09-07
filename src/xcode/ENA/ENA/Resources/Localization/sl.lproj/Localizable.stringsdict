@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>You have an increased risk of infection because you were last exposed a day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>zero</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>few</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>many</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>two</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>other</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Danes, %%1$@</string>
+			<key>one</key>
+			<string>Včeraj, %%1$@</string>
+			<key>few</key>
+			<string>%%2$@, %%1$@</string>
+			<key>many</key>
+			<string>%%2$@, %%1$@</string>
+			<key>two</key>
+			<string>%%2$@, %%1$@</string>
+			<key>other</key>
+			<string>%%2$@, %%1$@</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Do zdaj ni bilo izpostavljenosti</string>
+			<key>one</key>
+			<string>Ena izpostavljenost okuženi osebi</string>
+			<key>few</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>many</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>two</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>other</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>one</key>
+			<string>%u dan od zadnje izpostavljenosti okuženi osebi</string>
+			<key>few</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>many</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>two</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>other</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Do zdaj ni bilo izpostavljenosti</string>
+			<key>one</key>
+			<string>%u izpostavljenost okuženi osebi</string>
+			<key>few</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>many</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>two</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>other</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Do zdaj ni bilo izpostavljenosti</string>
+			<key>one</key>
+			<string>%u izpostavljenost okuženi osebi</string>
+			<key>few</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>many</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>two</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+			<key>other</key>
+			<string>%u izpostavljenosti okuženi osebi</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Last_Contact_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Manj kot en dan od zadnje izpostavljenosti okuženi osebi</string>
+			<key>one</key>
+			<string>%u dan od zadnje izpostavljenosti okuženi osebi</string>
+			<key>few</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>many</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>two</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<key>other</key>
+			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Status_Counter_Label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@%#</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ sekund</string>
+			<key>one</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minuto</string>
+			<key>few</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<key>many</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<key>two</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<key>other</key>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+		</dict>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>%02u</string>
+			<key>zero</key>
+			<string>%02u</string>
+			<key>few</key>
+			<string>%02u</string>
+			<key>many</key>
+			<string>%02u</string>
+			<key>two</key>
+			<string>%02u</string>
+			<key>other</key>
+			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo.</string>
+			<key>one</key>
+			<string>Beleženje izpostavljenosti je aktivno že %u dan. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<key>few</key>
+			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<key>many</key>
+			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<key>two</key>
+			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<key>other</key>
+			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

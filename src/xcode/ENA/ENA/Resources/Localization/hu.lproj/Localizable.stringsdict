@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>You have an increased risk of infection because you were last exposed a day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>zero</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>few</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>many</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>two</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>other</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Ma, %%1$@</string>
+			<key>one</key>
+			<string>Tegnap, %%1$@</string>
+			<key>few</key>
+			<string>%%2$@, %%1$@</string>
+			<key>many</key>
+			<string>%%2$@, %%1$@</string>
+			<key>two</key>
+			<string>%%2$@, %%1$@</string>
+			<key>other</key>
+			<string>%%2$@, %%1$@</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Eddig nem volt kitettség</string>
+			<key>one</key>
+			<string>Egy fertőzött személynek való kitettség</string>
+			<key>few</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>many</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>two</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>other</key>
+			<string>%u fertőzött személynek való kitettség</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>one</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>few</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>many</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>two</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>other</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Eddig nem volt kitettség</string>
+			<key>one</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>few</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>many</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>two</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>other</key>
+			<string>%u fertőzött személynek való kitettség</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Eddig nem volt kitettség</string>
+			<key>one</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>few</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>many</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>two</key>
+			<string>%u fertőzött személynek való kitettség</string>
+			<key>other</key>
+			<string>%u fertőzött személynek való kitettség</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Last_Contact_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>0 nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>one</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>few</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>many</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>two</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+			<key>other</key>
+			<string>%u nap a legutóbbi fertőzött személynek való kitettségtől</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Status_Counter_Label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@%#</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Frissítés %02u:%2$#@seconds@ másodperc múlva</string>
+			<key>one</key>
+			<string>Frissítés %02u:%2$#@seconds@ perc múlva</string>
+			<key>few</key>
+			<string>Frissítés %02u:%2$#@seconds@ perc múlva</string>
+			<key>many</key>
+			<string>Frissítés %02u:%2$#@seconds@ perc múlva</string>
+			<key>two</key>
+			<string>Frissítés %02u:%2$#@seconds@ perc múlva</string>
+			<key>other</key>
+			<string>Frissítés %02u:%2$#@seconds@ perc múlva</string>
+		</dict>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>%02u</string>
+			<key>zero</key>
+			<string>%02u</string>
+			<key>few</key>
+			<string>%02u</string>
+			<key>many</key>
+			<string>%02u</string>
+			<key>two</key>
+			<string>%02u</string>
+			<key>other</key>
+			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>A kitettség naplózás nem volt elegendő ideig bekapcsolva, ezért nem tudtuk értékelni a fertőzési kockázatát.</string>
+			<key>one</key>
+			<string>A kitettség naplózás már %u napja aktív. A kitettség ellenőrzés csak akkor megbízható, ha a naplózás folyamatosan aktivált.</string>
+			<key>few</key>
+			<string>A kitettség naplózás már %u napja aktív. nA kitettség ellenőrzés csak akkor megbízható, ha a naplózás folyamatosan aktivált.</string>
+			<key>many</key>
+			<string>A kitettség naplózás már %u napja aktív. nA kitettség ellenőrzés csak akkor megbízható, ha a naplózás folyamatosan aktivált.</string>
+			<key>two</key>
+			<string>A kitettség naplózás már %u napja aktív. nA kitettség ellenőrzés csak akkor megbízható, ha a naplózás folyamatosan aktivált.</string>
+			<key>other</key>
+			<string>A kitettség naplózás már %u napja aktív. nA kitettség ellenőrzés csak akkor megbízható, ha a naplózás folyamatosan aktivált.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

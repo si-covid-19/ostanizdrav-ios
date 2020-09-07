@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>You have an increased risk of infection because you were last exposed a day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>zero</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>few</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>many</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>two</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+			<key>other</key>
+			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_Refreshed_Format</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Today, %%1$@</string>
+			<key>one</key>
+			<string>Yesterday, %%1$@</string>
+			<key>few</key>
+			<string>%%2$@, %%1$@</string>
+			<key>many</key>
+			<string>%%2$@, %%1$@</string>
+			<key>two</key>
+			<string>%%2$@, %%1$@</string>
+			<key>other</key>
+			<string>%%2$@, %%1$@</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_NumberOfContacts</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>No exposures up to now</string>
+			<key>one</key>
+			<string>One exposure</string>
+			<key>few</key>
+			<string>%u exposures</string>
+			<key>many</key>
+			<string>%u exposures</string>
+			<key>two</key>
+			<string>%u exposures</string>
+			<key>other</key>
+			<string>%u exposures</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_LastExposure</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>%u days since last exposure</string>
+			<key>one</key>
+			<string>%u day since last exposure</string>
+			<key>few</key>
+			<string>%u days since last exposure</string>
+			<key>many</key>
+			<string>%u days since last exposure</string>
+			<key>two</key>
+			<string>%u days since last exposure</string>
+			<key>other</key>
+			<string>%u days since last exposure</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>No exposure up to now</string>
+			<key>one</key>
+			<string>%u exposure</string>
+			<key>few</key>
+			<string>%u exposures</string>
+			<key>many</key>
+			<string>%u exposures</string>
+			<key>two</key>
+			<string>%u exposures</string>
+			<key>other</key>
+			<string>%u exposures</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>No exposure up to now</string>
+			<key>one</key>
+			<string>%u exposure</string>
+			<key>few</key>
+			<string>%u exposures</string>
+			<key>many</key>
+			<string>%u exposures</string>
+			<key>two</key>
+			<string>%u exposures</string>
+			<key>other</key>
+			<string>%u exposures</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Last_Contact_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Less than one day since last exposure</string>
+			<key>one</key>
+			<string>%u day since last exposure</string>
+			<key>few</key>
+			<string>%u days since last exposure</string>
+			<key>many</key>
+			<string>%u days since last exposure</string>
+			<key>two</key>
+			<string>%u days since last exposure</string>
+			<key>other</key>
+			<string>%u days since last exposure</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Status_Counter_Label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@%#</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Update in %02u:%2$#@seconds@ seconds</string>
+			<key>one</key>
+			<string>Update in %02u:%2$#@seconds@ minute</string>
+			<key>few</key>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<key>many</key>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<key>two</key>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<key>other</key>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
+		</dict>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>%02u</string>
+			<key>zero</key>
+			<string>%02u</string>
+			<key>few</key>
+			<string>%02u</string>
+			<key>many</key>
+			<string>%02u</string>
+			<key>two</key>
+			<string>%02u</string>
+			<key>other</key>
+			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<key>one</key>
+			<string>Exposure logging has been active for %u day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<key>few</key>
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<key>many</key>
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<key>two</key>
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+			<key>other</key>
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

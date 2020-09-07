@@ -1,0 +1,970 @@
+/* General */
+"Alert_TitleGeneral" = "Hiba történt.";
+
+"Alert_ActionOk" = "Rendben.";
+
+"Alert_ActionRetry" = "Megismétel.";
+
+"Alert_ActionCancel" = "Visszavon.";
+
+"Alert_ActionRemove" = "Törlés.";
+
+"Alert_BluetoothOff_Title" = "Kapcsold be a Bluetooth-t.";
+
+"Alert_BluetoothOff_Description" = "Az alkalmazás működéséhez a Beállításokban be kell kapcsolni a Bluetooth-t.";
+
+"Alert_CancelAction_Later" = "Később";
+
+"Alert_DefaultAction_OpenSettings" = "Beállítások megnyitása";
+
+"General_BackButtonTitle" = "Vissza";
+
+"Common_ENError5_Description" = "Hiba 5: Hiba történt. Kockázati szintjét nem tudtuk felmérni. Keressük a megoldást.";
+
+"Common_ENError11_Description" = "Hiba 11: Hiba történt. Kockázati szintjét nem tudtuk felmérni. Indítsa újra a készülékét és próbálkozzon ismét holnap.";
+
+"Common_ENError13_Description" = "Hiba 13: Az ön kockázatértékelése már megtörtént a mai napon. Próbálja meg ismét, 24 óra elteltével.";
+
+"Common_Alert_Action_moreInfo" = "Több információ";
+
+"Common_BackgroundFetch_AlertMessage" = "You have deactivated background updates for the Corona-Warn-App. Please activate background updates to use automatic exposure logging. If you do not activate background updates, you can only start exposure logging manually in the app.\n\nYou can activate background updates for the app in your device settings.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
+
+"Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
+
+"Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
+
+/* General - Links */
+"General_moreInfo_URL" = " https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"General_moreInfo_URL_EN5" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"General_moreInfo_URL_EN11" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"General_moreInfo_URL_EN13" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+/* Accessibility */
+"AccessibilityLabel_Close" = "Bezár";
+
+"AccessibilityLabel_PhoneNumber" = "Telefonszám";
+
+/* Exposure Detection */
+"ExposureDetection_Off" = "A kitettség naplózás leállítva.";
+
+"ExposureDetection_Outdated" = "A kitettség naplózás nem lehetséges.";
+
+"ExposureDetection_Unknown" = "Ismeretlen kockázat";
+
+"ExposureDetection_Low" = "Alacsony kockázat";
+
+"ExposureDetection_High" = "Nagyobb kockázat";
+
+"ExposureDetection_NumberOfDaysStored" = "Aktivált %1$s a 14 napból";
+
+"ExposureDetection_Refreshed" = "Frissített: %@";
+
+"ExposureDetection_Refreshed_Never" = "Ismeretlen";
+
+"ExposureDetection_RefreshingIn" = "Frissítés %02d:%02d\U00A0perc múlva";
+
+"ExposureDetection_RefreshIn" = "Update in %@";
+
+"ExposureDetection_Refresh_24h" = "24 óránként frissített";
+
+"ExposureDetection_LastRiskLevel" = "Legutóbbi kitettség naplózás: %@";
+
+"ExposureDetection_OffText" = "Kapcsolja be a kitettség naplózást a mai napi fertőzéskockázat értékeléséhez!";
+
+"ExposureDetection_OutdatedText" = "A kitettség naplózást már több mint 48 órája nem tudtuk frissíteni.";
+
+"ExposureDetection_UnknownText" = "Mivel a kitettség naplózás nem volt elegendő ideig bekapcsolva, ezért nem tudtuk értékelni a fertőzési kockázatát.";
+
+"ExposureDetection_LoadingText" = "Az aktuális adatok letöltése és ellenőrzése. Ez percekig eltarthat.";
+
+"ExposureDetection_Behavior_Title" = "Ajánlások";
+
+"ExposureDetection_Behavior_Subtitle" = "Mi a teendője?:";
+
+"ExposureDetection_Guide_Hands" = "Rendszeresen és alaposan mosson szappanos vízzel kezet. Ha nincs víz vagy szappan, fertőtlenítse kezét. Mosatlan vagy nem fertőtlenített kézzel ne érjen szeméhez, orrához, szájához!";
+
+"ExposureDetection_Guide_Mask" = "Beltéri helyiségekben, ahol nem lehet betartani az elegendő egymás közötti távolságot, tanácsos a maszkviselés. Rendszeresen szellőztessen.";
+
+"ExposureDetection_Guide_Distance" = " Tartsa be a legalább 1,5 méteres távolságot. Beltéri helyiségekben, ahol nem lehet betartani az elegendő távolságot egymás között, tanácsos a maszkviselés. Rendszeresen szellőztessen.";
+
+"ExposureDetection_Guide_Sneeze" = "Köhögéskor vagy tüsszentéskor takarja száját és orrát papírzsebkendővel, vagy könyökhajlatába köhögjön vagy tüsszentsen!";
+
+"ExposureDetection_Guide_Home" = "Kerülje a felesleges érintkezést másokkal, különösen azokkal, akiknél fokozott a kockázata a betegség súlyosabb lefolyásának, például az idősekkel és krónikus betegekkel. Beltéri helyiségekben, ahol nem lehet betartani az elegendő távolságot egymás között, tanácsos a maszkviselés.";
+
+"ExposureDetection_Guide_Hotline1" = "Kövesse figyelemmel egészégi állapotát. Ha észleli a felsorolt tünetek valamelyikét, maradjon otthon és telefonon vegye fel a kapcsolatot háziorvosával, vagy az ügyeletes orvossal:";
+
+"ExposureDetection_Guide_Hotline2" = "Rossz közérzet, megfázásos tünetek, köhögés, láz, nehézlégzés, fejfájás, izomfájdalmak, szaglás vagy ízérzés elvesztése, torokfájás ";
+
+"ExposureDetection_Guide_Hotline3" = "Továbbra is tartsa be a fertőzés megfékezésére szolgáló általános intézkedéseket!";
+
+"ExposureDetection_Guide_Hotline4" = "A COVID-19-re vonatkozó általános információkat A Nemzeti Közegészségügyi Intézet és az Egészségügyi Minisztérium weboldalán találja.";
+
+"ExposureDetection_Explanation_Title" = "Fertőzési kockázat";
+
+"ExposureDetection_Explanation_Subtitle_Active" = " ";
+
+"ExposureDetection_Explanation_Subtitle_Inactive" = " ";
+
+"ExposureDetection_Explanation_Text_Off" = "A kitettség naplózási adatai (időtartam és közelség) alapján csak az ön saját készülékén mértük fel a fertőzési kockázatát. A fertőzési kockázatát senki más nem láthatja, és senkinek sem továbbíthatja az adatot.";
+
+"ExposureDetection_Explanation_Text_Outdated" = " A kitettség naplózás nem volt elegendő ideig bekapcsolva, ezért nem tudtuk értékelni a fertőzési kockázatát.\n\nA kitettség naplózási adatai (időtartam és közelség) alapján csak az ön saját készülékén mértük fél a fertőzési kockázatát. A fertőzési kockázatát senki más nem láthatja, és senkinek sem továbbíthatja az adatot.";
+
+"ExposureDetection_Explanation_Text_Unknown" = " A kitettség naplózás nem volt elegendő ideig bekapcsolva, ezért nem tudtuk értékelni a fertőzési kockázatát.\n\nA kitettség naplózási adatai (időtartam és közelség) alapján csak az ön saját készülékén mértük fél a fertőzési kockázatát. A fertőzési kockázatát senki más nem láthatja, és senkinek sem továbbíthatja.";
+
+"ExposureDetection_Explanation_Text_Low" = "Fertőzési kockázata alacsony, mivel nem érintkezett olyan személyekkel, akiknél később igazolták volna a SARS-CoV-2 fertőzést, illetve kontaktusai rövid ideig tartottak vagy nagyobb távolságra voltak ";
+
+"ExposureDetection_Explanation_Text_High" = "Fertőzési kockázata nagyobb, mivel legutóbb %1$s nappal ezelőtt, hosszabb ideig és legalább egy személy közelében tartózkodott, akinél igazolták a SARS-CoV-2-fertőzést.";
+
+"ExposureDetection_Button_Enable" = "Kitettség naplózás aktiválása";
+
+"ExposureDetection_Button_Refresh" = "Frissítsd";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the past %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
+
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Hiba";
+
+"ExposureDetectionError_Alert_Action_Details" = "Részletek";
+
+"ExposureDetectionError_Alert_Message" = "A kitettség naplózás közben hiba történt.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
+
+"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
+
+/* Settings */
+"Settings_StatusActive" = "Bekapcsolva";
+
+"Settings_StatusInactive" = "Kikapcsolva";
+
+"Settings_StatusEnable" = "Aktiváld.";
+
+"Settings_StatusDisable" = "Deaktiváld.";
+
+"Settings_KontaktProtokollStatusActive" = "Aktivált.";
+
+"Settings_KontaktProtokollStatusInactive" = "Leállítva.";
+
+"Settings_Tracing_Label" = "Kitettség naplózás";
+
+"Settings_Notification_Label" = "Értesítések";
+
+"Settings_Reset_Label" = "Indítsd újra az alkalmazást!";
+
+"Settings_Tracing_Description" = "Engedélyezze, hogy véletlenszerű azonosítókat hozzanak létre és osszanak meg a kitettség naplózáshoz.";
+
+"Settings_Notification_Description" = "Az alkalmazás automatikusan értesítheti a fertőzési kockázatáról.";
+
+"Settings_Reset_Description" = "Töröld az összes adatod az alkalmazásban.";
+
+"Settings_NavTitle" = "Beállítások";
+
+/* Noticiation Settings */
+"NotificationSettings_On_Title" = "Fogadja az értesítéseket és ismerje fel a kockázatot";
+
+"NotificationSettings_On_SectionTitle" = "Beállítás";
+
+"NotificationSettings_On_RiskChanges" = "Fertőzési kockázata megváltozott.";
+
+"NotificationSettings_On_TestsStatus" = " ";
+
+"NotificationSettings_Off_SectionTitle" = "Beállítás";
+
+"NotificationSettings_Off_EnableNotifications" = "Értesítések";
+
+"NotificationSettings_Off_StatusInactive" = "Kikapcsolva.";
+
+"NotificationSettings_Off_InfoTitle" = "Aktiváld az értesítések fogadását!";
+
+"NotificationSettings_Off_InfoDescription" = "Az értesítések aktiválásához engedélyt kell adnia az  #OstaniZdrav alkalmazásban a készüléke Beállításaiban.";
+
+"NotificationSettings_Off_OpenSettings" = " Nyisd meg a Beállításokat.";
+
+"NotificationSettings_NavTitle" = "Értesítések";
+
+"NotificationSettings_onImageDescription" = "Az #OstaniZdrav alkalmazás értesítést küldött egy nőnek.";
+
+"NotificationSettings_offImageDescription" = "Az #OstaniZdrav alkalmazás nem tudott értesítést küldeni egy nőnek.";
+
+/* Onboarding */
+"Onboarding_LetsGo_actionText" = "Kezdés.";
+
+"Onboarding_Continue_actionText" = "Tovább";
+
+"Onboarding_EnableLogging_actionText" = "Tovább";
+
+"Onboarding_Continue_actionTextHint" = "Átugrás.";
+
+"Onboarding_doNotAllow_actionText" = "Ne engedélyezd.";
+
+"Onboarding_DoNotActivate_actionText" = "Ne aktiváld";
+
+"Onboarding_DeactivateExposureConfirmation_title" = "Ez azt jelenti, hogy az #OstaniZdrav« alkalmazás nem küldhet vagy fogadhat az Ön SARS-CoV-2 fertőzési kockázatáról értesítéseket.";
+
+"Onboarding_DeactivateExposureConfirmation_message" = "Ezt a funkciót bármikor kikapcsolhatja.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = " Egy csoport használja a készülékét a városban.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Védjük magunkat és másokat a COVID-19-cel szemben!";
+
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Nagyobb védelem Önnek és mindannyiunknak. Ha használjuk az #OstaniZdrav alkalmazást, sokkal gyorsabban megszakíthatjuk a fertőzési láncot.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Használja okostelefonját figyelmeztető eszközként az új koronavírusnak (SARS-CoV-2) való kitettség követésére. A COVID-19 vírusfertőzés okozhat betegséget, vagy tünetmentes is lefolyhat.\nÉrtesüljön a fertőzési kockázatról, és derítse ki, érintkezett-e valakivel, akinél az elmúlt 14 napban megerősítették, hogy SARS-CoV-2 fertőzése van.";
+
+"OnboardingInfo_privacyPage_imageDescription" = "Az egyik nő használja az #OstaniZdrav« alkalmazást a mobiltelefonján. A pajzson látható lakat a kódolt adatokat jelképezi.";
+
+"OnboardingInfo_privacyPage_title" = "Adatvédelem";
+
+"OnboardingInfo_privacyPage_boldText" = " ";
+
+"OnboardingInfo_privacyPage_normalText" = "Ön anonim marad.\nAdatai teljes egészében titkosítottak és álnevesítve kerülnek továbbításra.\n\nFelelős intézmény: Közigazgatási Minisztérium és Nemzeti Közegészségügyi Intézet \n Általános adatvédelmi rendelet (GDPR) a Szlovén Köztársaság Személyes adatok védelméről szóló törvényével kapcsolatban\nOlvassa el az adatvédelemről szóló jogszabályainkat\n\nInformációk az adatvédelemről:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Hárman aktiválták a készülékükön a kitettség naplózást, ezzel naplózzák ez egymás közötti érintkezéseket.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Hogyan lehet bekapcsolni a kitettség naplózást?";
+
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Ha szeretné megtudni, hogy ki volt-e téve COVD-19-nek, be kell kapcsolnia a kitettség naplózás funkciót az alkalmazásban.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "A kitettség naplózás úgy működik, hogy a készüléke a Bluetooth-on keresztül fogadja más felhasználók véletlenszerű azonosítóit, az ön véletlenszerű azonosítóját pedig megküldi más készülékeknek. Ezt a funkciót bármikor kikapcsolhatja \n\nA véletlenszerű átviteli kódokkal csak a dátumra, időtartamra és más eszközök közelségére vonatkozóan adnak információt, amelyet a jelerősségével számítanak ki. A személyes adatokat, így a nevet, a címet és a helyszínt sohasem rögzítik. Az egyének személyazonosságát nem lehet megállapítani.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Hozzájárulási nyilatkozat";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Ha szeretné megtudni, hogy találkozott-e fertőzött személlyel és fennáll-e a kockázata annak, hogy megfertőződött, engedélyeznie kell a kitettség naplózást funkciót az alkalmazásban. A »Bekapcsol« gombra koppintva, hozzájárul a kitettség naplózás funkció bekapcsolásához az alkalmazásban és az ezzel kapcsolatos adatok feldolgozásához \n\n\nA kitettség naplózás funkció használatához engedélyezni kell a COVID-19 kitettség naplózás funkciót, amit az iPhone-ján az Apple biztosít, az #OstaniZdrav alkalmazásnak pedig engedélyt kell adnia, hogy használja ezt a funkciót.\n\nAmikor engedélyezi a kitettség naplózást, az iPhone-ja a Bluetooth-on keresztül folyamatosan véletlenszerű azonosítókat hoz létre és oszt meg más, a közelben lévő Android vagy Apple okostelefonokkal, azzal a feltétellel, hogy azokon is engedélyezték a kitettség naplózást. Az iPhone-ja eközben fogadja a többi okostelefon véletlenszerű azonosítóját. Az ön véletlenszerű azonosítói és azok, amelyeket más okostelefonoktól kapott, a kitettségi naplóban tárolódnak el 14 napig\n\n\nA fertőzési kockázatának követése érdekében az alkalmazás minden nap feltölti azoknak a felhasználóknak a napi kulcsait, akik bejelentették az alkalmazásukon, hogy SARS-CoV-2-vel fertőzöttek. Ezt a listát ezután összehasonlítják a kitettségi naplóban szereplő véletlenszerű azonosítókkal. Ha az alkalmazás észleli, hogy Ön esetleg kapcsolatba léphetett fertőzött felhasználóval, erről értesíti Önt, és tudatja Önnel, hogy fennáll a fertőzés veszélye. Ebben az esetben az alkalmazás ugyanígy engedélyezi az ön számára a kitettségi naplóban, a saját iPhone-ján tárolt adatokhoz való hozzáférést (dátum, időtartam és a kontaktus Bluetooth jelerőssége) \n\nA Bluetooth jelerősségével határozza meg a fizikai távolságot (minél erősebb a jel, annál kisebb a távolság). Az alkalmazás ezután elemzi ezt az információt, felbecsüli a SARS-CoV-2-fertőzés valószínűségét, és javaslatokat ad Önnek, mi a teendő. Ez az értékelés egészében csak helyben, az Ön saját iPhone-ján zajlik. Az Ön kivételével senki sem fogja tudni, hogy kapcsolatba lépett-e fertőzött személlyel, és milyen a fertőzéskockázata\n\nA kitettség naplózás funkció engedélyezésének visszavonásánál ezt a funkciót az alkalmazás kapcsológombjával tilthatja le, vagy törölheti az alkalmazást. Ha úgy dönt, hogy a kitettség naplózás funkciót újból használni szeretné, a kapcsológombbal újra bekapcsolhatja a funkciót, vagy újratelepítheti az alkalmazást. Ha kikapcsolja a kitettség naplózási funkciót, az alkalmazás nem fogja többé ellenőrizni, hogy kapcsolatba lépett-e fertőzött felhasználóval. Ha azt is szeretné, hogy az eszköze leállítsa a véletlenszerű azonosítók küldését és fogadását, akkor az iPhone-ja beállításainál ki kell kapcsolnia a COVID-19 kitettség naplózást. Ne felejtse el, hogy az ön véletlenszerű azonosítói és a más okostelefonokról kapott és a kitettségi naplóban tárolt véletlenszerű azonosítók, nem törlődnek az alkalmazásban. A kitettségi naplóban tárolt adatokat az iPhone-ja beállításaiban törölheti véglegesen.\n\n\nAdatvédelmi tájékoztatót az alkalmazásban (ideértve az adatfeldolgozásra vonatkozó magyarázatot, amely a kitettség naplózás funkciójával zajlik) a menüpontoknál alatt találja meg »Adatvédelmi információk« címen.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Állapot";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "SARS-CoV-2-vel való fertőzöttség kockázatának értékelése";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktivált.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Leállított.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "A fertőzöttségre vonatkozó titkosított értesítés közvetítésre kerül a többi felhasználót figyelmeztető rendszerbe.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Ha önnél igazolták a SARS-CoV-2 fertőzést...";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… kérjük ossza meg ezt az #OstaniZdrav alkalmazásban. A fertőzésére vonatkozó információt önkéntesen és biztonságosan oszthatja meg. Ezt mások egészsége védelme érdekében teszi. ";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "A fertőzésről szóló bejelentése kódolt és biztonságos szerveren kezelt. Azok a személyek, akiknél tároldódott véletlenszerű azonosítója, az észlelt kockázat esetén értesítést kapnak és információkat arról, hogy mi a teendőjük.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Az #OstaniZdrav alkalmazás értesítést küldött egy nőnek ";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Fogadja az értesítéseket és ismerje fel a kockázatot.";
+
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Az alkalmazás automatikusan értesítheti Önt, milyen fertőzési kockázatnak van kitéve. Ha engedélyezi az alkalmazás számára, hogy értesítse Önt, értesítést kaphat a fertőzési kockázatáról és tanácsokat a további teendőkről.";
+
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Tartsa be az egészségügyi szolgálattól kapott utasításokat.\n Egyéb információk:\nAz izolációs időszak várhatólag 14 nappal a tünetek enyhülése után ér véget. Az izoláció időtartamát háziorvosa határozza meg.\nA betegség súlyosbodása esetén telefonon konzultáljon a háziorvosával vagy az ügyeletes orvossal. Vészhelyzetben hívja a 112-es számot. Mondja el, hogy Ön SARS-CoV-2 fertőzöttnek bizonyult!";
+
+/* Exposure Submission */
+"ExposureSubmission_Hotline_Number" = "080 1787";
+
+"ExposureSubmission_DataPrivacyTitle" = "Adatvédelem";
+
+"ExposureSubmission_Continue_actionText" = "Tovább";
+
+"ExposureSubmission_DataPrivacyDescription" = "Az „Elfogad” gombra kattintva elküldi beleegyezését, amely lehetővé teszi, hogy az alkalmazás az elmúlt 14 nap során kapott véletlenszerű azonosítóit továbbítsa a szerverrendszerbe. Így más felhasználók, akik engedélyezték a kitettség naplózás funkciót, automatikus értesítést kaphatnak arról, hogy esetleg ki voltak-e téve COVID-19 fertőzéskockázatnak. Az erre a célra továbbított véletlenszerű azonosítók nem tartalmaznak olyan információt, amely alapján személyazonosságáról vagy önről, személyhez kötődő feltételezéseket lehetne levonni.
+\n\nA teszt eredményének bevitele az alkalmazásba önkéntes. Nem büntetik Önt, ha nem viszi be a tesztje eredményét. Mivel nem lehet nyomon követni vagy ellenőrizni, hogy Ön használja-e az alkalmazást, vagy hogyan használja, az Ön kivételével, senki sem fogja tudni, hogy megadta-e a fertőzésére vonatkozó információkat.
+\n\nAz alkalmazás törlésével bármikor visszavonhatja hozzájárulását. A hozzájárulás visszavonása nem befolyásolja a hozzájárulása alapján a hozzájárulás visszavonása előtt zajlott feldolgozás jogszerűségét. További információk a menüben, az »Adatvédelmi információk« címsor alatt találhatók";
+
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Elfogad.";
+
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Elutasít.";
+
+"ExposureSubmission_Submit" = "Vigye be a TAN-számot.";
+
+"ExposureSubmissionTanEntry_Title" = "TAN-szám bevitele";
+
+"ExposureSubmissionTanEntry_EntryField" = "Szövegmező a TAN-szám beviteléhez";
+
+"ExposureSubmissionTanEntry_Info" = "Vigye be a kapott TAN-számot!";
+
+"ExposureSubmissionTanEntry_Description" = "Vigye be a kapott, tízjegyű TAN-számot!";
+
+"ExposureSubmissionTanEntry_Submit" = "Tovább";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Érvénytelen TAN-szám, ellenőrizze a bevitelt.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "Érvénytelen TAN-szám, ellenőrizze a bevitelt.";
+
+"ExposureSubmission_NavTitle" = "Küldje el a diagnosztikai kulcsot!";
+
+"ExposureSubmissionConfirmation_Title" = "Pozitív teszteredmény";
+
+"ExposureSubmission_GeneralErrorTitle" = "Hiba";
+
+"ExposureSubmission_DispatchTitle" = "Kínálat";
+
+"ExposureSubmission_DispatchDescription" = "Mi áll ezen a helyen rendelkezésre az Ön számára?";
+
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "QR-kóddal dokumentálja";
+
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Úgy regisztrálhatja a tesztjét, hogy beszkenneli a teszthez tartozó iraton található QR-kódot.";
+
+"ExposureSubmissionDispatch_TANButtonTitle" = "TAN-szám";
+
+"ExposureSubmissionDispatch_TANButtonDescription" = "Vigye be a TAN-számot!";
+
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Kérjen TAN-számot!";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Kérjük, hívjon fel bennünket, ha teszteredménye %@ volt.";
+
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitív";
+
+"ExposureSubmissionHotline_Title" = "Kérjen TAN-számot!";
+
+"ExposureSubmissionHotline_Description" = "Legyen kéznél a teszt eredménye (ha rendelkezésre áll) és a telefonszáma, ha TAN-számot szeretne kérni.";
+
+"ExposureSubmissionHotline_SectionTitle" = "Hogyan működik?";
+
+"ExposureSubmissionHotline_SectionDescription1" = "Hívja fel a ügyfélszolgálatot és kérjen TAN-számot:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "az első lépés a kettőből";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "a második lépés a kettőből";
+
+"ExposureSubmission_PhoneNumber" = "080 1787";
+
+"ExposureSubmission_PhoneDetailDescription" = "Nyelvek: \nszlovén és angol \n\nMunkaidő:\nHétfőtől vasárnapig: 8:00 órától 20:00 óráig\n\nHívása díjmentes.";
+
+"ExposureSubmission_SectionDescription2" = "A tesztet a TAN-szám alkalmazásba történő bevitelével regisztrálja.";
+
+"ExposureSubmission_CallButtonTitle" = "Tárcsázzon.";
+
+"ExposureSubmission_TANInputButtonTitle" = "Vigye be a TAN-számot!";
+
+"ExposureSubmissionHotline_imageDescription" = "A ügyfélszolgálatban közlik önnel a TAN-számot.";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "QR-kód szkennelése";
+
+"ExposureSubmissionQRScanner_instruction" = "Irányítsa úgy a készüléket, hogy a négy sarokkeret magában foglalja az iraton lévő QR-kódot.";
+
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Nem találjuk a diagnózist.";
+
+"ExposureSubmissionQRScanner_notFoundAlertText" = "A QR-kód könnyebb beszkennelése érdekében, a helyezze függőlegesen a szkenner mellé vagy kapcsolja be a vakut!";
+
+"ExposureSubmissionQRScanner_otherError" = "Ismeretlen meghibásodás.";
+
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Engedélyezze az alkalmazásnak, hogy használja a Kamerát a QR-kód beszkenneléséhez.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Vaku";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Bekapcsolva.";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Kikapcsolva.";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Kapcsolja be a Vakut!";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = " Kapcsolja ki a Vakut!";
+
+/* Exposure Submission Success */
+"ExposureSubmissionSuccess_Title" = "Köszönjük";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "A csoportban mindenki örül, mert valaki megosztotta a fertőzésére vonatkozó adatot.";
+
+"ExposureSubmissionSuccess_Button" = "Ez az";
+
+"ExposureSubmissionSuccess_Description" = "Köszönjük a támogatást! Most mások figyelmeztetést kaphatnak, és megfelelően reagálhatnak.";
+
+"ExposureSubmissionSuccess_subTitle" = "Egyéb információk:";
+
+"ExposureSubmissionSuccess_listTitle" = "Ne felejtse:";
+
+"ExposureSubmissionSuccess_listItem1" = "Önnél megerősítették a SARS-CoV-2 fertőzést.";
+
+"ExposureSubmissionSuccess_listItem2" = "Kövesse az egészségügyi szolgáltatótól kapott, az izolációra vonatkozó utasításokat.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Az izolációs időszak várhatólag 14 nappal a tünetek enyhülése után ér véget. Az izoláció időtartamát háziorvosa határozza meg.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "A betegség súlyosbodása esetén telefonon konzultáljon a háziorvosával vagy az ügyeletes orvossal.";
+
+"ExposureSubmissionSuccess_listItem2_3" = "Vészhelyzetben hívja a 112-es számot.";
+
+"ExposureSubmissionSuccess_listItem2_4" = "Mondja el, hogy Önnél megerősítették a SARS-CoV-2 fertőzést!";
+
+/* Exposure Submission Introduction */
+"ExposureSubmissionIntroduction_Title" = "Információk";
+
+"ExposureSubmissionIntroduction_SubTitle" = "Az #OstaniZdrav alkalmazás működése";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "A készülék a megerősített SARS-CoV-2-fertőzés alapján, a titkosított értesítést közvetíti a rendszerbe.";
+
+"ExposureSubmissionIntroduction_Usage01" = "Ahhoz, hogy az alkalmazás jól működjön, számítunk azoknak a támogatására, akiknél megerősítést nyert, hogy SARS-CoV-2-fertőzöttek.";
+
+"ExposureSubmissionIntroduction_Usage02" = "Mivel csak véletlenszerű azonosítók cseréje zajlik, Ön anonim marad. Folytassa az alábbiak szerint:";
+
+"ExposureSubmissionIntroduction_ListItem1" = "Ha önnél igazolták a SARS-CoV-2-fertőzést, erről értesíthet másokat.";
+
+"ExposureSubmissionIntroduction_ListItem2" = " ";
+
+"ExposureSubmissionIntroduction_ListItem3" = " ";
+
+"ExposureSubmissionIntroduction_ListItem4" = " ";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_Title" = "Teszteredmény";
+
+"ExposureSubmissionResult_CardSubTitle" = "Az Ön diagnózisa";
+
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+
+"ExposureSubmissionResult_CardPositive" = "Pozitív.";
+
+"ExposureSubmissionResult_CardNegative" = "Negatív.";
+
+"ExposureSubmissionResult_CardInvalid" = "Az értékelés nem lehetséges.";
+
+"ExposureSubmissionResult_CardPending" = "Eredménye még nem áll rendelkezésre.";
+
+"ExposureSubmissionResult_Procedure" = " ";
+
+"ExposureSubmissionResult_testAdded" = "A tesztet sikeresen hozzáadták.";
+
+"ExposureSubmissionResult_testAddedDesc" = "Tesztjét az #OstaniZdrav alkalmazásban mentettük el.";
+
+"ExposureSubmissionResult_warnOthers" = "Mások figyelmeztetése";
+
+"ExposureSubmissionResult_warnOthersDesc" = "Ossza meg az elmúlt 14 nap véletlenszerű azonosítót, hogy védjen másokat és megszakítsa a fertőzési láncot!";
+
+"ExposureSubmissionResult_testPositive" = "Pozitív teszteredmény ";
+
+"ExposureSubmissionResult_testPositiveDesc" = "Teszteredménye pozitív.";
+
+"ExposureSubmissionResult_testNegative" = "Negatív teszteredmény";
+
+"ExposureSubmissionResult_testNegativeDesc" = "A laboratóriumi eredmények nem igazolták, hogy SARS-CoV-2-fertőzött lenne.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Egyéb információk:";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Még mindig rosszul érzi magát? Ha nagyon rosszul érzi magát és/vagy tünetei súlyosbodtak, vegye fel a kapcsolatot háziorvosával!";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Maradjon otthon, amíg közérzete nem javul. Ha SARS-CoV-2-vel fertőződik meg, miközben egy másik fertőzés miatt gyengélkedik, ez a betegség súlyos kimeneteléhez vezethet.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Ha nem jó a közérzete, ne menjen be dolgozni, és gondoskodjon arról, hogy ne veszélyeztessen másokat.";
+
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "Ha tünetei súlyosbodnak, akkor esetleg újabb tesztet kell elvégeztetnie a SARS-CoV-2 vírusfertőzésre.";
+
+"ExposureSubmissionResult_testInvalid" = "A tesztnél hiba történt";
+
+"ExposureSubmissionResult_testInvalidDesc" = "Tesztvizsgálata értékelésekor probléma merült fel. Lépjen kapcsolatba  a közegészségügyi intézettel, hogy megtudja mi a további teendője!";
+
+"ExposureSubmissionResult_testPending" = "Teszteredménye még nem áll rendelkezésre.";
+
+"ExposureSubmissionResult_testPendingDesc" = "Teszteredménye még nem áll rendelkezésre.";
+
+"ExposureSubmissionResult_testRemove" = "Törölje a tesztet.";
+
+"ExposureSubmissionResult_testRemoveDesc" = "A tesztet törölje az #OstaniZdrav alkalmazásból, hogy szükség esetén el tudja menteni az új tesztkódot.";
+
+"ExposureSubmissionResult_continueButton" = "Tovább";
+
+"ExposureSubmissionResult_deleteButton" = "Törölje a tesztet.";
+
+"ExposureSubmissionResult_refreshButton" = "Frissítés";
+
+"ExposureSubmissionWarnOthers_title" = "Mások figyelmeztetése";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "A készülék elküldi a rendszerbe a titkosított pozitív diagnózist a teszt alapján.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Tovább";
+
+"ExposureSubmissionWarnOthers_sectionTitle" = "Kérjük, segítsen mindannyiunknak.";
+
+"ExposureSubmissionWarnOthers_description" = "Ezután engedélyezheti, hogy az #OstaniZdrav alkalmazás megossza meg az elmúlt 14 nap véletlenszerű azonosítóit. Ezzel figyelmeztethet másokat és elősegíti a fertőzési lánc megszakítását \n\nMivel csak személyhez nem köthető véletlenszerű azonosítókat kerülnek megosztásra, az ön személyazonossága ismeretlen marad.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Az „Elfogad” gombra kattintva elküldi beleegyezését, amely lehetővé teszi, hogy az alkalmazás az elmúlt 14 nap során kapott véletlenszerű azonosítóit továbbítsa a szerverrendszerbe. Így más felhasználók, akik engedélyezték a kitettség naplózási funkciót, automatikus értesítést kaphatnak arról, hogy esetleg ki voltak-e téve COVID-19 fertőzéskockázatnak. Az erre a célra továbbított véletlenszerű azonosítók nem tartalmaznak olyan információt, amely alapján személyazonosságáról vagy önről, személyhez kötődő feltételezéseket lehetne levonni.
+\n\n A teszt eredményének bevitele az alkalmazásba önkéntes. Nem büntetik Önt, ha nem viszi be a tesztje eredményét. Mivel nem lehet nyomon követni vagy ellenőrizni, hogy Ön használja-e az alkalmazást, vagy hogyan használja, az Ön kivételével, senki sem fogja tudni, hogy megadta-e a fertőzésére vonatkozó információkat.
+\n\n Az alkalmazás törlésével bármikor visszavonhatja hozzájárulását. A hozzájárulás visszavonása nem befolyásolja a hozzájárulása alapján a hozzájárulás visszavonása előtt zajlott feldolgozás jogszerűségét. További információk a menüben, az »Adatvédelmi információk« címsor alatt találhatók.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Adatvédelem";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Szeretné törölni a tesztet?";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "A tesztet véglegesen törli az #OstaniZdrav alkalmazásban és nem tudja újból hozzárendelni. Az eljárást nem tudja visszavonni. ";
+
+"ExposureSubmissionResult_RegistrationDateUnknown" = "A regisztráció időpontja ismeretlen.";
+
+"ExposureSubmissionResult_RegistrationDate" = "Regisztrálás dátuma";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "A diagnosztikai kulcs nem áll rendelkezésre. Próbálkozzon újra holnap! ";
+
+"ExposureSubmissionError_InvalidTan" = "A generált TAN-szám nem érvényes leadásra. Hívja fel a járványügyi szolgálatot!";
+
+"ExposureSubmissionError_EnNotEnabled" = "A kitettség naplózás nincs aktiválva.";
+
+"ExposureSubmissionError_NoRegistrationToken" = "A készüléken nem találunk semmilyen regisztrációs zsetont.";
+
+"ExposureSubmissionError_InvalidResponse" = "A választ nem tudjuk feldolgozni.";
+
+"ExposureSubmissionError_NoResponse" = "A válasz tartalom nélküli.";
+
+"ExposureSubmissionError_QRAlreadyUsed" = "A QR-kódot már felhasználták. Hívja fel az ügyfélszolgálatot: Információk az alkalmazásról → Ügyfélszolgálat.";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "A TAN-szám érvénytelen vagy már felhasználták. Próbálkozzon újra vagy vegye fel a kapcsolatot a járványügyi szolgálattal!";
+
+"ExposureSubmissionError_RegTokenNotExist" = "Nem sikerült TAN-számot generálnunk leadásra. Tárcsázza az Ügyfélszolgálatot: Információk az alkalmazásról → Ügyfélszolgálat.";
+
+"ExposureSubmissionError_other" = "Hiba történt a kapcsolatban. Hibakód a műszaki szolgálat részére: ";
+
+"ExposureSubmissionError_otherend" = "Próbálkozzon újra!";
+
+"ExposureSubmissionError_httpError" = "Nem sikerül kapcsolatot létesítenünk.";
+
+"ExposureSubmissionError_declined" = "Ossza meg a véletlenszerű azonosítóit, hogy figyelmeztessen másokat!";
+
+"ExposureSubmissionError_unknown" = "Ismeretlen hiba";
+
+"ExposureSubmissionError_defaultError" = "Általános hiba a kitettség leadásnál";
+
+/* Tracing Enable/Disable Settings */
+"ExposureNotificationSetting_TracingSettingTitle" = "Kitettség naplózás";
+
+"ExposureNotificationSetting_EnableTracing" = "Kitettség naplózás";
+
+"ExposureNotificationSetting_Tracing_Limited" = "Korlátozott";
+
+"ExposureNotificationSetting_Tracing_Deactivated" = "Deaktiválja.";
+
+"ExposureNotificationSetting_ActionCell_Header" = "Beállítás";
+
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktiválja a kitettség naplózást.";
+
+"ExposureNotificationSetting_DescriptionTitle" = "Így működik a kitettség naplózás.";
+
+"ExposureNotificationSetting_DescriptionText1" = "Ha szeretné megtudni, hogy ki volt-e téve COVID-19-nek, be kell kapcsolnia a kitettség naplózás funkciót az alkalmazásban.";
+
+"ExposureNotificationSetting_DescriptionText2" = "A kitettség naplózás úgy működik, hogy a készüléke a Bluetooth-on keresztül fogadja más felhasználók véletlenszerű azonosítóit, az ön véletlenszerű azonosítóját pedig megküldi más készülékeknek. Ezt a funkciót bármikor kikapcsolhatja \n\nA véletlenszerű átviteli kódokkal csak a dátumra, időtartamra és más eszközök közelségére vonatkozóan adnak információt, amelyet a jelerősséggel számítanak ki. A személyes adatokat, így a nevet, a címet és a helyszínt sohasem rögzítik. Az egyének személyazonosságát nem lehet megállapítani";
+
+"ExposureNotificationSetting_DescriptionText3" = "A véletlenszerű átviteli kódokkal csak a dátumra, időtartamra és más személyek közelségére vonatkozó információt közölnek, amelyet a jelerősséggel számítanak ki. A személyes adatokat, így a nevet, a címet és a helyszínt sohasem rögzítik. Az egyének személyazonosságát nem lehet megállapítani.";
+
+"ExposureNotificationSetting_Activate_Bluetooth" = "Kapcsolja be a Bluetooth-t!";
+
+"ExposureNotificationSetting_Bluetooth_Description" = "A kontaktnaplózáshoz be kell kapcsolni a Bluetooth-t. Kapcsolja be a Bluetooth-t készüléke beállításaiban!";
+
+"ExposureNotificationSetting_Activate_Internet" = "Kapcsolja be az internetkapcsolatot!";
+
+"ExposureNotificationSetting_Internet_Description" = "A kitettség értékeléséhez internet kapcsolat szükséges. Kapcsolja be a vezeték nélküli kapcsolatot vagy a mobil adatátvitelt készüléke beállításaiban!";
+
+"ExposureNotificationSetting_Detail_Action_Button" = "Nyissa meg a készülék beállításait.";
+
+"ExposureNotificationSetting_Activate_OSENSetting" = "Engedélyezze a naplózást és a COVID-19-nek való kitettségről szóló értesítéseket!";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "A kitettség naplózáshoz a rendszerbeállításoknál aktiválnia kell a COVID-19-nek való kitettségre vonatkozó naplózást és a kitettségről szóló értesítést, hogy működhessen a kontaktnaplózás. A rendszerbeállításoknál engedélyezze a »Naplózást és a COVID-19-nek való kitettségről szóló értesítéseket!«.";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Engedélyezd a naplózást és a COVID-19-nek való kitettségről szóló értesítéseket ";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = " A kitettség naplózáshoz a rendszerbeállításoknál aktiválnia kell a COVID-19-nek való kitettségre vonatkozó naplózást és a kitettségről szóló értesítést, hogy működhessen a kontaktnaplózás. A rendszerbeállításoknál engedélyezze a »Naplózást és a COVID-19-nek való kitettségről szóló értesítéseket!«.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Engedélyezés szükséges.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Erősítse meg, hogy használja a COVID-19-nek való kitettség naplózást!";
+
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Engedélyezés";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = "Hárman aktiválták a készülékükön a kitettség naplózást, ezzel naplózzák az egymás közötti kontaktusokat.";
+
+"ExposureNotificationSetting_AccLabel_Disabled" = "Egy személy a készülékén kikapcsolta a kitettség naplózást, így két másik személlyel való kontaktus nem lett naplózva.";
+
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Egy személy a készülékén kikapcsolta a Bluetooth-t, így két másik személlyel való kontaktus nem lett naplózva.";
+
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Egy személy a készülékén kikapcsolta az internetkapcsolatot, így a legutóbbi kontaktusokat nem lehetett észlelni.";
+
+"ExposureNotificationSetting_Activate_Action" = "Elfogad.";
+
+"ExposureNotificationSetting_Dismiss_Action" = "Visszavon.";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Hiba";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "További információk";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = " https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"ExposureNotificationSetting_AuthenticationError" = "A kitettség naplózás aktiválásakor hiba történt. Menjen be a rendszerbeállításokba és gondoskodjon arról, hogy az alkalmazást engedélyezte a COVID-19-nek való kitettség naplózásának használatára.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "A kitettség naplózás aktiválásakor hiba történt. Menjen be a rendszerbeállításokba és gondoskodjon arról, hogy az alkalmazásnak engedélyezte a kitettségről szóló értesítéseket.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "A kitettség naplózás aktiválásakor hiba történt. Menjen be a rendszerbeállításokba és gondoskodjon arról, hogy az alkalmazásban aktiválva legyen a kitettségre vonatkozó értesítések használata. További információkért keresse fel a gyakori kérdéseket ismertető weboldalunkat.";
+
+"ExposureNotificationSetting_unknownError" = "Ismeretlen hiba történt. További információért keresse fel weboldalunkat.";
+
+"ExposureNotificationSetting_apiMisuse" = "A kockázat azonosításkor belső hiba történt. További információkért keresse fel a gyakori kérdéseket tartalmazó weboldalt és a kitettség naplózást próbálja meg később aktiválni.";
+
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Az #OstaniZdrav alkalmazás logója";
+
+"Home_RightBarButton_description" = "Információk";
+
+/* Home Active card */
+"Home_Activate_Card_On_Title" = "A kitettség naplózás aktivált.";
+
+"Home_Activate_Card_Off_Title" = "A kitettség naplózás leállítva.";
+
+"Home_Activate_Card_Bluetooth_Off_Title" = "A Bluetooth ki van kapcsolva.";
+
+"Home_Activate_Card_Internet_Off_Title" = "Nincs internetkapcsolat.";
+
+/* Home common card */
+"Home_Risk_Date_Item_Title" = "Frissítve: %@";
+
+"Home_Risk_No_Date_Title" = "Ismeretlen";
+
+"Home_Risk_Period_Update_Title" = "Frissítve %@\U00A0óránként";
+
+"Home_Risk_Period_Disabled_Button_Title" = " Frissítve %@\U00A0óránként";
+
+/* Home Unknown card */
+"Home_Risk_Unknown_Title" = "Ismeretlen kockázat";
+
+"Home_RiskCard_Unknown_Item_Title" = "Mivel a kitettség naplózás nem volt elegendő ideig bekapcsolva, nem tudtuk értékelni fertőzési kockázatát.";
+
+"Home_RiskCard_Unknown_Button" = "Frissítés";
+
+/* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "A kitettség naplózás leállítva";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "A kitettség naplózás nem lehetséges";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Kapcsolja be a kitettség naplózást, hogy értékelje a mai kockázatot.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "A kitettség naplózást nem tudtuk frissíteni több mint 24 órája.";
+
+"Home_Risk_Inactive_Activate_Item_Title" = "A legutóbbi kitettség naplózás: %@";
+
+"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Ismeretlen kockázat";
+
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Alacsony kockázat";
+
+"Home_Risk_Inactive_Activate_Item_High_Title" = "Nagyobb kockázat";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Aktiválja a kitettség naplózást!";
+
+"Home_Risk_Inactive_Outdated_Results_Button" = " Aktiválja a kitettség naplózást!";
+
+/* Home Low card */
+"Home_Risk_Low_Title" = "Alacsony kockázat";
+
+"Home_Risk_Low_SaveDays_Item_Title" = "Tárolva %1$u napja %2$u napból";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
+
+"Home_Risk_Low_Button" = "Frissítés";
+
+/* Home High card */
+"Home_Risk_High_Title" = "Nagyobb kockázat";
+
+"Home_Risk_High_Button" = "Frissítés";
+
+/* Home Status Check */
+"Home_Risk_Status_Check_Title" = "Ellenőrzés folyamatban …";
+
+"Home_Risk_Status_Check_Body" = "Az aktuális adatok letöltése és ellenőrzése. Ez percekig eltarthat ";
+
+"Home_Risk_Status_Check_Button" = "Frissítés";
+
+/* Home Thank you card */
+"Home_Thank_You_Card_Title" = "Köszönjük.";
+
+"Home_Thank_You_Card_Body" = "Köszönjük a támogatást! Mások most figyelmeztetést kaphatnak, és megfelelően reagálhatnak.";
+
+"Home_Thank_You_Card_Note_Title" = "Ne felejtse:";
+
+"Home_Thank_You_Card_Phone_Item_Title" = " ";
+
+"Home_Thank_You_Card_Home_Item_Title" = "Önnél megerősítették a SARS-CoV-2 fertőzést. Kövesse az egészségügyi szolgáltatótól kapott, izolációra vonatkozó utasításokat.";
+
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Egyéb információk:";
+
+"Home_Thank_You_Card_14Days_Item_Title" = "Az izolációs időszak várhatólag 14 nappal a tünetek enyhülése után ér véget. Az izoláció időtartamát háziorvosa határozza meg.";
+
+"Home_Thank_You_Card_Contacts_Item_Title" = "A betegség súlyosbodása esetén telefonon konzultáljon a háziorvosával vagy az ügyeletes orvossal. Vészhelyzetben hívja a 112-es számot! Mondja el, hogy Önnél megerősítették a SARS-CoV-2 fertőzést!";
+
+"Home_Thank_You_Card_App_Item_Title" = " ";
+
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = " ";
+
+/* Home Finding positive */
+"Home_Finding_Positive_Card_Title" = "A SARS-CoV-2-fertőzés megerősítésre került";
+
+"Home_Finding_Positive_Card_Status_Title" = "Megerősítésre került, hogy Ön SARS-CoV-2 vírussal fertőződött meg.";
+
+"Home_Finding_Positive_Card_Status_Subtitle" = " ";
+
+"Home_Finding_Positive_Card_Note_Title" = "Ne felejtse:";
+
+"Home_Finding_Positive_Card_Phone_Item_Title" = " ";
+
+"Home_Finding_Positive_Card_Home_Item_Title" = "Tartsa be az egészségügyi szolgálattól kapott, izolációra vonatkozó utasításokat!";
+
+"Home_Finding_Positive_Card_Share_Item_Title" = "Ossza meg a véletlenszerű azonosítóit, hogy figyelmeztessen másokat!";
+
+"Home_Finding_Positive_Card_Button" = "Tovább";
+
+/* Home Submit card */
+"Home_SubmitCard_Title" = "Elvégezték Önnél a tesztet?";
+
+"Home_SubmitCard_Body" = "Mások értesítésével segítsen megszakítani a fertőzési láncot!";
+
+"Home_SubmitCard_Button" = "Írd be a kódot";
+
+"Home_InfoCard_ShareTitle" = "Ossza meg az #OstaniZdrav alkalmazást!";
+
+"Home_InfoCard_ShareBody" = "Minél többen használják az alkalmazást, annál gyorsabban megszakíthatjuk a fertőzések terjedési láncát. Kérjük, ajánlja az alkalmazást rokonainak és barátainak!";
+
+"Home_InfoCard_AboutTitle" = "Gyakori kérdések";
+
+"Home_InfoCard_AboutBody" = "Itt megtalálja az #OstaniZdrav alkalmazással kapcsolatos gyakori kérdésekre adott válaszokat. Átirányítjuk külső weboldalra.";
+
+"Home_SettingsCard_Title" = "Beállítások";
+
+"Home_AppInformationCard_Title" = "Információk az alkalmazásról";
+
+"Home_AppInformationCard_Version" = "Verzió";
+
+/* Home Result Card */
+"Home_resultCard_ResultAvailableTitle" = "Eredménye rendelkezésre áll.";
+
+"Home_resultCard_ResultUnvailableTitle" = " Eredménye még nem áll rendelkezésre.";
+
+"Home_resultCard_ShowResultButton" = "Jelenítsd meg a tesztet";
+
+"Home_resultCard_LoadingBody" = "Az aktuális adatok letöltése.\nEz eltarthat pár percig.";
+
+"Home_resultCard_LoadingTitle" = "Frissítés folyamatban …";
+
+"Home_resultCard_NegativeTitle" = "Negatív teszteredmény";
+
+"Home_resultCard_NegativeDesc" = "A SARS-CoV 2 vírusfertőzéssel kapcsolatban elvégzett teszt eredménye negatív lett .";
+
+"Home_resultCard_PendingDesc" = "Tesztértékelése még nem készült el.";
+
+"Home_resultCard_InvalidTitle" = "Érvénytelen teszt";
+
+"Home_resultCard_InvalidDesc" = "Tesztjét nem volt lehetséges értékelni.";
+
+"Home_resultCard_LoadingErrorTitle" = "Teszteredményét nem tudtuk letölteni.";
+
+/* App Information - About */
+"App_Information_About_Navigation" = "Az alkalmazásról";
+
+"App_Information_About_ImageDescription" = " ";
+
+"App_Information_About_Title" = "Védjük magunkat és másokat a COVID-19-cel szemben!";
+
+"App_Information_About_Description" = "A Nemzeti Közegészségügyi Intézet (NIJZ) központi egészségvédelmi intézmény Szlovéniában. A Közegészségügyi Intézet szakmai, illetve tartalmi támogatást nyújt az alkalmazáshoz, amelyet a Szlovén Köztársaság Közigazgatási Minisztériuma üzemeltet és tart fenn. A SARS-CoV-2 fertőzés megelőzésére irányuló megfékező intézkedések következetes betartása mellett, az alkalmazás segítségével tovább korlátozhatjuk a betegség terjedését.";
+
+"App_Information_About_Text" = "Bárki, aki az alkalmazást használja, segít a fertőzések követésében és a terjedési lánc megszakításában. Az alkalmazás a más készülékekkel való kontaktusokat az Ön saját készülékén tárolja el. Az alkalmazás értesíti, ha érintkezett olyan emberekkel, akiknél később megerősítették, hogy SARS-CoV-2-fertőzésben betegedtek meg. Az Ön személyazonossága és magánélete mindig védett.";
+
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Gyakori kérdések";
+
+/* App Information - Contact */
+"App_Information_Contact_Navigation" = "Ügyfélszolgálat";
+
+"App_Information_Contact_ImageDescription" = "Egy férfi telefonálás közben mikrofonos fejhallgatóval.";
+
+"App_Information_Contact_Title" = "Miben segíthetünk?";
+
+"App_Information_Contact_Description" = "Ha technikai kérdései vannak az #OstaniZdrav alkalmazásról, hívja az ügyfélszolgálatunkat.";
+
+"App_Information_Contact_Hotline_Title" = "Ügyfélszolgálat";
+
+"App_Information_Contact_Hotline_Text" = "080 1787";
+
+"App_Information_Contact_Hotline_Number" = "080 1787";
+
+"App_Information_Contact_Hotline_Description" = "Ügyfélszolgálatunk felhasználóink számára nyújt segítséget.";
+
+"App_Information_Contact_Hotline_Terms" = "Nyelvek: szlovén és angol\n\nMunkaidő:\nHétfőtől vasárnapig: 8:00 órától 20:00 óráig\n\nHívása díjmentes\ nKülföldi hívások: +386 1 478 7557";
+
+/* App Information - Imprint */
+"App_Information_Imprint_Navigation" = "Impresszum";
+
+"App_Information_Imprint_ImageDescription" = "Egy személy készüléket tart a kezében, hosszú szöveggel a képernyőn. A szöveg mellett bekezdésjelző látható, ami az impresszumot jelképezi.";
+
+"App_Information_Imprint_Section1_Title" = "Kiadta";
+
+"App_Information_Imprint_Section1_Text" = " ";
+
+"App_Information_Imprint_Section2_Title" = "Az #OstaniZdrav« alkalmazást a Nemzeti Közegészségügyi Intézet és a Közigazgatási Minisztérium készítette. A Közegészségügyi Intézet az alkalmazás tartalmi részéről gondoskodik, a Közigazgatási Minisztérium pedig a műszaki részéért.  Mindkét intézmény az #OstaniZdrav alkalmazáson keresztül kezelt adatok közös adatkezelője";
+
+"App_Information_Imprint_Section2_Text" = " ";
+
+"App_Information_Imprint_Section3_Title" = "Kapcsolat";
+
+"App_Information_Imprint_Section3_Text" = "E-mail cím: ekc@gov.si\nTel. sz..: 080 1787;külföldről: +386 1 478 7557";
+
+"App_Information_Imprint_Section4_Title" = " ";
+
+"App_Information_Imprint_Section4_Text" = " ";
+
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Jogi közlemények";
+
+/* App Information - Privacy */
+"App_Information_Privacy_Navigation" = "Adatvédelem";
+
+"App_Information_Legal_ImageDescription" = "Egy személy készüléket tart a kezében, hosszú szöveggel a képernyőn. A szöveg mellett mérleg látható, ami a jogi közleményeket jelképezi ";
+
+"App_Information_Privacy_Title" = "Adatvédelem";
+
+"App_Information_Privacy_Description" = "Ön anonim marad.\nAdatai teljes egészében titkosítottak és álnevesítve kerülnek továbbításra.";
+
+/* App Information - Terms */
+"App_Information_Terms_Navigation" = "Használati feltételek";
+
+"App_Information_Terms_ImageDescription" = "Egy személy készüléket tart a kezében, hosszú szöveggel a képernyőn. A szöveg mellett pipajel látható, ami a használati feltételek elfogadását jelképezi.";
+
+"App_Information_Terms_Title" = "Használati feltételek";
+
+/* Invite Friends */
+"InviteFriends_NavTitle" = "Megosztás";
+
+"InviteFriends_Subtitle" = "Ossza meg az #OstaniZdrav alkalmazást";
+
+"InviteFriends_Title" = "Védjük magunkat és másokat a COVID-19-cel szemben!";
+
+"InviteFriends_Description" = "Minél többen használják az alkalmazást, annál gyorsabban megszakíthatjuk a fertőzések terjedési láncát. Kérjük, ajánlja az alkalmazást rokonainak és barátainak!";
+
+"InviteFriends_Button" = "Küld el a linket a letöltéshez.";
+
+"InviteFriends_ShareTitle" = "Együtt a  COVID-19 ellen. Én közreműködök, és Ön?";
+
+"InviteFriends_ShareUrl" = "https://www.gov.si/hu/temak/covid-19-jarvany/mobilna-aplikacija-ostanizdrav/";
+
+"InviteFriends_Illustration_Label" = " Egy férfi megosztja az #OstaniZdrav« alkalmazást négy más személlyel.";
+
+/* Reset View */
+"Reset_NavTitle" = "Alaphelyzetbe állítás";
+
+"Reset_Header1" = "Biztos benne, hogy alaphelyzetbe szeretné állítani az alkalmazást?";
+
+"Reset_Descrition1" = "Nem fog több kitettségi értesítést kapni és nem tudja figyelmeztetni a többi felhasználót.";
+
+"Reset_Button" = "Állítsd alaphelyzetbe az alkalmazást!";
+
+"Reset_Discard" = "Visszavon.";
+
+"Reset_InfoTitle" = "Törölje a kitettségi naplót!";
+
+"Reset_InfoDescription" = "A kitettségi naplót külön kell törölni készüléke beállításaiban.";
+
+"Reset_Subtitle" = "Állítsd alaphelyzetbe az alkalmazást!";
+
+"Reset_ImageDescription" = "Egy személy készüléket tart a kezében, amelyen látható az a szimbólum, ami azt jelenti, hogy az alkalmazás alaphelyzetbe állítása zajlik.";
+
+"Reset_ConfirmDialog_Title" = "Állítsd alaphelyzetbe az alkalmazást!";
+
+"Reset_ConfirmDialog_Description" = "Nem fog több kitettségi értesítést kapni és nem tudja figyelmeztetni a többi felhasználót. Az eljárást nem tudja visszavonni.";
+
+"Reset_ConfirmDialog_Cancel" = "Visszavon.";
+
+"Reset_ConfirmDialog_Confirm" = "Alaphelyzetbe állítás.";
+
+/* Safari */
+"safari_corona_website" = "https://www.gov.si/hu/temak/covid-19-jarvany/mobilna-aplikacija-ostanizdrav/";
+
+/* Local Notifications */
+"local_notifications_ignore" = "Hagyd figyelmen kívül!";
+
+"local_notifications_detectexposure_title" = "#OstaniZdrav";
+
+"local_notifications_detectexposure_body" = "Új üzenete van az #OstaniZdrav alkalmazásban.";
+
+"local_notifications_testresults_title" = "#OstaniZdrav";
+
+"local_notifications_testresults_body" = "Új üzenetei vannak az #OstaniZdrav alkalmazásban.";
+
+/* Risk Legend */
+"RiskLegend_Title" = "Áttekintés";
+
+"RiskLegend_Subtitle" = "Az alkalmazás funkciói";
+
+"RiskLegend_Legend1_Title" = "Kitettség naplózás";
+
+"RiskLegend_Legend1_Text" = "A kitettség naplózás az alkalmazás három fő funkciója közül az egyik. Amikor aktiválja, megkezdődik a mások készülékével való kontaktusok naplózása.";
+
+"RiskLegend_Legend2_Title" = "Fertőzési kockázat";
+
+"RiskLegend_Legend2_Text" = "Ha az elmúlt 14 napban érintkezett olyan személlyel, akiről megerősítést nyert, hogy SARS-CoV-2-vel fertőzött, az alkalmazás a kitettség időtartama és közelsége alapján értékeli a fertőzéskockázatot.";
+
+"RiskLegend_Legend2_RiskLevels" = "A következő kockázati szint egyike jelenhet meg:";
+
+"RiskLegend_Legend2_High" = "Nagyobb kockázat";
+
+"RiskLegend_Legend2_High_Color" = "Piros";
+
+"RiskLegend_Legend2_Low" = "Alacsony kockázat";
+
+"RiskLegend_Legend2_Low_Color" = "Zöld";
+
+"RiskLegend_Legend2_Unknown" = "Ismeretlen kockázat";
+
+"RiskLegend_Legend2_Unknown_Color" = "Kék";
+
+"RiskLegend_Legend3_Title" = "A többi felhasználó értesítése ";
+
+"RiskLegend_Legend3_Text" = "További fő funkció az, hogy bejelentheti, ha pozitív volt a teszteredménye és az eredmény lekérdezése. Ha önnél igazolták a SARS-CoV-2 fertőzést, erről értesíthet másokat és megszakíthatja a fertőzési láncot.";
+
+"RiskLegend_Definitions_Title" = "A kifejezések meghatározása";
+
+"RiskLegend_Store_Title" = "Kitettségi napló";
+
+"RiskLegend_Store_Text" = "A fogadott és elküldött, ideiglenes, véletlenszerű azonosítók listája, amelyek ideiglenesen tárolódnak az operációs rendszer memóriájában. Ezt a listát a kitettség ellenőrzése során olvassák be. Az összes véletlenszerű azonosító automatikusan törlődik 14 nap elteltével.";
+
+"RiskLegend_Check_Title" = "A kitettség ellenőrzése";
+
+"RiskLegend_Check_Text" = "A kitettség naplózási adatai beolvasásra kerülnek, majd szinkronizálódnak más felhasználók bejelentett fertőzéseivel.";
+
+"RiskLegend_Contact_Title" = "Kitettség";
+
+"RiskLegend_Contact_Text" = "Szorosabb és hosszabb ideig tartó kontaktus olyan személyekkel, akiknél megerősítették a SARS-CoV-2-fertőzést.";
+
+"RiskLegend_Notification_Title" = "Értesítés a kitettségről";
+
+"RiskLegend_Notification_Text" = "Fertőzési kockázat megjelenítése az #OstaniZdrav alkalmazásban.";
+
+"RiskLegend_Random_Title" = "Véletlenszerű azonosítók";
+
+"RiskLegend_Random_Text" = "A véletlenszerű azonosítók véletlenszerűen létrehozott szám- és betűkombinációk. Az egymás közelében lévő készülékek megosztják azokat egymás között. A véletlenszerű azonosítókat nem lehet konkrét személyhez társítani, és automatikusan törlődnek 14 nap elteltével. Akinél megerősítették a SARS-CoV-2 fertőzést, dönthet arról, hogy az elmúlt 14 nap alatt kapott véletlenszerű azonosítóit megosztja-e az alkalmazás többi felhasználójával.";
+
+"RiskLegend_Image1_AccLabel" = "A készülék eltérően számozott tartalmakat jelenít meg.";
+
+/* Update Message */
+"Update_Message_Title" = "Frissítés áll rendelkezésre.";
+
+"Update_Message_Text" = "Az #OstaniZdrav alkalmazáshoz frissítés áll rendelkezésre.";
+
+"Update_Message_Text_Force" = "Az #OstaniZdrav alkalmazást csak akkor tudja ismét használni, amikor letölti a legújabb frissítést.";
+
+"Update_Message_Action_Update" = "Frissítés";
+
+"Update_Message_Action_Later" = "Később";
+
+/* ENATanInput */
+"ENATanInput_Empty" = "Üres";
+
+"ENATanInput_InvalidCharacter" = "Érvénytelen jel\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Jel %1$u %2$u-ból";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
+

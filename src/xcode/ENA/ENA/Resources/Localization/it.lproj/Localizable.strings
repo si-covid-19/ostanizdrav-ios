@@ -1,0 +1,970 @@
+/* General */
+"Alert_TitleGeneral" = "Si è verificato un errore.";
+
+"Alert_ActionOk" = "OK.";
+
+"Alert_ActionRetry" = "Ripeti";
+
+"Alert_ActionCancel" = "Annulla";
+
+"Alert_ActionRemove" = "Rimuovi";
+
+"Alert_BluetoothOff_Title" = " Attiva il Bluetooth";
+
+"Alert_BluetoothOff_Description" = " Affinché questa app funzioni deve essere attivato il Bluetooth nelle impostazioni di sistema.";
+
+"Alert_CancelAction_Later" = "Più tardi";
+
+"Alert_DefaultAction_OpenSettings" = "Apri impostazioni";
+
+"General_BackButtonTitle" = "Indietro";
+
+"Common_ENError5_Description" = "Errore 5: Ci sono problemi. Non siamo stati in grado di valutare il tuo livello di rischio. Stiamo cercando una soluzione al problema.";
+
+"Common_ENError11_Description" = "Errore 11: Ci sono problemi. Non siamo stati in grado di valutare il tuo livello di rischio. Riavvia il dispositivo e riprova domani.";
+
+"Common_ENError13_Description" = "Errore 13: Oggi è già stata effettuata una valutazione del tuo rischio. Riprova tra 24 ore.";
+
+"Common_Alert_Action_moreInfo" = "Maggiori informazioni sull'app #OstaniZdrav";
+
+"Common_BackgroundFetch_AlertMessage" = "Hai disattivato gli aggiornamenti in background per l'app Corona-Warn. Attiva gli aggiornamenti in background per utilizzare la registrazione automatica dell'esposizione. Se non attivi gli aggiornamenti in background, puoi solo avviare manualmente la registrazione dell'esposizione nell'app. \n\nPuoi attivare gli aggiornamenti in background per l'app nelle impostazioni del tuo dispositivo.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Apri Impostazioni dispositivo";
+
+"Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
+
+"Common_BackgroundFetch_AlertTitle" = "Aggiornamenti in background disattivati";
+
+/* General - Links */
+"General_moreInfo_URL" = " https://www.gov.si/it/argomenti/sars-cov-2/app-mobile-ostanizdrav/";
+
+"General_moreInfo_URL_EN5" = "https://www.gov.si/it/argomenti/sars-cov-2/app-mobile-ostanizdrav/";
+
+"General_moreInfo_URL_EN11" = "https://www.gov.si/it/argomenti/sars-cov-2/app-mobile-ostanizdrav/";
+
+"General_moreInfo_URL_EN13" = "https://www.gov.si/it/argomenti/sars-cov-2/app-mobile-ostanizdrav/";
+
+/* Accessibility */
+"AccessibilityLabel_Close" = "Chiudi";
+
+"AccessibilityLabel_PhoneNumber" = "Numero di telefono";
+
+/* Exposure Detection */
+"ExposureDetection_Off" = "La registrazione dell'esposizione è interrotta.";
+
+"ExposureDetection_Outdated" = "La registrazione dell'esposizione non è possibile.";
+
+"ExposureDetection_Unknown" = "Rischio sconosciuto";
+
+"ExposureDetection_Low" = "Rischio modesto";
+
+"ExposureDetection_High" = "Rischio elevato";
+
+"ExposureDetection_NumberOfDaysStored" = "Attivato %1$s da 14 giorni";
+
+"ExposureDetection_Refreshed" = "Aggiornato: %@";
+
+"ExposureDetection_Refreshed_Never" = "Sconosciuto";
+
+"ExposureDetection_RefreshingIn" = "Aggiornamento tra %02d:%02d\U00A0minuti";
+
+"ExposureDetection_RefreshIn" = "Update in %@";
+
+"ExposureDetection_Refresh_24h" = "Aggiornato ogni 24 ore";
+
+"ExposureDetection_LastRiskLevel" = "Ultima registrazione dell'esposizione: %@";
+
+"ExposureDetection_OffText" = "Attiva la registrazione dell'esposizione per valutare il tuo stato di rischio odierno.";
+
+"ExposureDetection_OutdatedText" = "Non siamo stati in grado di aggiornare la registrazione dell'esposizione per più di 48 ore.";
+
+"ExposureDetection_UnknownText" = "Dato che la registrazione dell'esposizione non è stata attivata abbastanza a lungo non siamo stati in grado di valutare il rischio di infezione.";
+
+"ExposureDetection_LoadingText" = "È in corso la trasmissione e la verifica dei dati correnti. L'operazione potrebbe richiedere diversi minuti.";
+
+"ExposureDetection_Behavior_Title" = "Raccomandazioni";
+
+"ExposureDetection_Behavior_Subtitle" = "Cosa devi fare?:";
+
+"ExposureDetection_Guide_Hands" = "Lavarsi le mani regolarmente e accuratamente con acqua e sapone. Se non sono disponibili acqua e sapone disinfetta le mani. Non toccare gli occhi, il naso e la bocca con le mani non lavate o non disinfettate.";
+
+"ExposureDetection_Guide_Mask" = " All'interno, dove non è possibile mantenere una distanza interpersonale sufficiente, si consiglia l'uso di una mascherina. Ventilare i locali regolarmente.";
+
+"ExposureDetection_Guide_Distance" = "Mantieni una distanza interpersonale di almeno 1,5 metri.";
+
+"ExposureDetection_Guide_Sneeze" = "Prima di tossire o starnutire copri la bocca e il naso con un fazzoletto di carta o tossisci o starnutisci nella parte superiore della manica.";
+
+"ExposureDetection_Guide_Home" = "Evita il contatto non necessario con altre persone, in particolare con le persone a maggior rischio di un decorso più grave della malattia, come anziani e malati cronici. All'interno, dove non è possibile mantenere una distanza interpersonale sufficiente, si consiglia l'uso di una mascherina.";
+
+"ExposureDetection_Guide_Hotline1" = "Controlla il tuo stato di salute. Se si verifica uno di questi sintomi o segni rimani a casa e contatta per telefono il medico di medicina generica o il servizio di guardia.";
+
+"ExposureDetection_Guide_Hotline2" = "Sensazione di malessere, sintomi di raffreddore, tosse, febbre, respiro affannoso, mal di testa, dolori muscolari, perdita dell'olfatto o del gusto, mal di gola.";
+
+"ExposureDetection_Guide_Hotline3" = "Continua a seguire le misure generali per prevenire la diffusione dell'infezione.";
+
+"ExposureDetection_Guide_Hotline4" = "Informazioni generali sul COVID-19 sono disponibili sul sito web dell'Istituto nazionale di sanità pubblica e del Ministero della salute.";
+
+"ExposureDetection_Explanation_Title" = "Rischio di infezione";
+
+"ExposureDetection_Explanation_Subtitle_Active" = " ";
+
+"ExposureDetection_Explanation_Subtitle_Inactive" = " ";
+
+"ExposureDetection_Explanation_Text_Off" = "Abbiamo valutato il tuo rischio di infezione localmente sul tuo dispositivo in base ai dati di registrazione dell'esposizione (durata e prossimità). Il rischio di infezione non può essere visto da nessun altro, né può essere trasmesso a nessuno.";
+
+"ExposureDetection_Explanation_Text_Outdated" = "Dato che la registrazione dell'esposizione non è stata attivata abbastanza a lungo non siamo stati in grado di valutare il tuo rischio di infezione.\n\nIl tuo rischio di infezione è stato valutato localmente sul tuo dispositivo in base ai dati di registrazione dell'esposizione (durata e prossimità). Il rischio di infezione non può essere visto da nessun altro, né può essere trasmesso a nessuno.";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Poiché la registrazione dell'esposizione non è stata attivata abbastanza a lungo non siamo stati in grado di valutare il tuo rischio di infezione. .\n\nIl tuo rischio di infezione è stato valutato localmente sul tuo dispositivo in base ai dati di registrazione dell'esposizione (durata e prossimità). Il rischio di infezione non può essere visto da nessun altro, né può essere trasmesso a nessuno.";
+
+"ExposureDetection_Explanation_Text_Low" = "Il tuo rischio di infezione è modesto perché non è stato registrato alcun contatto con persone che sono state successivamente confermate infette da SARS-CoV-2, o perché i tuoi contatti sono stati di breve durata o a lunga distanza.";
+
+"ExposureDetection_Explanation_Text_High" = "Il tuo rischio di infezione è elevato perché sei stato esposto l'ultima volta a %1$ giorni fa, per molto tempo e nelle vicinanze di almeno una persona che è stata infettata dal SARS-CoV-2";
+
+"ExposureDetection_Button_Enable" = "Attiva la registrazione dell'esposizione";
+
+"ExposureDetection_Button_Refresh" = "Aggiorna";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.";
+
+/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the past %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
+
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Title" = "Errore";
+
+"ExposureDetectionError_Alert_Action_Details" = "Dettagli";
+
+"ExposureDetectionError_Alert_Message" = "Durante la registrazione dell'esposizione è avvenuto un errore.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
+
+"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be calculated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our FAQ page.";
+
+/* Settings */
+"Settings_StatusActive" = "Attivato";
+
+"Settings_StatusInactive" = "Disattivato";
+
+"Settings_StatusEnable" = "Attiva.";
+
+"Settings_StatusDisable" = "Disattiva.";
+
+"Settings_KontaktProtokollStatusActive" = "Attivato.";
+
+"Settings_KontaktProtokollStatusInactive" = "Interrotto.";
+
+"Settings_Tracing_Label" = "Registrazione dell'esposizione ";
+
+"Settings_Notification_Label" = "Avvisi";
+
+"Settings_Reset_Label" = " Resetta l'app.";
+
+"Settings_Tracing_Description" = " Consenti la generazione e la condivisione di codici di trasmissione casuali per la registrazione dell'esposizione.";
+
+"Settings_Notification_Description" = " L'app può avvisarti automaticamente del tuo rischio di infezione. ";
+
+"Settings_Reset_Description" = " Elimina tutti i tuoi dati nell'app.";
+
+"Settings_NavTitle" = "Impostazioni";
+
+/* Noticiation Settings */
+"NotificationSettings_On_Title" = " Ricevi avvisi e identifica i rischi.";
+
+"NotificationSettings_On_SectionTitle" = "Impostazione";
+
+"NotificationSettings_On_RiskChanges" = "Il tuo rischio di infezione è cambiato.";
+
+"NotificationSettings_On_TestsStatus" = " ";
+
+"NotificationSettings_Off_SectionTitle" = "Impostazione";
+
+"NotificationSettings_Off_EnableNotifications" = "Avvisi";
+
+"NotificationSettings_Off_StatusInactive" = "Disattivati.";
+
+"NotificationSettings_Off_InfoTitle" = "Attiva la ricezione degli avvisi.";
+
+"NotificationSettings_Off_InfoDescription" = " Per attivare gli avvisi devi consentirli per l'app #RestaSano nelle impostazioni del tuo dispositivo.";
+
+"NotificationSettings_Off_OpenSettings" = "Apri impostazioni.";
+
+"NotificationSettings_NavTitle" = "Avvisi";
+
+"NotificationSettings_onImageDescription" = "Una signora ha ricevuto un avviso dalla sua app #RestaSano.";
+
+"NotificationSettings_offImageDescription" = "Una signora non può ricevere avvisi dalla sua app #RestaSano.";
+
+/* Onboarding */
+"Onboarding_LetsGo_actionText" = "Cominciamo.";
+
+"Onboarding_Continue_actionText" = "Avanti";
+
+"Onboarding_EnableLogging_actionText" = "Avanti";
+
+"Onboarding_Continue_actionTextHint" = " Puoi saltare questa schermata.";
+
+"Onboarding_doNotAllow_actionText" = "Non consentire.";
+
+"Onboarding_DoNotActivate_actionText" = "Non attivare ";
+
+"Onboarding_DeactivateExposureConfirmation_title" = " Ciò significa che l'app #RestaSano non può inviare o ricevere avvisi sul tuo stato di rischio di infezione da SARS-CoV-2.";
+
+"Onboarding_DeactivateExposureConfirmation_message" = " Puoi disattivare questa funzione in qualsiasi momento.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = " Un gruppo di persone utilizza i propri dispositivi in ​​città.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = " Proteggiamo noi stessi e gli altri dal COVID-19.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = " Più protezione per te e per tutti noi. Se utilizziamo l'app #RestaSano saremo in grado di interrompere la catena di trasmissione delle infezioni molto più velocemente.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Usa il tuo smartphone come sistema di allarme per l'esposizione al nuovo coronavirus (SARS-CoV-2). L'infezione da questo virus può causare la malattia COVID-19 o può essere asintomatica.\nInformati sul tuo rischio di infezione e scopri se sei stato in contatto con qualcuno cui è stata confermata l'infezione da SARS-CoV-2 negli ultimi 14 giorni.";
+
+"OnboardingInfo_privacyPage_imageDescription" = " Una delle signore sta usando l'app #RestaSano sul suo dispositivo. Il lucchetto sullo scudo è un simbolo per i dati crittografati.";
+
+"OnboardingInfo_privacyPage_title" = "Protezione dei dati";
+
+"OnboardingInfo_privacyPage_boldText" = " ";
+
+"OnboardingInfo_privacyPage_normalText" = "Resterete anonimi.\nI vostri dati vengono trasmessi in forma completamente crittografata e con uno pseudonimo.\n\nIstituzione responsabile: Ministero della pubblica amministrazione e Istituto nazionale di sanità pubblica\n Regolamento generale sulla protezione dei dati (GDPR) in collegamento con la Legge sulla protezione dei dati personali della Repubblica di Slovenia\nLeggi le nostre norme sulla privacy dei dati.\n\nInformzioni sulla privacy dei dati:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = " Tre persone hanno attivato la registrazione dell'esposizione sui propri dispositivi per registrare i contatti tra loro.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = " Come attivare la registrazione dell'esposizione ";
+
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = " Per determinare se sei stato esposto a COVID-19 devi attivare la funzionalità di registrazione dell'esposizione.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "La registrazione dell'esposizione funziona facendo in modo che il dispositivo riceva codici di trasmissione casuali da altri utenti tramite Bluetooth e inoltri il codice di trasmissione casuale ai loro dispositivi. Puoi disattivare questa funzione in qualsiasi momento. \n\nI codici di trasmissione casuale forniscono solo informazioni su data, durata e prossimità ad altri dispositivi, calcolata utilizzando la potenza del segnale. Le informazioni personali come nome, indirizzo e posizione non vengono mai registrate. Gli individui non possono essere identificati.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Dichiarazione di consenso";
+
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Per determinare se sei stato in contatto con una persona infetta e se esiste il rischio che tu sia stato infettato devi abilitare la funzione di registrazione dell'esposizione nell'app. Facendo clic sul pulsante 'Attiva' accetti di attivare la funzione di registrazione dell'esposizione dell'applicazione e che siano elaborati i relativi dati.\n\n\nPer utilizzare la funzione di registrazione dell'esposizione nell'app devi abilitare la funzione di registrazione dell'esposizione al COVID-19 fornita da Apple sul tuo iPhone e autorizzare l'app #RestaSano a usarla.\n\nQuando abiliti la registrazione dell'esposizione il tuo iPhone genererà e trasmetterà costantemente tramite Bluetooth codici di trasmissione casuali che verranno ricevuti da altri smartphone Android o Apple nelle vicinanze, a condizione che la registrazione dell'esposizione sia abilitata anche su di essi. Allo stesso tempo il tuo iPhone riceve codici di trasmissione casuali da altri smartphone. I tuoi codici di trasmissione casuali e quelli ricevuti da altri smartphone vengono registrati nel registro dell'esposizione, che viene conservato per 14 giorni.\n\n\n Per valutare il rischio di infezione l'app caricherà una volta al giorno un elenco di codici di trasmissione casuali di tutti gli utenti che hanno segnalato alla propria applicazione di essere infetti da SARS-CoV-2. Questo elenco viene quindi confrontato con i codici di trasmissione casuali nel registro delle esposizioni. Se l'app rileva che potresti essere stato in contatto con un utente infetto ti avviserà e ti informerà che esiste il rischio che anche tu sia infetto. In questo caso l'app ti darà anche accesso ad altri dati memorizzati nel registro dell'esposizione sul tuo iPhone (data, durata e intensità del segnale di contatto Bluetooth).\n\nL'intensità del segnale Bluetooth determina la distanza fisica (più forte è il segnale, minore è la distanza). L'app analizza quindi queste informazioni per valutare la probabilità di infezione da SARS-CoV-2 e per consigliarti come agire. Questa analisi viene eseguita solo localmente, sul tuo iPhone. A parte te nessuno saprà se sei stato in contatto con una persona infetta e qual è il rischio di infezione.\n\nPer revocare il tuo consenso all'utilizzo della funzionalità di registrazione dell'esposizione puoi disabilitare questa funzione con l'interruttore a levetta nell'app o eliminare l'app. Se decidi di utilizzare nuovamente la funzionalità di registrazione dell'esposizione puoi riattivare la funzionalità con l'interruttore a levetta o reinstallare l'applicazione. Se disattivi la funzionalità di registrazione dell'esposizione l'app non verificherà più se sei stato in contatto con un utente infetto. Se desideri che il tuo dispositivo smetta di inviare e ricevere codici di trasmissione casuali dovrai disabilitare la registrazione dell'esposizione al COVID-19 nelle impostazioni del tuo iPhone. Ricorda che i tuoi codici di trasmissione casuali e quelli ricevuti da altri smartphone e memorizzati nel registro dell'esposizione non verranno eliminati nell'app. I dati memorizzati nel registro di esposizione possono essere eliminati in modo permanente solo nelle impostazioni del tuo iPhone.\n\n\nL'informativa sulla privacy dell'app (inclusa una spiegazione dell'elaborazione dei dati eseguita per la funzione di registrazione dell'esposizione) si trova nel menù alla voce 'Informazioni sulla privacy dei dati' ";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Stato";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Valutazione del rischio di infezione da SARS-CoV-2";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Attivato.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Interrotto.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = " Un avviso di infezione crittografato viene trasmesso al sistema per avvisare gli altri utenti.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Se ti è stata confermata l'infezione da SARS-CoV-2 ...";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… ti chiediamo gentilmente di condividerlo nell'app #RestaSano. La condivisione delle informazioni sulla tua infezione è volontaria e sicura. Fallo per la salute degli altri.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Il tuo avviso di infezione viene crittografato in modo sicuro ed elaborato su un server protetto. Le persone che hanno memorizzato il tuo codice di trasmissione casuale riceveranno un avviso e informazioni su cosa fare in caso di rischio percepito.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Una signora ha ricevuto un avviso dalla sua app #RestaSano.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = " Ricevi gli avvisi e identifica i rischi.";
+
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "L'app può avvisarti automaticamente del rischio di infezione. Se consenti all'app di avvisarti sarai in grado di ricevere un avviso sul tuo rischio di infezione e consigli per ulteriori azioni.  ";
+
+"OnboardingInfo_alwaysStayInformedPage_normalText" = " Segui le istruzioni fornite dal servizio sanitario.\n Altre informazioni:\ n Il periodo di isolamento dovrebbe terminare 14 giorni dopo la scomparsa dei sintomi e dei segni. La durata dell'isolamento è a discrezione del medico curante.\n Se la malattia peggiora consulta telefonicamente il medico personale o il medico di guardia. In caso di emergenza chiama il 112. Di' loro che ti è stata diagnosticata l'infezione da SARS-CoV-2.";
+
+/* Exposure Submission */
+"ExposureSubmission_Hotline_Number" = "080 1787";
+
+"ExposureSubmission_DataPrivacyTitle" = "Protezione dei dati";
+
+"ExposureSubmission_Continue_actionText" = "Avanti";
+
+"ExposureSubmission_DataPrivacyDescription" = " Cliccando su 'Accetta' invierai il tuo consenso, che consente all'applicazione di inoltrare al sistema del server i tuoi codici di trasmissione casuali dei 14 giorni precedenti. Ciò consente ad altri utenti che hanno abilitato la funzione di registrazione dell'esposizione di ricevere avvisi automatici sul fatto che potrebbero essere stati esposti al COVID-19. I codici di trasmissione casuale trasmessi per questo scopo non contengono alcuna informazione che possa portare a una conclusione sulla tua identità o su di te come persona.
+\n\n L'inserimento del risultato del test nell'applicazione è volontario. Non sarai penalizzato se non inserisci il risultato del test. Poiché non è possibile tracciare o verificare se stai utilizzando l'app o come la stai utilizzando, nessuno tranne te saprà se hai inserito informazioni sul fatto che sei infetto.
+\n\n Puoi revocare il tuo consenso in qualsiasi momento eliminando l'applicazione. La revoca del consenso non pregiudica la liceità del trattamento che è stato effettuato sulla base del consenso prima della revoca del consenso. Ulteriori informazioni sono disponibili nel menù alla voce 'Informazioni sulla privacy'.";
+
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Accetta.";
+
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Non accettare.";
+
+"ExposureSubmission_Submit" = "Inserisci il numero TAN.";
+
+"ExposureSubmissionTanEntry_Title" = "Inserimento del numero TAN";
+
+"ExposureSubmissionTanEntry_EntryField" = "Campo per l'inserimento del numero TAN";
+
+"ExposureSubmissionTanEntry_Info" = "Inserisci il numero TAN che hai ricevuto.";
+
+"ExposureSubmissionTanEntry_Description" = "Inserisci il numero TAN di 10 cifre che hai ricevuto.";
+
+"ExposureSubmissionTanEntry_Submit" = "Avanti";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Numero TAN non valido, controlla l'inserimento.";
+
+"ExposureSubmissionTanEntry_InvalidError" = " Numero TAN non valido, controlla l'inserimento.";
+
+"ExposureSubmission_NavTitle" = " Invia la chiave diagnostica.";
+
+"ExposureSubmissionConfirmation_Title" = "Risultato del test positivo ";
+
+"ExposureSubmission_GeneralErrorTitle" = "Errore";
+
+"ExposureSubmission_DispatchTitle" = "Scelta";
+
+"ExposureSubmission_DispatchDescription" = " Cosa c'è a tua disposizione qui?";
+
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Documenta con il codice QR";
+
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = " Registra il tuo test scansionando il codice QR sul documento con il tuo test.";
+
+"ExposureSubmissionDispatch_TANButtonTitle" = "Numero TAN";
+
+"ExposureSubmissionDispatch_TANButtonDescription" = " Inserisci il numero TAN.";
+
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Richiedi il numero TAN";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Chiamaci se il risultato del tuo test è stato %@.";
+
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positivo";
+
+"ExposureSubmissionHotline_Title" = "Richiedi il numero TAN.";
+
+"ExposureSubmissionHotline_Description" = " Se desideri richiedere il numero TAN tieni a portata di mano il risultato del test (se disponibile) e il tuo numero di telefono.";
+
+"ExposureSubmissionHotline_SectionTitle" = "Come funziona ";
+
+"ExposureSubmissionHotline_SectionDescription1" = "Chiama il Call center e richiedi il numero TAN:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Passaggio 1 di 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Passaggio 2 di 2";
+
+"ExposureSubmission_PhoneNumber" = "080 1787";
+
+"ExposureSubmission_PhoneDetailDescription" = "Lingue: \nsloveno e inglese \n\nOrario di lavoro:\nDa lunedì a domenica: dalle 8:00 alle 20:00\n\nLa chiamata è gratuita.";
+
+"ExposureSubmission_SectionDescription2" = " Registra il test inserendo il numero TAN nell'app.";
+
+"ExposureSubmission_CallButtonTitle" = "Chiama.";
+
+"ExposureSubmission_TANInputButtonTitle" = "Inserisci il numero TAN";
+
+"ExposureSubmissionHotline_imageDescription" = "Il Call center vi comunica il numero TAN.";
+
+/* Exposure Submission QR Code Scanner */
+"ExposureSubmissionQRScanner_title" = "Scansione codice QR";
+
+"ExposureSubmissionQRScanner_instruction" = " Posiziona la casella sopra il codice QR sul tuo documento.";
+
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Non troviamo la diagnosi.";
+
+"ExposureSubmissionQRScanner_notFoundAlertText" = " Per aiutare il dispositivo a scansionare il codice QR prova ad allinearlo verticalmente con lo scanner o accendi il flash.";
+
+"ExposureSubmissionQRScanner_otherError" = "Si è verificato un errore sconosciuto.";
+
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = " Consenti all'app di utilizzare la fotocamera per scansionare il codice QR.";
+
+"ExposureSubmissionQRScanner_CameraFlash" = "Flash della fotocamera ";
+
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Attivato.";
+
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Disattivato.";
+
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Attiva il flash della fotocamera.";
+
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Disattiva il flash della fotocamera.";
+
+/* Exposure Submission Success */
+"ExposureSubmissionSuccess_Title" = "Grazie.";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "Tutto il gruppo si rallegra che qualcuno abbia condiviso il risultato del proprio test.";
+
+"ExposureSubmissionSuccess_Button" = "Tutto qua.";
+
+"ExposureSubmissionSuccess_Description" = " Grazie per l'aiuto. Ora gli altri possono ricevere un avviso e rispondere di conseguenza.";
+
+"ExposureSubmissionSuccess_subTitle" = "Altre informazioni:";
+
+"ExposureSubmissionSuccess_listTitle" = "Ricorda:";
+
+"ExposureSubmissionSuccess_listItem1" = "Ti è stata diagnosticata un'infezione da SARS-CoV-2.";
+
+"ExposureSubmissionSuccess_listItem2" = "Segui le istruzioni di isolamento ricevute dal servizio sanitario.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Il periodo di isolamento dovrebbe terminare 14 giorni dopo la scomparsa dei sintomi e dei segni. La durata dell'isolamento è valutata dal tuo medico generico.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "In caso di peggioramento della malattia consulta telefonicamente il medico generico o il medico di turno.";
+
+"ExposureSubmissionSuccess_listItem2_3" = "In caso di emergenza chiama il 112.";
+
+"ExposureSubmissionSuccess_listItem2_4" = "Di' loro che ti è stata diagnosticata l'infezione da SARS-CoV-2.";
+
+/* Exposure Submission Introduction */
+"ExposureSubmissionIntroduction_Title" = "Informazioni";
+
+"ExposureSubmissionIntroduction_SubTitle" = "Funzionamento dell'app #RestaSano";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = " Il dispositivo trasmette al sistema un messaggio crittografato sulla base di un'infezione SARS-CoV-2 confermata.";
+
+"ExposureSubmissionIntroduction_Usage01" = " Affinché l'app funzioni correttamente ci affidiamo al supporto delle persone cui è stata confermata l'infezione da SARS-CoV-2.";
+
+"ExposureSubmissionIntroduction_Usage02" = " Dato che vengono scambiati solo codici di trasmissione casuali rimarrai anonimo. Puoi procedere come segue:";
+
+"ExposureSubmissionIntroduction_ListItem1" = " ";
+
+"ExposureSubmissionIntroduction_ListItem2" = " Se ti è stata diagnosticata l'infezione da SARS-CoV-2 puoi avvisare altri.";
+
+"ExposureSubmissionIntroduction_ListItem3" = " Se hai ricevuto il numero TAN puoi utilizzarlo per condividere le informazioni sull'infezione da SARS-CoV-2.";
+
+"ExposureSubmissionIntroduction_ListItem4" = " ";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_Title" = "Risultato del test ";
+
+"ExposureSubmissionResult_CardSubTitle" = "La tua diagnosi ";
+
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+
+"ExposureSubmissionResult_CardPositive" = "Positiva.";
+
+"ExposureSubmissionResult_CardNegative" = "Negativa.";
+
+"ExposureSubmissionResult_CardInvalid" = "La valutazione è impossibile.";
+
+"ExposureSubmissionResult_CardPending" = "Il tuo risultato non è ancora disponibile.";
+
+"ExposureSubmissionResult_Procedure" = "Come funziona:";
+
+"ExposureSubmissionResult_testAdded" = " Test aggiunto con successo.";
+
+"ExposureSubmissionResult_testAddedDesc" = "Abbiamo memorizzato il tuo test nell'app #RestaSano.";
+
+"ExposureSubmissionResult_warnOthers" = "Avviso agli altri";
+
+"ExposureSubmissionResult_warnOthersDesc" = " Condividi i tuoi codici di trasmissione casuale degli ultimi 14 giorni per proteggere gli altri e interrompere la catena di trasmissione delle infezioni.";
+
+"ExposureSubmissionResult_testPositive" = "Risultato positivo del test ";
+
+"ExposureSubmissionResult_testPositiveDesc" = "Il risultato del tuo test è positivo.";
+
+"ExposureSubmissionResult_testNegative" = "Risultato negativo del test ";
+
+"ExposureSubmissionResult_testNegativeDesc" = "I risultati del laboratorio non hanno confermato che sei affetto da SARS-CoV-2.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Altre informazioni:";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = " Ti senti ancora male? Se ti senti molto male e/o i tuoi sintomi sono peggiorati chiama il tuo medico personale.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = " Resta a casa finché non ti senti meglio. Se si viene infettati da SARS-CoV-2 mentre si è debilitati da un'altra infezione, ciò può portare a una grave malattia.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = " Se non ti senti bene non andare al lavoro e assicurati di non mettere in pericolo gli altri.";
+
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = " Se i tuoi sintomi peggiorano potrebbe essere necessario eseguire un altro test per l'infezione da virus SARS-CoV-2.";
+
+"ExposureSubmissionResult_testInvalid" = "Durante il test si sono verificati errori ";
+
+"ExposureSubmissionResult_testInvalidDesc" = "Durante la valutazione del tuo test si è verificato un problema. Contatta la struttura sanitaria pubblica per scoprire quale sarà la prossima cosa da fare. ";
+
+"ExposureSubmissionResult_testPending" = "Il risultato del test non è ancora disponibile.";
+
+"ExposureSubmissionResult_testPendingDesc" = " Il risultato del test non è ancora disponibile.";
+
+"ExposureSubmissionResult_testRemove" = " Elimina il test.";
+
+"ExposureSubmissionResult_testRemoveDesc" = " Elimina il test dall'app #RestaSano in modo da poter salvare il nuovo codice del test, se necessario.";
+
+"ExposureSubmissionResult_continueButton" = "Avanti";
+
+"ExposureSubmissionResult_deleteButton" = "Elimina il test.";
+
+"ExposureSubmissionResult_refreshButton" = "Aggiornamento";
+
+"ExposureSubmissionWarnOthers_title" = "Avviso agli altri ";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = " Il dispositivo trasmette al sistema la diagnosi positiva crittografata basata sul test.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Avanti";
+
+"ExposureSubmissionWarnOthers_sectionTitle" = "Aiuta tutti noi.";
+
+"ExposureSubmissionWarnOthers_description" = "Puoi quindi consentire all'app #RestaSano di condividere i tuoi codici di trasmissione casuali degli ultimi 14 giorni con gli altri. In questo modo allerterai altre persone e aiuterai a spezzare la catena di trasmissione delle infezioni.\n\nDato che vengono trasmessi solo codici di trasmissione casuale impersonali la tua identità rimarrà anonima.";
+
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "Cliccando su 'Accetta' invierai il tuo consenso, che consente all'app di inoltrare al sistema del server i tuoi codici di trasmissione casuali dei 14 giorni precedenti. Ciò consente ad altri utenti che hanno abilitato la funzione di registrazione dell'esposizione di ricevere avvisi automatici sul fatto che potrebbero essere stati esposti al COVID-19. I codici di trasmissione casuale trasmessi per questo scopo non contengono alcuna informazione che possa portare a una conclusione sulla tua identità o su di te come persona.
+\n\n L'immissione del risultato del test nell'applicazione è volontaria. Se non inserisci il risultato del test non subirai sanzioni. Dato che non è possibile tracciare o verificare se stai utilizzando l'app o come la stai utilizzando, nessuno tranne te saprà se hai inserito informazioni sul fatto che sei infetto.
+\n\n Puoi revocare il tuo consenso in qualsiasi momento eliminando l'applicazione. La revoca del consenso non pregiudica la liceità del trattamento che è stato effettuato sulla base del consenso prima della revoca di quest’ultimo. Ulteriori informazioni si trovano nel menù alla voce 'Informazioni sulla privacy'. ";
+
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Protezione dei dati ";
+
+"ExposureSubmissionResult_RemoveAlert_Title" = "Vuoi eliminare il test?";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = " Il test verrà eliminato definitivamente dall'app #RestaSano e non potrai aggiungerlo di nuovo. La procedura non può essere annullata. ";
+
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Data di registrazione sconosciuta.";
+
+"ExposureSubmissionResult_RegistrationDate" = "Registrato il giorno ";
+
+/* Exposure Submission */
+"ExposureSubmissionError_NoKeys" = "Tasto della diagnostica non disponibile. Riprova domani.";
+
+"ExposureSubmissionError_InvalidTan" = " Il numero TAN generato non è valido per l'invio. Chiama il servizio epidemiologico.";
+
+"ExposureSubmissionError_EnNotEnabled" = " La registrazione dell'esposizione non è attivata.";
+
+"ExposureSubmissionError_NoRegistrationToken" = "Nel dispositivo non troviamo alcun gettone di registrazione.";
+
+"ExposureSubmissionError_InvalidResponse" = " Non possiamo elaborare la risposta.";
+
+"ExposureSubmissionError_NoResponse" = "La risposta è priva di contenuto.";
+
+"ExposureSubmissionError_QRAlreadyUsed" = " Il codice QR è già stato utilizzato. Chiama il Call center unico: Informazioni sull'app → Call center unico.";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = " Il numero TAN non è valido o è già stato utilizzato. Riprova o contatta il servizio epidemiologico.";
+
+"ExposureSubmissionError_RegTokenNotExist" = " Non siamo riusciti a generare un numero TAN per l'invio. Chiama il Call center unico: Informazioni sull'app → Call center unico.";
+
+"ExposureSubmissionError_other" = " Si è verificato un errore di connessione. Codice di errore per il supporto tecnico: ";
+
+"ExposureSubmissionError_otherend" = "Prova di nuovo.";
+
+"ExposureSubmissionError_httpError" = " Non è stato possibile stabilire una connessione.";
+
+"ExposureSubmissionError_declined" = " Rilascia i tuoi codici di trasmissione casuali per avvisare altre persone.";
+
+"ExposureSubmissionError_unknown" = "Errore sconosciuto ";
+
+"ExposureSubmissionError_defaultError" = "Errore generico nell'invio dell'esposizione ";
+
+/* Tracing Enable/Disable Settings */
+"ExposureNotificationSetting_TracingSettingTitle" = "Registrazione dell'esposizione ";
+
+"ExposureNotificationSetting_EnableTracing" = " Registrazione dell'esposizione ";
+
+"ExposureNotificationSetting_Tracing_Limited" = "Limitata";
+
+"ExposureNotificationSetting_Tracing_Deactivated" = "Disattiva.";
+
+"ExposureNotificationSetting_ActionCell_Header" = "Impostazioni";
+
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Attiva la registrazione dell'esposizione.";
+
+"ExposureNotificationSetting_DescriptionTitle" = "La registrazione dell'esposizione funziona così.";
+
+"ExposureNotificationSetting_DescriptionText1" = " Per determinare se sei stato esposto al COVID-19 devi attivare la funzione di registrazione dell'esposizione.";
+
+"ExposureNotificationSetting_DescriptionText2" = "La registrazione dell'esposizione funziona così: il tuo dispositivo riceve codici di trasmissione casuale da altri utenti tramite Bluetooth e inoltra i codici di trasmissione casuale ai loro dispositivi. Puoi disattivare questa funzione in qualsiasi momento.";
+
+"ExposureNotificationSetting_DescriptionText3" = "I codici di trasmissione casuale forniscono solo informazioni sulla data, la durata e la vicinanza ad altre persone, che viene calcolata utilizzando la potenza del segnale. I dati personali come nome, indirizzo e posizione non vengono mai registrati. La persona non può essere identificata.";
+
+"ExposureNotificationSetting_Activate_Bluetooth" = " Attiva il Bluetooth.";
+
+"ExposureNotificationSetting_Bluetooth_Description" = " Per registrare i contatti deve essere attivato il Bluetooth per registrare l'esposizione. Attiva il Bluetooth nelle impostazioni del tuo dispositivo.";
+
+"ExposureNotificationSetting_Activate_Internet" = "Attiva la connessione internet.";
+
+"ExposureNotificationSetting_Internet_Description" = "Per valutare il rischio con la registrazione dell'esposizione è necessaria una connessione Internet. Attiva i dati wireless o mobili nelle impostazioni del tuo dispositivo.";
+
+"ExposureNotificationSetting_Detail_Action_Button" = "Apri le impostazioni del dispositivo.";
+
+"ExposureNotificationSetting_Activate_OSENSetting" = "Consenti la registrazione e gli avvisi sull'esposizione al COVID-19.";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Per la registrazione dell'esposizione è necessario attivare la registrazione e gli avvisi sull'esposizione al COVID-19 nelle impostazioni di sistema, in modo che i contatti possano essere registrati. Abilita 'Registrazione e avvisi sull'esposizione al COVID-19' nelle impostazioni di sistema.";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Consenti la registrazione e gli avvisi sull'esposizione al COVID-19";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Per la registrazione dell'esposizione è necessario attivare la registrazione e gli avvisi sull'esposizione al COVID-19 nelle impostazioni di sistema, in modo che i contatti possano essere registrati. Abilita 'Registrazione e avvisi sull'esposizione al COVID-19' nelle impostazioni di sistema.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "È necessaria l'autorizzazione.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Conferma che utilizzi la registrazione dell'esposizione al COVID-19.";
+
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autorizzazione";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = " Tre persone hanno attivato la registrazione dell'esposizione sui propri dispositivi per registrare i contatti tra loro.";
+
+"ExposureNotificationSetting_AccLabel_Disabled" = " Una persona ha disattivato la registrazione dell'esposizione sul proprio dispositivo, quindi il contatto con le altre due non è stato registrato..";
+
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = " Una persona ha disattivato il Bluetooth sul proprio dispositivo, quindi il contatto con le altre due persone non è stato registrato.";
+
+"ExposureNotificationSetting_AccLabel_InternetOff" = " Una persona ha disattivato la connessione Internet sul proprio dispositivo, quindi l'identificazione dei contatti recenti non è stata possibile.";
+
+"ExposureNotificationSetting_Activate_Action" = "Accetta.";
+
+"ExposureNotificationSetting_Dismiss_Action" = "Annulla.";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Errore";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Maggiori informazioni ";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = " https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"ExposureNotificationSetting_AuthenticationError" = " Si è verificato un errore durante l'attivazione della registrazione dell'esposizione. Vai alle impostazioni di sistema e assicurati che questa app sia autorizzata a utilizzare la registrazione dell'esposizione al COVID-19.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = " Si è verificato un errore durante l'attivazione della registrazione dell'esposizione. Vai alle impostazioni di sistema e assicurati che le notifiche di esposizione per questa app siano abilitate.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Si è verificato un errore durante l'attivazione della registrazione dell'esposizione. Vai alle impostazioni di sistema e assicurati che l'applicazione delle notifiche di esposizione per questa app sia attivata. Per ulteriori informazioni visita la nostra pagina Web con le domande frequenti.";
+
+"ExposureNotificationSetting_unknownError" = " Si è verificato un errore sconosciuto. Per ulteriori informazioni visita il nostro sito web.";
+
+"ExposureNotificationSetting_apiMisuse" = "Durante l'attivazione dell'identificazione del rischio si è verificato un errore interno. Per ulteriori informazioni visita la pagina Web con le domande frequenti e prova ad attivare la registrazione dell'esposizione in un secondo momento.";
+
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Logo dell'app #RestaSano";
+
+"Home_RightBarButton_description" = "Informazioni";
+
+/* Home Active card */
+"Home_Activate_Card_On_Title" = " La registrazione dell'esposizione è attivata.";
+
+"Home_Activate_Card_Off_Title" = " La registrazione dell'esposizione è interrotta.";
+
+"Home_Activate_Card_Bluetooth_Off_Title" = "Il Bluetooth è disattivato.";
+
+"Home_Activate_Card_Internet_Off_Title" = "Nessuna connessione internet.";
+
+/* Home common card */
+"Home_Risk_Date_Item_Title" = "Aggiornato: %@";
+
+"Home_Risk_No_Date_Title" = "Sconosciuto";
+
+"Home_Risk_Period_Update_Title" = "Aggiornato ogni %@\U00A0ore";
+
+"Home_Risk_Period_Disabled_Button_Title" = "Aggiornato ogni %@\U00A0ore";
+
+/* Home Unknown card */
+"Home_Risk_Unknown_Title" = "Rischio ignoto ";
+
+"Home_RiskCard_Unknown_Item_Title" = "Dato che la registrazione dell'esposizione non è stata attivata abbastanza a lungo non siamo stati in grado di valutare il tuo rischio di infezione.";
+
+"Home_RiskCard_Unknown_Button" = "Aggiornamento";
+
+/* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "La registrazione dell'esposizione è interrotta";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "La registrazione dell'esposizione è impossibile.";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = " Attiva la registrazione dell'esposizione per valutare il tuo stato di rischio odierno.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = " Non siamo stati in grado di aggiornare la registrazione dell'esposizione per più di 24 ore.";
+
+"Home_Risk_Inactive_Activate_Item_Title" = " Ultima registrazione dell'esposizione: %@";
+
+"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Rischio ignoto ";
+
+"Home_Risk_Inactive_Activate_Item_Low_Title" = "Rischio modesto ";
+
+"Home_Risk_Inactive_Activate_Item_High_Title" = "Rischio alto ";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Attiva la registrazione dell'esposizione.";
+
+"Home_Risk_Inactive_Outdated_Results_Button" = " Attiva la registrazione dell'esposizione ";
+
+/* Home Low card */
+"Home_Risk_Low_Title" = "Rischio modesto ";
+
+"Home_Risk_Low_SaveDays_Item_Title" = "Memorizzato %1$u da %2$u giorni";
+
+"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
+
+"Home_Risk_Low_Button" = "Aggiornamento";
+
+/* Home High card */
+"Home_Risk_High_Title" = "Rischio alto ";
+
+"Home_Risk_High_Button" = "Aggiornamento";
+
+/* Home Status Check */
+"Home_Risk_Status_Check_Title" = "Verifica in corso…";
+
+"Home_Risk_Status_Check_Body" = " I dati attuali vengono trasmessi e verificati. Ciò potrebbe richiedere vari minuti.";
+
+"Home_Risk_Status_Check_Button" = "Aggiornamento";
+
+/* Home Thank you card */
+"Home_Thank_You_Card_Title" = "Grazie.";
+
+"Home_Thank_You_Card_Body" = " Grazie per l'aiuto. Ora gli altri possono ricevere l'avviso e rispondere di conseguenza.";
+
+"Home_Thank_You_Card_Note_Title" = "Ricorda:";
+
+"Home_Thank_You_Card_Phone_Item_Title" = " ";
+
+"Home_Thank_You_Card_Home_Item_Title" = "Ti è stata diagnosticata un'infezione da SARS-CoV-2. Segui le istruzioni di isolamento ricevute dal servizio sanitario.";
+
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Altre informazioni:";
+
+"Home_Thank_You_Card_14Days_Item_Title" = "Il periodo di isolamento dovrebbe terminare 14 giorni dopo la scomparsa dei sintomi e dei segni. La durata dell'isolamento è valutata dal medico generico.";
+
+"Home_Thank_You_Card_Contacts_Item_Title" = "In caso di peggioramento della malattia consulta telefonicamente il medico generico o il medico di turno. In caso di emergenza chiama il 112. Di' che ti è stata diagnosticata un'infezione da SARS-CoV-2. ";
+
+"Home_Thank_You_Card_App_Item_Title" = " ";
+
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = " ";
+
+/* Home Finding positive */
+"Home_Finding_Positive_Card_Title" = " Infezione da SARS-CoV-2 confermata";
+
+"Home_Finding_Positive_Card_Status_Title" = " Ti hanno confermato un'infezione da virus SARS-CoV-2.";
+
+"Home_Finding_Positive_Card_Status_Subtitle" = " ";
+
+"Home_Finding_Positive_Card_Note_Title" = "Ricorda:";
+
+"Home_Finding_Positive_Card_Phone_Item_Title" = " ";
+
+"Home_Finding_Positive_Card_Home_Item_Title" =" Segui le istruzioni per l'isolamento ricevute dal servizio sanitario";
+
+"Home_Finding_Positive_Card_Share_Item_Title" = " Condividi i tuoi codici di trasmissione casuali in modo da poter avvisare gli altri. ";
+
+"Home_Finding_Positive_Card_Button" = "Avanti";
+
+/* Home Submit card */
+"Home_SubmitCard_Title" = "Sei stato testato?";
+
+"Home_SubmitCard_Body" = " Aiuta a spezzare la catena di trasmissione delle infezioni informando gli altri.";
+
+"Home_SubmitCard_Button" = "Avvisa e collabora.";
+
+"Home_InfoCard_ShareTitle" = "Condividi l'app #RestaSano";
+
+"Home_InfoCard_ShareBody" = " Più sono gli utenti dell'app, più velocemente interromperemo la catena di trasmissione delle infezioni. Invita i tuoi parenti e amici a scaricare l'app.";
+
+"Home_InfoCard_AboutTitle" = "Domande frequenti ";
+
+"Home_InfoCard_AboutBody" = "Qui potete trovare le risposte alle domande frequenti sull'app #RestaSano. Ti reindirizzeremo a un sito web esterno.";
+
+"Home_SettingsCard_Title" = "Impostazioni";
+
+"Home_AppInformationCard_Title" = "Informazioni sull'app ";
+
+"Home_AppInformationCard_Version" = "Versione";
+
+/* Home Result Card */
+"Home_resultCard_ResultAvailableTitle" = "Il tuo risultato è disponibile.";
+
+"Home_resultCard_ResultUnvailableTitle" = "Il tuo risultato non è ancora disponibile.";
+
+"Home_resultCard_ShowResultButton" = "Mostra il test ";
+
+"Home_resultCard_LoadingBody" = " È in corso il trasferimento dei dati correnti.\nCiò potrebbe richiedere diversi minuti.";
+
+"Home_resultCard_LoadingTitle" = "Aggiornamento in corso…";
+
+"Home_resultCard_NegativeTitle" = "Risultato del test negativo ";
+
+"Home_resultCard_NegativeDesc" = " Hai ricevuto un risultato negativo del test di infezione da virus SARS-CoV-2.";
+
+"Home_resultCard_PendingDesc" = "La valutazione del tuo test non è ancora pronta.";
+
+"Home_resultCard_InvalidTitle" = "Test non valido ";
+
+"Home_resultCard_InvalidDesc" = "Non è stato possibile valutare il tuo test.";
+
+"Home_resultCard_LoadingErrorTitle" = "Non è stato possibile caricare il risultato del tuo test.";
+
+/* App Information - About */
+"App_Information_About_Navigation" = "Sull'app ";
+
+"App_Information_About_ImageDescription" = " ";
+
+"App_Information_About_Title" = " Proteggiamo noi stessi e gli altri dal COVID-19";
+
+"App_Information_About_Description" = "L'Istituto nazionale di sanità pubblica (NIJZ) è l'istituzione centrale per la protezione della salute in Slovenia. L'NIJZ fornisce supporto professionale ossia di contenuto per l'app, che è gestita e mantenuta dal Ministero della pubblica amministrazione della Repubblica di Slovenia. Oltre alla stretta aderenza alle misure preventive per prevenire l'infezione da SARS-CoV-2, grazie all'app possiamo limitare ulteriormente la diffusione della malattia.";
+
+"App_Information_About_Text" = "Chi utilizza l'app aiuta a monitorare e a interrompere la catena di trasmissione delle infezioni. L'app memorizza i contatti con altri dispositivi localmente sul dispositivo. L'app ti avvisa se sei stato in contatto con persone che sono state successivamente confermate infette dal SARS-CoV-2. La tua identità e privacy sono sempre protette.";
+
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Domande frequenti ";
+
+/* App Information - Contact */
+"App_Information_Contact_Navigation" = "Call center unico ";
+
+"App_Information_Contact_ImageDescription" = " Un uomo ha auricolari e microfono sulla testa mentre fa una telefonata.";
+
+"App_Information_Contact_Title" = "Come possiamo aiutarti?";
+
+"App_Information_Contact_Description" = " Se hai domande tecniche sull'app #RestaSano chiama il nostro Call center.";
+
+"App_Information_Contact_Hotline_Title" = "Call center unico ";
+
+"App_Information_Contact_Hotline_Text" = "080 1787";
+
+"App_Information_Contact_Hotline_Number" = "080 1787";
+
+"App_Information_Contact_Hotline_Description" = " Il nostro servizio utenti è a tua disposizione per offrirti assistenza.";
+
+"App_Information_Contact_Hotline_Terms" = "Lingue: sloveno e inglese \n\nOrario di lavoro:\nDa lunedì a domenica: dalle 8:00 alle 20:00\n\nLa chiamata è gratuita \ nChiamate dall'estero: +386 1 478 7557";
+
+/* App Information - Imprint */
+"App_Information_Imprint_Navigation" = "Impressum";
+
+"App_Information_Imprint_ImageDescription" = " Una persona sta tenendo in mano un dispositivo con molto testo sullo schermo. Accanto al testo c'è un segno per l'inizio del paragrafo che rappresenta l'impressum.";
+
+"App_Information_Imprint_Section1_Title" = "Pubblicato da";
+
+"App_Information_Imprint_Section1_Text" = " ";
+
+"App_Information_Imprint_Section2_Title" = "L'applicazione #RestaSano è stata preparata dall'Istituto Nazionale di Sanità Pubblica NIJZ) e dal Ministero della Pubblica Amministrazione (MJU): l'NIJZ si è occupato del contenuto della domanda e l'MJU si è occupato della parte tecnica. Entrambi sono corresponsabili del trattamento dei dati che vengono elaborati all'interno dell'app #RestaSano";
+
+"App_Information_Imprint_Section2_Text" = " ";
+
+"App_Information_Imprint_Section3_Title" = "Contatto";
+
+"App_Information_Imprint_Section3_Text" = "E-mail: ekc@gov.si\nTel.: 080 1787; dall'estero: +386 1 478 7557";
+
+"App_Information_Imprint_Section4_Title" = " ";
+
+"App_Information_Imprint_Section4_Text" = " ";
+
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Note legali ";
+
+/* App Information - Privacy */
+"App_Information_Privacy_Navigation" = "Protezione dei dati ";
+
+"App_Information_Legal_ImageDescription" = " Una persona sta tenendo in mano un dispositivo con molto testo sullo schermo. Accanto al testo c'è una bilancia, che è il simbolo per le note legali ";
+
+"App_Information_Privacy_Title" = "Protezione dei dati ";
+
+"App_Information_Privacy_Description" = "Rimarrete anonimi.\nI vostri dati sono completamente crittografati e vengono trasmessi sotto pseudonimo. ";
+
+/* App Information - Terms */
+"App_Information_Terms_Navigation" = "Condizioni d'uso ";
+
+"App_Information_Terms_ImageDescription" = " Una persona sta tenendo in mano un dispositivo con molto testo sullo schermo. Accanto al testo c'è un segno di spunta, che è il simbolo per accettare le condizioni d'uso.";
+
+"App_Information_Terms_Title" = "Condizioni d'uso ";
+
+/* Invite Friends */
+"InviteFriends_NavTitle" = "Condividi";
+
+"InviteFriends_Subtitle" = "Condividi l'app #RestaSano";
+
+"InviteFriends_Title" = " Proteggiamo noi stessi e gli altri dal COVID-19";
+
+"InviteFriends_Description" = " Più sono gli utenti dell'app, più velocemente interromperemo la catena di trasmissione delle infezioni. Invita i tuoi parenti e amici a scaricare l'app.";
+
+"InviteFriends_Button" = " Invia il link per il download.";
+
+"InviteFriends_ShareTitle" = "Insieme contro il COVID-19. Io collaboro, e tu?";
+
+"InviteFriends_ShareUrl" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+"InviteFriends_Illustration_Label" = "Un signore condivide l'app #RestaSano con altre quattro persone.";
+
+/* Reset View */
+"Reset_NavTitle" = "Resetta";
+
+"Reset_Header1" = "Sicuro di voler resettare l'app?";
+
+"Reset_Descrition1" = " Non riceverai più avvisi di esposizione e non sarai più in grado di avvisare gli altri utenti.";
+
+"Reset_Button" = "Resetta l'app.";
+
+"Reset_Discard" = "Annulla.";
+
+"Reset_InfoTitle" = " Elimina il registro delle esposizioni.";
+
+"Reset_InfoDescription" = "Il registro di esposizione va eliminato separatamente nelle impostazioni del dispositivo.";
+
+"Reset_Subtitle" = "Resetta l'app ";
+
+"Reset_ImageDescription" = " Una persona tiene in mano un dispositivo che mostra il simbolo che indica che l'applicazione è in fase di reset.";
+
+"Reset_ConfirmDialog_Title" = "Resetta l'app.";
+
+"Reset_ConfirmDialog_Description" = " Non riceverai più avvisi di esposizione e non sarai più in grado di avvisare gli altri utenti. La procedura non può essere annullata.";
+
+"Reset_ConfirmDialog_Cancel" = "Annulla.";
+
+"Reset_ConfirmDialog_Confirm" = "Resetta.";
+
+/* Safari */
+"safari_corona_website" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+/* Local Notifications */
+"local_notifications_ignore" = "Ignora";
+
+"local_notifications_detectexposure_title" = "#RestaSano";
+
+"local_notifications_detectexposure_body" = "Hai nuovi messaggi nell'app #RestaSano.";
+
+"local_notifications_testresults_title" = "#RestaSano";
+
+"local_notifications_testresults_body" = " Hai nuovi messaggi nell'app #RestaSano.";
+
+/* Risk Legend */
+"RiskLegend_Title" = "Panoramica";
+
+"RiskLegend_Subtitle" = "Funzioni dell'app ";
+
+"RiskLegend_Legend1_Title" = "Registrazione dell'esposizione ";
+
+"RiskLegend_Legend1_Text" = " La registrazione dell'esposizione è una delle tre funzioni centrali dell'app. Quando la attivi inizi a registrare i contatti con i dispositivi di altre persone. ";
+
+"RiskLegend_Legend2_Title" = "Rischio di infezione ";
+
+"RiskLegend_Legend2_Text" = "Se sei stato in contatto con una persona cui è stata confermata l'infezione da SARS-CoV-2 negli ultimi 14 giorni, l'app valuterà il tuo rischio di infezione in base alla vicinanza e alla durata dell'esposizione.";
+
+"RiskLegend_Legend2_RiskLevels" = "Potrebbe apparire uno dei seguenti stati di rischio:";
+
+"RiskLegend_Legend2_High" = "Rischio elevato ";
+
+"RiskLegend_Legend2_High_Color" = "Rosso";
+
+"RiskLegend_Legend2_Low" = "Rischio modesto ";
+
+"RiskLegend_Legend2_Low_Color" = "Verde";
+
+"RiskLegend_Legend2_Unknown" = "Rischio sconosciuto ";
+
+"RiskLegend_Legend2_Unknown_Color" = "Blu";
+
+"RiskLegend_Legend3_Title" = "Avviso agli altri utenti ";
+
+"RiskLegend_Legend3_Text" = " Un'altra funzione centrale è registrare il test e ottenere il risultato. Se ti è stata diagnosticata un'infezione da SARS-CoV-2 puoi comunicarlo agli altri e interrompere la catena di trasmissione.";
+
+"RiskLegend_Definitions_Title" = "Definizione dei termini";
+
+"RiskLegend_Store_Title" = "Registro dell'esposizione";
+
+"RiskLegend_Store_Text" = "Elenco dei codici di trasmissione casuali temporanei ricevuti e inviati che sono temporaneamente memorizzati nella memoria del sistema operativo. Questo elenco deve essere letto durante il controllo dell'esposizione. Tutti i codici di trasmissione casuali vengono eliminati automaticamente dopo 14 giorni";
+
+"RiskLegend_Check_Title" = "Verifica dell'esposizione";
+
+"RiskLegend_Check_Text" = "Si raccolgono i dati di registrazione dell'esposizione, che vengono quindi sincronizzati con i dati sulle infezioni segnalati di altri utenti.";
+
+"RiskLegend_Contact_Title" = "Esposizioni";
+
+"RiskLegend_Contact_Text" = "Contatti ravvicinati e prolungati con persone cui è stata confermata l'infezione da SARS-CoV-2.";
+
+"RiskLegend_Notification_Title" = "Avviso di esposizione ";
+
+"RiskLegend_Notification_Text" = "Visualizzazione del rischio di infezione nell'app #RestaSano.";
+
+"RiskLegend_Random_Title" = "Codici di trasmissione casuali ";
+
+"RiskLegend_Random_Text" = "I codici di trasmissione casuali sono combinazioni di cifre e lettere generate in modo casuale. Vengono scambiati da dispositivi vicini tra loro. I codici di trasmissione casuali non possono essere assegnati a una persona specifica e vengono eliminati automaticamente dopo 14 giorni. Le persone cui è stata confermata l'infezione da SARS-CoV-2 possono scegliere di condividere i loro codici di trasmissione casuali dei 14 giorni precedenti con altri utenti dell'app.";
+
+"RiskLegend_Image1_AccLabel" = " Il dispositivo visualizza un contenuto numerato diverso.";
+
+/* Update Message */
+"Update_Message_Title" = "Aggiornamento disponibile.";
+
+"Update_Message_Text" = " È disponibile un aggiornamento per l'app #RestaSano.";
+
+"Update_Message_Text_Force" = "Non potrai utilizzare di nuovo l'app #RestaSano finché non avrai installato l'ultimo aggiornamento.";
+
+"Update_Message_Action_Update" = "Aggiornamento";
+
+"Update_Message_Action_Later" = "Più tardi";
+
+/* ENATanInput */
+"ENATanInput_Empty" = "Vuoto";
+
+"ENATanInput_InvalidCharacter" = "Carattere non valido\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Carattere %1$u di %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
+
+"Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
+
