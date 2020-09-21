@@ -10,8 +10,7 @@ Objava kode je namenjena seznanitvi in pregledu izvorne kode, v tem obdobju ne s
 * [Home](https://github.com/corona-warn-app/cwa-app-ios/wiki)
 * [1 Setup](https://github.com/corona-warn-app/cwa-app-ios/)
 * [2 Backend](https://github.com/corona-warn-app/cwa-server)
-* [3 UI](https://github.com/corona-warn-app/cwa-app-ios/wiki/3-UI)
-* [4 Exposure Notification]https://www.apple.com/covid19/contacttracing/)
+* [Privacy-Preserving Contact Tracing](https://www.apple.com/covid19/contacttracing/)
 
 ## Slovenska implementacija
 
