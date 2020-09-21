@@ -1,114 +1,39 @@
 <h1 align="center">
-    Corona Warn App - iOS
+    Aplikacija #OstaniZdrav - iOS
 </h1>
 
-<p align="center">
-   <a href="https://github.com/corona-warn-app/cwa-app-ios/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/corona-warn-app/cwa-app-ios?style=flat"></a>
-   <a href="https://github.com/corona-warn-app/cwa-app-ios/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat"></a>
-   <a href="https://circleci.com/gh/corona-warn-app/cwa-app-ios" title="Build Status"><img src="https://circleci.com/gh/corona-warn-app/cwa-app-ios.png?circle-token=656940b0df758209128b0d782c5f8885ddceb7a8&style=shield"></a>
-   <a href="https://sonarcloud.io/component_measures?id=corona-warn-app_cwa-app-ios&metric=Coverage&view=list" title="Coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=corona-warn-app_cwa-app-ios&metric=coverage"></a>
-   <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg"></a>
-   <a href="https://github-tools.github.io/github-release-notes/" title="Automated Release Notes"><img src="https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg"></a>
-</p>
+V okviru projekta je objavljena slovenska verzija iOS aplikacije, ki je je povzeta po uradni Corona-Warn-App za Nemčijo. Deluje na  na podlagi API-ja za obveščanje o izpostavljenosti na podlagi mehanizmov, ki jih je izdelal [Apple](https://www.apple.com/covid19/contacttracing/) in [Google](https://www.google.com/covid19/exposurenotifications/). Aplikacije (za iOS in Android) uporabljajo tehnologijo Bluetooth za izmenjavo anonimnih šifriranih podatkov z drugimi mobilnimi telefoni (na katerih je aplikacija tudi nameščena) v bližini telefona uporabnika aplikacije. Podatki so shranjeni lokalno na napravi vsakega uporabnika, kar organom ali drugim strankam preprečuje dostop do podatkov ali nadzor nad njimi. Ta repozitorij vsebuje  Androidovo aplikacijo ostanizdrav za uporabo v Sloveniji. 
+Objava kode je namenjena seznanitvi in pregledu izvorne kode, v tem obdobju ne sprejemamo popravkov, dopolnitev.
 
-<p align="center">
-  <a href="#development">Development</a> •
-  <a href="#architecture--documentation">Documentation</a> •
-  <a href="#how-to-contribute">Contribute</a> •
-  <a href="#support--feedback">Support</a> •
-  <a href="./CHANGELOG.md">Changelog</a> •
-  <a href="#licensing">Licensing</a>
-</p>
+## Povezave na izhodiščne dokumente 
 
-The goal of this project is to develop the official Corona-Warn-App for Germany based on the exposure notification API from [Apple](https://www.apple.com/covid19/contacttracing/) and [Google](https://www.google.com/covid19/exposurenotifications/). The apps (for both iOS and Android) use Bluetooth technology to exchange anonymous encrypted data with other mobile phones (on which the app is also installed) in the vicinity of an app user's phone. The data is stored locally on each user's device, preventing authorities or other parties from accessing or controlling the data. This repository contains the **native iOS implementation** of the Corona-Warn-App.
+* [Home](https://github.com/corona-warn-app/cwa-app-ios/wiki)
+* [1 Setup](https://github.com/corona-warn-app/cwa-app-ios/wiki/1-Setup)
+* [2 Backend](https://github.com/corona-warn-app/cwa-app-ios/wiki/2-Backend)
+* [3 UI](https://github.com/corona-warn-app/cwa-app-ios/wiki/3-UI)
+* [4 Exposure Notification Google API]https://www.apple.com/covid19/contacttracing/)
+* [5 Packages](https://github.com/corona-warn-app/cwa-app-ios/wiki/5-Packages)
 
-![Figure 1: UI Screens for Apple iOS](https://github.com/corona-warn-app/cwa-documentation/blob/master/images/ui_screens/ui_screens_ios.png "Figure 1: UI Screens for Apple iOS")
+## Slovenska implementacija
 
-## Development
+* Izvedena je bila prilagoditev grafične podobe
+* Vključeni prevodi besedil in ukazov v slovenskem jeziku
 
-### Setup
+## Arhitektura in Dokumentacija
 
-1. Install Xcode 11.5 or higher
-2. Select the right app scheme.
-
-   We added the schema `ENACommunity` to our project which should enable third party developers to run and test the code. This schema uses a mocked implementation of `ExposureManager` in `SceneDelegate` and injects it into the application.
-
-3. Set the user-defined variable to your development team
-
-   In the [project.pbxproj](./src/xcode/ENA/ENA.xcodeproj/project.pbxproj) file, set IPHONE_APP_DEV_TEAM for the build setting `Community` to your development team
-4. Install SwiftLint
-
-   ```console
-   brew install swiftlint
-   ```
-
-5. (Optional) Set up fastlane:
-   Make sure you have the latest version of the Xcode command line tools installed:
-
-   ```console
-   xcode-select --install
-   ```
-   Install _fastlane_ using [Bundler](https://bundler.io/)
-   ```console
-   cd src/xcode && bundle install --path vendor/bundle
-   ```
+Celotna dokumentacija za originalno verzijo Corona-Warn-App se nahaja v repozitoriju [cwa-dokumentacije](https://github.com/corona-warn-app/cwa-documentation). Repozitorij dokumentacije vsebuje tehnične dokumente, podatke o arhitekturi, specifikacije za uporabniški vmesnik / UX in referenčne dokumente, povezane s to izvedbo.
 
 
-### Build
+## Sodelujoči
 
-After setting up your environment as stated in [Setup](#Setup), you should be able to build the app using the scheme `ENACommunity`.
+Nemška vlada je prosila SAP in Deutsche Telekom, naj razvijejo Corona-Warn-App za Nemčijo kot odprtokodno programsko opremo. Deutsche Telekom zagotavlja omrežno in mobilno tehnologijo ter na varen, razširljiv in stabilen način upravlja in poganja zaledje za aplikacijo. SAP je odgovoren za razvoj aplikacije, njen okvir in osnovno platformo. 
 
-If you want to use fastlane instead, you can do so by running the following commands:
+Slovenska Vlada je naložila Ministrstvu za javno upravo, da skupaj ob sodelovanju z NIJZ vzpostavi nemški model aplikacije, objavljene na [GitHub](https://github.com/corona-warn-app/cwa-app-ios/), za delovanje v Sloveniji. Aplikacije z imenom "OstaniZdrav" so prilagojene za android in iOS mobilne telefone.
+Podjetje RSTeam je kot izvajalec vključil prevode, ki jih je pripravila prevajalska služba Generalnega sekretariata Vlade RS skupaj z Ministrstvom za javno upravo.
+Ministrstvo za javno upravo, kot upravljavec centralne informacijske infrastrukture zagotavlja delovanje zalednega sistema, prav tako povzetega po originalni nemški različici objavljeni na [GitHub](https://github.com/corona-warn-app/cwa-documentation), za potrebe delovanja aplikacij ostanizdrav.
 
-```console
-cd src/xcode && bundle exec fastlane build_community
-cd src/xcode && bundle exec fastlane test
-```
 
-### Run
-
-1. Run the server locally
-
-   If you have Docker installed locally, the overall cwa-server setup can be easily built and run (incl. dependencies) by 'docker-compose up'. More information at: https://github.com/corona-warn-app/cwa-server
-2. Configure the URL scheme
-  * On your device, store a deep link that has the following structure:
-    `corona-warn-app://configure?distributionBaseURL=https://fix.me/&submissionBaseURL=https://fix.me&verificationBaseURL=https://fix.me`
-  * Tap on the link and then relaunch the app because the changes will only be effective in a new session. You can validate the configuration in the developer menu (triple-tap somewhere in the homescreen and click on the settings icon in the toolbar).
-
-## Architecture & Documentation
-
-The full documentation for the Corona-Warn-App is in the [cwa-documentation](https://github.com/corona-warn-app/cwa-documentation) repository. The documentation repository contains technical documents, architecture information, UI/UX specifications, and whitepapers related to this implementation.
-
-## Support & Feedback
-
-The following channels are available for discussions, feedback, and support requests:
-
-| Type                     | Channel                                                |
-| ------------------------ | ------------------------------------------------------ |
-| **General Discussion**   | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="General Discussion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/question.svg?style=flat-square"></a> </a>   |
-| **Feature Requests**    | <a href="https://github.com/corona-warn-app/cwa-wishlist/issues/new/choose" title="Create Feature Request"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-wishlist?style=flat-square"></a>  |
-| **Concept Feedback**    | <a href="https://github.com/corona-warn-app/cwa-documentation/issues/new/choose" title="Open Concept Feedback"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-documentation/architecture.svg?style=flat-square"></a>  |
-| **iOS App Issue**    | <a href="https://github.com/corona-warn-app/cwa-app-ios/issues/new/choose" title="Open iOS Suggestion"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-app-ios?style=flat-square"></a>  |
-| **Backend Issue**    | <a href="https://github.com/corona-warn-app/cwa-server/issues/new/choose" title="Open Backend Issue"><img src="https://img.shields.io/github/issues/corona-warn-app/cwa-server?style=flat-square"></a>  |
-| **Other Requests**    | <a href="mailto:corona-warn-app.opensource@sap.com" title="Email CWA Team"><img src="https://img.shields.io/badge/email-CWA%20team-green?logo=mail.ru&style=flat-square&logoColor=white"></a>   |
-
-## How to Contribute
-
-Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](./CONTRIBUTING.md). By participating in this project, you agree to abide by its [Code of Conduct](./CODE_OF_CONDUCT.md) at all times.
-
-#### SwiftLint
-
-This project uses [SwiftLint](https://github.com/realm/SwiftLint) to ensure a unified code style. The linter is run on every build and shows all warnings and error within Xcode's Issue Navigator.
-
-Please ensure you have installed SwiftLint when working on this project and fix any warnings or error before committing your changes.
-
-Use `brew install swiftlint` to install SwiftLint or download it manually from https://github.com/realm/SwiftLint. When not installed a warning will be triggered during build.
-
-## Contributors
-
-The German government has asked SAP and Deutsche Telekom to develop the Corona-Warn-App for Germany as open source software. Deutsche Telekom is providing the network and mobile technology and will operate and run the backend for the app in a safe, scalable and stable manner. SAP is responsible for the app development, its framework and the underlying platform. Therefore, development teams of SAP and Deutsche Telekom are contributing to this project. At the same time our commitment to open source means that we are enabling -in fact encouraging- all interested parties to contribute and become part of its developer community.
-
-## Repositories
+## Povezani repozitoriji izvorne kode
 
 | Repository          | Description                                                           |
 | ------------------- | --------------------------------------------------------------------- |
@@ -126,7 +51,7 @@ The German government has asked SAP and Deutsche Telekom to develop the Corona-W
 [cwa-app-android]: https://github.com/corona-warn-app/cwa-app-android
 [cwa-server]: https://github.com/corona-warn-app/cwa-server
 
-## Licensing
+## Licenciranje
 
 Copyright (c) 2020 SAP SE or an SAP affiliate company.
 
