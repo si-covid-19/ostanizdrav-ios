@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 @testable import ENA
 import ExposureNotification
@@ -23,17 +10,14 @@ final class ENStateTests: XCTestCase {
 
 	var stateHandler: ENStateHandler!
 	var exposureManagerState: ExposureManagerState!
-	var mockReachabilityService = MockReachabilityService()
 	let mockStateHandler = MockStateHandlerObserverDelegate()
 	
 	// setup stateHandler to be in enabled state
 	override func setUp() {
 		super.setUp()
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
-		mockReachabilityService = MockReachabilityService()
 		stateHandler = ENStateHandler(
 				initialExposureManagerState: exposureManagerState,
-				reachabilityService: self.mockReachabilityService,
 				delegate: mockStateHandler
 		)
 
@@ -64,19 +48,6 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .bluetoothOff)
 	}
 
-	// MARK: Internet State Tests
-
-	// when internet is turned off and turned on again
-	func testTurnOffTurnOnInternet() {
-		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
-		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .enabled)
-		self.mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		self.mockReachabilityService.reachabilityState = .connected
-		XCTAssertEqual(stateHandler.state, .enabled)
-	}
-
 	// MARK: Tests with combined state changes
 
 	func testDisableTracingAndBluetoothOff() {
@@ -86,22 +57,10 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .disabled)
 	}
 
-	func testDisableTracingAndBluetoothOffAndInternetOff() {
-		XCTAssertEqual(stateHandler.state, .enabled)
-		mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
-		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .disabled)
-	}
-
-	func testDisableTracingAndBluetoothOnAndInternetOn() {
+	func testDisableTracingAndBluetoothOn() {
 		XCTAssertEqual(stateHandler.state, .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .disabled)
 		stateHandler.updateExposureState(exposureManagerState)
-		mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .disabled)
-		mockReachabilityService.reachabilityState = .connected
 		XCTAssertEqual(stateHandler.state, .disabled)
 	}
 
@@ -109,15 +68,11 @@ final class ENStateTests: XCTestCase {
 		XCTAssertEqual(stateHandler.state, .enabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: false, status: .bluetoothOff)
 		stateHandler.updateExposureState(exposureManagerState)
-		self.mockReachabilityService.reachabilityState = .disconnected
-		XCTAssertEqual(stateHandler.state, .disabled)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .bluetoothOff)
 		stateHandler.updateExposureState(exposureManagerState)
 		XCTAssertEqual(stateHandler.state, .bluetoothOff)
 		exposureManagerState = ExposureManagerState(authorized: true, enabled: true, status: .active)
 		stateHandler.updateExposureState(exposureManagerState)
-		XCTAssertEqual(stateHandler.state, .internetOff)
-		self.mockReachabilityService.reachabilityState = .connected
 		XCTAssertEqual(stateHandler.state, .enabled)
 	}
 
@@ -134,7 +89,7 @@ final class ENStateTests: XCTestCase {
 		case .unknown:
 			XCTAssertEqual(stateHandler.state, .unknown)
 		case .authorized:
-			XCTAssertEqual(stateHandler.state, .disabled)
+			XCTAssertEqual(stateHandler.state, .notActiveApp)
 		@unknown default:
 			fatalError("Not all cases handled by Test cases of ENStateHandler")
 		}

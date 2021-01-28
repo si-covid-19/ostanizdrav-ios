@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
@@ -29,7 +16,11 @@ enum ExposureNotificationError: Error {
 	case unknown(String)
 }
 
-struct ExposureManagerState {
+enum ExposureDetectionError: Error {
+	case isAlreadyRunning
+}
+
+struct ExposureManagerState: Equatable {
 	// MARK: Creating a State
 
 	init(
@@ -37,28 +28,48 @@ struct ExposureManagerState {
 		enabled: Bool = false,
 		status: ENStatus = .unknown
 	) {
-		#if UITESTING
-		self.authorized = true
-		self.enabled = true
-		self.status = .active
-		#else
 		self.authorized = authorized
 		self.enabled = enabled
 		self.status = status
+
+
+		#if DEBUG
+		if isUITesting {
+			self.authorized = true
+			self.enabled = true
+
+			switch UserDefaults.standard.integer(forKey: "ENStatus") {
+			case ENStatus.active.rawValue:
+				self.status = .active
+			case ENStatus.disabled.rawValue:
+				self.status = .disabled
+			case ENStatus.bluetoothOff.rawValue:
+				self.status = .bluetoothOff
+			case ENStatus.restricted.rawValue:
+				self.status = .restricted
+			case ENStatus.paused.rawValue:
+				self.status = .paused
+			case ENStatus.unauthorized.rawValue:
+				self.status = .unauthorized
+			default :
+				self.status = .unknown // 0
+			}
+		}
 		#endif
 	}
 
 	// MARK: Properties
 
-	let authorized: Bool
-	let enabled: Bool
-	let status: ENStatus
+	private(set) var authorized: Bool
+	private(set) var enabled: Bool
+	private(set) var status: ENStatus
 	var isGood: Bool { authorized && enabled && status == .active }
 }
 
 @objc protocol Manager: NSObjectProtocol {
 	static var authorizationStatus: ENAuthorizationStatus { get }
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress
 	func activate(completionHandler: @escaping ENErrorHandler)
 	func invalidate()
 	var invalidationHandler: (() -> Void)? { get set }
@@ -69,33 +80,49 @@ struct ExposureManagerState {
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 }
 
-extension ENManager: Manager {}
+extension ENManager: Manager {
+
+	/// This signature is slightly altered and the call is forwarded due to Apple's use of
+	/// `NS_SWIFT_NAME(getExposureWindows(summary:completionHandler:))`
+	/// for their Objective-C implementation
+	/// ```- (NSProgress *) getExposureWindowsFromSummary: (ENExposureDetectionSummary *) summary
+	///								   	completionHandler: (ENGetExposureWindowsHandler) completionHandler```
+	/// If we're using the same signature as Apple does in our `Manager` protocol, the Objective-C implementation is expected to be named
+	/// `getExposureWindowsWithSummary` instead of `getExposureWindowsFromSummary:`
+	func getExposureWindows(from summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
+		getExposureWindows(summary: summary, completionHandler: completionHandler)
+	}
+
+}
 
 protocol ExposureManagerLifeCycle {
 	typealias CompletionHandler = ((ExposureNotificationError?) -> Void)
+
+	var exposureManagerState: ExposureManagerState { get }
+
 	func invalidate(handler:(() -> Void)?)
 	func activate(completion: @escaping CompletionHandler)
 	func enable(completion: @escaping CompletionHandler)
 	func disable(completion: @escaping CompletionHandler)
-	func preconditions() -> ExposureManagerState
 	func reset(handler: (() -> Void)?)
 	func requestUserNotificationsPermissions(completionHandler: @escaping (() -> Void))
 }
 
 
 protocol DiagnosisKeysRetrieval {
+	var exposureManagerState: ExposureManagerState { get }
+
 	func getTestDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler)
-	func preconditions() -> ExposureManagerState
 }
-
 
 protocol ExposureDetector {
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress
+	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress
 }
 
 protocol ExposureManagerObserving {
-	func resume(observer: ENAExposureManagerObserver)
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver)
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController?
 }
 
@@ -120,6 +147,8 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private weak var exposureManagerObserver: ENAExposureManagerObserver?
 	private var statusObservation: NSKeyValueObservation?
 	@objc private var manager: Manager
+	private var detectExposuresProgress: Progress?
+	private var getExposureWindowsProgress: Progress?
 
 	// MARK: Creating a Manager
 
@@ -130,7 +159,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		super.init()
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
 		// previsously we had a precondion here. Removed for now to track down a bug.
 		guard exposureManagerObserver == nil else {
 			return
@@ -141,7 +170,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		statusObservation = observe(\.manager.exposureNotificationStatus, options: .new) { [weak self] _, _ in
 			guard let self = self else { return }
 			DispatchQueue.main.async {
-				observer.exposureManager(self, didChangeState: self.preconditions())
+				observer.exposureManager(self, didChangeState: self.exposureManagerState)
 			}
 		}
 	}
@@ -153,7 +182,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func activate(completion: @escaping CompletionHandler) {
 		manager.activate { activationError in
 			if let activationError = activationError {
-				logError(message: "Failed to activate ENManager: \(activationError.localizedDescription)")
+				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
@@ -178,7 +207,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
-				logError(message: "Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)")
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
@@ -191,10 +220,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
 	}
 
-
-	/// Returns an instance of the OptionSet `Preconditions`
-	/// Only if `Preconditions.all()`
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		.init(
 			authorized: type(of: manager).authorizationStatus == .authorized,
 			enabled: manager.exposureNotificationEnabled,
@@ -207,9 +233,53 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Wrapper for `ENManager.detectExposures`
 	/// `ExposureManager` needs to be activated and enabled
 	func detectExposures(configuration: ENExposureConfiguration, diagnosisKeyURLs: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
-		manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { summary, error in
+		// An exposure detection is currently running. Call complete with error and return current progress.
+		if let progress = detectExposuresProgress, !progress.isCancelled && !progress.isFinished {
+			Log.error("ENAExposureManager: Exposure detection is already running.", log: .riskDetection, error: ExposureDetectionError.isAlreadyRunning)
+			completionHandler(nil, ExposureDetectionError.isAlreadyRunning)
+			return progress
+		}
+
+		Log.info("ENAExposureManager: Start exposure detection.", log: .riskDetection)
+
+		let progress = manager.detectExposures(configuration: configuration, diagnosisKeyURLs: diagnosisKeyURLs) { [weak self] summary, error in
+			guard let self = self else { return }
+			Log.info("ENAExposureManager: Completed exposure detection.", log: .riskDetection)
+
+			self.detectExposuresProgress = nil
 			completionHandler(summary, error)
 		}
+
+		detectExposuresProgress = progress
+
+		return progress
+	}
+
+	// MARK: Get Exposure Windows
+
+	/// Wrapper for `ENManager.getExposureWindows`
+	/// `ExposureManager` needs to be activated and enabled
+	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
+		// An exposure detection is currently running. Call complete with error and return current progress.
+		if let getExposureWindowsProgress = getExposureWindowsProgress, !getExposureWindowsProgress.isCancelled && !getExposureWindowsProgress.isFinished {
+			Log.error("ENAExposureManager: Getting exposure windows is already in progress.", log: .riskDetection, error: ExposureDetectionError.isAlreadyRunning)
+			completionHandler(nil, ExposureDetectionError.isAlreadyRunning)
+			return getExposureWindowsProgress
+		}
+
+		Log.info("ENAExposureManager: Start getting exposure windows.", log: .riskDetection)
+
+		let progress = manager.getExposureWindows(from: summary) { [weak self] exposureWindows, error in
+			guard let self = self else { return }
+			Log.info("ENAExposureManager: Completed getting exposure windows.", log: .riskDetection)
+
+			self.getExposureWindowsProgress = nil
+			completionHandler(exposureWindows, error)
+		}
+
+		getExposureWindowsProgress = progress
+
+		return progress
 	}
 
 	// MARK: Diagnosis Keys
@@ -223,7 +293,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	func accessDiagnosisKeys(completionHandler: @escaping ENGetDiagnosisKeysHandler) {
 		if !manager.exposureNotificationEnabled {
 			let error = ENError(.notEnabled)
-			logError(message: error.localizedDescription)
+			Log.error(error.localizedDescription, log: .api)
 			completionHandler(nil, error)
 			return
 		}
@@ -246,7 +316,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				completion(ExposureNotificationError.apiMisuse)
 			default:
 				let errorMsg = "[ExposureManager] Not implemented \(error.localizedDescription)"
-				logError(message: errorMsg)
+				Log.error(errorMsg, log: .api)
 				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
 		}
@@ -289,7 +359,7 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		notificationCenter.requestAuthorization(options: options) { _, error in
 			if let error = error {
 				// handle error
-				log(message: "Notification authorization request error: \(error.localizedDescription)", level: .error)
+				Log.error("Notification authorization request error: \(error.localizedDescription)", log: .api)
 			}
 			DispatchQueue.main.async {
 				completionHandler()

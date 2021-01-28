@@ -1,971 +1,780 @@
-/* General */
-"Alert_TitleGeneral" = "Pojavila se je napaka.";
-
-"Alert_ActionOk" = "V redu";
-
-"Alert_ActionRetry" = "Ponovi";
-
-"Alert_ActionCancel" = "Prekliči";
-
-"Alert_ActionRemove" = "Odstrani";
-
-"Alert_BluetoothOff_Title" = "Vklopi Bluetooth";
-
-"Alert_BluetoothOff_Description" = "Da lahko ta aplikacija deluje, mora biti v vaših sistemskih nastavitvah vklopljen Bluetooth.";
-
-"Alert_CancelAction_Later" = "Pozneje";
-
-"Alert_DefaultAction_OpenSettings" = "Odpri nastavitve";
-
-"General_BackButtonTitle" = "Nazaj";
-
-"Common_ENError5_Description" = "Napaka 5: Pojavile so se težave. Stopnje vašega tveganja nismo mogli oceniti. Iščemo rešitev težave.";
-
-"Common_ENError11_Description" = "Napaka 11: Pojavile so se težave. Stopnje vašega tveganja nismo mogli oceniti. Znova zaženite svojo napravo in ponovno poskusite jutri.";
-
-"Common_ENError13_Description" = "Napaka 13: Ocena vašega tveganja je bila danes že opravljena. Poskusite ponovno čez 24 ur.";
-
-"Common_Alert_Action_moreInfo" = "Več o tem";
-
-"Common_BackgroundFetch_AlertMessage" = "Izklopili ste delovanje aplikacije v ozadju. Da zagotovite pravilno delovanje aplikacije #OstaniZdrav omogočite delovanje v ozadju, to storite v nastavitvah naprave. Če ne aktivirate delovanja v ozadju, lahko beleženje izpostavljenosti samo ročno vklopite.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Odprite nastavitve naprave";
-
-"Common_BackgroundFetch_OKTitle" = "Ročno vključite beleženje izpostavljenosti";
-
-"Common_BackgroundFetch_AlertTitle" = "Posodabljanje v ozadju je izključeno";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-"General_moreInfo_URL_EN5" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-"General_moreInfo_URL_EN11" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-"General_moreInfo_URL_EN13" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-/* Accessibility */
 "AccessibilityLabel_Close" = "Zapri";
-
 "AccessibilityLabel_PhoneNumber" = "Telefonska številka";
-
-/* Exposure Detection */
-"ExposureDetection_Off" = "Beleženje izpostavljenosti je ustavljeno";
-
-"ExposureDetection_Outdated" = "Beleženje izpostavljenosti ni mogoče";
-
-"ExposureDetection_Unknown" = "Neznano tveganje";
-
-"ExposureDetection_Low" = "Majhno tveganje";
-
-"ExposureDetection_High" = "Večje tveganje";
-
-"ExposureDetection_NumberOfDaysStored" = "Aktivirano %1$s od 14 dni";
-
-"ExposureDetection_Refreshed" = "Posodobljeno: %@";
-
-"ExposureDetection_Refreshed_Never" = "Neznano";
-
-"ExposureDetection_RefreshingIn" = "Posodobitev čez %02d:%02d\U00A0minut";
-
-"ExposureDetection_RefreshIn" = "Posodobitev čez %@";
-
-"ExposureDetection_Refresh_24h" = "Posodobljeno vsak dan";
-
-"ExposureDetection_LastRiskLevel" = "Zadnje beleženje izpostavljenosti: %@";
-
-"ExposureDetection_OffText" = "Vklopite beleženje izpostavljenosti, da ocenite stanje svojega današnjega tveganja.";
-
-"ExposureDetection_OutdatedText" = "Beleženja izpostavljenosti nismo mogli posodobiti več kot 48 ur.";
-
-"ExposureDetection_UnknownText" = "Ker beleženje izpostavljenosti ni bilo vklopljeno dovolj dolgo, nismo mogli oceniti vašega tveganja za okužbo.";
-
-"ExposureDetection_LoadingText" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut.";
-
-"ExposureDetection_Behavior_Title" = "Priporočila";
-
-"ExposureDetection_Behavior_Subtitle" = "Kaj morate narediti?";
-
-"ExposureDetection_Guide_Hands" = "Redno in temeljito si umivajte roke z milom in vodo. V primeru, da milo in voda nista dostopna, si roke razkužite. Ne dotikajte se oči, nosu in ust z neumitimi ali nerazkuženimi rokami.";
-
-"ExposureDetection_Guide_Mask" = "V zaprtih prostorih, kjer ni mogoče vzdrževati zadostne medosebne razdalje, svetujemo uporabo maske. Redno zračite prostore.";
-
-"ExposureDetection_Guide_Distance" = "Vzdržujte medosebno razdaljo najmanj 1,5 metra.";
-
-"ExposureDetection_Guide_Sneeze" = "Preden zakašljate ali kihnete, si pokrijte usta in nos s papirnatim robčkom ali pa zakašljate ali kihnite v zgornji del rokava.";
-
-"ExposureDetection_Guide_Home" = "Izogibajte se nenujnim stikom z drugimi ljudmi, še posebej osebam s povečanim tveganjem za hujši potek bolezni, kot so starejši in kronični bolniki. V zaprtih prostorih, kjer ni mogoče vzdrževati zadostne medosebne razdalje, svetujemo uporabo maske. ";
-
-"ExposureDetection_Guide_Hotline1" = "Spremljajte svoje zdravstveno stanje. Če se pri vas pojavi kateri od naštetih simptomov ali znakov, ostanite doma in po telefonu kontaktirajte izbranega ali dežurnega zdravnika:";
-
-"ExposureDetection_Guide_Hotline2" = "Slabo počutje, prehladni znaki, kašelj, vročina, težko dihanje, glavobol, bolečine v mišicah, izguba vonja ali okusa, bolečine v žrelu";
-
-"ExposureDetection_Guide_Hotline3" = "Še naprej upoštevajte splošne ukrepe za preprečevanje širjenja okužbe.";
-
-"ExposureDetection_Guide_Hotline4" = "Splošne informacije o COVID-19 so dostopne na spletni strani Nacionalnega inštituta za javno zdravje in Ministrstva za zdravje.";
-
-"ExposureDetection_Explanation_Title" = "Tveganje za okužbo";
-
-"ExposureDetection_Explanation_Subtitle_Active" = "";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = "";
-
-"ExposureDetection_Explanation_Text_Off" = "Vaše tveganje za okužbo smo ocenili lokalno na vaši napravi na podlagi podatkov o beleženju izpostavljenosti (trajanje in bližina). Podatka o vašem tveganju za okužbo ne more videti nihče drug in tudi posredovati ga ne morete nikomur.";
-
-"ExposureDetection_Explanation_Text_Outdated" = "Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo.\n\nVaše tveganje za okužbo se oceni lokalno na vaši napravi na podlagi podatkov o beleženju izpostavljenosti (trajanje in bližina). Podatka o vašem tveganju za okužbo ne more videti nihče drug in tudi posredovati ga ne morete nikomur.";
-
-"ExposureDetection_Explanation_Text_Unknown" = "Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo. \n\nVaše tveganje za okužbo se oceni lokalno na vaši napravi na podlagi podatkov o beleženju izpostavljenosti (trajanje in bližina). Podatka o vašem tveganju za okužbo ne more videti nihče drug in tudi posredovati ga ne morete nikomur.";
-
-"ExposureDetection_Explanation_Text_Low" = "Vaše tveganje za okužbo je majhno, ker ni bilo zabeleženega stika z osebami, pri katerih je bila pozneje potrjena okužba s SARS-CoV-2, oziroma ker so bili vaši stiki kratkotrajni ali na večji razdalji.";
-
-"ExposureDetection_Explanation_Text_High" = "Vaše tveganje za okužbo je večje, ker ste bili nazadnje izpostavljeni pred %1$s dnevi, in sicer dlje časa in v bližini vsaj ene osebe, pri kateri je bila potrjena okužba s SARS-CoV-2.";
-
-"ExposureDetection_Button_Enable" = "Aktiviraj beleženje izpostavljenosti";
-
-"ExposureDetection_Button_Refresh" = "Posodobi";
-
-/* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Obdobje beleženja";
-
-"ExposureDetection_ActiveTracingSection_Subtitle" = "";
-
-/* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Vaša stopnja tveganja za okužbo se lahko oceni samo, če je aktivirano beleženje izpostavljenosti. Za pravilno delovanje aplikacija mora biti ta funkcionalnost aktivirana ves čas.";
-
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Beleženje izpostavljenosti zajema zadnjih %1$u dni. V tem času je bila funkcionalnost beleženja aktivirana %2$u dni. Aplikacija samodejno briše starejše zapise, saj ti podatki niso več relavantni za preprečevanje širjenja okužbe.";
-
-/* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Napaka";
-
-"ExposureDetectionError_Alert_Action_Details" = "Podrobnosti";
-
-"ExposureDetectionError_Alert_Message" = "Med beleženjem izpostavljenosti je prišlo do napake.";
-
-/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
-"How_Risk_Detection_Works_Alert_Title" = "Informacije o funkcionalnosti beleženja izpostavljenosti";
-
-"How_Risk_Detection_Works_Alert_Message" = "Vaša stopnja tveganja za okužbo se lahko oceni samo, če je aktivirano beleženje izpostavljenosti. Za pravilno delovanje aplikacija mora biti ta funkcionalnost aktivirana ves čas.\nBeleženje izpostavljenosti zajema zadnjih 14 dni. V tem času je bila funkcionalnost beleženja aktivna %1$u dni.\nAplikacija samodejno briše starejše zapise, saj ti podatki niso več relavantni za preprečevanje širjenja okužbe.\n\nZa dodatne informacije si oglejte našo spletno stran.";
-
-/* Settings */
-"Settings_StatusActive" = "Vklopljeno";
-
-"Settings_StatusInactive" = "Izklopljeno";
-
-"Settings_StatusEnable" = "Aktiviraj";
-
-"Settings_StatusDisable" = "Deaktiviraj";
-
-"Settings_KontaktProtokollStatusActive" = "Aktivirano";
-
-"Settings_KontaktProtokollStatusInactive" = "Ustavljeno";
-
-"Settings_Tracing_Label" = "Beleženje izpostavljenosti";
-
-"Settings_Notification_Label" = "Obvestila";
-
-"Settings_Reset_Label" = "Ponastavi aplikacijo";
-
-"Settings_Tracing_Description" = "Dovolite, da se ustvarjajo in delijo naključne oddajne kode za beleženje izpostavljenosti.";
-
-"Settings_Notification_Description" = "Dovolite samodejna obvestila o stanju tveganja za okužbo s SARS-CoV-2.";
-
-"Settings_Reset_Description" = "Izbrišite vse podatke v aplikaciji";
-
-"Settings_NavTitle" = "Nastavitve";
-
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Ali želite prejemati obvestila o svojem stanju tveganja za okužbo s SARS-CoV-2?";
-
-"NotificationSettings_On_SectionTitle" = "Nastavitev";
-
-"NotificationSettings_On_RiskChanges" = "Vaše tveganje za okužbo se je spremenilo";
-
-"NotificationSettings_On_TestsStatus" = "";
-
-"NotificationSettings_Off_SectionTitle" = "Nastavitev";
-
-"NotificationSettings_Off_EnableNotifications" = "Obvestila";
-
-"NotificationSettings_Off_StatusInactive" = "Izklopljena";
-
-"NotificationSettings_Off_InfoTitle" = "Aktiviraj prejemanje obvestil";
-
-"NotificationSettings_Off_InfoDescription" = "Da aktivirate obvestila, jih morate za aplikacijo #OstaniZdrav dovoliti v nastavitvah svoje naprave.";
-
-"NotificationSettings_Off_OpenSettings" = "Odpri nastavitve";
-
-"NotificationSettings_NavTitle" = "Obvestila";
-
-"NotificationSettings_onImageDescription" = "Ena ženska je prejela obvestilo od svoje aplikacije #OstaniZdrav.";
-
-"NotificationSettings_offImageDescription" = "Ena ženska ne more prejeti obvestil od svoje aplikacije #OstaniZdrav.";
-
-/* Onboarding */
-"Onboarding_LetsGo_actionText" = "Začnimo";
-
-"Onboarding_Continue_actionText" = "Naprej";
-
-"Onboarding_EnableLogging_actionText" = "Omogoči";
-
-"Onboarding_Continue_actionTextHint" = "Ta zaslon lahko preskočite";
-
-"Onboarding_doNotAllow_actionText" = "Ne dovoli";
-
-"Onboarding_DoNotActivate_actionText" = "Ne aktiviraj";
-
-"Onboarding_DeactivateExposureConfirmation_title" = "To pomeni, da aplikacija #OstaniZdrav ne more pošiljati ali prejemati obvestil o vašem stanju tveganja za okužbo s SARS-CoV-2.";
-
-"Onboarding_DeactivateExposureConfirmation_message" = "To funkcionalnost lahko izklopite kadar koli.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Skupina ljudi uporablja svoje naprave v mestu.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_title" = "Obvarujmo sebe in druge pred COVID-19.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Več zaščite za vas in vse nas. Če bomo uporabljali aplikacijo #OstaniZdrav, nam bo veliko hitreje uspelo prekiniti verigo prenosa okužb.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Uporabljajte svoj pametni telefon kot opozorilni sistem za izpostavljenost novemu koronavirusu (SARS-CoV-2). Okužba s tem virusom lahko povzroči bolezen COVID-19 ali lahko poteka brez simptomov.\nSeznanite se s svojim tveganjem za okužbo in odkrijte, ali ste bili v stiku z nekom, pri katerem je bila v preteklih 14 dneh potrjena okužba s SARS-CoV-2.";
-
-"OnboardingInfo_privacyPage_imageDescription" = "Ena izmed žensk uporablja aplikacijo #OstaniZdrav na svoji napravi. Ključavnica na ščitu je simbol za šifrirane podatke.";
-
-"OnboardingInfo_privacyPage_title" = "Varstvo podatkov";
-
-"OnboardingInfo_privacyPage_boldText" = "";
-
-"OnboardingInfo_privacyPage_normalText" = "Ostali boste anonimni.\nVaši podatki se prenašajo v povsem šifrirani obliki in pod psevdonimom.\n\nOdgovorna ustanova: Ministrstvo za javno upravo in Nacionalni inštitut za javno zdravje\n Splošna uredba o varstvu podatkov (GDPR) v povezavi Zakonom o varstvu osebnih podatkov Republike Slovenije\nPreberite naše predpise o zasebnosti podatkov.\n\nInformacije o zasebnosti podatkov:";
-
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Tri osebe so na svojih napravah aktivirali beleženje izpostavljenosti, s čimer bodo beležili medsebojne stike.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "Kako vklopiti beleženje izpostavljenosti";
-
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "";
-
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Beleženje izpostavljenosti deluje tako, da vaša naprava prek Bluetootha prejme naključne oddajne kode drugih uporabnikov, vašo naključno oddajno kodo pa posreduje njihovim napravam. To funkcionalnost lahko izklopite kadar koli. \n\nZ naključnimi oddajnimi kodami se posredujejo le informacije o datumu, trajanju in bližini do drugih naprav, ki je izračunana s pomočjo jakosti Bluetooth signala. Osebni podatki, kot so ime, naslov in lokacija, se ne beležijo. Posameznikov ni mogoče prepoznati.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Izjava o soglasju";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Če želite ugotoviti stopnjo tveganja za okužbo s SARS-CoV-2, morate omogočiti funkcijo beleženja izpostavljenosti v aplikaciji. S klikom na gumb »Omogoči« soglašate z vklopom funkcije beleženja izpostavljenosti v aplikaciji in obdelavo s tem povezanih podatkov.\n\n\nZa celovito delovanje aplikacije mora biti omogočena funkcija beleženja izpostavljenosti COVID-19, ki jo na vašem iPhonu zagotavlja Apple, aplikaciji #OstaniZdrav pa dati dovoljenje, da jo uporablja.\n\nKo boste omogočili beleženje izpostavljenosti, bo vaš iPhone prek Bluetootha nenehno ustvarjal in prenašal naključne oddajne kode, ki jih bodo sprejemali drugi pametni telefoni Android ali Apple v bližini, in sicer pod pogojem, da je tudi na njih omogočeno beleženje izpostavljenosti. Vaš iPhone pa ob tem prejema naključne oddajne kode od drugih pametnih telefonov. Vaše naključne oddajne kode in tiste, ki ste jih prejeli z drugih pametnih telefonov, se zabeležijo v dnevnik izpostavljenosti, v katerem se hranijo 14 dni.\n\nZa oceno vašega tveganja za okužbo bo aplikacija enkrat dnevno naložila seznam naključnih dnevnih ključev vseh uporabnikov, ki so svoji aplikaciji sporočili, da so okuženi s SARS-CoV-2. Ta seznam se nato primerja z naključnimi oddajnimi kodami v dnevniku izpostavljenosti. Če aplikacija odkrije, da ste bili v stiku z okuženim uporabnikom, vas bo o tem obvestila in vam sporočila, da obstaja tveganje za okužbo.\n\nZ jakostjo signala Bluetooth se določi fizična oddaljenost (močnejši kot je signal, manjša je oddaljenost). Aplikacija nato analizira te informacije, da oceni verjetnost okužbe s SARS-CoV-2 in da vam priporoči, kako ukrepati. Ta analiza se izvede le lokalno, na vašem iPhoneu. Razen vas ne bo nihče vedel, ali ste bili v stiku z okuženo osebo in kakšno je tveganje za okužbo.\n\nZa preklic soglasja glede uporabe funkcionalnosti beleženja izpostavljenosti lahko to funkcijo onemogočite s preklopnim stikalom v aplikaciji ali pa aplikacijo izbrišete. Če se odločite, da boste funkcionalnost beleženja izpostavljenosti ponovno uporabljali, lahko funkcionalnost ponovno vklopite s preklopnim stikalom ali si ponovno namestite aplikacijo. Če izklopite funkcionalnost beleženja izpostavljenosti, aplikacija ne bo več preverjala, ali ste bili v stiku z okuženim uporabnikom. Če bi prav tako želeli, da vaša naprava preneha pošiljati in prejemati naključne oddajne kode, boste morali v nastavitvah svojega iPhona onemogočiti beleženje izpostavljenosti COVID-19. Ne pozabite, da vaše naključne oddajne kode in tiste, ki ste jih prejeli z drugih pametnih telefonov in so shranjene v dnevniku izpostavljenosti, ne bodo izbrisane v aplikaciji. Podatke, shranjene v dnevniku izpostavljenosti, lahko trajno izbrišete le v nastavitvah svojega iPhonea.\n\nObvestilo o zasebnosti v aplikaciji (vključno z razlago obdelave podatkov, ki se izvaja za funkcijo beleženja izpostavljenosti) lahko najdete v meniju pod naslovom »Zasebnost«.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Stanje";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Ocena tveganja za okužbo s SARS-CoV-2";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktivirano";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Ustavljeno";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = " Šifrirano obvestilo o okužbi se prenese v sistem, ki bo opozoril druge uporabnike.";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Če je bila pri vas potrjena okužba s SARS-CoV-2 ...";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… vas vljudno prosimo, da to delite v aplikaciji #OstaniZdrav. Deljenje informacije o vaši okužbi je prostovoljno in varno. To storite zaradi zdravja drugih.";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Vaše obvestilo o okužbi je varno zašifrirano in obdelano na varnem strežniku. Osebe, ki imajo shranjeno vašo naključno oddajno kodo, bodo v primeru zaznanega tveganja prejele opozorilo in informacije o tem, kaj morajo storiti.";
-
-"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Ena ženska je prejela obvestilo od svoje aplikacije #OstaniZdrav.";
-
-"OnboardingInfo_alwaysStayInformedPage_title" = "Prejemajte opozorila in prepoznajte tveganja";
-
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplikacija vas lahko samodejno obvesti o vašem stanju tveganja za okužbo.";
-
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Če boste aplikaciji dovolili, da vas obvešča, boste lahko prejeli obvestilo o vašem tveganju za okužbo in priporočila za nadaljnje ukrepanje.";
-
-/* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "080 1787";
-
-"ExposureSubmission_DataPrivacyTitle" = "Varstvo podatkov";
-
-"ExposureSubmission_Continue_actionText" = "Naprej";
-
-"ExposureSubmission_DataPrivacyDescription" = "S klikom na »Sprejmi« boste oddali svoje soglasje, s katerim dovoljujete, da aplikacija vaše naključne dnevne ključe iz preteklih 14 dni posreduje strežniškemu sistemu. Tako lahko drugi uporabniki, ki so omogočili funkcijo beleženja izpostavljenosti, prejmejo samodejna obvestila o tem, da so bili mogoče izpostavljeni SARS-CoV-2. Naključni dnevni ključi, ki se prenesejo v ta namen, ne vsebujejo nikakršnih informacij, na podlagi katerih bi lahko sklepali o vaši identiteti ali o vas kot osebi.
-\n\nVnos rezultata vašega testa v aplikacijo je prostovoljen. Ne boste kaznovani, če rezultata svojega testa ne boste vnesli. Ker ni mogoče slediti ali preveriti, ali uporabljate aplikacijo oziroma kako jo uporabljate, ne bo nihče razen vas vedel, ali ste vnesli informacijo o tem, da ste okuženi.
-\n\n Svoje soglasje lahko kadar koli umaknete z izbrisom aplikacije. Preklic soglasja ne vpliva na zakonitost obdelave, ki je bila izvedena na podlagi soglasja pred vašim preklicem soglasja. Dodatne informacije lahko najdete v meniju pod naslovom »Zasebnost«.";
-
-"ExposureSubmissionDataPrivacy_AcceptTitle" = "Sprejmi";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Ne sprejmi";
-
-"ExposureSubmission_Submit" = "Podatek o okužbi s SARS-CoV-2 delite z vnosom številke TAN v aplikacijo";
-
-"ExposureSubmissionTanEntry_Title" = "Vnos številke TAN";
-
-"ExposureSubmissionTanEntry_EntryField" = "Polje za vnos številke TAN";
-
-"ExposureSubmissionTanEntry_Info" = "Vnesite številko TAN, ki ste jo prejeli";
-
-"ExposureSubmissionTanEntry_Description" = "Vnesite 10-mestno številko TAN, ki ste jo prejeli";
-
-"ExposureSubmissionTanEntry_Submit" = "Naprej";
-
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Neveljavna številka TAN, preverite svoj vnos.";
-
-"ExposureSubmissionTanEntry_InvalidError" = "Neveljavna številka TAN, preverite svoj vnos.";
-
-"ExposureSubmission_NavTitle" = "";
-
-"ExposureSubmissionConfirmation_Title" = "Pozitiven rezultat testa";
-
-"ExposureSubmission_GeneralErrorTitle" = "Napaka";
-
-"ExposureSubmission_DispatchTitle" = "Izbor";
-
-"ExposureSubmission_DispatchDescription" = "";
-
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "";
-
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "";
-
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
-
-"ExposureSubmissionDispatch_TANButtonDescription" = " Vnesite številko TAN.";
-
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "";
-
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "%@.";
-
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Pozitiven";
-
-"ExposureSubmissionHotline_Title" = "";
-
-"ExposureSubmissionHotline_Description" = "";
-
-"ExposureSubmissionHotline_SectionTitle" = "";
-
-"ExposureSubmissionHotline_SectionDescription1" = "";
-
-"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Korak 1 od 2";
-
-"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Korak 2 od 2";
-
-"ExposureSubmission_PhoneNumber" = "";
-
-"ExposureSubmission_PhoneDetailDescription" = "";
-
-"ExposureSubmission_SectionDescription2" = "Test registrirajte z vnosom številke TAN v aplikacijo.";
-
-"ExposureSubmission_CallButtonTitle" = "";
-
-"ExposureSubmission_TANInputButtonTitle" = "Vnesite številko TAN";
-
-"ExposureSubmissionHotline_imageDescription" = "";
-
-/* Exposure Submission QR Code Scanner tega ni v app */
-"ExposureSubmissionQRScanner_title" = "";
-
-"ExposureSubmissionQRScanner_instruction" = "";
-
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "";
-
-"ExposureSubmissionQRScanner_otherError" = "";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "";
-
-/* Exposure Submission Success */
-"ExposureSubmissionSuccess_Title" = "Hvala!";
-
-"ExposureSubmissionSuccess_AccImageDescription" = "Vsi v skupini se veselijo, ker je nekdo delil rezultat svojega testa.";
-
-"ExposureSubmissionSuccess_Button" = "Končano";
-
-"ExposureSubmissionSuccess_Description" = "Vaš prispevek je dragocen. Hvala za podporo. Zdaj lahko drugi prejmejo opozorilo in se ustrezno odzovejo.";
-
-"ExposureSubmissionSuccess_subTitle" = "Druge informacije:";
-
-"ExposureSubmissionSuccess_listTitle" = "Ne pozabite:";
-
-"ExposureSubmissionSuccess_listItem1" = "";
-
-"ExposureSubmissionSuccess_listItem2" = "Pri vas je bila potrjena okužba s SARS-CoV-2. Spoštujte navodila o izolaciji, ki se jih prejeli s strani zdravstvene službe.";
-
-"ExposureSubmissionSuccess_listItem2_1" = "Obdobje izolacije se predvidoma zaključi 14 dni po umiritvi simptomov in znakov. O trajanju izolacije presoja vaš lečeči zdravnik.";
-
-"ExposureSubmissionSuccess_listItem2_2" = "V primeru poslabšanja bolezni se po telefonu posvetujte z vašim izbranim osebnim ali dežurnim zdravnikom.";
-
-"ExposureSubmissionSuccess_listItem2_3" = "V nujnih primerih pokličite 112.";
-
-"ExposureSubmissionSuccess_listItem2_4" = "Povejte, da je bila pri vas potrjena okužba s SARS-CoV-2.";
-
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Ali ste bili testirani?";
-
-"ExposureSubmissionIntroduction_SubTitle" = "Delovanje aplikacije #OstaniZdrav";
-
-"ExposureSubmissionIntroduction_AccImageDescription" = "Naprava prenaša šifrirano obvestilo na podlagi potrjene okužbe s SARS-CoV-2 v sistem.";
-
-"ExposureSubmissionIntroduction_Usage01" = "Da bi lahko aplikacija dobro delovala, se zanašamo na podporo ljudi, pri katerih je bila potrjena okužba s SARS-CoV-2.";
-
-"ExposureSubmissionIntroduction_Usage02" = "Ker se izmenjujejo le naključne oddajne kode, boste ostali anonimni. Nadaljujete lahko, kot sledi:";
-
-"ExposureSubmissionIntroduction_ListItem1" = "Če je bila pri vas potrjena okužba s SARS-CoV-2, lahko o tem obvestite druge.";
-
-"ExposureSubmissionIntroduction_ListItem2" = "";
-
-"ExposureSubmissionIntroduction_ListItem3" = "";
-
-"ExposureSubmissionIntroduction_ListItem4" = "";
-
-/* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Hvala za vnos";
-
-"ExposureSubmissionResult_CardSubTitle" = "";
-
-"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
-
-"ExposureSubmissionResult_CardPositive" = "Pozitivni";
-
-"ExposureSubmissionResult_CardNegative" = "";
-
-"ExposureSubmissionResult_CardInvalid" = "";
-
-"ExposureSubmissionResult_CardPending" = "";
-
-"ExposureSubmissionResult_Procedure" = "";
-
-"ExposureSubmissionResult_testAdded" = "Vnos TAN je bil uspešno zabeležen";
-
-"ExposureSubmissionResult_testAddedDesc" = "V aplikacijo ste uspešno vnesli potrditev okužbe.";
-
-"ExposureSubmissionResult_warnOthers" = "Opozarjanje drugih";
-
-"ExposureSubmissionResult_warnOthersDesc" = "Kliknite »Naprej« in opozorite druge.";
-
-"ExposureSubmissionResult_testPositive" = "Naj drugi ostanejo zdravi";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Delite svoje dnevne ključe iz preteklih 14 dni, da zaščitite druge in prekinete verigo prenosa okužb.";
-
-"ExposureSubmissionResult_testNegative" = "";
-
-"ExposureSubmissionResult_testNegativeDesc" = "";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_title" = "";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "";
-
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "";
-
-"ExposureSubmissionResult_testInvalid" = "";
-
-"ExposureSubmissionResult_testInvalidDesc" = "";
-
-"ExposureSubmissionResult_testPending" = "";
-
-"ExposureSubmissionResult_testPendingDesc" = "";
-
-"ExposureSubmissionResult_testRemove" = "";
-
-"ExposureSubmissionResult_testRemoveDesc" = "";
-
-"ExposureSubmissionResult_continueButton" = "Naprej";
-
-"ExposureSubmissionResult_deleteButton" = "";
-
-"ExposureSubmissionResult_refreshButton" = "Posodobitev";
-
-"ExposureSubmissionWarnOthers_title" = "Opozarjanje drugih";
-
-"ExposureSubmissionWarnOthers_AccImageDescription" = "";
-
-"ExposureSubmissionWarnOthers_continueButton" = "Sprejmi";
-
-"ExposureSubmissionWarnOthers_sectionTitle" = "Prosimo, pomagajte vsem nam.";
-
-"ExposureSubmissionWarnOthers_description" = "Omogočite lahko, da aplikacija #OstaniZdrav vaše naključne dnevne ključe iz preteklih 14 dni deli z drugimi. Če boste to storili, boste lahko opozorili druge ljudi in pomagali, da se prekine veriga prenosa okužb.\n\nPrenašajo le neosebni naključni dnevni ključi, torej bo vaša identiteta ostala anonimna.";
-
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "S klikom na »Sprejmi« boste oddali svoje soglasje, s katerim dovoljujete, da aplikacija vaše naključne dnevne ključe iz preteklih 14 dni posreduje strežniškemu sistemu. Tako lahko drugi uporabniki, ki so omogočili funkcionalnost beleženja izpostavljenosti, prejmejo samodejna obvestila o tem, da so bili mogoče izpostavljeni SARS-CoV-2. Naključni dnevni ključi, ki se prenesejo v ta namen, ne vsebujejo nikakršnih informacij, na podlagi katerih bi lahko sklepali o vaši identiteti ali o vas kot osebi.
-\n\nDeljenje informacije o okužbi v aplikaciji je prostovoljno. Ne boste kaznovani, če te informacije ne vnesete. Ker ni mogoče slediti ali preveriti, ali uporabljate aplikacijo oziroma kako jo uporabljate, ne bo nihče razen vas vedel, ali ste vnesli informacijo o tem, da ste okuženi.
-\n\nSvoje soglasje lahko kadar koli umaknete z izbrisom aplikacije. Preklic soglasja ne vpliva na zakonitost obdelave, ki je bila izvedena na podlagi soglasja pred vašim preklicem soglasja. Dodatne informacije lahko najdete v meniju pod naslovom »Zasebnost«.";
-
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Zasebnost";
-
-"ExposureSubmissionResult_RemoveAlert_Title" = "";
-
-"ExposureSubmissionResult_RemoveAlert_Text" = "";
-
-"ExposureSubmissionResult_RegistrationDateUnknown" = "";
-
-"ExposureSubmissionResult_RegistrationDate" = "Vneseno dne ";
-
-/* Exposure Submission */
-"ExposureSubmissionError_NoKeys" = "Diagnostični ključ ni na voljo. Poskusite znova jutri.";
-
-"ExposureSubmissionError_InvalidTan" = "Ustvarjena številka TAN ni veljavna za oddajo. Pokličite epidemiološko službo.";
-
-"ExposureSubmissionError_EnNotEnabled" = "Beleženje izpostavljenosti ni aktivirano.";
-
-"ExposureSubmissionError_NoRegistrationToken" = "Na napravi ne najdemo nikakršnega žetona za registracijo.";
-
-"ExposureSubmissionError_InvalidResponse" = "Odziva ne moremo obdelati.";
-
-"ExposureSubmissionError_NoResponse" = "Odziv nima vsebine.";
-
-"ExposureSubmissionError_QRAlreadyUsed" = "";
-
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "Številka TAN je neveljavna ali je že bila uporabljena. Poskusite ponovno ali stopite v stik z epidemiološko službo.";
-
-"ExposureSubmissionError_RegTokenNotExist" = "";
-
-"ExposureSubmissionError_other" = "Pojavila se je napaka pri povezavi. Koda napake za službo za tehnično pomoč: ";
-
-"ExposureSubmissionError_otherend" = "Poskusite znova.";
-
-"ExposureSubmissionError_httpError" = "Nismo uspeli vzpostaviti povezave.";
-
-"ExposureSubmissionError_declined" = "Sprostite svoje naključne dnevne ključe, da opozorite druge ljudi.";
-
-"ExposureSubmissionError_unknown" = "Neznana napaka";
-
-"ExposureSubmissionError_defaultError" = "Splošna napaka pri oddaji izpostavljenosti";
-
-/* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Beleženje izpostavljenosti";
-
-"ExposureNotificationSetting_EnableTracing" = "Beleženje izpostavljenosti";
-
-"ExposureNotificationSetting_Tracing_Limited" = "Omejeno";
-
-"ExposureNotificationSetting_Tracing_Deactivated" = "Izključeno";
-
-"ExposureNotificationSetting_ActionCell_Header" = "Nastavitev";
-
-"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivirajte beleženje izpostavljenosti";
-
-"ExposureNotificationSetting_DescriptionTitle" = "Tako deluje beleženje izpostavljenosti";
-
-"ExposureNotificationSetting_DescriptionText1" = "Da bi ugotovili, ali ste bili izpostavljeni SARS-CoV-2, morate vklopiti funkcionalnost beleženja izpostavljenosti.";
-
-"ExposureNotificationSetting_DescriptionText2" = "Beleženje izpostavljenosti deluje tako, da vaša naprava prek Bluetootha prejme naključne oddajne kode drugih uporabnikov, vaše naključne oddajne kode pa posreduje njihovim napravam. To funkcionalnost lahko izklopite kadar koli.";
-
-"ExposureNotificationSetting_DescriptionText3" = "Z naključnimi oddajnimi kodami se posredujejo le informacije o datumu, trajanju in bližini do drugih ljudi, ki je izračunana s pomočjo jakosti Bluetooth signala. Osebni podatki, kot so ime, naslov in lokacija, se ne beležijo. Posameznikov ni mogoče prepoznati.";
-
-"ExposureNotificationSetting_Activate_Bluetooth" = "Vklopite Bluetooth";
-
-"ExposureNotificationSetting_Bluetooth_Description" = "Da bi beležili stike, mora biti za beleženje izpostavljenosti vklopljen Bluetooth. Vklopite bluetooth v nastavitvah svoje naprave.";
-
-"ExposureNotificationSetting_Activate_Internet" = "Odprite Povezave";
-
-"ExposureNotificationSetting_Internet_Description" = "Za oceno tveganja pri beleženju izpostavljenosti je potrebna internetna povezava. Vklopite brezžično povezavo ali prenos mobilnih podatkov v nastavitvah svoje naprave.";
-
-"ExposureNotificationSetting_Detail_Action_Button" = "Odprite nastavitve naprave";
-
-"ExposureNotificationSetting_Activate_OSENSetting" = "Omogočite beleženje in obvestila o izpostavljenosti COVID-19.";
-
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Za beleženje izpostavljenosti morate v sistemskih nastavitvah aktivirati beleženje in obvestila o izpostavljenosti COVID-19, da se lahko beležijo stiki. V svojih sistemskih nastavitvah omogočite »Beleženje in obvestila o izpostavljenosti COVID-19«. (Privacy > Health)";
-
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Omogoči beleženje in obvestila o izpostavljenosti COVID-19";
-
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Za beleženje izpostavljenosti morate v sistemskih nastavitvah aktivirati beleženje in obvestila o izpostavljenosti COVID-19, da se lahko beležijo stiki. V svojih sistemskih nastavitvah omogočite »Beleženje in obvestila o izpostavljenosti COVID-19«.";
-
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Potrebna je avtorizacija";
-
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Potrdite, da uporabljate beleženje izpostavljenosti COVID-19.";
-
-"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Avtorizacija";
-
-"ExposureNotificationSetting_AccLabel_Enabled" = "Tri osebe so na svojih napravah aktivirali beleženje izpostavljenosti, s čimer bodo beležili medsebojne stike.";
-
-"ExposureNotificationSetting_AccLabel_Disabled" = "Ena oseba je na svoji napravi izklopila beleženje izpostavljenosti, zato stik z dvema drugima osebama ni bil zabeležen.";
-
-"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Ena oseba je na svoji napravi izklopila Bluetooth, zato stik z dvema drugima osebama ni bil zabeležen.";
-
-"ExposureNotificationSetting_AccLabel_InternetOff" = "Ena oseba je na svoji napravi izklopila internetno povezavo, zato identifikacija zadnjih stikov ni bila mogoča.";
-
-"ExposureNotificationSetting_Activate_Action" = "Sprejmi";
-
-"ExposureNotificationSetting_Dismiss_Action" = "Prekliči";
-
-"ExposureNotificationSetting_GeneralError_Title" = "Napaka";
-
-"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Več o tem";
-
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-"ExposureNotificationSetting_AuthenticationError" = "Med aktiviranjem beleženja izpostavljenosti se je pojavila napaka. Pojdite v sistemske nastavitve in poskrbite, da je ta aplikacija avtorizirana za uporabo beleženja izpostavljenosti COVID-19.";
-
-"ExposureNotificationSetting_exposureNotification_Required" = "Med aktiviranjem beleženja izpostavljenosti je nastala napaka. Pojdite v sistemske nastavitve in poskrbite, da so za to aplikacijo omogočena obvestila o izpostavljenosti.";
-
-"ExposureNotificationSetting_exposureNotification_unavailable" = "Med aktiviranjem beleženja izpostavljenosti je nastala napaka. Pojdite v sistemske nastavitve in poskrbite, da je za to aplikacijo aktivirana uporaba obvestil o izpostavljenosti.";
-
-"ExposureNotificationSetting_unknownError" = "Nastala je neznana napaka.";
-
-"ExposureNotificationSetting_apiMisuse" = "Med aktiviranjem identifikacije tveganja se je pojavila notranja napaka. Za več informacij obiščite našo spletno stran in beleženje izpostavljenosti poskušajte aktivirati pozneje.";
-
-/* Home Navigation Bar */
-"Home_LeftBarButton_description" = "Logotip aplikacije #OstaniZdrav";
-
-"Home_RightBarButton_description" = "Informacije";
-
-/* Home Active card */
-"Home_Activate_Card_On_Title" = "Beleženje izpostavljenosti je aktivirano";
-
-"Home_Activate_Card_Off_Title" = "Beleženje izpostavljenosti je ustavljeno";
-
-"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth je izklopljen";
-
-"Home_Activate_Card_Internet_Off_Title" = "Ni internetne povezave";
-
-/* Home common card */
-"Home_Risk_Date_Item_Title" = "Posodobljeno: %@";
-
-"Home_Risk_No_Date_Title" = "Neznano";
-
-"Home_Risk_Period_Update_Title" = "Posodobljeno vsakih %@\U00A0ur";
-
-"Home_Risk_Period_Disabled_Button_Title" = "Posodobljeno vsakih %@\U00A0ur";
-
-/* Home Unknown card */
-"Home_Risk_Unknown_Title" = "Neznano tveganje";
-
-"Home_RiskCard_Unknown_Item_Title" = "Ker beleženje izpostavljenosti ni bilo vklopljeno dovolj dolgo, nismo mogli oceniti vašega tveganja za okužbo.";
-
-"Home_RiskCard_Unknown_Button" = "Posodobitev";
-
-/* Home Inactive card */
-"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Beleženje izpostavljenosti je ustavljeno";
-
-"Home_Risk_Inactive_Outdated_Results_Title" = "Beleženje izpostavljenosti ni mogoče";
-
-"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Vklopite beleženje izpostavljenosti za oceno tveganja za okužbo na današnji dan.";
-
-"Home_Risk_Inactive_Outdated_Results_Body" = "Beleženja izpostavljenosti nismo mogli posodobiti več kot 24 ur.";
-
-"Home_Risk_Inactive_Activate_Item_Title" = "Zadnje beleženje izpostavljenosti: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Neznano tveganje";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Majhno tveganje";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Večje tveganje";
-
-"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Aktiviraj beleženje izpostavljenosti";
-
-"Home_Risk_Inactive_Outdated_Results_Button" = "Aktiviraj beleženje izpostavljenosti";
-
-/* Home Low card */
-"Home_Risk_Low_Title" = "Majhno tveganje";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "Shranjeno %1$u od %2$u dni";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Beleženje izpostavljenosti je trajno aktivno";
-
-"Home_Risk_Low_Button" = "Posodobitev";
-
-/* Home High card */
-"Home_Risk_High_Title" = "Večje tveganje";
-
-"Home_Risk_High_Button" = "Posodobitev";
-
-/* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Preverjanje v teku …";
-
-"Home_Risk_Status_Check_Body" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut.";
-
-"Home_Risk_Status_Check_Button" = "Posodobitev";
-
-/* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Hvala!";
-
-"Home_Thank_You_Card_Body" = "Vaš prispevek je dragocen. Hvala za podporo. Zdaj lahko drugi prejmejo opozorilo in se ustrezno odzovejo.";
-
-"Home_Thank_You_Card_Note_Title" = "Ne pozabite:";
-
-"Home_Thank_You_Card_Phone_Item_Title" = "Pri vas je bila potrjena okužba s SARS-CoV-2.";
-
-"Home_Thank_You_Card_Home_Item_Title" = "Spoštujte navodila o izolaciji, ki se jih prejeli s strani zdravstvene službe.";
-
-"Home_Thank_You_Card_Further_Info_Item_Title" = "Druge informacije:";
-
-"Home_Thank_You_Card_14Days_Item_Title" = "Obdobje izolacije se predvidoma zaključi 14 dni po umiritvi simptomov in znakov.";
-
-"Home_Thank_You_Card_Contacts_Item_Title" = "O trajanju izolacije presoja vaš lečeči zdravnik.";
-
-"Home_Thank_You_Card_App_Item_Title" = "V primeru poslabšanja bolezni se po telefonu posvetujte z vašim izbranim osebnim ali dežurnim zdravnikom.";
-
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "V nujnih primerih pokličite 112. Povejte, da je bila pri vas potrjena okužba s SARS-CoV-2.";
-
-/* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Obvestite druge";
-
-"Home_Finding_Positive_Card_Status_Title" = "Potrdili so vam okužbo z virusom SARS-CoV-2.";
-
-"Home_Finding_Positive_Card_Status_Subtitle" = "";
-
-"Home_Finding_Positive_Card_Note_Title" = "Ne pozabite:";
-
-"Home_Finding_Positive_Card_Phone_Item_Title" = " ";
-
-"Home_Finding_Positive_Card_Home_Item_Title" ="Spoštujte navodila o izolaciji, ki ste jih prejeli s strani zdravstvene službe";
-
-"Home_Finding_Positive_Card_Share_Item_Title" = "Delite svoje dnevne ključe, da lahko opozorite druge.";
-
-"Home_Finding_Positive_Card_Button" = "Naprej";
-
-/* Home Submit card */
-"Home_SubmitCard_Title" = "Ali ste bili testirani?";
-
-"Home_SubmitCard_Body" = "Z obveščanjem drugih pomagajte prekiniti verigo prenosa okužb.";
-
-"Home_SubmitCard_Button" = "Vnesite potrditev okužbe";
-
-"Home_InfoCard_ShareTitle" = "Deli aplikacijo #OstaniZdrav";
-
-"Home_InfoCard_ShareBody" = "Več kot je uporabnikov aplikacije, hitreje bomo prekinili verigo prenosa okužb. Prosimo, povabite svoje sorodnike in prijatelje, naj prenesejo aplikacijo.";
-
-"Home_InfoCard_AboutTitle" = "Več o aplikaciji #OstaniZdrav";
-
-"Home_InfoCard_AboutBody" = "Več o aplikaciji #OstaniZdrav lahko najdete na spletni strani gov.si. Preusmerili vas bomo na zunanjo spletno stran.";
-
-"Home_SettingsCard_Title" = "Nastavitve";
-
-"Home_AppInformationCard_Title" = "Informacije o aplikaciji";
-
-"Home_AppInformationCard_Version" = "Različica";
-
-/* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "";
-
-"Home_resultCard_ResultUnvailableTitle" = "";
-
-"Home_resultCard_ShowResultButton" = "";
-
-"Home_resultCard_LoadingBody" = ".";
-
-"Home_resultCard_LoadingTitle" = "";
-
-"Home_resultCard_NegativeTitle" = "";
-
-"Home_resultCard_NegativeDesc" = "";
-
-"Home_resultCard_PendingDesc" = "";
-
-"Home_resultCard_InvalidTitle" = "";
-
-"Home_resultCard_InvalidDesc" = "";
-
-"Home_resultCard_LoadingErrorTitle" = "";
-
-/* App Information - About */
-"App_Information_About_Navigation" = "O aplikaciji";
-
+"Active_Tracing_Interval_Partially_Active" = "Aktivirano %1$u od 14 dni";
+"Active_Tracing_Interval_Permanently_Active" = "Beleženje izpostavljenosti je aktivirano";
+"Alert_ActionCancel" = "Prekliči";
+"Alert_ActionNo" = "Ne";
+"Alert_ActionOk" = "V redu";
+"Alert_ActionRemove" = "Odstrani";
+"Alert_ActionRetry" = "Ponovi";
+"Alert_ActionYes" = "Da";
+"Alert_BluetoothOff_Description" = "Da lahko ta aplikacija deluje, mora biti v vaših sistemskih nastavitvah vklopljen Bluetooth.";
+"Alert_BluetoothOff_Title" = "Vklopi Bluetooth";
+"Alert_CancelAction_Later" = "Pozneje";
+"Alert_DefaultAction_OpenSettings" = "Odpri nastavitve";
+"Alert_TitleGeneral" = "Pojavila se je napaka.";
+//O aplikaciji
+"App_Information_About_Description" = "Nacionalni inštitut za javno zdravje (NIJZ) je osrednja ustanova za varovanje zdravja v Sloveniji. NIJZ zagotavlja strokovno oziroma vsebinsko podporo aplikaciji, ki jo upravlja in vzdržuje Ministrstvo za javno upravo RS. Poleg doslednega upoštevanja preventivnih ukrepov za preprečevanje okužbe s SARS-CoV-2 lahko s pomočjo aplikacije še dodatno omejimo širjenje bolezni.";
 "App_Information_About_ImageDescription" = "";
-
+"App_Information_About_Link" = "https://arhiv.mm.gov.si/vlada/MJJ/TolmačkaAPPvodič.mp4";
+"App_Information_About_LinkText" = "Predstavitev aplikacije v slovenskem znakovnem jeziku";
+"App_Information_About_Navigation" = "O aplikaciji";
+"App_Information_About_Text" = "Kdor uporablja aplikacijo, pomaga pri spremljanju in prekinitvi verige prenosa okužb. V aplikaciji se lokalno na vaši napravi shranijo stiki z drugimi napravami. Aplikacija vas obvesti, če ste bili v stiku z osebami, pri katerih je bila pozneje potrjena okužba s SARS-CoV-2. Vaša identiteta in zasebnost sta vedno zaščiteni.";
 "App_Information_About_Title" = "Obvarujmo sebe in druge pred COVID-19";
 
-"App_Information_About_Description" = "Nacionalni inštitut za javno zdravje (NIJZ) je osrednja ustanova za varovanje zdravja v Sloveniji. NIJZ zagotavlja strokovno oziroma vsebinsko podporo aplikaciji, ki jo upravlja in vzdržuje Ministrstvo za javno upravo RS. Poleg doslednega upoštevanja preventivnih ukrepov za preprečevanje okužbe s SARS-CoV-2 lahko s pomočjo aplikacije še dodatno omejimo širjenje bolezni.";
-
-"App_Information_About_Text" = "Kdor uporablja aplikacijo, pomaga pri spremljanju in prekinitvi verige prenosa okužb. V aplikaciji se lokalno na vaši napravi shranijo stiki z drugimi napravami. Aplikacija vas obvesti, če ste bili v stiku z osebami, pri katerih je bila pozneje potrjena okužba s SARS-CoV-2. Vaša identiteta in zasebnost sta vedno zaščiteni.";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "Več o aplikaciji #OstaniZdrav";
-
-/* App Information - Contact */
-"App_Information_Contact_Navigation" = "Enotni kontaktni center";
-
-"App_Information_Contact_ImageDescription" = "En moški ima med telefoniranjem na glavi komplet s slušalkami in z mikrofonom.";
-
-"App_Information_Contact_Title" = "Kako vam lahko pomagamo?";
-
-"App_Information_Contact_Description" = "Če imate tehnična vprašanja o aplikaciji #OstaniZdrav, pokličite naš enotni kontaktni center.";
-
-"App_Information_Contact_Hotline_Title" = "Enotni kontaktni center";
-
-"App_Information_Contact_Hotline_Text" = "080 1787";
-
+//Pomoč uporabnikom
+"App_Information_Contact_Description" = "Če imate tehnična vprašanja o aplikaciji #OstaniZdrav, pokličite naš enotni kontaktni center. Če potrebujete psihološko podporo pokličite telefon za psihološko podporo.";
+"App_Information_Contact_Hotline_Description" = "Jeziki: slovenščina in angleščina \n\nDelovni čas: Vse dni v tednu od 8:00 do 20:00\n\nKlic je brezplačen.\nKlici iz tujine: +386 1 478 7557";
 "App_Information_Contact_Hotline_Number" = "080 1787";
+"App_Information_Contact_Hotline_Number1" = "080 51 00";
+"App_Information_Contact_Hotline_Terms" = "Na brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.\n\n";
+"App_Information_Contact_Hotline_Text" = "080 17 87";
+"App_Information_Contact_Hotline_Text1" = "080 51 00";
+"App_Information_Contact_Hotline_Title" = "Enotni kontaktni center";
+"App_Information_Contact_ImageDescription" = "Moški ima med telefoniranjem na glavi slušalke z mikrofonom.";
+"App_Information_Contact_Navigation" = "Pomoč uporabnikom";
+"App_Information_Contact_Title" = "Telefon za psihološko podporo";
 
-"App_Information_Contact_Hotline_Description" = "Naš enotni kontaktni center za pomoč uporabnikom je na voljo, da vam ponudi pomoč.";
-
-"App_Information_Contact_Hotline_Terms" = "Jeziki: slovenščina in angleščina \n\nDelovni čas:\nOd ponedeljka do nedelje: 8:00 - 20:00
-\n\nKlic je brezplačen\nKlici iz tujine: +386 1 478 7557";
-
-/* App Information - Imprint */
+//impressum
+"App_Information_FAQ_Navigation" = "Več o aplikaciji #OstaniZdrav";
+"App_Information_Imprint_ImageDescription" = "Roka drži pametno napravo, na zaslonu katere je veliko besedila. Zraven besedila je znak za začetek odstavka, ki predstavlja impresum.";
 "App_Information_Imprint_Navigation" = "Impresum";
-
-"App_Information_Imprint_ImageDescription" = "Ena oseba drži napravo, na kateri je veliko besedila na zaslonu. Zraven besedila je znak za začetek odstavka, ki predstavlja impresum.";
-
+"App_Information_Contact_Form_Link" = "";
+"App_Information_Contact_Form_Title" = "";
+"App_Information_Imprint_Section1_Text" = "Aplikacijo #OstaniZdrav sta pripravila Nacionalni inštitut za javno zdravje in Ministrstvo za javno upravo, pri čemer NIJZ skrbi za vsebinski del aplikacije, MJU pa za tehničnega. Oba sta tako skupna upravljavca podatkov, ki se obdelujejo v okviru aplikacije #OstaniZdrav.";
 "App_Information_Imprint_Section1_Title" = "Objavil/-a";
-
-"App_Information_Imprint_Section1_Text" = "";
-
-"App_Information_Imprint_Section2_Title" = "Aplikacijo #OstaniZdrav sta pripravila Nacionalni inštitut za javno zdravje in Ministrstvo za javno upravo, pri čemer NIJZ skrbi za vsebinski del aplikacije, MJU pa za tehničnega. Oba sta tako skupna upravljavca podatkov, ki se obdelujejo v okviru aplikacije #OstaniZdrav.";
-
-"App_Information_Imprint_Section2_Text" = "";
-
-"App_Information_Imprint_Section3_Title" = "Stik";
-
-"App_Information_Imprint_Section3_Text" = "E-naslov: ekc@gov.si\nTel. št.: 080 1787; iz tujine: +386 1 478 7557";
-
-"App_Information_Imprint_Section4_Title" = "";
-
+"App_Information_Imprint_Section2_Text" = "E-naslov: ekc@gov.si\nTel. št.: 080 17 87 \nIz tujine: +386 1 478 7557";
+"App_Information_Imprint_Section2_Title" = "Kontakt";
+"App_Information_Imprint_Section3_Text" = "";
+"App_Information_Imprint_Section3_Title" = "";
 "App_Information_Imprint_Section4_Text" = "";
-
-/* App Information - Legal */
+"App_Information_Imprint_Section4_Title" = "";
+//pravna obvestila, zasebnost, pogoji
+"App_Information_Legal_ImageDescription" = "Roka drži pametno napravo, na zaslonu katere je veliko besedila. Ob besedilu je tehtnica, ki predstavlja pravna obvestila";
 "App_Information_Legal_Navigation" = "Pravna obvestila";
-
-/* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Zasebnost";
-
-"App_Information_Legal_ImageDescription" = "Ena oseba drži napravo, na kateri je veliko besedila na zaslonu. Zraven besedila je tehtnica, ki je simbol za pravna obvestila";
-
-"App_Information_Privacy_Title" = "Zasebnost";
-
 "App_Information_Privacy_Description" = "Ostali boste anonimni.\nVaši podatki so povsem šifrirani in se prenašajo pod psevdonimom.";
-
-/* App Information - Terms */
-"App_Information_Terms_Navigation" = "Pogoji uporabe";
-
+"App_Information_Privacy_Navigation" = "Zasebnost";
+"App_Information_Privacy_Title" = "Obvestilo o varstvu podatkov";
 "App_Information_Terms_ImageDescription" = "Ena oseba drži napravo, na kateri je veliko besedila na zaslonu. Ob besedilu je kljukica, ki je simbol za sprejetje pogojev uporabe.";
-
+"App_Information_Terms_Navigation" = "Pogoji uporabe";
 "App_Information_Terms_Title" = "Pogoji uporabe";
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Podrobne informacije o obdelavi podatkov in vaši privolitvi";
+"AutomaticSharingConsent_SwitchTitle" = "Opozorite druge";
+"AutomaticSharingConsent_SwitchTitleDesc" = "Strinjate se:";
+"AutomaticSharingConsent_Title" = "Vaše soglasje";
+"BackgroundAppRefreshSettings_Description" = "Če omogočite prednostno delovanje v ozadju, lahko aplikacija kadarkoli oceni stanje tveganja. Da zagotovite pravilno delovanje aplikacije #OstaniZdrav v ozadju, v nastavitvah za #OstaniZdrav onemogočite optimizacijo porabe energije. S tem boste omogočili, da bo aplikacija lahko kadarkoli ocenila stanje tveganja za okužbo.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Oseba drži v roki pametni telefon na katerem je delovanje aplikacije v ozadju deaktivirano.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "Oseba drži v roki pametni telefon na katerem je delovanje aplikacije v ozadju aktivirano";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Odprite 'Nastavitve'";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Odprite nastavitve za aplikacijo #OstaniZdrav";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktivirajte delovanje aplikacije v ozadju";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Aktivirajte delovanje aplikacije v ozadju za aplikacijo #OstaniZdrav";
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Prednostno delovanje aplikacije v ozadju lahko vklopite ali izklopite v nastavitvah telefona.";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Odprite 'Nastavitve'";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Odprite 'Baterija'";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Izklopi optimizacijo porabe energije";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Onemogočite optimizacijo porabe energije";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Da zagotovite pravilno delovanje aplikacije #OstaniZdrav v ozadju, v nastavitvah za #OstaniZdrav onemogočite optimizacijo porabe energije.";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Odprite 'Nastavitve'";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Odprite 'Splošno'";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Odprite 'Delovanje aplikacije v ozadju'";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Izberite bodisi brezžično omrežje ali brezžično omrežje in mobilni podatki.";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Aktiviranje delovanja aplikacije v ozadju na splošno";
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Aktiviraj delovanje aplikacije v ozadju";
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Odpri nastavitve";
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Deli navodila";
+"BackgroundAppRefreshSettings_Status_Header" = "Nastavitev";
+"BackgroundAppRefreshSettings_Status_Off" = "Izklopljeno";
+"BackgroundAppRefreshSettings_Status_On" = "Vklopljeno";
+"BackgroundAppRefreshSettings_Status_Title" = "Delovanje aplikacije v ozadju";
+"BackgroundAppRefreshSettings_Subtitle" = "Posodobite stanje tveganja v ozadju";
+"BackgroundAppRefreshSettings_Title" = "Delovanje aplikacije v ozadju";
+"Common_Alert_Action_moreInfo" = "Več o tem";
+"Common_BackgroundFetch_AlertMessage" = "Izklopili ste delovanje aplikacije v ozadju. Da zagotovite pravilno delovanje aplikacije #OstaniZdrav omogočite delovanje v ozadju, to storite v nastavitvah naprave. Če ne aktivirate delovanja v ozadju, lahko beleženje izpostavljenosti samo ročno preverite.";
+"Common_BackgroundFetch_AlertTitle" = "Posodabljanje v ozadju je izključeno";
+"Common_BackgroundFetch_OKTitle" = "Ročno vključite beleženje izpostavljenosti";
+"Common_BackgroundFetch_SettingsTitle" = "Odprite nastavitve naprave";
+"Common_Deadman_AlertBody" = "Ne pozabite redno odpreti aplikacije #OstaniZdrav, da preverite status vašega tveganja.";
+"Common_Deadman_AlertTitle" = "Vaš status tveganja";
+"Common_ENError11_Description" = "Napaka 11: Pojavile so se težave. Stopnje vašega tveganja nismo mogli oceniti. Znova zaženite svojo napravo in ponovno poskusite jutri.";
+"Common_ENError13_Description" = "Napaka 13: Ocena vašega tveganja je bila danes že opravljena. Poskusite ponovno čez 24 ur.";
+"Common_ENError5_Description" = "Napaka 5: Pojavile so se težave. Stopnje vašega tveganja nismo mogli oceniti. Iščemo rešitev težave.";
 
-/* Invite Friends */
-"InviteFriends_NavTitle" = "Delite aplikacijo #OstaniZdrav";
-
-"InviteFriends_Subtitle" = "";
-
-"InviteFriends_Title" = "Obvarujmo sebe in druge pred COVID-19.";
-
-"InviteFriends_Description" = "Več kot je uporabnikov aplikacije, hitreje bomo prekinili verigo prenosa okužb. Prosimo, povabite svoje sorodnike in prijatelje, naj prenesejo aplikacijo.";
-
-"InviteFriends_Button" = "Pošljite povezavo za prenos aplikacije";
-
-"InviteFriends_ShareTitle" = "Skupaj proti COVID-19. Jaz sodelujem kaj pa vi?";
-
-"InviteFriends_ShareUrl" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-"InviteFriends_Illustration_Label" = "Moški deli aplikacijo #OstaniZdrav s štirimi drugimi ljudmi.";
-
-/* Reset View */
-"Reset_NavTitle" = "Ponastavi aplikacijo";
-
-"Reset_Header1" = "Ali ste prepričani, da želite ponastaviti aplikacijo?";
-
-"Reset_Descrition1" = "Ne boste več prejemali obvestil o izpostavljenosti in ne boste več mogli opozarjati drugih uporabnikov.";
-
-"Reset_Button" = "Ponastavi aplikacijo";
-
-"Reset_Discard" = "Prekliči";
-
-"Reset_InfoTitle" = "Izbrišite dnevnik izpostavljenosti";
-
-"Reset_InfoDescription" = "Dnevnik izpostavljenosti morate izbrisati ločeno v nastavitvah svoje naprave";
-
-"Reset_Subtitle" = "";
-
-"Reset_ImageDescription" = "Ena oseba drži napravo, na kateri je prikazan simbol, ki pomeni, da poteka ponastavitev aplikacije.";
-
-"Reset_ConfirmDialog_Title" = "Ponastavi aplikacijo";
-
-"Reset_ConfirmDialog_Description" = "Ne boste več prejemali obvestil o izpostavljenosti in ne boste več mogli opozarjati drugih uporabnikov. Postopka ne morete razveljaviti.";
-
-"Reset_ConfirmDialog_Cancel" = "Prekliči";
-
-"Reset_ConfirmDialog_Confirm" = "Ponastavi";
-
-/* Safari */
-"safari_corona_website" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
-
-/* Local Notifications */
-"local_notifications_ignore" = "Prezri";
-
-"local_notifications_detectexposure_title" = "#OstaniZdrav";
-
-"local_notifications_detectexposure_body" = "Imate nova sporočila v aplikaciji #OstaniZdrav.";
-
-"local_notifications_testresults_title" = "#OstaniZdrav";
-
-"local_notifications_testresults_body" = "Imate nova sporočila v aplikaciji #OstaniZdrav.";
-
-/* Risk Legend */
-"RiskLegend_Title" = "Pregled";
-
-"RiskLegend_Subtitle" = "";
-
-"RiskLegend_Legend1_Title" = "Beleženje izpostavljenosti";
-
-"RiskLegend_Legend1_Text" = "Beleženje izpostavljenosti je ena izmed treh osrednjih funkcij aplikacije. Ko jo boste aktivirali, boste začeli beležiti stike z napravami drugih oseb.";
-
-"RiskLegend_Legend2_Title" = "Tveganje za okužbo";
-
-"RiskLegend_Legend2_Text" = "Če ste bili v preteklih 14 dneh v stiku z osebo, pri kateri je bila potrjena okužba s SARS-CoV-2, bo aplikacija ocenila vaše tveganje za okužbo na podlagi bližine in trajanja izpostavljenosti.";
-
-"RiskLegend_Legend2_RiskLevels" = "Prikaže se lahko eno od naslednjih stanj tveganja:";
-
-"RiskLegend_Legend2_High" = "Večje tveganje";
-
-"RiskLegend_Legend2_High_Color" = "Rdeča";
-
-"RiskLegend_Legend2_Low" = "Majhno tveganje";
-
-"RiskLegend_Legend2_Low_Color" = "Zelena";
-
-"RiskLegend_Legend2_Unknown" = "Neznano tveganje";
-
-"RiskLegend_Legend2_Unknown_Color" = "Modro";
-
-"RiskLegend_Legend3_Title" = "Obveščanje drugih uporabnikov";
-
-"RiskLegend_Legend3_Text" = "Še ena osrednja funkcija je prijava vašega testa in pridobitev rezultata. Če so pri vas potrdili okužbo s SARS-CoV-2, lahko o tem obvestite druge in prekinete verigo prenosa okužb.";
-
-"RiskLegend_Definitions_Title" = "Opredelitev izrazov";
-
-"RiskLegend_Store_Title" = "Dnevnik izpostavljenosti";
-
-"RiskLegend_Store_Text" = "Seznam prejetih in poslanih začasnih naključnih oddajnih kod, ki se začasno shranijo v pomnilniku operacijskega sistema. Ta seznam se prebere med preverjanjem izpostavljenosti. Vse naključne oddajne kode se samodejno izbrišejo po 14 dneh.";
-
-"RiskLegend_Check_Title" = "Preverjanje izpostavljenosti";
-
-"RiskLegend_Check_Text" = "Pridobijo se podatki o beleženju izpostavljenosti, ki se nato sinhronizirajo s sporočenimi podatki o okužbah drugih uporabnikov.";
-
-"RiskLegend_Contact_Title" = "Izpostavljenosti";
-
-"RiskLegend_Contact_Text" = "Bližnji in dlje časa trajajoči stiki z osebami, pri katerih je bila potrjena okužba s SARS-CoV-2.";
-
-"RiskLegend_Notification_Title" = "Obvestilo o izpostavljenosti";
-
-"RiskLegend_Notification_Text" = "Prikaz tveganja za okužbo v aplikaciji #OstaniZdrav.";
-
-"RiskLegend_Random_Title" = "Naključne oddajne kode";
-
-"RiskLegend_Random_Text" = "Naključne oddajne kode so naključno ustvarjene kombinacije številk in črk. Izmenjajo si jih naprave, ki so si blizu. Naključne oddajne kode se ne morejo dodeliti konkretni osebi in se samodejno izbrišejo po 14 dnevih. Osebe, pri katerih je bila potrjena okužba s SARS-CoV-2, se lahko odločijo, da bodo svoje dnevne ključe iz preteklih 14 dni delile z drugimi uporabniki aplikacije.";
-
-"RiskLegend_Image1_AccLabel" = "Naprava prikazuje različno oštevilčeno vsebino";
-
-/* Update Message */
-"Update_Message_Title" = "Na voljo je posodobitev";
-
-"Update_Message_Text" = "Za aplikacijo #OstaniZdrav je na voljo posodobitev.";
-
-"Update_Message_Text_Force" = "Aplikacijo #OstaniZdrav boste lahko ponovno uporabljali šele, ko boste namestili najnovejšo posodobitev.";
-
-"Update_Message_Action_Update" = "Posodobitev";
-
-"Update_Message_Action_Later" = "Pozneje";
-
-/* ENATanInput */
-"ENATanInput_Empty" = "Prazno";
-
-"ENATanInput_InvalidCharacter" = "Neveljaven znak\n\n%@";
+//interoperabilnost
+"DeltaOnboarding_AccessibilityImageLabel" = "Čezmejno beleženje izpostavljenosti";
+"DeltaOnboarding_Description" = "Funkcionalnosti aplikacije #OstaniZdrav smo izboljšali. Številne države sodelujejo pri omogočanju čezmejnega obveščanja o izpostavljenosti preko skupnega strežnika za izmenjavo ključev. Na primer stiki z uporabniki tujih uradnih aplikacij za boj proti Covid-19 bodo upoštevani pri oceni vaše stopnje tveganja.";
+"DeltaOnboarding_Headline" = "Čezmejno beleženje izpostavljenosti";
+"DeltaOnboarding_ParticipatingCountries" = "Naslednje države trenutno sodelujejo pri čezmejni izmenjavi ključev:";
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Sodelujoče države lahko vidite v podrobnostih beleženja izpostavljenosti.";
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Sodelujoče države";
+"DeltaOnboarding_PrimaryButton_Continue" = "Naprej";
+"DeltaOnboarding_Terms_Button" = "Prikaži pogoje uporabe";
+"DeltaOnboarding_Terms_Description1" = "Pogoji uporabe so bili posodobljeni, da vključujejo funkcionalnost čezmejne izmenjave ključev.";
+"DeltaOnboarding_Terms_Description2" = "'Pogoje uporabe' in 'Zasebnost' lahko najdete v meniju pod 'Informacije o aplikaciji' in v opisu aplikacije v Apple trgovini. Z uporabo aplikacije podajate soglasje za pogoje uporabe in zasebnostjo.";
 
 "ENATanInput_CharacterIndex" = "Znak %1$u od %2$u";
+"ENATanInput_Empty" = "Prazno";
+"ENATanInput_InvalidCharacter" = "Neveljaven znak\n\n%@";
+"ExposureDetectionError_Alert_Action_Details" = "Podrobnosti";
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "Ni internetne povezave. Preverite povezavo in ponovno odprite aplikacijo.";
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Za trenutne podatke ni na voljo dovolj pomnilnika.\nProsimo, sprostite pomnilnik na vašem pametnem telefonu, da se lahko posodobi stanje tveganja za okužbo.";
+"ExposureDetectionError_Alert_Message" = "Med beleženjem izpostavljenosti je prišlo do napake.";
+"ExposureDetectionError_Alert_Title" = "Napaka";
 
-/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Beleženje izpostavljenosti je aktivirano %1$u od %2$u dni.";
+//risk
+"ExposureDetection_ActiveTracingSection_Subtitle" = "";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Beleženje izpostavljenosti zajema zadnjih %1$u dni. V tem času je bila funkcionalnost beleženja aktivirana %2$u dni. Aplikacija samodejno briše starejše zapise, saj te izpostavljenosti nimajo več vpliva na tveganje za okužbo.";
+"ExposureDetection_ActiveTracingSection_Title" = "Obdobje beleženja";
+"ExposureDetection_Behavior_Subtitle" = "Kaj morate narediti?";
+"ExposureDetection_Behavior_Title" = "Priporočila";
+"ExposureDetection_Button_Enable" = "Aktiviraj beleženje izpostavljenosti";
+"ExposureDetection_Button_Refresh" = "Posodobi";
+"ExposureDetection_Button_Title_Restart" = "Ponovno zaženi";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "Splošne informacije o COVID-19 so dostopne na spletni strani Nacionalnega inštituta za javno zdravje.";
+"ExposureDetection_Explanation_GOV_Link_Text" = "Potrdilo o karanteni na domu lahko pridobite na portalu eUprava";
+"ExposureDetection_Explanation_Subtitle" = "";
+"ExposureDetection_Explanation_Text_High" = "\n\nNa brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Vaše tveganje za okužbo je večje, ker ste bili izpostavljeni več časa in v bližini vsaj ene osebe, pri kateri je bila pozneje potrjena okužba s SARS-CoV-2. Nazadnje ste bili izpostavljeni %@.";
+"ExposureDetection_Explanation_Text_Low" = "";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Vaše tveganje za okužbo je majhno, ker ni bilo zabeleženega stika z osebami, pri katerih je bila pozneje potrjena okužba s SARS-CoV-2.\n\nNa brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Vaše tveganje za okužbo je majhno, ker so bili vaši stiki kratkotrajni ali na večji razdalji. Ni razloga za skrb ter posebne potrebe po ukrepanju. Priporočamo, da se držite veljavnih priporočil za preprečevanje širjenja okužbe s SARS-CoV-2.";
+"ExposureDetection_Explanation_Text_Off" = "Vaše tveganje za okužbo se oceni lokalno na vaši napravi na podlagi podatkov o beleženju izpostavljenosti (trajanje in bližina). Podatka o vašem tveganju za okužbo ne more videti nihče drug in tudi posredovati ga ne morete nikomur. \n\nNa brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureDetection_Explanation_Text_Outdated" = "Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo.\n\nNa brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureDetection_Explanation_Text_Unknown" = "Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo. \n\nNa brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureDetection_Explanation_Title" = "Tveganje za okužbo";
+"ExposureDetection_Guide_Distance" = "Vzdržujte medosebno razdaljo najmanj 2 metra in se izogibajte zaprtim prostorom. Prostore pogosto zračite.";
+"ExposureDetection_Guide_Hands" = "Redno in temeljito si umivajte roke z milom in vodo. Ne dotikajte se oči, nosu in ust z neumitimi ali nerazkuženimi rokami.";
+"ExposureDetection_Guide_Home" = "V času, ko vas aplikacija opozarja na večje tveganje, svetujemo, da ostanete doma. Potrdilo o karanteni na domu lahko pridobite na portalu eUprava.";
+"ExposureDetection_Guide_Hotline1" = "Spremljajte svoje zdravstveno stanje. Če se pri vas pojavijo kateri od naštetih simptomov ali znakov, po telefonu kontaktirajte izbranega ali dežurnega zdravnika:";
+"ExposureDetection_Guide_Hotline2" = "Slabo počutje, prehladni znaki, kašelj, vročina, težko dihanje, glavobol, bolečine v mišicah, izguba vonja ali okusa, bolečine v žrelu.";
+"ExposureDetection_Guide_Hotline3" = "Še naprej upoštevajte splošne ukrepe za preprečevanje širjenja okužbe.";
+"ExposureDetection_Guide_Hotline4" = "";
+"ExposureDetection_Guide_Mask" = "Svetujemo uporabo mask.";
+"ExposureDetection_Guide_Sneeze" = "Preden zakašljate ali kihnete, si pokrijte usta in nos s papirnatim robčkom ali pa zakašljate ali kihnite v zgornji del rokava.";
+"ExposureDetection_High" = "Večje tveganje";
+"ExposureDetection_LastExposure" = "Zadnja izpostavljenost %@";
+"ExposureDetection_LastRiskLevel" = "Zadnje beleženje izpostavljenosti: %@";
+"ExposureDetection_LoadingText" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut.";
+"ExposureDetection_Low" = "Majhno tveganje";
+"ExposureDetection_LowRiskExposure_Body" = "Vaše tveganje za okužbo je majhno, ker ni bilo zabeleženega stika z osebami, pri katerih je bila pozneje potrjena okužba s SARS-CoV-2, oziroma ker so bili vaši stiki kratkotrajni ali na večji razdalji. Zaradi tega je bilo vaše tveganje za okužbo ocenjeno kot majhno. Ni razloga za skrb ter posebne potrebe po ukrepanju. Priporočamo, da se držite veljavnih priporočil za preprečevanje širjenja okužbe s SARS-CoV-2."; //skriti
+"ExposureDetection_LowRiskExposure_Subtitle" = "Zakaj je vaše tveganje majhno"; //skriti
+"ExposureDetection_LowRiskExposure_Title" = "Izpostavljenosti z majhnim tveganjem"; //kje se pojavi?
+"ExposureDetection_Off" = "Beleženje izpostavljenosti je ustavljeno";
+"ExposureDetection_OffText" = "Vklopite beleženje izpostavljenosti za oceno tveganja za okužbo na današnji dan.";
+"ExposureDetection_OutdatedText" = "Beleženja izpostavljenosti nismo mogli posodobiti več kot 48 ur.";
+"ExposureDetection_RefreshIn" = "Posodobitev čez %@";
+"ExposureDetection_Refresh_24h" = "Posodobljeno vsak dan";
+"ExposureDetection_Refreshed" = "Posodobljeno: %@";
+"ExposureDetection_Refreshed_Never" = "Neznano";
+"ExposureDetection_RefreshingIn" = "Posodobitev čez %02d:%02d\U00A0minut";
+"ExposureDetection_Risk_Failed_Body" = "Sinhronizacija dnevnih ključev s stržnikom ni uspela. Sinhronizacijo lahko ponovno zaženete ročno.";
+"ExposureDetection_Risk_Failed_Title" = "Preverjanje izpostavljenosti ni uspelo";
+"ExposureDetection_Risk_Restart_Button_Title" = "Ponovno zaženi";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut. Hvala za potrpežljivost";
+"ExposureDetection_Risk_Status_Detecting_Title" = "Preverjanje v teku…";
+"ExposureDetection_Risk_Status_Downloading_Body" = "To lahko traja več minut. Hvala za potrpežljivost.";
+"ExposureDetection_Risk_Status_Downloading_Title" = "Prenos podatkov v teku…";
+"ExposureDetection_Unknown" = "Neznano tveganje";
+"ExposureDetection_UnknownText" = "Ker beleženje izpostavljenosti ni bilo vklopljeno dovolj dolgo, nismo mogli oceniti vašega tveganja za okužbo.";
+"ExposureDetection_WrongTime_Notification_Body" = "Čas nastavljen na vaši napravi se ne ujema z dejanskim časom, zaradi tega preverjanje stanja tveganja trenutno ni mogoče. Prosimo, nastavite pravilen čas v nastavitvah vaše naprave.";
+"ExposureDetection_WrongTime_Notification_Popover_Body" = "Čas nastavljen na vaši napravi se ne ujema z dejanskim časom, zaradi tega preverjanje stanja tveganja trenutno ni mogoče. Prosimo, nastavite pravilen čas v nastavitvah vaše naprave.";
+"ExposureDetection_WrongTime_Notification_Popover_Title" = "Preverjanje izpostavljenosti ni mogoče";
+"ExposureDetection_WrongTime_Notification_Title" = "Preverjanje izpostavljenosti ni mogoče";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Oseba je na svoji napravi izklopila Bluetooth, zato stik z dvema drugima osebama ni bil zabeležen.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "Oseba je na svoji napravi izklopila beleženje izpostavljenosti, zato stik z dvema drugima osebama ni bil zabeležen.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Tri osebe so na svojih napravah aktivirali beleženje izpostavljenosti, s čimer bodo beležili medsebojne stike.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Oseba je na svoji napravi izklopila internetno povezavo, zato identifikacija zadnjih stikov ni bila mogoča.";
+"ExposureNotificationSetting_ActionCell_Header" = "Nastavitev";
+"ExposureNotificationSetting_Activate_Action" = "Sprejmi";
+"ExposureNotificationSetting_Activate_Bluetooth" = "Vklopite Bluetooth";
+"ExposureNotificationSetting_Activate_Internet" = "Odprite Povezave";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Omogočite beleženje in obvestila o izpostavljenosti COVID-19.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Za beleženje izpostavljenosti morate v sistemskih nastavitvah aktivirati beleženje in obvestila o izpostavljenosti COVID-19, da se lahko beležijo stiki. V svojih sistemskih nastavitvah omogočite »Beleženje in obvestila o izpostavljenosti COVID-19«.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Za beleženje izpostavljenosti in stikov, morajo biti aktivirana Obvestila o beleženju izpostavljenosti COVID-19. To lahko storite v nastavitvah naprave.";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktivirajte Obvestila o beleženju izpostavljenosti COVID-19";
+"ExposureNotificationSetting_AuthenticationError" = "Med aktiviranjem beleženja izpostavljenosti se je pojavila napaka. Pojdite v sistemske nastavitve in poskrbite, da je ta aplikacija avtorizirana za uporabo beleženja izpostavljenosti COVID-19.";
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Avtorizacija";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Potrebna je avtorizacija";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Potrdite, da uporabljate beleženje izpostavljenosti COVID-19.";
+//nastavitve beleženje izpostavljenosti
+"ExposureNotificationSetting_Bluetooth_Description" = "Da se zagotovi pravilno delovanje beleženja izpostavljenosti, morate imeti vklopljen Bluetooth. Vklopite bluetooth v nastavitvah svoje naprave.";
+"ExposureNotificationSetting_DescriptionText1" = "";
+"ExposureNotificationSetting_DescriptionText2" = "Beleženje izpostavljenosti deluje tako, da vaša naprava prek Bluetootha prejme naključne oddajne kode drugih uporabnikov, vaše naključne oddajne kode pa posreduje njihovim napravam. To funkcionalnost lahko izklopite kadar koli.";
+"ExposureNotificationSetting_DescriptionText3" = "Z naključnimi oddajnimi kodami se posredujejo le informacije o datumu, trajanju in bližini do drugih ljudi, ki je izračunana s pomočjo jakosti Bluetooth signala. Osebni podatki, kot so ime, naslov in lokacija, se ne beležijo. Posameznikov ni mogoče prepoznati.";
+"ExposureNotificationSetting_DescriptionText4" = "";
+"ExposureNotificationSetting_DescriptionTitle" = "Delovanje beleženja izpostavljenosti";
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktivirajte beleženje izpostavljenosti";
+"ExposureNotificationSetting_Detail_Action_Button" = "Odprite nastavitve naprave";
+"ExposureNotificationSetting_Dismiss_Action" = "Prekliči";
+"ExposureNotificationSetting_EU_Desc_1" = "Številne države sodelujejo pri omogočanju čezmejnega obveščanja o izpostavljenosti preko skupnega strežnika za izmenjavo ključev. Na primer stiki z uporabniki tujih uradnih aplikacij za boj proti Covid-19 bodo upoštevani pri oceni vaše stopnje tveganja.";
+"ExposureNotificationSetting_EU_Desc_2" = "To doseže tako, da aplikacija prenese seznam, ki se dnevno posodablja s ključi vseh uporabnikov, ki so delili informacijo o okužbi preko svoje aplikacije. Ta seznam se nato primerja s ključi na vašem pametnem telefonu.";
+"ExposureNotificationSetting_EU_Desc_3" = "Naslednje države trenutno sodelujejo pri čezmejni izmenjavi ključev:";
+"ExposureNotificationSetting_EU_Desc_4" = "Politika zasebnosti aplikacije (vključno z informacijo o obdelavi podatkov pri čezmejni izmenjavi ključev) se nahaja v meniju pod 'Informacije o aplikaciji' in 'Zasebnost'.";
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Odpri nastavitve naprave";
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Internetna povezava ne deluje. Preverite ali imate povezavo.";
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Držav trenutno ni mogoče prikazati.";
+"ExposureNotificationSetting_EU_Title" = "Čezmejno beleženje izpostavljenosti";
+"ExposureNotificationSetting_EnableTracing" = "Beleženje izpostavljenosti";
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Več o tem";
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"ExposureNotificationSetting_GeneralError_Title" = "Napaka";
+"ExposureNotificationSetting_Internet_Description" = "Za oceno tveganja pri beleženju izpostavljenosti je potrebna internetna povezava. Vklopite brezžično povezavo ali prenos mobilnih podatkov v nastavitvah svoje naprave.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Omogoči beleženje in obvestila o izpostavljenosti COVID-19";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "Za beleženje izpostavljenosti morate v sistemskih nastavitvah aktivirati beleženje in obvestila o izpostavljenosti COVID-19, da se lahko beležijo stiki. V svojih sistemskih nastavitvah omogočite »Beleženje in obvestila o izpostavljenosti COVID-19«.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Določi aktivno regijo";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Za beleženje izpostavljenosti in stikov mora biti aplikacija #OstaniZdrav določena kot aktivna aplikacija. To lahko storite v nastavitvah naprave.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Za beleženje izpostavljenosti in stikov mora biti aplikacija #OstaniZdrav določena kot aktivna aplikacija. To lahko storite v nastavitvah naprave.";
+"ExposureNotificationSetting_TracingSettingTitle" = "Beleženje izpostavljenosti";
+"ExposureNotificationSetting_Tracing_Deactivated" = "Izključeno";
+"ExposureNotificationSetting_Tracing_Limited" = "Omejeno";
+"ExposureNotificationSetting_apiMisuse" = "Med aktiviranjem izračuna tveganja se je pojavila notranja napaka. Za več informacij obiščite našo spletno stran in beleženje izpostavljenosti poskušajte aktivirati pozneje.";
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Sodelujoče države";
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Čezmejno beleženje izpostavljenosti";
+"ExposureNotificationSetting_exposureNotification_Required" = "Med aktiviranjem beleženja izpostavljenosti je nastala napaka. Pojdite v sistemske nastavitve in poskrbite, da so za to aplikacijo omogočena obvestila o izpostavljenosti.";
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Med aktiviranjem beleženja izpostavljenosti je nastala napaka. Pojdite v sistemske nastavitve in poskrbite, da je za to aplikacijo aktivirana uporaba obvestil o izpostavljenosti.";
+"ExposureNotificationSetting_unknownError" = "Nastala je neznana napaka.";
 
-"Active_Tracing_Interval_Permanently_Active" = "Beleženje izpostavljenosti je aktivirano";
+"ExposureSubmissionConfirmation_Title" = "Pozitiven rezultat testa";
+"ExposureSubmission_DispatchDescription" = "Obveščanje stikov preko aplikacije je popolnoma anonimno.";
+"ExposureSubmission_DispatchTitle" = "Je bil vaš test pozitiven?";
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Sprejmi";
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Ne sprejmi";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "V kolikor TAN kode še niste dobili ali pa vam je ta potekla, jo dobite preko spletnega obrazca.";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Pridobite TAN kodo";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Podatek o okužbi s SRS-CoV-2 anonimno delite z vnosom TAN kode, ki ste jo prejeli preko SMS sporočila.";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Vnesite TAN kodo";
 
+"ExposureSubmissionError_EnNotEnabled" = "Beleženje izpostavljenosti ni aktivirano.";
+"ExposureSubmissionError_ErrorPrefix" = "Pri prenosu vaših podatkov je prišlo je do tehnične napake. Prosimo, pokličite Enotni kontaktni center za pomoč uporabnikom (Informacije o aplikaciji)";
+"ExposureSubmissionError_InvalidResponse" = "Odziva ne moremo obdelati.";
+"ExposureSubmissionError_InvalidTan" = "Ustvarjena TAN koda ni veljavna za oddajo. Pokličite Enotni kontaktni center za pomoč uporabnikom.";
+"ExposureSubmissionError_NoKeys" = "Diagnostični ključ ni na voljo. Poskusite znova jutri.";
+"ExposureSubmissionError_NoRegistrationToken" = "Na napravi ne najdemo nikakršnega žetona za registracijo.";
+"ExposureSubmissionError_NoResponse" = "Odziv nima vsebine.";
+"ExposureSubmissionError_QRAlreadyUsed" = "";
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "";
+"ExposureSubmissionError_QRNotExist" = "";
+"ExposureSubmissionError_QRNotExist_Title" = "";
+"ExposureSubmissionError_RegTokenNotExist" = "";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN koda je neveljavna ali je že bila uporabljena.";
+"ExposureSubmissionError_declined" = "Objavite svoje dnevne ključe, da opozorite druge ljudi.";
+"ExposureSubmissionError_defaultError" = "Splošna napaka pri oddaji ključev";
+"ExposureSubmissionError_httpError" = "Nismo uspeli vzpostaviti povezave.";
+"ExposureSubmissionError_noAppConfiguration" = "Internetna povezava je bila prekinjena. Prosimo, preverite povezavo in ponovno odprite aplikacijo.";
+"ExposureSubmissionError_other" = "Pojavila se je napaka pri povezavi. Koda napake za službo za tehnično pomoč: ";
+"ExposureSubmissionError_otherend" = "Poskusite znova.";
+"ExposureSubmissionError_unknown" = "Neznana napaka";
+"ExposureSubmissionHotline_Description" = "";
+"ExposureSubmissionHotline_SectionDescription1" = "S klikom na gumb 'Odpri obrazec' dostopate do spletne strani";
+"ExposureSubmissionHotline_SectionTitle" = "Za pridobitev TAN kode:";
+"ExposureSubmissionHotline_Title" = "Pridobite TAN kodo";
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Korak 1 od 2";
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Korak 2 od 2";
+"ExposureSubmissionHotline_imageDescription" = "Moški ima med telefoniranjem na glavi slušalke z mikrofonom.";
+//staro
+"ExposureSubmissionIntroduction_AccImageDescription" = "Naprava prenaša šifrirano obvestilo na podlagi potrjene okužbe s SARS-CoV-2 v sistem.";
+"ExposureSubmissionIntroduction_ListItem1" = "Če je bila pri vas potrjena okužba s SARS-CoV-2, lahko z vnosom TAN kode o tem obvestite druge. TAN kodo ste dobili preko SMS sporočila.";
+"ExposureSubmissionIntroduction_ListItem2" = "V kolikor TAN kode še niste prejeli ali vam je ta potekla, jo dobite zaprosite preko spletnega obrazca v naslednjem koraku.";
+"ExposureSubmissionIntroduction_ListItem3" = "";
+"ExposureSubmissionIntroduction_ListItem4" = "";
+"ExposureSubmissionIntroduction_SubTitle" = "";
+"ExposureSubmissionIntroduction_Title" = "Je vaš test pozitiven?";
+"ExposureSubmissionIntroduction_Usage01" = "";
+"ExposureSubmissionIntroduction_Usage02" = "Obveščanje stikov preko aplikacije je popolnoma anonimno.";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR code no longer valid";
+//
+
+//teletan confirmed no consent
+"ExposureSubmissionResult_CardInvalid" = "";
+"ExposureSubmissionResult_CardNegative" = "";
+"ExposureSubmissionResult_CardPending" = "";
+"ExposureSubmissionResult_CardPositive" = "Pozitivni";
+"ExposureSubmissionResult_CardSubTitle" = "";
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+"ExposureSubmissionResult_Procedure" = "";
+"ExposureSubmissionResult_RegistrationDate" = "Vnešeno";
+"ExposureSubmissionResult_RegistrationDateUnknown" = "";
+"ExposureSubmissionResult_RemoveAlert_Text" = "";
+"ExposureSubmissionResult_RemoveAlert_Title" = "";
+"ExposureSubmissionResult_Title" = "Opozorite druge";
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "ExposureSubmissionResult_WarnOthersConsentGiven";
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "ExposureSubmissionResult_WarnOthersConsentNotGiven"; //pridobivanje rezultatov testa ne uporabljeno
+"ExposureSubmissionResult_continueButton" = "Vnos simptomov";
+"ExposureSubmissionResult_deleteButton" = "ExposureSubmissionResult_deleteButton"; //pridobivanje rezultatov testa ne uporabljeno
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "ExposureSubmissionResult_furtherInfos_hint_testAgain";
+"ExposureSubmissionResult_primaryButtonTitle" = "Vnesi datum";
+"ExposureSubmissionResult_refreshButton" = "Posodobitev";
+"ExposureSubmissionResult_secondaryButtonTitle" = "Preskoči";
+"ExposureSubmissionResult_testAdded" = "Rezultat vašega testiranja je bil uspešno zabeležen";
+"ExposureSubmissionResult_testAddedDesc" = "ExposureSubmissionResult_testAddedDesc";
+"ExposureSubmissionResult_testExpired" = "ExposureSubmissionResult_testExpired";
+"ExposureSubmissionResult_testExpiredDesc" = "ExposureSubmissionResult_testExpiredDesc";
+"ExposureSubmissionResult_testInvalid" = "";
+"ExposureSubmissionResult_testInvalidDesc" = "";
+"ExposureSubmissionResult_testNegative" = "";
+"ExposureSubmissionResult_testNegativeDesc" = "";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "";
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "";
+"ExposureSubmissionResult_testPending" = "";
+"ExposureSubmissionResult_testPendingDesc" = "";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "";
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "";
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "";
+"ExposureSubmissionResult_testPositive" = "Naj drugi ostanejo zdravi";
+"ExposureSubmissionResult_testPositiveDesc" = "Delite svoje dnevne ključe iz preteklih 14 dni, da zaščitite druge in prekinete verigo prenosa okužb.";
+"ExposureSubmissionResult_testRedeemed" = "ExposureSubmissionResult_testRedeemed";
+"ExposureSubmissionResult_testRedeemedDesc" = "ExposureSubmissionResult_testRedeemedDesc";
+"ExposureSubmissionResult_testRemove" = "ExposureSubmissionResult_testRemove";
+"ExposureSubmissionResult_testRemoveDesc" = "ExposureSubmissionResult_testRemoveDesc";
+"ExposureSubmissionResult_warnOthers" = "Vnesite dan začetka simptomov";
+"ExposureSubmissionResult_warnOthersDesc" = "Tako bo lahko aplikacija natančneje izračunala tveganje za okužbo za druge uporabnike aplikacije.";
+"ExposureSubmissionSuccess_AccImageDescription" = "Vsi v skupini se veselijo, ker je nekdo delil rezultat svojega testa.";
+"ExposureSubmissionSuccess_Button" = "Končano";
+"ExposureSubmissionSuccess_Description" = "Vaš prispevek je dragocen. Hvala za podporo. Zdaj lahko drugi prejmejo opozorilo in se ustrezno odzovejo.";
+"ExposureSubmissionSuccess_Title" = "Hvala!";
+"ExposureSubmissionSuccess_listItem1" = "Pri vas je bila potrjena okužba s SARS-CoV-2. Spoštujte navodila o izolaciji, ki se jih prejeli s strani zdravstvene službe.";
+"ExposureSubmissionSuccess_listItem2" = "Na brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"ExposureSubmissionSuccess_listItem2_1" = "O trajanju izolacije presoja vaš lečeči zdravnik.";
+"ExposureSubmissionSuccess_listItem2_2" = "V primeru poslabšanja bolezni se po telefonu posvetujte z vašim izbranim osebnim ali dežurnim zdravnikom.";
+"ExposureSubmissionSuccess_listItem2_3" = "V nujnih primerih pokličite 112. Povejte, da je bila pri vas potrjena okužba s SARS-CoV-2.";
+"ExposureSubmissionSuccess_listItem2_4" = "Po zaključeni izpolaciji aplikacijo ponastavite v nastavitvah, da jo lahko ponovno uporabljate.";
+"ExposureSubmissionSuccess_listTitle" = "Ne pozabite:";
+"ExposureSubmissionSuccess_subTitle" = "Druge informacije:";
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "V zadnjih 7 dneh";
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Več kot dva tedna nazaj";
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "Pred enim do dvema tednoma";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Preskoči";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Naprej";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Točen datum";
+"ExposureSubmissionSymptomsOnset_Description" = "Poskusite čim bolj natančno določiti datum začetka simptomov. Če točnega datuma ne morete določiti, lahko izbirate med spodaj zapisanimi možnostmi. Nato kliknite Končano.";
+"ExposureSubmissionSymptoms_Title" = "Datum začetka simptomov";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Kdaj so se simptomi začeli?";
+"ExposureSubmissionSymptomsOnset_Title" = "Datum začetka simptomov";
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Ne";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Preskoči";
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Da";
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Izhod";
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Dokončanje oddaje"; // TODO
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Vaš vnos ne bo shranjen.";
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Želite preklicati?";
+"ExposureSubmissionSymptoms_ContinueButton" = "Naprej";
+"ExposureSubmissionSymptoms_Description" = "Ali ste imeli enega ali več naslednjih simptomov?";
+"ExposureSubmissionSymptoms_Introduction" = "Če teh informacij ne želite posredovati, izberite 'Preskoči'";
+"ExposureSubmissionSymptoms_Symptom0" = "Slabo počutje";
+"ExposureSubmissionSymptoms_Symptom1" = "Prehladni znaki";
+"ExposureSubmissionSymptoms_Symptom2" = "Kašelj";
+"ExposureSubmissionSymptoms_Symptom3" = "Povišana telesna temperatura";
+"ExposureSubmissionSymptoms_Symptom4" = "Težko dihanje";
+"ExposureSubmissionSymptoms_Symptom5" = "Glavobol ali bolečine v mišicah";
+"ExposureSubmissionSymptoms_Symptom6" = "Izguba vonja ali okusa";
+"ExposureSubmissionSymptoms_Symptom7" = "Bolečine v žrelu";
+
+
+"ExposureSubmissionTanEntry_Description" = "Vnesite 10-mestno številko TAN, ki ste jo prejeli";
+"ExposureSubmissionTanEntry_EntryField" = "Polje za vnos številke TAN";
+"ExposureSubmissionTanEntry_Info" = "Vnesite številko TAN, ki ste jo prejeli";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Neveljavna številka TAN, preverite svoj vnos.";
+"ExposureSubmissionTanEntry_InvalidError" = "Neveljavna številka TAN, preverite svoj vnos.";
+"ExposureSubmissionTanEntry_Submit" = "Naprej";
+"ExposureSubmissionTanEntry_Title" = "Vnos številke TAN";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Prekliči";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Naprej";
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "ExposureSubmissionTestresultAvailable_CloseAlertMessage";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "ExposureSubmissionTestresultAvailable_CloseAlertTitle";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "ExposureSubmissionTestresultAvailable_Consent_granted";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "ExposureSubmissionTestresultAvailable_Consent_not_given";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "ExposureSubmissionTestresultAvailable_ListItem1WithConsent";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "2 no consent";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "3 no consent";
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "4 no consent";
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage";
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle";
+"ExposureSubmissionTestresultAvailable_Title" = "ExposureSubmissionTestresultAvailable_Title";
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "ExposureSubmissionTestresultAvailable_primaryButtonTitle";
+"ExposureSubmissionWarnOthers_AccImageDescription" = "";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "Aplikacija je namenjena osebam, ki prebivajo v Republiki Sloveniji in so stare najmanj 16 let.";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Od 16 let naprej";
+"ExposureSubmissionWarnOthers_continueButton" = "Sprejmi";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "S klikom na »Sprejmi« boste oddali svoje soglasje, s katerim dovoljujete, da aplikacija vaše naključne dnevne ključe iz preteklih 14 dni posreduje strežniškemu sistemu. Tako lahko drugi uporabniki, ki so omogočili funkcionalnost beleženja izpostavljenosti, prejmejo samodejna obvestila o tem, da so bili mogoče izpostavljeni SARS-CoV-2. Naključni dnevni ključi, ki se prenesejo v ta namen, ne vsebujejo nikakršnih informacij, na podlagi katerih bi lahko sklepali o vaši identiteti ali o vas kot osebi.";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Zasebnost";
+"ExposureSubmissionWarnOthers_description" = "Anonimno delite informacijo o svoji okužbi in s tem opozorite druge.";
+"ExposureSubmissionWarnOthers_sectionTitle" = "Pomagajte pri zajezitvi širjenja okužbe.";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Opozorilo deluje v več državah. Naslednje države trenutno sodelujejo pri čezmejni izmenjavi ključev:";
+"ExposureSubmissionWarnOthers_title" = "Opozorite druge";
+"ExposureSubmission_CallButtonTitle" = "Odpri obrazec";
+"ExposureSubmission_ConfirmDismissPopUpText" = "Želite preklicati?";
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Želite preklicati?";
+"ExposureSubmission_Continue_actionText" = "Naprej";
+"ExposureSubmission_DataPrivacyDescription" = "";
+"ExposureSubmission_DataPrivacyTitle" = "Varstvo podatkov";
+"ExposureSubmission_DispatchSectionHeadline" = "";
+"ExposureSubmission_DispatchSectionHeadline2" = "";
+
+"ExposureSubmission_GeneralErrorTitle" = "Napaka";
+"ExposureSubmission_Hotline_Number" = "080 1787";
+"ExposureSubmission_NavTitle" = "";
+"ExposureSubmission_PhoneDetailDescription" = "";
+"ExposureSubmission_PhoneNumber" = "NIJZ";
+"ExposureSubmission_SectionDescription2" = "Z vnosom podatkov v spletni obrazec boste preko SMS sporočila pridobili TAN kodo.";
+"ExposureSubmission_Submit" = "Podatek o okužbi s SARS-CoV-2 delite z vnosom številke TAN v aplikacijo";
+"ExposureSubmission_TANInputButtonTitle" = "Vnos TAN kode";
+"General_BackButtonTitle" = "Nazaj";
+"General_moreInfo_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN11" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN13" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN5" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth je izklopljen";
+"Home_Activate_Card_Internet_Off_Title" = "Ni internetne povezave";
+"Home_Activate_Card_Off_Title" = "Beleženje izpostavljenosti je ustavljeno";
+"Home_Activate_Card_On_Title" = "Beleženje izpostavljenosti je aktivirano";
+"Home_Alert_RiskStatusLowered_Message" = "Zadnja izpostavljenost, ki je bila ocenjena z večjim tveganjem, je bila pred več kot 14 dnevi, zato se je vaša stopnja tveganja spremenila v majhno. Če nimate simptomov Covid-19, prosimo še naprej spoštujte priporočila in veljavne ukrepe. V primeru, da imate simptome Covid-19 pa prosimo kontaktirajte svojega zdravnika in se testirajte.";
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "V redu";
+"Home_Alert_RiskStatusLowered_Title" = "Sprememba stanja tveganja";
+"Home_AppInformationCard_Title" = "Informacije o aplikaciji";
+"Home_AppInformationCard_Version" = "Različica";
+
+"Home_Finding_Positive_Card_Button" = "Naprej";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Spoštujte navodila o izolaciji, ki ste jih prejeli s strani zdravstvene službe.";
+"Home_Finding_Positive_Card_Note_Title" = "Ne pozabite:";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "Na brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"Home_Finding_Positive_Card_Share_Item_Title" = "Anonimno delite informacijo o svoji okužbi in s tem opozorite druge.";
+"Home_Finding_Positive_Card_Status_Subtitle" = "";
+"Home_Finding_Positive_Card_Status_Title" = "Potrjena okužba s SARS-CoV-2";
+"Home_Finding_Positive_Card_Title" = "Opozorite druge";
+"Home_InfoCard_AboutBody" = "Več o aplikaciji #OstaniZdrav lahko najdete na spletni strani gov.si.";
+"Home_InfoCard_AboutTitle" = "Več o aplikaciji #OstaniZdrav";
+"Home_InfoCard_ShareBody" = "Več kot je uporabnikov aplikacije, hitreje bomo prekinili verigo prenosa okužb. Prosimo, povabite svoje sorodnike in prijatelje, naj prenesejo aplikacijo.";
+"Home_InfoCard_ShareTitle" = "Delite aplikacijo #OstaniZdrav";
+"Home_LeftBarButton_description" = "Logotip aplikacije #OstaniZdrav";
+"Home_RightBarButton_description" = "Informacije";
+"Home_RiskCard_Unknown48h_Body" = "Beleženja izpostavljenosti nismo mogli posodobiti več kot 48 ur. Posodobite oceno tveganja.";
+"Home_RiskCard_Unknown_Button" = "Posodobitev";
+"Home_RiskCard_Unknown_Item_Title" = "Ker beleženje izpostavljenosti ni bilo vklopljeno dovolj dolgo, nismo mogli oceniti vašega tveganja za okužbo.";
+"Home_RiskCard_Update_Button" = "Posodobitev";
+"Home_Risk_Date_Item_Title" = "Posodobljeno: %@";
+"Home_Risk_Failed_Body" = "Sinhronizacija dnevnih ključev s strežnikom je spodletela. Ponovno lahko zaženete sinhronizacijo ročno.";
+"Home_Risk_Failed_Title" = "Preverjanje izpostavljenosti ni uspelo";
+"Home_Risk_High_Title" = "Večje tveganje";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Vklopite beleženje izpostavljenosti za oceno tveganja za okužbo na današnji dan.";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Aktiviraj beleženje izpostavljenosti";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Beleženje izpostavljenosti je ustavljeno";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Beleženja izpostavljenosti nismo mogli posodobiti več kot 24 ur.";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Aktiviraj beleženje izpostavljenosti";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Beleženje izpostavljenosti ni mogoče";
+"Home_Risk_Last_Activate_Item_High_Title" = "Večje tveganje";
+"Home_Risk_Last_Activate_Item_Low_Title" = "Majhno tveganje";
+"Home_Risk_Last_Activate_Item_Title" = "Zadnje preverjanje izpostavljenosti: %@";
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Neznano tveganje";
+"Home_Risk_Last_Contact_Item_Title" = "Zadnja izpostavljenost %@";
+"Home_Risk_Low_Title" = "Majhno tveganje";
+"Home_Risk_No_Date_Title" = "Neznano";
+"Home_Risk_Period_Disabled_Button_Title" = "Posodobljeno vsakih %@\U00A0ur";
+"Home_Risk_Period_Update_Title" = "Posodobljeno vsakih %@\U00A0ur";
+"Home_Risk_Restart_Button_Title" = "Ponovno zaženi";
+"Home_Risk_Status_Check_Body" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut.";
+"Home_Risk_Status_Check_Title" = "Preverjanje v teku …";
+"Home_Risk_Status_Detecting_Body" = "Prenašajo in preverjajo se trenutni podatki. To lahko traja več minut.";
+"Home_Risk_Status_Detecting_Title" = "Preverjanje v teku …";
+"Home_Risk_Status_Downloading_Body" = "To lahko traja več minut.";
+"Home_Risk_Status_Downloading_Title" = "Prenašajo in preverjajo se trenutni podatki";
+"Home_Risk_Unknown_Title" = "Neznano tveganje";
+"Home_SettingsCard_Title" = "Nastavitve";
+"Home_SubmitCard_Body" = "Z obveščanjem drugih pomagajte prekiniti verigo prenosa okužb.";
+"Home_SubmitCard_Button" = "Vnos TAN kode";
+"Home_SubmitCard_Title" = "Je vaš test pozitiven?";
+"Home_Thank_You_Card_14Days_Item_Title" = "O trajanju izolacije presoja vaš lečeči zdravnik.";
+"Home_Thank_You_Card_App_Item_Title" = "V nujnih primerih pokličite 112. Povejte, da je bila pri vas potrjena okužba s SARS-CoV-2.";
+"Home_Thank_You_Card_Body" = "Vaš prispevek je dragocen. Hvala za podporo. Zdaj lahko drugi prejmejo opozorilo in se ustrezno odzovejo.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "V primeru poslabšanja bolezni se po telefonu posvetujte z vašim izbranim osebnim ali dežurnim zdravnikom.";
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Druge informacije:";
+"Home_Thank_You_Card_Home_Item_Title" = "Na brezplačni telefonski številki 080 51 00 vam je 24 ur na dan in vse dni v tednu na voljo psihološka podpora ob epidemiji COVID-19.";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Po zaključeni izolaciji aplikacijo ponastavite v nastavitvah, da jo lahko ponovno uporabljate.";
+"Home_Thank_You_Card_Note_Title" = "Ne pozabite:";
+"Home_Thank_You_Card_Phone_Item_Title" = "Spoštujte navodila o izolaciji, ki ste jih prejeli s strani zdravstvene službe.";
+"Home_Thank_You_Card_Title" = "Hvala!";
+"Home_resultCard_AvailableDesc" = "";
+"Home_resultCard_AvailableSubtitle" = "";
+"Home_resultCard_InvalidDesc" = "";
+"Home_resultCard_InvalidTitle" = "";
+"Home_resultCard_LoadingBody" = ".";
+"Home_resultCard_LoadingErrorTitle" = "";
+"Home_resultCard_LoadingTitle" = "";
+"Home_resultCard_NegativeDesc" = "";
+"Home_resultCard_NegativeTitle" = "";
+"Home_resultCard_PendingDesc" = "";
+"Home_resultCard_ResultAvailableTitle" = "";
+"Home_resultCard_ResultUnvailableTitle" = "";
+"Home_resultCard_RetrieveResultButton" = "";
+"Home_resultCard_ShowResultButton" = "";
+"How_Risk_Detection_Works_Alert_Message" = "Vaša stopnja tveganja za okužbo se lahko oceni samo za obdobje v katerem je bilo aktivno beleženje izpostavljenosti, zato mora biti beleženje izpostavljenosti aktivirano ves čas.\nBeleženje izpostavljenosti zajema zadnjih 14 dni.\nAplikacija samodejno briše starejše zapise, saj ti podatki niso več relavantni za preprečevanje širjenja okužbe.\n\nZa dodatne informacije si oglejte našo spletno stran.";
+"How_Risk_Detection_Works_Alert_Title" = "Informacije o funkcionalnosti beleženja izpostavljenosti";
+"InviteFriends_Button" = "Pošlji povezavo za prenos aplikacije";
+"InviteFriends_Description" = "Več kot je uporabnikov aplikacije, hitreje bomo prekinili verigo prenosa okužb. Prosimo, povabite svoje sorodnike in prijatelje, naj prenesejo aplikacijo.";
+"InviteFriends_Illustration_Label" = "Moški deli aplikacijo #OstaniZdrav s štirimi drugimi ljudmi.";
+"InviteFriends_NavTitle" = "Delite #OstaniZdrav";
+"InviteFriends_ShareTitle" = "Skupaj proti COVID-19. Jaz sodelujem kaj pa vi?";
+"InviteFriends_ShareUrl" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"InviteFriends_Subtitle" = "";
+"InviteFriends_Title" = "Obvarujmo sebe in druge pred COVID-19";
+"NotificationSettings_NavTitle" = "Obvestila";
+"NotificationSettings_Off_EnableNotifications" = "Obvestila";
+"NotificationSettings_Off_InfoDescription" = "Da aktivirate obvestila, jih morate za aplikacijo #OstaniZdrav dovoliti v nastavitvah svoje naprave.";
+"NotificationSettings_Off_InfoTitle" = "Aktiviraj prejemanje obvestil";
+"NotificationSettings_Off_OpenSettings" = "Odpri nastavitve";
+"NotificationSettings_Off_SectionTitle" = "Nastavitev";
+"NotificationSettings_Off_StatusInactive" = "Izklopljena";
+"NotificationSettings_On_RiskChanges" = "Vaše tveganje za okužbo se je spremenilo";
+"NotificationSettings_On_SectionTitle" = "Nastavitev";
+"NotificationSettings_On_TestsStatus" = "";
+"NotificationSettings_On_Title" = "Ali želite prejemati obvestila o svojem stanju tveganja za okužbo s SARS-CoV-2?";
+"NotificationSettings_offImageDescription" = "Ženska ne more prejeti obvestil od svoje aplikacije #OstaniZdrav.";
+"NotificationSettings_onImageDescription" = "Ženska je prejela obvestilo od svoje aplikacije #OstaniZdrav.";
+
+//onboarding
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplikacija vas lahko samodejno obvesti o vašem stanju tveganja za okužbo.";
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Ženska je prejela obvestilo od svoje aplikacije #OstaniZdrav.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Če boste aplikaciji dovolili, da vas obvešča, boste lahko prejeli obvestilo o vašem tveganju za okužbo in priporočila za nadaljnje ukrepanje.";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Prejemajte opozorila in prepoznajte tveganja";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Aplikacija je namenjena osebam, ki prebivajo v Republiki Sloveniji in so stare najmanj 16 let.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Od 16 let naprej";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Tri osebe so na svojih napravah aktivirali beleženje izpostavljenosti, s čimer bodo beležili medsebojne stike.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Beleženje izpostavljenosti deluje tako, da vaša naprava prek Bluetootha prejme naključne oddajne kode drugih uporabnikov, vašo naključno oddajno kodo pa posreduje njihovim napravam. To funkcionalnost lahko izklopite kadar koli. \n\nZ naključnimi oddajnimi kodami se posredujejo le informacije o datumu, trajanju in bližini do drugih naprav, ki je izračunana s pomočjo jakosti Bluetooth signala. Osebni podatki, kot so ime, naslov in lokacija, se ne beležijo. Posameznikov ni mogoče prepoznati.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "Če želite ugotoviti stopnjo tveganja za okužbo s SARS-CoV-2, morate omogočiti funkcijo beleženja izpostavljenosti v aplikaciji. S klikom na gumb »Omogoči« soglašate z vklopom funkcije beleženja izpostavljenosti v aplikaciji in obdelavo s tem povezanih podatkov.\n\n\nZa celovito delovanje aplikacije mora biti omogočena funkcija beleženja izpostavljenosti COVID-19, ki jo na vašem iPhonu zagotavlja Apple, aplikaciji #OstaniZdrav pa dati dovoljenje, da jo uporablja.\n\nKo boste omogočili beleženje izpostavljenosti, bo vaš iPhone prek Bluetootha nenehno ustvarjal in prenašal naključne oddajne kode, ki jih bodo sprejemali drugi pametni telefoni Android ali Apple v bližini, in sicer pod pogojem, da je tudi na njih omogočeno beleženje izpostavljenosti. Vaš iPhone pa ob tem prejema naključne oddajne kode od drugih pametnih telefonov. Vaše naključne oddajne kode in tiste, ki ste jih prejeli z drugih pametnih telefonov, se zabeležijo v dnevnik izpostavljenosti, v katerem se hranijo 14 dni.\n\nZa oceno vašega tveganja za okužbo bo aplikacija enkrat dnevno naložila seznam naključnih dnevnih ključev vseh uporabnikov, ki so svoji aplikaciji sporočili, da so okuženi s SARS-CoV-2. Ta seznam se nato primerja z naključnimi oddajnimi kodami v dnevniku izpostavljenosti. Če aplikacija odkrije, da ste bili v stiku z okuženim uporabnikom, vas bo o tem obvestila in vam sporočila, da obstaja tveganje za okužbo.\n\nZ jakostjo signala Bluetooth se določi fizična oddaljenost (močnejši kot je signal, manjša je oddaljenost). Aplikacija nato analizira te informacije, da oceni verjetnost okužbe s SARS-CoV-2 in da vam priporoči, kako ukrepati. Ta analiza se izvede le lokalno, na vašem iPhoneu. Razen vas ne bo nihče vedel, ali ste bili v stiku z okuženo osebo in kakšno je tveganje za okužbo.\n\nZa preklic soglasja glede uporabe funkcionalnosti beleženja izpostavljenosti lahko to funkcijo onemogočite s preklopnim stikalom v aplikaciji ali pa aplikacijo izbrišete. Če se odločite, da boste funkcionalnost beleženja izpostavljenosti ponovno uporabljali, lahko funkcionalnost ponovno vklopite s preklopnim stikalom ali si ponovno namestite aplikacijo. Če izklopite funkcionalnost beleženja izpostavljenosti, aplikacija ne bo več preverjala, ali ste bili v stiku z okuženim uporabnikom. Če bi prav tako želeli, da vaša naprava preneha pošiljati in prejemati naključne oddajne kode, boste morali v nastavitvah svojega iPhona onemogočiti beleženje izpostavljenosti COVID-19. Ne pozabite, da vaše naključne oddajne kode in tiste, ki ste jih prejeli z drugih pametnih telefonov in so shranjene v dnevniku izpostavljenosti, ne bodo izbrisane v aplikaciji. Podatke, shranjene v dnevniku izpostavljenosti, lahko trajno izbrišete le v nastavitvah svojega iPhonea.\n\nObvestilo o zasebnosti v aplikaciji (vključno z razlago obdelave podatkov, ki se izvaja za funkcijo beleženja izpostavljenosti) lahko najdete v meniju pod naslovom »Zasebnost«.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Izjava o soglasju";
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktivirano";
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Stanje";
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Ustavljeno";
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Ocena tveganja za okužbo s SARS-CoV-2";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Kako vklopiti beleženje izpostavljenosti";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… vas vljudno prosimo, da to delite v aplikaciji #OstaniZdrav. Deljenje informacije o vaši okužbi je prostovoljno in varno. To storite zaradi zdravja drugih.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Šifrirano obvestilo o okužbi se prenese v sistem, ki bo opozoril druge uporabnike.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Vaše obvestilo o okužbi je varno zašifrirano in obdelano na varnem strežniku. Osebe, ki imajo shranjeno vašo naključno oddajno kodo, bodo v primeru zaznanega tveganja prejele opozorilo in informacije o tem, kaj morajo storiti.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Če je bila pri vas potrjena okužba s SARS-CoV-2 ...";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_imageDescription" = "Ena izmed žensk uporablja aplikacijo #OstaniZdrav na svoji napravi. Ključavnica na ščitu je simbol za šifrirane podatke.";
+"OnboardingInfo_privacyPage_normalText" = "Ostali boste anonimni.\nVaši podatki se prenašajo v povsem šifrirani obliki in pod psevdonimom.\n\nOdgovorna ustanova: Ministrstvo za javno upravo in Nacionalni inštitut za javno zdravje\n Splošna uredba o varstvu podatkov (GDPR) v povezavi Zakonom o varstvu osebnih podatkov Republike Slovenije\nPreberite naše predpise o zasebnosti podatkov.\n\nInformacije o zasebnosti podatkov:";
+"OnboardingInfo_privacyPage_title" = "Varstvo podatkov";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Več zaščite za vas in vse nas. Če bomo uporabljali aplikacijo #OstaniZdrav, nam bo veliko hitreje uspelo prekiniti verigo prenosa okužb.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Skupina ljudi uporablja svoje naprave v mestu.";
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://arhiv.mm.gov.si/vlada/MJJ/TolmačkaAPPvodič.mp4";
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Predstavitev aplikacije v slovenskem znakovnem jeziku";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Uporabljajte svoj pametni telefon kot opozorilni sistem za izpostavljenost novemu koronavirusu (SARS-CoV-2). Okužba s tem virusom lahko povzroči bolezen COVID-19 ali lahko poteka brez simptomov.\n\nSeznanite se s svojim tveganjem za okužbo in odkrijte, ali ste bili v stiku z nekom, pri katerem je bila v preteklih 14 dneh potrjena okužba s SARS-CoV-2.";
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Obvarujmo sebe in druge pred COVID-19";
+"Onboarding_Continue_actionText" = "Naprej";
+"Onboarding_Continue_actionTextHint" = "Ta zaslon lahko preskočite";
+"Onboarding_DeactivateExposureConfirmation_message" = "To funkcionalnost lahko izklopite kadar koli.";
+"Onboarding_DeactivateExposureConfirmation_title" = "To pomeni, da aplikacija #OstaniZdrav ne more pošiljati ali prejemati obvestil o vašem stanju tveganja za okužbo s SARS-CoV-2.";
+"Onboarding_DoNotActivate_actionText" = "Ne aktiviraj";
+"Onboarding_EnableLogging_actionText" = "Aktiviraj";
+"Onboarding_LetsGo_actionText" = "Začnimo";
+"Onboarding_doNotAllow_actionText" = "Ne dovoli";
+
+
+//overview
+"RiskLegend_Check_Text" = "Pridobijo se podatki o beleženju izpostavljenosti, ki se nato sinhronizirajo s sporočenimi podatki o okužbah drugih uporabnikov.";
+"RiskLegend_Check_Title" = "Preverjanje izpostavljenosti";
+"RiskLegend_Contact_Text" = "Bližnji in dlje časa trajajoči stiki z osebami, pri katerih je bila potrjena okužba s SARS-CoV-2.";
+"RiskLegend_Contact_Title" = "Izpostavljenosti";
+"RiskLegend_Definitions_Title" = "Opredelitev izrazov";
+"RiskLegend_Image1_AccLabel" = "Naprava prikazuje različno oštevilčeno vsebino";
+"RiskLegend_Legend1_Text" = "Beleženje izpostavljenosti je ena izmed treh osrednjih funkcionalnosti aplikacije. Ko jo boste aktivirali, boste začeli beležiti stike z napravami drugih oseb.";
+"RiskLegend_Legend1_Title" = "Beleženje izpostavljenosti";
+"RiskLegend_Legend2_High" = "Večje tveganje";
+"RiskLegend_Legend2_High_Color" = "Rdeča";
+"RiskLegend_Legend2_Low" = "Majhno tveganje";
+"RiskLegend_Legend2_Low_Color" = "Zelena";
+"RiskLegend_Legend2_Medium" = "Majhno tveganje";
+"RiskLegend_Legend2_Medium_Color" = "Oranžna";
+"RiskLegend_Legend2_RiskLevels" = "Prikaže se lahko eno od naslednjih stanj tveganja:";
+"RiskLegend_Legend2_Text" = "Če ste bili v preteklih 14 dneh v stiku z osebo, pri kateri je bila potrjena okužba s SARS-CoV-2, bo aplikacija ocenila vaše tveganje za okužbo na podlagi bližine in trajanja izpostavljenosti.";
+"RiskLegend_Legend2_Title" = "Tveganje za okužbo";
+"RiskLegend_Legend2_Unknown" = "Neznano tveganje";
+"RiskLegend_Legend2_Unknown_Color" = "Modra";
+"RiskLegend_Legend3_Text" = "Še ena osrednja funkcija je prijava vašega testa in pridobitev rezultata. Če so pri vas potrdili okužbo s SARS-CoV-2, lahko o tem obvestite druge in prekinete verigo prenosa okužb.";
+"RiskLegend_Legend3_Title" = "Obveščanje drugih uporabnikov";
+"RiskLegend_Notification_Text" = "Prikaz tveganja za okužbo v aplikaciji #OstaniZdrav.";
+"RiskLegend_Notification_Title" = "Obvestilo o izpostavljenosti";
+"RiskLegend_Random_Text" = "Naključne oddajne kode so naključno ustvarjene kombinacije številk in črk. Izmenjajo si jih naprave, ki so si blizu. Naključne oddajne kode se ne morejo dodeliti konkretni osebi in se samodejno izbrišejo po 14 dnevih. Osebe, pri katerih je bila potrjena okužba s SARS-CoV-2, se lahko odločijo, da bodo svoje dnevne ključe iz preteklih 14 dni delile z drugimi uporabniki aplikacije.";
+"RiskLegend_Random_Title" = "Naključne oddajne kode";
+"RiskLegend_Store_Text" = "Seznam prejetih in poslanih začasnih naključnih oddajnih kod, ki se začasno shranijo v pomnilniku operacijskega sistema. Ta seznam se prebere med preverjanjem izpostavljenosti. Vse naključne oddajne kode se samodejno izbrišejo po 14 dneh.";
+"RiskLegend_Store_Title" = "Dnevnik izpostavljenosti";
+"RiskLegend_Subtitle" = "";
+"RiskLegend_Title" = "Pregled";
+
+//settings
+"Settings_BackgroundAppRefresh_Description" = "Dovolite samodejne posodobitve vašega stanja tveganja.";
+"Settings_BackgroundAppRefresh_Label" = "Delovanje aplikacije v ozadju";
+"Settings_BackgroundAppRefresh_StatusActive" = "Vklopi";
+"Settings_BackgroundAppRefresh_StatusInactive" = "Izklopi";
+"Settings_KontaktProtokollStatusActive" = "Aktivirano";
+"Settings_KontaktProtokollStatusInactive" = "Ustavljeno";
+"Settings_NavTitle" = "Nastavitve";
+"Settings_Notification_Description" = "Dovolite samodejna obvestila o stanju tveganja za okužbo s SARS-CoV-2.";
+"Settings_Notification_Label" = "Obvestila";
+"Settings_Notification_StatusActive" = "Vklopljeno";
+"Settings_Notification_StatusInactive" = "Izklopljeno";
+"Settings_Reset_Description" = "Izbrišite vse podatke v aplikaciji";
+"Settings_Reset_Label" = "Ponastavi aplikacijo";
+"Settings_StatusActive" = "Vklopljeno";
+"Settings_StatusDisable" = "Deaktiviraj";
+"Settings_StatusEnable" = "Aktiviraj";
+"Settings_StatusInactive" = "Izklopljeno";
+"Settings_Tracing_Description" = "Dovolite, da se ustvarjajo in delijo naključne oddajne kode za beleženje izpostavljenosti.";
+"Settings_Tracing_Label" = "Beleženje izpostavljenosti";
+"Reset_Button" = "Ponastavi aplikacijo";
+"Reset_ConfirmDialog_Cancel" = "Prekliči";
+"Reset_ConfirmDialog_Confirm" = "Ponastavi";
+"Reset_ConfirmDialog_Description" = "Ne boste več prejemali obvestil o izpostavljenosti in ne boste več mogli opozarjati drugih uporabnikov. Postopka ne morete razveljaviti.";
+"Reset_ConfirmDialog_Title" = "Ponastavi aplikacijo";
+"Reset_Descrition1" = "Ne boste več prejemali obvestil o izpostavljenosti in ne boste več mogli opozarjati drugih uporabnikov.";
+"Reset_Discard" = "Prekliči";
+"Reset_Header1" = "Ali ste prepričani, da želite ponastaviti aplikacijo?";
+"Reset_ImageDescription" = "Roka drži pametno napravo, na kateri je prikazan simbol, ki pomeni, da poteka ponastavitev aplikacije.";
+"Reset_InfoDescription" = "Dnevnik izpostavljenosti morate izbrisati ločeno v nastavitvah svoje naprave";
+"Reset_InfoTitle" = "Dnevnik izpostavljenosti";
+"Reset_NavTitle" = "Ponastavi aplikacijo";
+"Reset_Subtitle" = "";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "TestResultPositive_NoConsent_AlertNotWarnOthers_Description";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "TestResultPositive_NoConsent_AlertNotWarnOthers_Title";
+"TestResultPositive_NoConsent_Info1" = "Anonimno delite informacijo o svoji okužbi in s tem opozorite druge.";
+"TestResultPositive_NoConsent_Info2" = "Vaša identiteta in zasebnost sta vedno zaščiteni.";
+"TestResultPositive_NoConsent_Info3" = "Spoštujte navodila o izolaciji, ki ste jih prejeli s strani zdravstvene službe.";
+"TestResultPositive_NoConsent_PrimaryButton" = "Naprej";
+"TestResultPositive_NoConsent_SecondaryButton" = "Prekliči";
+"TestResultPositive_NoConsent_Title" = "Pomagajte pri zajezitvi širjenja okužbe.";
+"TestResultPositive_WithConsent_Info1" = "TestResultPositive_WithConsent_Info1";
+"TestResultPositive_WithConsent_Info2" = "TestResultPositive_WithConsent_Info2";
+"TestResultPositive_WithConsent_PrimaryButton" = "TestResultPositive_WithConsent_PrimaryButton";
+"TestResultPositive_WithConsent_SecondaryButton" = "TestResultPositive_WithConsent_SecondaryButton";
+"TestResultPositive_WithConsent_Title" = "TestResultPositive_WithConsent_Title";
+"Thank_You_AccImageDescription" = "Thank_You_AccImageDescription";
+"Thank_You_Cancel_Button" = "Prekliči";
+"Thank_You_Continue_Button" = "Naprej";
+"Thank_You_Description1" = ""; //podnaslov pred vnosom simptomov
+"Thank_You_Description2" = "Aplikacija bo lahko natančneje izračunala tveganje za okužbo za druge uporabnike aplikacije, če v naslednjem koraku vnesete datum pričetka simptomov.";
+"Thank_You_SubTitle" = "Opozorite druge";
+"Thank_You_Title" = "Hvala!";
+"Update_Message_Action_Later" = "Pozneje";
+"Update_Message_Action_Update" = "Posodobitev";
+"Update_Message_Text" = "Za aplikacijo #OstaniZdrav je na voljo posodobitev.";
+"Update_Message_Text_Force" = "Aplikacijo #OstaniZdrav boste lahko ponovno uporabljali šele, ko boste namestili najnovejšo posodobitev.";
+"Update_Message_Title" = "Na voljo je posodobitev";
+"WarnOthersNotification_Description" = "Delite informacijo o svoji okužbi in s tem opozorite druge.";
+"WarnOthersNotification_Title" = "Bodimo solidarni!";
+"local_notifications_detectexposure_body" = "Imate nova sporočila v aplikaciji #OstaniZdrav.";
+"local_notifications_detectexposure_title" = "#OstaniZdrav";
+"local_notifications_ignore" = "Prezri";
+"local_notifications_testresults_body" = "Imate nova sporočila v aplikaciji #OstaniZdrav.";
+"local_notifications_testresults_title" = "#OstaniZdrav";
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Oglejte si države, ki sodelujejo pri čezmejni izmenjavi ključev.";
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Sodelujoče države";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Številne države sodelujejo pri omogočanju čezmejnega obveščanja o izpostavljenosti preko skupnega strežnika za izmenjavo ključev. To pomeni, da bodo stiki z uporabniki tujih uradnih aplikacij za boj proti COVID-19 upoštevani pri oceni vaše stopnje tveganja.";
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Čezmejno beleženje izpostavljenosti";
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Naslednje države trenutno sodelujejo pri čezmejni izmenjavi ključev:";
+"safari_corona_website" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+
+
+
+//neuporabljeno
+
+
+"Common_Tess_Relay_Description" = " ";
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "";
+"ContactDiary_AddEditEntry_LocationTitle" = "";
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "";
+"ContactDiary_AddEditEntry_PersonTitle" = "";
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "";
+"ContactDiary_Day_AddContactPerson" = "";
+"ContactDiary_Day_AddLocation" = "";
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "";
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "";
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "";
+"ContactDiary_Day_ContactPersonsSegment" = "";
+"ContactDiary_Day_LocationsEmptyDescription" = "";
+"ContactDiary_Day_LocationsEmptyImageDescription" = "";
+"ContactDiary_Day_LocationsEmptyTitle" = "";
+"ContactDiary_Day_LocationsSegment" = "";
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "";
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "";
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "";
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "";
+"ContactDiary_EditEntries_ContactPersons_Title" = "";
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "";
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "";
+"ContactDiary_EditEntries_Location_AlertMessage" = "";
+"ContactDiary_EditEntries_Location_AlertTitle" = "";
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "";
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "";
+"ContactDiary_EditEntries_Locations_Title" = "";
+"ContactDiary_Information_Dataprivacy_Title" = "";
+"ContactDiary_Information_DescriptionSubHeadline" = "";
+"ContactDiary_Information_DescriptionTitle" = "";
+"ContactDiary_Information_ImageDescription" = "";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "";
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "";
+"ContactDiary_Information_Item_Location_Title" = "";
+"ContactDiary_Information_Item_Lock_Title" = "";
+"ContactDiary_Information_Item_Person_Title" = "";
+"ContactDiary_Information_PrimaryButton_Title" = "";
+"ContactDiary_Information_Title" = "";
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "";
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "";
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "";
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "";
+"ContactDiary_Overview_Description" = "";
+"ContactDiary_Overview_Title" = "";
+"Home_DiaryCard_Body" = "";
+"Home_DiaryCard_Button" = "";
+"Home_DiaryCard_ImageDescription" = "";
+"Home_DiaryCard_Title" = "";
+
+//QR koda
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Vaše soglasje je prostovoljno.";
+"ExposureSubmissionQRInfo_acknowledgement_4" ="";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Vaša identiteta in zasebnost sta vedno zaščiteni.";
+"ExposureSubmissionQRInfo_acknowledgement_6" = "Za oddajo soglasja morate imeti najmanj 16 let.";
+"ExposureSubmissionQRInfo_body_section_1" = "ExposureSubmissionQRInfo_body_section_1";
+"ExposureSubmissionQRInfo_body_section_2" = "ExposureSubmissionQRInfo_body_section_2";
+"ExposureSubmissionQRInfo_header_section_1" = "ExposureSubmissionQRInfo_header_section_1";
+"ExposureSubmissionQRInfo_header_section_2" = "";
+"ExposureSubmissionQRInfo_imageDescription" = "";
+"ExposureSubmissionQRInfo_instruction1" = "";
+"ExposureSubmissionQRInfo_instruction2" = "%@";
+"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "";
+"ExposureSubmissionQRInfo_instruction3" = "%@";
+"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "";
+"ExposureSubmissionQRInfo_instruction4" = "";
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Naprej";
+"ExposureSubmissionQRInfo_title" = "";
+"ExposureSubmissionQRInfo_title_description" = "";
+"ExposureSubmissionQRScanner_CameraFlash" = "";
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "";
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "";
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "";
+"ExposureSubmissionQRScanner_CameraFlash_On" = "";
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "";
+"ExposureSubmissionQRScanner_instruction" = "";
+"ExposureSubmissionQRScanner_notFoundAlertText" = "";
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "";
+"ExposureSubmissionQRScanner_otherError" = "";
+"ExposureSubmissionQRScanner_title" = "";

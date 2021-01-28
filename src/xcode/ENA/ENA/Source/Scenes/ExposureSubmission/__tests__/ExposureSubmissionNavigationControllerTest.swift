@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -24,17 +9,14 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 	private func createVC() -> ExposureSubmissionNavigationController {
 		// rootVC needs to be a ENANavigationControllerWithFooterChild to support buttons.
-		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionIntroViewController.self) { coder -> UIViewController? in
-			return ExposureSubmissionIntroViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
+		let rootVC = AppStoryboard.exposureSubmission.initiate(viewControllerType: ExposureSubmissionHotlineViewController.self) { coder -> UIViewController? in
+			return ExposureSubmissionHotlineViewController(coder: coder, coordinator: MockExposureSubmissionCoordinator())
 		}
 
-		return AppStoryboard.exposureSubmission.initiateInitial { coder in
-			ExposureSubmissionNavigationController(
-				coder: coder,
-				coordinator: MockExposureSubmissionCoordinator(),
-				rootViewController: rootVC
-			)
-		}
+		return ExposureSubmissionNavigationController(
+			dismissClosure: {},
+			rootViewController: rootVC
+		)
 	}
 
 	func testSetupSecondaryButton() {
@@ -49,7 +31,7 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		navItem?.secondaryButtonTitle = title
 		navItem?.isSecondaryButtonHidden = false
 
-		XCTAssert(!vc.footerView.secondaryButton.isHidden)
+		XCTAssertFalse(vc.footerView.secondaryButton.isHidden)
 		XCTAssertEqual(vc.footerView.secondaryButton.currentTitle, title)
 		XCTAssertEqual(vc.footerView.secondaryButton.state, UIButton.State.normal)
 	}
@@ -62,23 +44,23 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 		let navItem = rootVC?.navigationItem as? ENANavigationFooterItem
 
 		navItem?.isSecondaryButtonHidden = false
-		XCTAssert(!vc.footerView.secondaryButton.isHidden)
+		XCTAssertFalse(vc.footerView.secondaryButton.isHidden)
 
 		navItem?.isSecondaryButtonHidden = true
-		XCTAssert(vc.footerView.secondaryButton.alpha < 0.01)
+		XCTAssertLessThan(vc.footerView.secondaryButton.alpha, 0.01)
 	}
 
 	func testSecondaryButtonAction() {
 		let vc = createVC()
 		_ = vc.view
-
+		
 		let child = MockExposureSubmissionNavigationControllerChild()
 		let expectation = self.expectation(description: "Button action executed.")
 		child.didTapSecondButtonCallback = { expectation.fulfill() }
-
+		
 		vc.pushViewController(child, animated: false)
 		vc.footerView.secondaryButton.sendActions(for: .touchUpInside)
-
+		
 		waitForExpectations(timeout: .short)
 	}
 
@@ -95,4 +77,5 @@ final class ExposureSubmissionNavigationControllerTest: XCTestCase {
 
 		waitForExpectations(timeout: .short)
 	}
+	
 }

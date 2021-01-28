@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1150"
+   LastUpgradeVersion = "1200"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "${SOURCE_ROOT}/check_localsettings.sh&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "85D7593A2457048F008175F0"
+                     BuildableName = "ENA.app"
+                     BlueprintName = "ENA"
+                     ReferencedContainer = "container:ENA.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "85D7593A2457048F008175F0"
-               BuildableName = "#OstaniZdrav.app"
+               BuildableName = "ENA.app"
                BlueprintName = "ENA"
                ReferencedContainer = "container:ENA.xcodeproj">
             </BuildableReference>
@@ -45,15 +63,30 @@
       region = "DE"
       codeCoverageEnabled = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Ensure the hardware keyboard is DISCONNECTED from the simulators to prevent issues where the software keyboard is not shown.&#10;# Solution stolen from: https://stackoverflow.com/a/57269479/194585&#10;&#10;killall Simulator&#10;&#10;defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false&#10;&#10;killall Simulator || true &amp;&amp; open -a Simulator&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "85D7593A2457048F008175F0"
-            BuildableName = "#OstaniZdrav.app"
+            BuildableName = "ENA.app"
             BlueprintName = "ENA"
             ReferencedContainer = "container:ENA.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
+      <TestPlans>
+         <TestPlanReference
+            reference = "container:TestPlans/AllTests.xctestplan"
+            default = "YES">
+         </TestPlanReference>
+      </TestPlans>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -62,6 +95,16 @@
                BlueprintIdentifier = "85D7595324570491008175F0"
                BuildableName = "ENATests.xctest"
                BlueprintName = "ENATests"
+               ReferencedContainer = "container:ENA.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "85D7595E24570491008175F0"
+               BuildableName = "ENAUITests.xctest"
+               BlueprintName = "ENAUITests"
                ReferencedContainer = "container:ENA.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -83,7 +126,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "85D7593A2457048F008175F0"
-            BuildableName = "#OstaniZdrav.app"
+            BuildableName = "ENA.app"
             BlueprintName = "ENA"
             ReferencedContainer = "container:ENA.xcodeproj">
          </BuildableReference>
@@ -100,7 +143,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "85D7593A2457048F008175F0"
-            BuildableName = "#OstaniZdrav.app"
+            BuildableName = "ENA.app"
             BlueprintName = "ENA"
             ReferencedContainer = "container:ENA.xcodeproj">
          </BuildableReference>

@@ -1,28 +1,42 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import ExposureNotification
 
 enum UITestingParameters {
 	enum ExposureSubmission: String {
 		case useMock = "UI:ExposureSubmission:useMock"
 		case getRegistrationTokenSuccess = "UI:ExposureSubmission:getRegistrationTokenSuccess"
+		case loadSupportedCountriesSuccess = "UI:ExposureSubmission:loadSupportedCountriesSuccess"
+		case getTemporaryExposureKeysSuccess = "UI:ExposureSubmission:getTemporaryExposureKeysSuccess"
 		case submitExposureSuccess = "UI:ExposureSubmission:submitExposureSuccess"
+	}
+
+	enum SecureStoreHandling: String {
+		case simulateMismatchingKey = "UI:SecureStoreHandling:simulateMismatchingKey"
+	}
+}
+
+extension ENStatus {
+	var stringValue: String {
+		String(describing: self.rawValue)
+	}
+}
+
+extension TestResult {
+	// MARK: - Init
+	
+	init?(stringValue: String) {
+		guard let rawValue = Int(stringValue) else {
+			fatalError("Could not convert String to Int")
+		}
+		
+		self.init(rawValue: rawValue)
+	}
+	
+	var stringValue: String {
+		String(describing: self.rawValue)
 	}
 }

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -32,7 +17,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 	// MARK: - Setup and teardown methods.
 
-	override func setUp() {
+	private var store: Store!
+	
+	override func setUpWithError() throws {
+		store = MockTestStore()
 		parentNavigationController = UINavigationController()
 		exposureSubmissionService = MockExposureSubmissionService()
 		delegate = MockExposureSubmissionCoordinatorDelegate()
@@ -43,9 +31,10 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 	private func createCoordinator(
 		parentNavigationController: UINavigationController,
 		exposureSubmissionService: ExposureSubmissionService,
-		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinating {
+		delegate: ExposureSubmissionCoordinatorDelegate) -> ExposureSubmissionCoordinator {
 
 		return ExposureSubmissionCoordinator(
+			warnOthersReminder: WarnOthersReminder(store: self.store),
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
@@ -74,7 +63,7 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
+		navigationController?.loadViewIfNeeded()
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
@@ -83,12 +72,23 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 			return
 		}
 
-		XCTAssertNotNil(vc.coordinator)
+		vc.viewDidLoad()
+		XCTAssertNotNil(vc.dynamicTableViewModel)
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 2)
+		
+		let section1 = vc.dynamicTableViewModel.section(0)
+		XCTAssertNotNil(section1)
+		XCTAssertEqual(section1.cells.count, 2)
+		
+		let section2 = vc.dynamicTableViewModel.section(1)
+		XCTAssertNotNil(section2)
+		XCTAssertEqual(section2.cells.count, 4)
+
 	}
 
-	func testStart_withResult() {
+	func testStart_withNegativeResult() {
 		let result = TestResult.negative
-		exposureSubmissionService.hasRegistrationTokenCallback = { true }
+		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
@@ -99,18 +99,31 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 
 		// Get navigation controller and make sure to load view.
 		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
+		navigationController?.loadViewIfNeeded()
 
 		XCTAssertNotNil(navigationController)
 		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionTestResultViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
+		XCTAssertNotNil(navigationController?.topViewController as? ExposureSubmissionTestResultViewController)
+	}
 
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-		XCTAssertEqual(vc.testResult, result)
+	func testStart_withPositiveResult() {
+		let result = TestResult.positive
+		exposureSubmissionService.hasRegistrationToken = true
+		let coordinator = createCoordinator(
+			parentNavigationController: parentNavigationController,
+			exposureSubmissionService: exposureSubmissionService,
+			delegate: delegate
+		)
+
+		coordinator.start(with: result)
+
+		// Get navigation controller and make sure to load view.
+		let navigationController = getNavigationController(from: coordinator)
+		navigationController?.loadViewIfNeeded()
+
+		XCTAssertNotNil(navigationController)
+		XCTAssertNotNil(navigationController?.topViewController)
+		XCTAssertNotNil(navigationController?.topViewController as? TestResultAvailableViewController)
 	}
 
 	func testDismiss() {
@@ -132,158 +145,25 @@ class ExposureSubmissionCoordinatorTests: XCTestCase {
 		XCTAssertNotNil(parentNavigationController.presentedViewController)
 
 		coordinator.dismiss()
-		waitForExpectations(timeout: 1.0)
+		waitForExpectations(timeout: .medium)
 	}
 
-	func testShowOverview() {
+	func testInitialViewController() throws {
+		// dummy
+		exposureSubmissionService.hasRegistrationToken = true
 		let coordinator = createCoordinator(
 			parentNavigationController: parentNavigationController,
 			exposureSubmissionService: exposureSubmissionService,
 			delegate: delegate
 		)
 
-		coordinator.start(with: nil)
-		coordinator.showOverviewScreen()
+		let unknown = coordinator.getInitialViewController(with: .positive)
+		XCTAssertTrue(unknown.self is TestResultAvailableViewController)
 
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		// _ = navigationController?.view
-		sleep(3)
+		// [CAR] work in progress!
+		store.positiveTestResultWasShown = true
 
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionOverviewViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.service)
+		let positive = coordinator.getInitialViewController(with: .positive)
+		XCTAssertTrue(positive.self is ExposureSubmissionWarnOthersViewController)
 	}
-
-	func testShowTestResultScreen() {
-		let result = TestResult.negative
-		let coordinator = createCoordinator(
-			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
-		)
-
-		coordinator.start(with: nil)
-		coordinator.showTestResultScreen(with: result)
-
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
-
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionTestResultViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-		XCTAssertEqual(vc.testResult, result)
-	}
-
-	func testShowHotlineScreen() {
-		let coordinator = createCoordinator(
-			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
-		)
-
-		coordinator.start(with: nil)
-		coordinator.showHotlineScreen()
-
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
-
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionHotlineViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-	}
-
-	func testShowTanScreen() {
-		let coordinator = createCoordinator(
-			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
-		)
-
-		coordinator.start(with: nil)
-		coordinator.showTanScreen()
-
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
-
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionTanInputViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-	}
-
-	func showWarnOthersScreen() {
-		let coordinator = createCoordinator(
-			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
-		)
-
-		coordinator.start(with: nil)
-		coordinator.showWarnOthersScreen()
-
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
-
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionWarnOthersViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-		XCTAssertNotNil(vc.exposureSubmissionService)
-	}
-
-	func showThankYouScreen() {
-		let coordinator = createCoordinator(
-			parentNavigationController: parentNavigationController,
-			exposureSubmissionService: exposureSubmissionService,
-			delegate: delegate
-		)
-
-		coordinator.start(with: nil)
-		coordinator.showThankYouScreen()
-
-		// Get navigation controller and make sure to load view.
-		let navigationController = getNavigationController(from: coordinator)
-		_ = navigationController?.view
-
-		XCTAssertNotNil(navigationController)
-		XCTAssertNotNil(navigationController?.topViewController)
-		guard let vc = navigationController?.topViewController as? ExposureSubmissionSuccessViewController else {
-			XCTFail("Could not load presented view controller.")
-			return
-		}
-
-		XCTAssertNotNil(vc.coordinator)
-	}
-
 }

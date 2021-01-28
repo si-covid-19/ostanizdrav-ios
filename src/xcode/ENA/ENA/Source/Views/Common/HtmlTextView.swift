@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -62,7 +47,7 @@ extension HtmlTextView {
 				self.attributedText = mutableAttributedText
 			}
 		} else {
-			logError(message: "HTML resource could not be loaded: \(url)")
+			Log.error("HTML resource could not be loaded: \(url)", log: .api)
 		}
 	}
 
@@ -109,6 +94,8 @@ private extension ENAColor {
 		switch self {
 		// MARK: - Background Colors
 		case .background: return "background"
+		case .darkBackground: return "darkBackground"
+		case .cellBackground: return "cellBackground"
 		case .hairline: return "hairline"
 		case .hairlineContrast: return "hairline-contrast"
 		case .separator: return "separator"
@@ -147,6 +134,9 @@ private extension ENAColor {
 		case .textSemanticGreen: return "text-semantic-green"
 		case .textSemanticRed: return "text-semantic-red"
 		case .textTint: return "text-tint"
+
+		// MARK: - Textfiled Colors
+		case .textField: return "text-field"
 		}
 	}
 }

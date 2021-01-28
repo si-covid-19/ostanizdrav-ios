@@ -1,44 +1,84 @@
 version: 2.1
 
-jobs:
-  build:
-    macos:
-      xcode: 11.5.0
-    shell: zsh
+configuration:
+  - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
+  - xcode_version: &xcode_version 12.2.0
 
+commands:
+  install-tools:
+    steps:
+      - run:
+          name: Install swiftlint
+          command: |
+            if ! command -v swiftlint &> /dev/null
+            then
+              brew install swiftlint
+            fi
+            swiftlint version
+      - run:
+          name: Install Bundler
+          command: sudo gem install rake bundler:2.1.4
+
+  prepare-dependencies:
     steps:
       - checkout
       - run:
+          name: fix SwiftPM #Solves an old Xcode 11 issue that seems to got reintroduced with Xcode 12: https://stackoverflow.com/questions/58125659/github-actions-xcodebuild-fails-due-to-server-fingerprint
+          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts
+      - restore_cache:
+          key: *cache_key
+      - install-tools
+      - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install
+          command: cd src/xcode && bundle install --path=vendor --jobs=4
+      - save_cache:
+          key: *cache_key
+          paths:
+            - src/xcode/vendor
+            - /usr/local/Cellar/
+            - /usr/local/opt/
+            - /usr/local/bin/
+
+jobs:
+  dependencies:
+    macos:
+      xcode: *xcode_version
+    steps:
+      - prepare-dependencies
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  build:
+    macos:
+      xcode: *xcode_version
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
           name: Build
           command: cd src/xcode && bundle exec fastlane build
   test:
     macos:
-      xcode: 11.5.0
-    shell: zsh
+      xcode: *xcode_version
     steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
-          name: Skip this job for non-PRs and when not on development
-          command: |
-            testedBranches=(staging develop)
-            [[ ${testedBranches[(r)$CIRCLE_BRANCH]} == $CIRCLE_BRANCH || -v CIRCLE_PULL_REQUEST ]] && true || circleci step halt
-      - checkout
-      - run:
-          name: Install dependencies
-          command: brew install swiftlint && cd src/xcode && bundle install
-      - run:
-          name: Tests
+          name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
       - restore_cache:
           key: sonar-cloud-v2
       - run:
           name: Convert coverage information to SonarCloud format
+          shell: /bin/zsh
           command: |
-            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/action_0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/xccovarchive-0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
+          shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
@@ -49,9 +89,11 @@ jobs:
           path: src/xcode/swiftlint.result.json
       - run:
           name: Skip SonarCloud for external Pull Requests
+          shell: /bin/zsh
           command: '[[ -v CIRCLE_PR_REPONAME ]] && circleci-agent step halt || true'
       - run:
           name: Install and run sonar-scanner
+          shell: /bin/zsh
           command: |
             SCANNER=sonar-scanner-cli-4.3.0.2102-macosx
             SCANNERDIR=~/sonar/sonar-scanner-4.3.0.2102-macosx
@@ -68,48 +110,171 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
-
-  grab-screenshots:
+  snapshot:
     macos:
-      xcode: 11.5.0
+      xcode: *xcode_version
+    parameters:
+      language:
+        default: "de-DE"
+        type: string
+      displaymode:
+        default: "light"
+        type: string
     steps:
-      - checkout
-      - run: cd src/xcode && bundle install
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
       - run:
-          name: Snapshots
-          command: cd src/xcode && bundle exec fastlane snapshot
+          name: Snapshot
+          command: |
+            case <<parameters.displaymode>> in
+             "dark") use_dark_mode=true ;;
+             *) use_dark_mode=false ;;
+            esac
+            cd src/xcode
+            bundle exec fastlane run snapshot \
+              languages:<<parameters.language>> \
+              dark_mode:${use_dark_mode} \
+              clear_previous_screenshots:"false" \
+              output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
+            cd -
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/xcode/screenshots/*
+  collect-snapshots:
+    macos:
+      xcode: *xcode_version
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Package Screenshots
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
       - store_artifacts:
-          path: src/xcode/screenshots
+          path: src/xcode/screenshots/screenshots.tar
   testflight-release:
     macos:
-      xcode: 11.6.0
-    shell: zsh
+      xcode: *xcode_version
     steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: cd src/xcode && bundle install
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
       - run: ./scripts/switch_to_dev_env.sh
       - run:
-          name: fastlane
+          name: fastlane testflight
           command: cd src/xcode && bundle exec fastlane betaRelease --env TestFlight
+      - run:
+          name: fastlane appcenter and Mobile Device Cloud
+          command: cd src/xcode && bundle exec fastlane adHocDistribution
+  update-docs:
+    macos:
+      xcode: *xcode_version
+    shell: /bin/zsh
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
+      - add_ssh_keys:
+          fingerprints:
+            - "2c:ea:55:72:82:d9:8a:35:02:ac:25:a6:39:3c:e4:23"
+      - run:
+          name: Run lane for doc update
+          command: cd src/xcode && bundle exec fastlane updateDocs
 
 workflows:
-    test-and-scan:
+    build-and-test:
       jobs:
-        - test
-    build:
-      jobs:
-        - build
-        - grab-screenshots:
+        - dependencies
+        - build:
+            requires:
+              - dependencies
+        - test:
+            requires:
+              - dependencies
+        - update-docs:
+            requires:
+              - dependencies
             filters:
               branches:
                 only:
-                  - master
-    betaRelease:
+                  - main
+
+    snapshot-all:
       jobs:
+        - dependencies:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - snapshot:
+            matrix:
+              parameters:
+                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
+            requires:
+              - dependencies
+        - collect-snapshots:
+            requires:
+              - snapshot
+
+    beta-release:
+      jobs:
+        - dependencies:
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - test:
+            requires:
+              - dependencies
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - build:
+            requires:
+              - dependencies
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - snapshot:
+            matrix:
+              parameters:
+                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                displaymode: ["dark", "light"]
+            requires:
+              - dependencies
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
+        - collect-snapshots:
+            requires:
+              - snapshot
+            filters:
+              tags:
+                only:
+                  - /^v.*/
+              branches:
+                ignore: /.*/
         - testflight-release:
+            requires:
+              - test
             filters:
-              branches:
+              tags:
                 only:
-                  - staging
+                  - /^v.*/
+              branches:
+                ignore: /.*/

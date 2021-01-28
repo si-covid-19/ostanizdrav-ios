@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -27,11 +12,10 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		// Intialize.
 		let detectionInterval = 24
         let configurator = HomeLowRiskCellConfigurator(
-			isLoading: false,
-			numberRiskContacts: 0,
+			state: .idle,
+			numberOfDaysWithLowRisk: 0,
 			lastUpdateDate: Date().addingTimeInterval(-8 * 60 * 60),
 			isButtonHidden: false,
-			detectionMode: .manual,
 			manualExposureDetectionState: .waiting,
 			detectionInterval: detectionInterval,
 			activeTracing: ActiveTracing(interval: .init(hours: 42))
@@ -59,7 +43,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		configurator.isButtonEnabled = true
 		configurator.configureButton(for: cell)
 		XCTAssert(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardLowButton)
+		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardUpdateButton)
 
 		// Test if button is clickable and triggers action.
 		let expectation = self.expectation(description: "Expect button to trigger action")
@@ -75,15 +59,15 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 	func testHighRiskCell_configureManualButton() {
 
 		// Intialize.
-		let validityDuration = 24
+		let detectionInterval = 24
 		let configurator = HomeHighRiskCellConfigurator(
-			isLoading: false,
-			numberRiskContacts: 10,
-			daysSinceLastExposure: 1,
+			state: .idle,
+			numberOfDaysWithHighRisk: 10,
+			mostRecentDateWithHighRisk: Date(),
 			lastUpdateDate: Date().addingTimeInterval(-3 * 60 * 60),
 			manualExposureDetectionState: .waiting,
 			detectionMode: .manual,
-			validityDuration: validityDuration
+			detectionInterval: detectionInterval
 		)
 
 		guard let cell = loadCell(ofType: RiskLevelCollectionViewCell.self) else {
@@ -95,7 +79,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		// Test if button is disabled.
 		configurator.configureButton(for: cell)
 		XCTAssertFalse(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(validityDuration)"))
+		XCTAssertEqual(cell.updateButton.currentTitle, String(format: AppStrings.Home.riskCardIntervalDisabledButtonTitle, "\(detectionInterval)"))
 
 		// Test if button shows refresh date.
 		let nextRefreshDate = "00:11:22"
@@ -108,7 +92,7 @@ class HomeRiskCellConfiguratorTests: XCTestCase {
 		configurator.isButtonEnabled = true
 		configurator.configureButton(for: cell)
 		XCTAssert(cell.updateButton.isEnabled)
-		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardLowButton)
+		XCTAssertEqual(cell.updateButton.currentTitle, AppStrings.Home.riskCardUpdateButton)
 
 		// Test if button is clickable and triggers action.
 		let expectation = self.expectation(description: "Expect button to trigger action")

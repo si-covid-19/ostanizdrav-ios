@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -33,7 +18,7 @@ extension RiskLegendViewController {
 							   height: 200),
 				footer: .space(height: 32),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_1"), text: AppStrings.RiskLegend.legend1Title, style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+					.icon(UIImage(named: "Icons_Ueberblick_1"), text: .string(AppStrings.RiskLegend.legend1Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend1Text,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend1Text)
@@ -42,7 +27,7 @@ extension RiskLegendViewController {
 			.section(
 				footer: .space(height: 32),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_2"), text: AppStrings.RiskLegend.legend2Title, style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+					.icon(UIImage(named: "Icons_Ueberblick_2"), text: .string(AppStrings.RiskLegend.legend2Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend2Text,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2Text),
@@ -57,21 +42,21 @@ extension RiskLegendViewController {
 						accessibilityLabelColor: AppStrings.RiskLegend.legend2HighColor,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2High),
 					.dotBodyCell(
+						color: .enaColor(for: .riskMedium),
+						text: AppStrings.RiskLegend.legend2Medium,
+						accessibilityLabelColor: AppStrings.RiskLegend.legend2MediumColor,
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2MediumColor),
+					.dotBodyCell(
 						color: .enaColor(for: .riskLow),
 						text: AppStrings.RiskLegend.legend2Low,
 						accessibilityLabelColor: AppStrings.RiskLegend.legend2LowColor,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor),
-					.dotBodyCell(
-						color: .enaColor(for: .riskNeutral),
-						text: AppStrings.RiskLegend.legend2Unknown,
-						accessibilityLabelColor: AppStrings.RiskLegend.legend2UnknownColor,
-						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2UnknownColor)
+						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend2LowColor)
 				]
 			),
 			.section(
 				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
 				cells: [
-					.icon(UIImage(named: "Icons_Ueberblick_3"), text: AppStrings.RiskLegend.legend3Title, style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
+					.icon(UIImage(named: "Icons_Ueberblick_3"), text: .string(AppStrings.RiskLegend.legend3Title), style: .title2) { _, cell, _ in cell.accessibilityTraits = .header },
 					.body(
 						text: AppStrings.RiskLegend.legend3Text,
 						accessibilityIdentifier: AccessibilityIdentifiers.RiskLegend.legend3Text)

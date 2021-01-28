@@ -1,29 +1,17 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 @testable import ENA
 import ExposureNotification
 import XCTest
 import CryptoKit
 
+// swiftlint:disable:next type_body_length
 final class HTTPClientDaysAndHoursTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
-	let expectationsTimeout: TimeInterval = 2
+	let expectationsTimeout: TimeInterval = 5
 	let mockUrl = URL(staticString: "http://example.com")
 	let tan = "1234"
 
@@ -47,7 +35,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableDays { result in
+		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
 			switch result {
 			case let .success(days):
 				XCTAssertEqual(
@@ -76,7 +64,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableDays { result in
+		HTTPClient.makeWith(mock: stack).availableDays(forCountry: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never yield success")
@@ -101,7 +89,9 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let expectation = self.expectation(
 			description: "expect successful result but empty"
 		)
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12") { result in
+
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -130,7 +120,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect successful result"
 		)
 
-		HTTPClient.makeWith(mock: stack).availableHours(day: "2020-05-12") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.availableHours(day: "2020-05-12", country: "IT") { result in
 			switch result {
 			case let .success(hours):
 				XCTAssertEqual(
@@ -139,7 +130,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				)
 				expectation.fulfill()
 			case let .failure(error):
-				XCTFail("a valid response should never yiled an error like \(error)")
+				XCTFail("a valid response should never yield an error like \(error)")
 			}
 		}
 		waitForExpectations(timeout: expectationsTimeout)
@@ -155,7 +146,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			switch result {
 			case .success:
 				XCTFail("an invalid response should never cause success")
@@ -171,6 +163,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -178,7 +171,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchHour(1, day: "2020-05-01") { result in
+		let httpClient = WifiOnlyHTTPClient.makeWith(mock: stack)
+		httpClient.fetchHour(1, day: "2020-05-01", country: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -195,6 +189,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
 		let stack = MockNetworkStack(
 			httpStatus: 200,
+			headerFields: ["etAg": "\"SomeEtag\""],
 			responseData: try Data(contentsOf: url)
 		)
 
@@ -202,7 +197,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case let .success(sapPackage):
@@ -224,7 +220,8 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 			description: "expect error result"
 		)
 
-		HTTPClient.makeWith(mock: stack).fetchDay("2020-05-01") { result in
+		let httpClient = HTTPClient.makeWith(mock: stack)
+		httpClient.fetchDay("2020-05-01", forCountry: "IT") { result in
 			defer { successExpectation.fulfill() }
 			switch result {
 			case .success:
@@ -241,8 +238,305 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 		waitForExpectations(timeout: expectationsTimeout)
 	}
 
-	private func assertPackageFormat(for downloadedPackage: SAPDownloadedPackage) {
-		XCTAssertEqual(downloadedPackage.bin.count, binFileSize)
-		XCTAssertEqual(downloadedPackage.signature.count, sigFileSize)
+	func testDownloadRetry_dayPackage_failing() throws {
+		let expectation = self.expectation(description: "http request")
+		expectation.expectedFulfillmentCount = 4 // initial request + 3 retries
+
+		// just failing...
+		let response = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+		let session = MockUrlSession(data: nil, nextResponse: response, error: nil) { request in
+			expectation.fulfill()
+			Log.debug(request.debugDescription)
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = HTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				if case .noResponse = error {
+					break // ok
+				} else {
+					XCTFail("expected `.noResponse` error, got \(error)")
+				}
+			case .success(let package):
+				XCTFail("Expected no success! Got \(package)")
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	func testDownloadRetry_dayPackage_invalidResponse() throws {
+		let requestDone = expectation(description: "http request")
+		requestDone.expectedFulfillmentCount = 4 // initial request + 3 retries
+
+		var retryCount = 0
+
+		// prepare responses
+		let failingResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+		let successfulResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 200,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+
+		// setup session that fails on 2 requests and succeeds in the 3rd
+		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
+			Log.debug("\(request.debugDescription) - retries: \(retryCount)")
+			requestDone.fulfill()
+			retryCount += 1
+		}
+		session.onPrepareResponse = {
+			if retryCount < 2 {
+				session.data = nil
+				session.nextResponse = failingResponse
+			} else {
+				// Client gets something but not as expected.
+				session.data = "invalid payload".data(using: .utf8)
+				session.nextResponse = successfulResponse
+			}
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = HTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				if case .invalidResponse = error {
+					break // ok
+				} else {
+					XCTFail("expected `.invalidResponse` error, got \(error)")
+				}
+			case .success(let package):
+				XCTFail("Expected no success! Got \(package)")
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	func testDownloadRetry_dayPackage_succeeding() throws {
+		let requestDone = expectation(description: "http request")
+		requestDone.expectedFulfillmentCount = 3
+
+		var retryCount = 0
+
+		// prepare responses
+		let failingResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil
+		)
+		let successfulResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 200,
+			httpVersion: "HTTP/2",
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+		let validPayload = try Data(contentsOf: url)
+
+
+		// setup session that fails on 2 requests and succeeds in the 3rd
+		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
+			Log.debug("\(request.debugDescription) - retries: \(retryCount)")
+			requestDone.fulfill()
+			retryCount += 1
+		}
+		session.onPrepareResponse = {
+			if retryCount < 3 {
+				session.data = nil
+				session.nextResponse = failingResponse
+			} else {
+				session.data = validPayload
+				session.nextResponse = successfulResponse
+			}
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = HTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchDay("2020-0-0", forCountry: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				XCTFail("expected no error, got \(error)")
+			case .success(let package):
+				self.assertPackageFormat(for: package)
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	func testDownloadRetry_hourPackage_failing() throws {
+		let expectation = self.expectation(description: "http request")
+		expectation.expectedFulfillmentCount = 4 // initial request + 3 retries
+
+		// just failing...
+		let response = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+		let session = MockUrlSession(data: nil, nextResponse: response, error: nil) { request in
+			expectation.fulfill()
+			Log.debug(request.debugDescription)
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				if case .noResponse = error {
+					break // ok
+				} else {
+					XCTFail("expected `.noResponse` error, got \(error)")
+				}
+			case .success(let package):
+				XCTFail("Expected no success! Got \(package)")
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	func testDownloadRetry_hourPackage_invalidResponse() throws {
+		let requestDone = expectation(description: "http request")
+		requestDone.expectedFulfillmentCount = 4 // initial request + 3 retries
+
+		var retryCount = 0
+
+		// prepare responses
+		let failingResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+		let successfulResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 200,
+			httpVersion: "HTTP/2",
+			headerFields: nil)
+
+		// setup session that fails on 2 requests and succeeds in the 3rd
+		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
+			Log.debug("\(request.debugDescription) - retries: \(retryCount)")
+			requestDone.fulfill()
+			retryCount += 1
+		}
+		session.onPrepareResponse = {
+			if retryCount < 2 {
+				session.data = nil
+				session.nextResponse = failingResponse
+			} else {
+				// Client gets something but not as expected.
+				session.data = "invalid payload".data(using: .utf8)
+				session.nextResponse = successfulResponse
+			}
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				if case .invalidResponse = error {
+					break // ok
+				} else {
+					XCTFail("expected `.invalidResponse` error, got \(error)")
+				}
+			case .success(let package):
+				XCTFail("Expected no success! Got \(package)")
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	func testDownloadRetry_hourPackage_succeeding() throws {
+		let requestDone = expectation(description: "http request")
+		requestDone.expectedFulfillmentCount = 3
+
+		var retryCount = 0
+
+		// prepare responses
+		let failingResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 500,
+			httpVersion: "HTTP/2",
+			headerFields: nil
+		)
+		let successfulResponse = HTTPURLResponse(
+			// swiftlint:disable:next force_unwrapping
+			url: URL(string: "https://example.com")!,
+			statusCode: 200,
+			httpVersion: "HTTP/2",
+			headerFields: ["etAg": "\"SomeEtag\""]
+		)
+		// swiftlint:disable:next force_unwrapping
+		let url = Bundle(for: type(of: self)).url(forResource: "api-response-day-2020-05-16", withExtension: nil)!
+		let validPayload = try Data(contentsOf: url)
+
+
+		// setup session that fails on 2 requests and succeeds in the 3rd
+		let session = MockUrlSession(data: nil, nextResponse: nil, error: nil) { request in
+			Log.debug("\(request.debugDescription) - retries: \(retryCount)")
+			requestDone.fulfill()
+			retryCount += 1
+		}
+		session.onPrepareResponse = {
+			if retryCount < 3 {
+				session.data = nil
+				session.nextResponse = failingResponse
+			} else {
+				session.data = validPayload
+				session.nextResponse = successfulResponse
+			}
+		}
+
+		let stack = MockNetworkStack(mockSession: session)
+		let client = WifiOnlyHTTPClient.makeWith(mock: stack)
+		// We mock the connection, no need for read data!
+		client.fetchHour(1, day: "2020-0-0", country: "XXX") { result in
+			switch result {
+			case .failure(let error):
+				XCTFail("expected no error, got \(error)")
+			case .success(let package):
+				self.assertPackageFormat(for: package)
+			}
+		}
+
+		waitForExpectations(timeout: 10, handler: nil)
+	}
+
+	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		XCTAssertNotNil(response.etag)
+		XCTAssertEqual(response.package.bin.count, binFileSize)
+		XCTAssertEqual(response.package.signature.count, sigFileSize)
 	}
 }

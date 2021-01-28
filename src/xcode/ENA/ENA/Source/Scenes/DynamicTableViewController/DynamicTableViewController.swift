@@ -1,27 +1,12 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
 
 class DynamicTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 	var dynamicTableViewModel = DynamicTableViewModel([])
-
-	@IBInspectable var cellBackgroundColor: UIColor?
 
 	@IBOutlet private(set) lazy var tableView: UITableView! = self.view as? UITableView
 
@@ -57,6 +42,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTableViewTextViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeTextView.rawValue)
 		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
 		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
+		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
 	}
 }
 
@@ -117,7 +103,18 @@ extension DynamicTableViewController {
 				view?.imageView?.accessibilityLabel = label
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
-			view?.height = height
+			if let height = height {
+				view?.height = height
+			} else if let imageWidth = image?.size.width,
+			   let imageHeight = image?.size.height {
+				// view.bounds.size.width will not be set at that point
+				// tableviews always use full screen, so it might work to use screen size here
+				let cellWidth = UIScreen.main.bounds.size.width
+				let ratio = imageHeight / imageWidth
+				view?.height = cellWidth * ratio
+			} else {
+				view?.height = 250.0
+			}
 			return view
 
 		case let .view(view):
@@ -140,14 +137,15 @@ extension DynamicTableViewController {
 			return block(self)
 
 		default:
+			Log.error("Missing dynamic header type: \(String(describing: headerFooter))")
 			return nil
 		}
 	}
 
-	final func execute(action: DynamicAction) {
+	final func execute(action: DynamicAction, cell: UITableViewCell? = nil) {
 		switch action {
 		case let .open(url):
-			if let url = url { UIApplication.shared.open(url) }
+			if let url = url { LinkHelper.openLink(withUrl: url, from: self) }
 
 		case let .call(number):
 			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
@@ -156,7 +154,7 @@ extension DynamicTableViewController {
 			performSegue(withIdentifier: segueIdentifier, sender: nil)
 
 		case let .execute(block):
-			block(self)
+			block(self, cell)
 
 		case .none:
 			break
@@ -251,19 +249,16 @@ extension DynamicTableViewController {
 
 		content.configure(cell: cell, at: indexPath, for: self)
 
-		if section.separators {
+		cell.removeSeparators()
+
+		// no separators for spacers please
+		if section.separators != .none, cell is DynamicTableViewSpaceCell == false {
 			let isFirst = indexPath.row == 0
 			let isLast = indexPath.row == section.cells.count - 1
 
-			if isFirst { cell.addSeparator(.top) }
-			if isLast { cell.addSeparator(.bottom) }
-			if !isLast { cell.addSeparator(.inset) }
-		} else {
-			cell.addSeparator(.clear)
-		}
-
-		if let cellBackgroundColor = cellBackgroundColor {
-			cell.backgroundColor = cellBackgroundColor
+			if isFirst && section.separators == .all { cell.addSeparator(.top) }
+			if isLast && section.separators == .all { cell.addSeparator(.bottom) }
+			if !isLast { cell.addSeparator(.inBetween) }
 		}
 
 		return cell
@@ -271,13 +266,15 @@ extension DynamicTableViewController {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.action)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		let cell = tableView.cellForRow(at: indexPath)
+		execute(action: dynamicCell.action, cell: cell)
 	}
 
 	func tableView(_: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-		let content = dynamicTableViewModel.cell(at: indexPath)
-		execute(action: content.accessoryAction)
+		let dynamicCell = dynamicTableViewModel.cell(at: indexPath)
+		guard let cell = tableView.cellForRow(at: indexPath) else { return }
+		execute(action: dynamicCell.accessoryAction, cell: cell)
 	}
 }
 
@@ -285,40 +282,36 @@ private extension UITableViewCell {
 	enum SeparatorLocation: Int {
 		case top = 100_001
 		case bottom = 100_002
-		case inset = 100_003
-		case clear = 100_004
+		case inBetween = 100_003
+	}
+
+	func removeSeparators() {
+		contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+		contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+		contentView.viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
-		if location == .clear {
-			contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-			contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-			contentView.viewWithTag(SeparatorLocation.inset.rawValue)?.removeFromSuperview()
-			return
-		}
-
 		let separator = UIView(frame: bounds)
 		contentView.addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+		separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
 		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-		case .inset:
-			separator.tag = SeparatorLocation.inset.rawValue
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
+		case .inBetween:
+			separator.tag = SeparatorLocation.inBetween.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
-		default:
-			break
+			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		}
 	}
 }

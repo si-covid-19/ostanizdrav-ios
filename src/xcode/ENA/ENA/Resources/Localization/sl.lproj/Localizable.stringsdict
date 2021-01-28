@@ -1,103 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ExposureDetection_Explanation_Text_High_DaysSinceLastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>one</key>
-			<string>You have an increased risk of infection because you were last exposed a day ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-			<key>zero</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-			<key>few</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-			<key>many</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-			<key>two</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-			<key>other</key>
-			<string>You have an increased risk of infection because you were last exposed %u days ago over a longer period of time and at close proximity to at least one person diagnosed with COVID-19.</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_Refreshed_Format</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Danes, %%1$@</string>
-			<key>one</key>
-			<string>Včeraj, %%1$@</string>
-			<key>few</key>
-			<string>%%2$@, %%1$@</string>
-			<key>many</key>
-			<string>%%2$@, %%1$@</string>
-			<key>two</key>
-			<string>%%2$@, %%1$@</string>
-			<key>other</key>
-			<string>%%2$@, %%1$@</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_NumberOfContacts</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Do zdaj ni bilo izpostavljenosti</string>
-			<key>one</key>
-			<string>Ena izpostavljenost okuženi osebi</string>
-			<key>few</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
-			<key>many</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
-			<key>two</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
-			<key>other</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
-		</dict>
-	</dict>
-	<key>ExposureDetection_LastExposure</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>one</key>
-			<string>%u dan od zadnje izpostavljenosti okuženi osebi</string>
-			<key>few</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>many</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>two</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>other</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-		</dict>
-	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -109,17 +12,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Do zdaj ni bilo izpostavljenosti</string>
+			<!--Plural form for ZERO.-->
+			<string>Brez izpostavljenosti</string>
 			<key>one</key>
-			<string>%u izpostavljenost okuženi osebi</string>
+			<!--Plural form for ONE.-->
+			<string>Bili ste izpostavljeni v enem dnevu</string>
 			<key>few</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for FEW.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>many</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for MANY.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>two</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for TWO.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>other</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for OTHER.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -133,41 +42,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Do zdaj ni bilo izpostavljenosti</string>
+			<!--Plural form for ZERO.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>one</key>
-			<string>%u izpostavljenost okuženi osebi</string>
+			<!--Plural form for ONE.-->
+			<string>Bili ste izpostavljeni v enem dnevu</string>
 			<key>few</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for FEW.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>many</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for MANY.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>two</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
+			<!--Plural form for TWO.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 			<key>other</key>
-			<string>%u izpostavljenosti okuženi osebi</string>
-		</dict>
-	</dict>
-	<key>Home_Risk_Last_Contact_Item_Title</key>
-	<dict>
-		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>VARIABLE</key>
-		<dict>
-			<key>NSStringFormatSpecTypeKey</key>
-			<string>NSStringPluralRuleType</string>
-			<key>NSStringFormatValueTypeKey</key>
-			<string>u</string>
-			<key>zero</key>
-			<string>Manj kot en dan od zadnje izpostavljenosti okuženi osebi</string>
-			<key>one</key>
-			<string>%u dan od zadnje izpostavljenosti okuženi osebi</string>
-			<key>few</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>many</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>two</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
-			<key>other</key>
-			<string>%u dni od zadnje izpostavljenosti okuženi osebi</string>
+			<!--Plural form for OTHER.-->
+			<string>Bili ste izpostavljeni v %u dneh</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>
@@ -181,17 +72,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ sekund</string>
+			<!--Plural form for ZERO.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ sekund</string>
 			<key>one</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ minuto</string>
+			<!--Plural form for ONE.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
 			<key>few</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<!--Plural form for FEW.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
 			<key>many</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<!--Plural form for MANY.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
 			<key>two</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<!--Plural form for TWO.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
 			<key>other</key>
-			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
+			<!--Plural form for OTHER.-->
+			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
 		</dict>
 		<key>seconds</key>
 		<dict>
@@ -200,16 +97,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>%02u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>%02u</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>%02u</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>%02u</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>%02u</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>%02u</string>
 		</dict>
 	</dict>
@@ -224,17 +127,23 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Beleženja izpostavljenosti niste imeli vklopljenega dovolj dolgo, zato nismo mogli oceniti vašega tveganja za okužbo.</string>
+			<!--Plural form for ZERO.-->
+			<string>Exposure logging has been active for less than one day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>one</key>
-			<string>Beleženje izpostavljenosti je aktivno že %u dan. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<!--Plural form for ONE.-->
+			<string>Exposure logging has been active for %u day. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>few</key>
-			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<!--Plural form for FEW.-->
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>many</key>
-			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<!--Plural form for MANY.-->
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>two</key>
-			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<!--Plural form for TWO.-->
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 			<key>other</key>
-			<string>Beleženje izpostavljenosti je aktivno že %u dni. Preverjanje izpostavljenosti je lahko zanesljivo le, če je beleženje trajno aktivirano.</string>
+			<!--Plural form for OTHER.-->
+			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
 		</dict>
 	</dict>
 </dict>

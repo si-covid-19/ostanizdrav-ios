@@ -1,44 +1,36 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 
 extension HTTPClient {
 	struct Configuration {
+		
 		// MARK: Default Instances
 
-		static let backendBaseURLs = Configuration(
-			apiVersion: "v1",
-			country: "SI",
-			endpoints: Configuration.Endpoints(
+		static func makeDefaultConfiguration(store: Store) -> Configuration {
+			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: URL(staticString: ""),
+					baseURL: store.selectedServerEnvironment.distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: URL(staticString: ""),
+					baseURL: store.selectedServerEnvironment.submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: URL(staticString: ""),
+					baseURL: store.selectedServerEnvironment.verificationURL,
 					requiresTrailingSlash: false
 				)
 			)
-		)
+
+			return Configuration(
+				apiVersion: "v1",
+				country: "SI",
+				endpoints: endpoints
+			)
+		}
 
 		// MARK: Properties
 
@@ -46,19 +38,10 @@ extension HTTPClient {
 		let country: String
 		let endpoints: Endpoints
 
-		var diagnosisKeysURL: URL {
-			endpoints
-				.distribution
-				.appending(
-					"version",
-					apiVersion,
-					"diagnosis-keys",
-					"country",
-					country
-				)
-		}
-
-		var availableDaysURL: URL {
+		/// Generate the URL for getting all available days
+		/// - Parameter country: country code
+		/// - Returns: URL to get all available days that server can deliver
+		func availableDaysURL(forCountry country: String) -> URL {
 			endpoints
 				.distribution
 				.appending(
@@ -68,10 +51,15 @@ extension HTTPClient {
 					"country",
 					country,
 					"date"
-				)
+			)
 		}
 
-		func availableHoursURL(day: String) -> URL {
+		/// Generate the URL to get the day package with given parameters
+		/// - Parameters:
+		///   - day: The day format should confirms to: yyyy-MM-dd
+		///   - country: The country code
+		/// - Returns: The full URL point to the key package
+		func diagnosisKeysURL(day: String, forCountry country: String) -> URL {
 			endpoints
 				.distribution
 				.appending(
@@ -81,12 +69,12 @@ extension HTTPClient {
 					"country",
 					country,
 					"date",
-					day,
-					"hour"
-				)
+					day
+			)
+
 		}
 
-		func diagnosisKeysURL(day: String, hour: Int) -> URL {
+		func diagnosisKeysURL(day: String, hour: Int, forCountry country: String) -> URL {
 			endpoints
 				.distribution
 				.appending(
@@ -99,10 +87,10 @@ extension HTTPClient {
 					day,
 					"hour",
 					String(hour)
-				)
+			)
 		}
 
-		func diagnosisKeysURL(day: String) -> URL {
+		func availableHoursURL(day: String, country: String) -> URL {
 			endpoints
 				.distribution
 				.appending(
@@ -112,8 +100,9 @@ extension HTTPClient {
 					"country",
 					country,
 					"date",
-					day
-				)
+					day,
+					"hour"
+			)
 		}
 
 		var configurationURL: URL {
@@ -122,11 +111,8 @@ extension HTTPClient {
 				.appending(
 					"version",
 					apiVersion,
-					"configuration",
-					"country",
-					country,
-					"app_config"
-				)
+					"app_config_ios"
+			)
 		}
 
 		var submissionURL: URL {
@@ -136,7 +122,7 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"diagnosis-keys"
-				)
+			)
 		}
 
 		var registrationURL: URL {
@@ -146,7 +132,7 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"registrationToken"
-				)
+			)
 		}
 
 		var testResultURL: URL {
@@ -156,7 +142,7 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"testresult"
-				)
+			)
 		}
 
 		var tanRetrievalURL: URL {
@@ -166,7 +152,7 @@ extension HTTPClient {
 					"version",
 					apiVersion,
 					"tan"
-				)
+			)
 		}
 	}
 }

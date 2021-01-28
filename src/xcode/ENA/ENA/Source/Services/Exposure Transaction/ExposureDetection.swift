@@ -1,113 +1,120 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
 
 /// Every time the user wants to know the own risk the app creates an `ExposureDetection`.
 final class ExposureDetection {
+
 	// MARK: Properties
 	private weak var delegate: ExposureDetectionDelegate?
 	private var completion: Completion?
+	private var progress: Progress?
+	private let appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS
+	private let deviceTimeCheck: DeviceTimeCheckProtocol
+
+	// There was a decision not to use the 2 letter code "EU", but instead "EUR".
+	// Please see this story for more informations: https://jira.itc.sap.com/browse/EXPOSUREBACK-151
+	private let country = "EUR"
 
 	// MARK: Creating a Transaction
-	init(delegate: ExposureDetectionDelegate) {
+	init(
+		delegate: ExposureDetectionDelegate,
+		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		deviceTimeCheck: DeviceTimeCheckProtocol
+	) {
 		self.delegate = delegate
+		self.appConfiguration = appConfiguration
+		self.deviceTimeCheck = deviceTimeCheck
 	}
 
-	// MARK: Starting the Transaction
-	// Called right after the transaction knows which data is available remotly.
-	private func downloadDeltaUsingAvailableRemoteData(_ remote: DaysAndHours?) {
-		guard let remote = remote else {
-			endPrematurely(reason: .noDaysAndHours)
-			return
-		}
-		guard let delta = delegate?.exposureDetection(self, downloadDeltaFor: remote) else {
-			endPrematurely(reason: .noDaysAndHours)
-			return
-		}
-		delegate?.exposureDetection(self, downloadAndStore: delta) { [weak self] error in
-			guard let self = self else { return }
-			if error != nil {
-				self.endPrematurely(reason: .noDaysAndHours)
-				return
-			}
-			self.delegate?.exposureDetection(self, downloadConfiguration: self.useConfiguration)
-		}
+	func cancel() {
+		progress?.cancel()
 	}
 
-	private func useConfiguration(_ configuration: ENExposureConfiguration?) {
-		guard let configuration = configuration else {
-			endPrematurely(reason: .noExposureConfiguration)
-			return
-		}
-		guard let writtenPackages = delegate?.exposureDetectionWriteDownloadedPackages(self) else {
+	private func writeKeyPackagesToFileSystem(completion: (WrittenPackages) -> Void) {
+		if let writtenPackages = self.delegate?.exposureDetectionWriteDownloadedPackages(country: country) {
+			completion(WrittenPackages(urls: writtenPackages.urls))
+		} else {
 			endPrematurely(reason: .unableToWriteDiagnosisKeys)
-			return
 		}
-		delegate?.exposureDetection(
+	}
+
+	private func detectExposureWindows(writtenPackages: WrittenPackages, exposureConfiguration: ENExposureConfiguration) {
+		self.progress = self.delegate?.detectExposureWindows(
 			self,
-			detectSummaryWithConfiguration: configuration,
+			detectSummaryWithConfiguration: exposureConfiguration,
 			writtenPackages: writtenPackages
 		) { [weak self] result in
 			writtenPackages.cleanUp()
-			self?.useSummaryResult(result)
+			self?.useExposureWindowsResult(result)
 		}
 	}
 
-	private func useSummaryResult(_ result: Result<ENExposureDetectionSummary, Error>) {
+	private func useExposureWindowsResult(_ result: Result<[ENExposureWindow], Error>) {
 		switch result {
-		case .success(let summary):
-			didDetectSummary(summary)
+		case .success(let exposureWindows):
+			didDetectExposureWindows(exposureWindows)
 		case .failure(let error):
-			endPrematurely(reason: .noSummary(error))
+			endPrematurely(reason: .noExposureWindows(error))
 		}
 	}
 
-	typealias Completion = (Result<ENExposureDetectionSummary, DidEndPrematurelyReason>) -> Void
-	func start(completion: @escaping Completion) {
-		self.completion = completion
-		delegate?.exposureDetection(self, determineAvailableData: downloadDeltaUsingAvailableRemoteData)
-	}
+	typealias Completion = (Result<[ENExposureWindow], DidEndPrematurelyReason>) -> Void
 
+    func start(completion: @escaping Completion) {
+        self.completion = completion
+
+        Log.info("ExposureDetection: Start writing packages to file system.", log: .riskDetection)
+
+        self.writeKeyPackagesToFileSystem { [weak self] writtenPackages in
+            guard let self = self else { return }
+
+            Log.info("ExposureDetection: Completed writing packages to file system.", log: .riskDetection)
+
+			if !self.deviceTimeCheck.isDeviceTimeCorrect {
+				Log.warning("ExposureDetection: Detecting exposure windows skipped due to wrong device time.", log: .riskDetection)
+				self.endPrematurely(reason: .wrongDeviceTime)
+			} else {
+				Log.info("ExposureDetection: Start detecting exposure windows.", log: .riskDetection)
+				let exposureConfiguration = ENExposureConfiguration(from: appConfiguration.exposureConfiguration)
+				self.detectExposureWindows(writtenPackages: writtenPackages, exposureConfiguration: exposureConfiguration)
+			}
+        }
+    }
+	
 	// MARK: Working with the Completion Handler
 
 	// Ends the transaction prematurely with a given reason.
 	private func endPrematurely(reason: DidEndPrematurelyReason) {
+		Log.error("ExposureDetection: End prematurely.", log: .riskDetection, error: reason)
+
 		precondition(
 			completion != nil,
 			"Tried to end a detection prematurely is only possible if a detection is currently running."
 		)
+
 		DispatchQueue.main.async {
 			self.completion?(.failure(reason))
 			self.completion = nil
 		}
 	}
 
-	// Informs the delegate about a summary.
-	private func didDetectSummary(_ summary: ENExposureDetectionSummary) {
+	// Informs the delegate about the detected exposure windows.
+	private func didDetectExposureWindows(_ exposureWindows: [ENExposureWindow]) {
+		Log.info("ExposureDetection: Completed detecting exposure windows.", log: .riskDetection)
+
 		precondition(
 			completion != nil,
-			"Tried report a summary but no completion handler is set."
+			"Tried report exposure windows but no completion handler is set."
 		)
+		
 		DispatchQueue.main.async {
-			self.completion?(.success(summary))
+			self.completion?(.success(exposureWindows))
 			self.completion = nil
 		}
-
 	}
+
 }

@@ -1,54 +1,15 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
-@testable import ENA
+import Combine
 import ExposureNotification
+@testable import ENA
+
 final class ExposureDetectionTransactionTests: XCTestCase {
-	// swiftlint:disable:next function_body_length
-    func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
-		let delegate = ExposureDetectionDelegateMock()
 
-		let availableDataToBeCalled = expectation(description: "availableData called")
-		delegate.availableData = {
-			availableDataToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadDeltaToBeCalled = expectation(description: "downloadDelta called")
-		delegate.downloadDelta = { _ in
-			downloadDeltaToBeCalled.fulfill()
-			return (days: ["2020-05-01"], hours: [])
-		}
-
-		let downloadAndStoreToBeCalled = expectation(description: "downloadAndStore called")
-		delegate.downloadAndStore = { _ in
-			downloadAndStoreToBeCalled.fulfill()
-			return nil
-		}
-
-		let configurationToBeCalled = expectation(description: "configuration called")
-		delegate.configuration = {
-			configurationToBeCalled.fulfill()
-			return .mock()
-		}
-
+	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager().createDirectory(atPath: rootDir.path, withIntermediateDirectories: true, attributes: nil)
 		let url0 = rootDir.appendingPathComponent("1").appendingPathExtension("sig")
@@ -59,32 +20,36 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		let writtenPackages = WrittenPackages(urls: [url0, url1])
 
 		let writtenPackagesBeCalled = expectation(description: "writtenPackages called")
+
+		let delegate = ExposureDetectionDelegateMock()
 		delegate.writtenPackages = {
 			writtenPackagesBeCalled.fulfill()
 			return writtenPackages
 		}
 
-		let summaryResultBeCalled = expectation(description: "summaryResult called")
-		delegate.summaryResult = { _, _ in
-			summaryResultBeCalled.fulfill()
-			return .success(MutableENExposureDetectionSummary(daysSinceLastExposure: 5))
+		let exposureWindowResultBeCalled = expectation(description: "exposureWindowResult called")
+		delegate.exposureWindowResult = { _, _ in
+			exposureWindowResultBeCalled.fulfill()
+			return .success([MutableENExposureWindow()])
 		}
 
 		let startCompletionCalled = expectation(description: "start completion called")
-		let detection = ExposureDetection(delegate: delegate)
-		detection.start { _ in startCompletionCalled.fulfill() }
+		let detection = ExposureDetection(
+			delegate: delegate,
+			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
+			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+		)
+		detection.start { _ in
+			startCompletionCalled.fulfill()
+		}
 
 		wait(
 			for: [
-				availableDataToBeCalled,
-				downloadDeltaToBeCalled,
-				downloadAndStoreToBeCalled,
-				configurationToBeCalled,
 				writtenPackagesBeCalled,
-				summaryResultBeCalled,
+				exposureWindowResultBeCalled,
 				startCompletionCalled
 			],
-			timeout: 1.0,
+			timeout: .medium,
 			enforceOrder: true
 		)
 	}
@@ -109,64 +74,97 @@ final class MutableENExposureDetectionSummary: ENExposureDetectionSummary {
 
 	private var _maximumRiskScore: ENRiskScore
 	override var maximumRiskScore: ENRiskScore { _maximumRiskScore }
+
+}
+
+final class MutableENExposureWindow: ENExposureWindow {
+
+	init(
+		calibrationConfidence: ENCalibrationConfidence = .lowest,
+		date: Date = Date(),
+		diagnosisReportType: ENDiagnosisReportType = .unknown,
+		infectiousness: ENInfectiousness = .none,
+		scanInstances: [ENScanInstance] = []
+	) {
+		self._calibrationConfidence = calibrationConfidence
+		self._date = date
+		self._diagnosisReportType = diagnosisReportType
+		self._infectiousness = infectiousness
+		self._scanInstances = scanInstances
+	}
+
+	private var _calibrationConfidence: ENCalibrationConfidence
+	override var calibrationConfidence: ENCalibrationConfidence {
+		_calibrationConfidence
+	}
+
+	private var _date: Date
+	override var date: Date {
+		_date
+	}
+
+	private var _diagnosisReportType: ENDiagnosisReportType
+	override var diagnosisReportType: ENDiagnosisReportType {
+		_diagnosisReportType
+	}
+
+	private var _infectiousness: ENInfectiousness
+	override var infectiousness: ENInfectiousness {
+		_infectiousness
+	}
+
+	private var _scanInstances: [ENScanInstance]
+	override var scanInstances: [ENScanInstance] {
+		_scanInstances
+	}
 }
 
 private final class ExposureDetectionDelegateMock {
+	var detectExposureWindowsWithConfigurationWasCalled = false
+	var deviceTimeCorrect = true
+	var deviceTimeIncorrectErrorMessageShown = false
+
 	// MARK: Types
-	struct SummaryError: Error { }
-	typealias DownloadAndStoreHandler = (_ delta: DaysAndHours) -> Error?
+	struct ExposureWindowError: Error { }
 
 	// MARK: Properties
-	var availableData: () -> DaysAndHours? = {
-		nil
-	}
-
-	var downloadDelta: (_ available: DaysAndHours) -> DaysAndHours = { _ in
-		DaysAndHours(days: [], hours: [])
-	}
-
-	var downloadAndStore: DownloadAndStoreHandler = { _ in nil }
-
-	var configuration: () -> ENExposureConfiguration? = {
-		nil
-	}
 
 	var writtenPackages: () -> WrittenPackages? = {
 		nil
 	}
 
-	var summaryResult: (
+	var exposureWindowResult: (
 		_ configuration: ENExposureConfiguration,
 		_ writtenPackages: WrittenPackages
-		) -> Result<ENExposureDetectionSummary, Error> = { _, _ in
-		.failure(SummaryError())
+		) -> Result<[ENExposureWindow], Error> = { _, _ in
+		.failure(ExposureWindowError())
 	}
 }
 
 extension ExposureDetectionDelegateMock: ExposureDetectionDelegate {
-	func exposureDetection(_ detection: ExposureDetection, determineAvailableData completion: @escaping (DaysAndHours?) -> Void) {
-		completion(availableData())
-	}
 
-	func exposureDetection(_ detection: ExposureDetection, downloadDeltaFor remote: DaysAndHours) -> DaysAndHours {
-		downloadDelta(remote)
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadAndStore delta: DaysAndHours, completion: @escaping (Error?) -> Void) {
-		completion(downloadAndStore(delta))
-
-	}
-
-	func exposureDetection(_ detection: ExposureDetection, downloadConfiguration completion: @escaping (ENExposureConfiguration?) -> Void) {
-		completion(configuration())
-	}
-
-	func exposureDetectionWriteDownloadedPackages(_ detection: ExposureDetection) -> WrittenPackages? {
+	func exposureDetectionWriteDownloadedPackages(country: Country.ID) -> WrittenPackages? {
 		writtenPackages()
 	}
 
-	func exposureDetection(_ detection: ExposureDetection, detectSummaryWithConfiguration configuration: ENExposureConfiguration, writtenPackages: WrittenPackages, completion: @escaping (Result<ENExposureDetectionSummary, Error>) -> Void) {
-		completion(summaryResult(configuration, writtenPackages))
+	func detectExposureWindows(
+		_ detection: ExposureDetection,
+		detectSummaryWithConfiguration configuration: ENExposureConfiguration,
+		writtenPackages: WrittenPackages,
+		completion: @escaping (Result<[ENExposureWindow], Error>) -> Void
+	) -> Progress {
+		completion(exposureWindowResult(configuration, writtenPackages))
+
+		detectExposureWindowsWithConfigurationWasCalled = true
+		return Progress()
+	}
+	
+	func isDeviceTimeCorrect() -> Bool {
+		return deviceTimeCorrect
+	}
+	
+	func hasDeviceTimeErrorBeenShown() -> Bool {
+		return deviceTimeIncorrectErrorMessageShown
 	}
 }
 

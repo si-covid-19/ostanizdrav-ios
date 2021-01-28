@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
@@ -39,6 +26,7 @@ extension DynamicCell {
 		case dynamicTypeTextView = "textViewCell"
 		case icon = "iconCell"
 		case space = "spaceCell"
+		case bulletPoint = "bulletPointCell"
 	}
 
 	/// Style of  `DynamicTableViewTextCell`
@@ -53,10 +41,13 @@ extension DynamicCell {
 		/// Useful for automatic link, phone #, etc. recognization
 		case textView(UIDataDetectorTypes)
 
+		case linkTextView(String, ENAFont = .body)
+
 		var reuseIdentifier: CellReuseIdentifier {
 			switch self {
 			case .label: return .dynamicTypeLabel
 			case .textView: return .dynamicTypeTextView
+			case .linkTextView: return .dynamicTypeTextView
 			}
 		}
 	}
@@ -83,9 +74,10 @@ extension DynamicCell {
 }
 
 extension DynamicCell {
-	static func dynamicType(text: String, cellStyle: TextCellStyle = .label, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
-		.identifier(cellStyle.reuseIdentifier, action: .none, accessoryAction: .none) { viewController, cell, indexPath in
+	static func dynamicType(text: String, cellStyle: TextCellStyle = .label, size: CGFloat = 17, weight: UIFont.Weight = .regular, style: UIFont.TextStyle = .body, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, accessoryAction: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.identifier(cellStyle.reuseIdentifier, action: action, accessoryAction: accessoryAction) { viewController, cell, indexPath in
 			guard let cell = cell as? DynamicTableViewTextCell else { return }
+
 			cell.configureDynamicType(size: size, weight: weight, style: style)
 			cell.configure(text: text, color: color)
 			cell.configureAccessibility(label: text, identifier: accessibilityIdentifier, traits: accessibilityTraits)
@@ -95,15 +87,46 @@ extension DynamicCell {
 				cell.configureTextView(dataDetectorTypes: dataDetectorTypes)
 			}
 
+			if case .linkTextView(let placeHolder, let font) = cellStyle,
+				let cell = cell as? DynamicTableViewTextViewCell {
+				cell.configureAsLink(placeholder: placeHolder, urlString: text, font: font)
+			}
+
 			configure?(viewController, cell, indexPath)
 		}
 	}
 
-	static func icon(_ image: UIImage?, text: String, tintColor: UIColor? = nil, style: ENAFont = .body, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
-		.identifier(CellReuseIdentifier.icon, action: action, accessoryAction: .none) { viewController, cell, indexPath in
-			(cell as? DynamicTableViewIconCell)?.configure(image: image, text: text, tintColor: tintColor, style: style)
-			configure?(viewController, cell, indexPath)
-		}
+	static func icon(
+		_ image: UIImage?,
+		text: DynamicTableViewIconCell.Text,
+		tintColor: UIColor? = nil,
+		style: ENAFont = .body,
+		iconWidth: CGFloat = 32,
+		selectionStyle: UITableViewCell.SelectionStyle = .none,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil,
+		alignment: UIStackView.Alignment = .center
+	) -> Self {
+		.identifier(
+			CellReuseIdentifier.icon,
+			action: action,
+			accessoryAction: .none, configure: { viewController, cell, indexPath in
+				guard let cell = cell as? DynamicTableViewIconCell else {
+					Log.error("no DynamicTableViewIconCell")
+					return
+				}
+				cell.configure(
+					image: image,
+					text: text,
+					customTintColor: tintColor,
+					style: style,
+					iconWidth: iconWidth,
+					selectionStyle: selectionStyle,
+					alignment: alignment
+				)
+				configure?(viewController, cell, indexPath)
+			}
+		)
 	}
 
 	static func space(height: CGFloat, color: UIColor? = nil) -> Self {
@@ -113,31 +136,75 @@ extension DynamicCell {
 			cell.backgroundColor = color
 		}
 	}
+	
+	
+	static func bulletPoint(
+		text: String,
+		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
+		alignment: DynamicTableViewBulletPointCell.Alignment = .normal,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.bulletPoint(attributedText: NSAttributedString(string: text),
+					 spacing: spacing,
+					 alignment: alignment,
+					 accessibilityIdentifier: accessibilityIdentifier,
+					 accessibilityTraits: accessibilityTraits,
+					 action: action,
+					 configure: configure)
+	}
+
+	static func bulletPoint(
+		attributedText: NSAttributedString,
+		spacing: DynamicTableViewBulletPointCell.Spacing = .normal,
+		alignment: DynamicTableViewBulletPointCell.Alignment = .normal,
+		accessibilityIdentifier: String? = nil,
+		accessibilityTraits: UIAccessibilityTraits = .staticText,
+		action: DynamicAction = .none,
+		configure: CellConfigurator? = nil
+	) -> Self {
+		.identifier(CellReuseIdentifier.bulletPoint, action: action, accessoryAction: .none) { viewController, cell, indexPath in
+			(cell as? DynamicTableViewBulletPointCell)?.configure(
+				attributedString: attributedText,
+				spacing: spacing,
+				alignment: alignment,
+				accessibilityTraits: accessibilityTraits,
+				accessibilityIdentifier: accessibilityIdentifier
+			)
+			configure?(viewController, cell, indexPath)
+		}
+	}
 }
 
 extension DynamicCell {
-	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, cellStyle: TextCellStyle = .label, color: UIColor?, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
-		dynamicType(text: text, cellStyle: cellStyle, size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	private static func enaLabelStyle(_ style: ENALabel.Style, text: String, cellStyle: TextCellStyle = .label, color: UIColor?, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		dynamicType(text: text, cellStyle: cellStyle, size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, action: action, configure: configure)
 	}
 
 	static func title1(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = [.header, .staticText], configure: CellConfigurator? = nil) -> Self {
 		.enaLabelStyle(.title1, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
 
-	static func title2(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = [.header, .staticText], configure: CellConfigurator? = nil) -> Self {
-		.enaLabelStyle(.title2, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	static func title2(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = [.header, .staticText], action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.title2, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, action: action, configure: configure)
 	}
 
-	static func headline(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
-		.enaLabelStyle(.headline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	static func headline(text: String, style: TextCellStyle = .label, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.headline, text: text, cellStyle: style, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, action: action, configure: configure)
 	}
 
-	static func body(text: String, style: TextCellStyle = .label, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
-		.enaLabelStyle(.body, text: text, cellStyle: style, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	static func body(text: String, style: TextCellStyle = .label, color: UIColor? = nil, accessibilityIdentifier: String? = nil, accessibilityTraits: UIAccessibilityTraits = .staticText, action: DynamicAction = .none, configure: CellConfigurator? = nil) -> Self {
+		.enaLabelStyle(.body, text: text, cellStyle: style, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, action: action, configure: configure)
 	}
 
 	static func subheadline(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
 		.enaLabelStyle(.subheadline, text: text, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
+	}
+
+	static func link(placeholder: String, link: String, font: ENAFont, style: ENALabel.Style, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {
+		dynamicType(text: link, cellStyle: .linkTextView(placeholder, font), size: style.fontSize, weight: UIFont.Weight(style.fontWeight), style: style.textStyle, color: color, accessibilityIdentifier: accessibilityIdentifier, accessibilityTraits: accessibilityTraits, configure: configure)
 	}
 
 	static func footnote(text: String, color: UIColor? = nil, accessibilityIdentifier: String?, accessibilityTraits: UIAccessibilityTraits = .staticText, configure: CellConfigurator? = nil) -> Self {

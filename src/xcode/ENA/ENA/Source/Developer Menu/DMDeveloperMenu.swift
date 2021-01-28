@@ -1,22 +1,24 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 #if !RELEASE
 import UIKit
+
+protocol DMStore: AnyObject {
+	var dmLastSubmissionRequest: Data? { get set }
+}
+
+extension UserDefaults: DMStore {
+	var dmLastSubmissionRequest: Data? {
+		get {
+			data(forKey: "dmLastSubmissionRequest")
+		}
+		set {
+			set(newValue, forKey: "dmLastSubmissionRequest")
+		}
+	}
+}
 
 /// If enabled, the developer can be revealed by tripple-tapping anywhere within the `presentingViewController`.
 final class DMDeveloperMenu {
@@ -29,21 +31,32 @@ final class DMDeveloperMenu {
 	init(
 		presentingViewController: UIViewController,
 		client: Client,
+		wifiClient: WifiOnlyHTTPClient,
 		store: Store,
-		exposureManager: ExposureManager
+		exposureManager: ExposureManager,
+		developerStore: DMStore,
+		exposureSubmissionService: ExposureSubmissionService,
+		serverEnvironment: ServerEnvironment
 	) {
 		self.client = client
+		self.wifiClient = wifiClient
 		self.presentingViewController = presentingViewController
 		self.store = store
 		self.exposureManager = exposureManager
+		self.developerStore = developerStore
+		self.exposureSubmissionService = exposureSubmissionService
+		self.serverEnvironment = serverEnvironment
 	}
 
 	// MARK: Properties
-
 	private let presentingViewController: UIViewController
 	private let client: Client
+	private let wifiClient: WifiOnlyHTTPClient
 	private let store: Store
 	private let exposureManager: ExposureManager
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let developerStore: DMStore
+	private let serverEnvironment: ServerEnvironment
 
 	// MARK: Interacting with the developer menu
 
@@ -54,17 +67,21 @@ final class DMDeveloperMenu {
 		guard isAllowed() else {
 			return
 		}
-		let showDeveloperMenuGesture = UITapGestureRecognizer(target: self, action: #selector(showDeveloperMenu(_:)))
+		let showDeveloperMenuGesture = UITapGestureRecognizer(target: self, action: #selector(_showDeveloperMenu(_:)))
 		showDeveloperMenuGesture.numberOfTapsRequired = 3
 		presentingViewController.view.addGestureRecognizer(showDeveloperMenuGesture)
 	}
 
 	@objc
-	func showDeveloperMenu(_: UITapGestureRecognizer) {
+	private func _showDeveloperMenu(_: UITapGestureRecognizer) {
+		showDeveloperMenu()
+	}
+
+	 func showDeveloperMenu() {
 		let vc = DMViewController(
 			client: client,
-			store: store,
-			exposureManager: exposureManager
+			wifiClient: wifiClient,
+			exposureSubmissionService: exposureSubmissionService
 		)
 		let navigationController = UINavigationController(
 			rootViewController: vc
@@ -75,6 +92,7 @@ final class DMDeveloperMenu {
 			completion: nil
 		)
 	}
+
 
 	private func isAllowed() -> Bool {
 		true

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -91,5 +76,18 @@ class DynamicTableViewTextViewCell: UITableViewCell, DynamicTableViewTextCell {
 
 	func configureTextView(dataDetectorTypes: UIDataDetectorTypes) {
 		textView.dataDetectorTypes = dataDetectorTypes
+	}
+
+	func configureAsLink(placeholder: String, urlString: String, font: ENAFont) {
+		guard let url = URL(string: urlString) else {
+			return
+		}
+		let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: font.textStyle).scaledFont(size: font.fontSize, weight: font.fontWeight), .link: url]
+		let attributedString = NSMutableAttributedString(string: placeholder, attributes: textAttributes)
+
+		self.textView.attributedText = attributedString
+		self.textView.isUserInteractionEnabled = true
+		self.textView.isEditable = false
+		self.textView.adjustsFontForContentSizeCategory = true
 	}
 }

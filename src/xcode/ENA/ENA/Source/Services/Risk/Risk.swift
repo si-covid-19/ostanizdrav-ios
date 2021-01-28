@@ -1,47 +1,35 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
 
-struct Risk {
+struct Risk: Equatable {
 	let level: RiskLevel
 	let details: Details
 	let riskLevelHasChanged: Bool
 }
 
 extension Risk {
-	struct Details {
-		var daysSinceLastExposure: Int?
-		var numberOfExposures: Int?
+	struct Details: Equatable {
+		var mostRecentDateWithRiskLevel: Date?
+		var numberOfDaysWithRiskLevel: Int
 		var numberOfHoursWithActiveTracing: Int { activeTracing.inHours }
 		var activeTracing: ActiveTracing
 		var numberOfDaysWithActiveTracing: Int { activeTracing.inDays }
 		var exposureDetectionDate: Date?
+		var minimumDistinctEncountersWithCurrentRiskLevel: Int?
 	}
 }
 
-#if UITESTING
+#if DEBUG
 extension Risk {
 	static let mocked = Risk(
-		level: .low,
+		// UITests can set app.launchArguments "-riskLevel"
+		level: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? .high : .low,
 		details: Risk.Details(
-			numberOfExposures: 0,
+			mostRecentDateWithRiskLevel: Date(timeIntervalSinceNow: -24 * 3600),
+			numberOfDaysWithRiskLevel: UserDefaults.standard.string(forKey: "riskLevel") == "high" ? 1 : 0,
 			activeTracing: .init(interval: 336 * 3600),  // two weeks
 			exposureDetectionDate: Date()),
 		riskLevelHasChanged: true

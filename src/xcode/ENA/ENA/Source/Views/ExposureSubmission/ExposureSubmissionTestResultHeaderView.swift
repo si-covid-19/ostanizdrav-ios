@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -74,7 +59,7 @@ private extension TestResult {
 		switch self {
 		case .positive: return .enaColor(for: .riskHigh)
 		case .negative: return .enaColor(for: .riskLow)
-		case .invalid: return .enaColor(for: .riskNeutral)
+		case .invalid, .expired: return .enaColor(for: .riskNeutral)
 		case .pending: return .enaColor(for: .riskNeutral)
 		}
 	}
@@ -83,7 +68,7 @@ private extension TestResult {
 		switch self {
 		case .positive: return UIImage(named: "Illu_Submission_PositivTestErgebnis")
 		case .negative: return UIImage(named: "Illu_Submission_NegativesTestErgebnis")
-		case .invalid: return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
+		case .invalid, .expired: return UIImage(named: "Illu_Submission_FehlerhaftesTestErgebnis")
 		case .pending: return UIImage(named: "Illu_Submission_PendingTestErgebnis")
 		}
 	}
@@ -94,6 +79,7 @@ private extension TestResult {
 		case .negative: return "\(AppStrings.ExposureSubmissionResult.card_title)\n\(AppStrings.ExposureSubmissionResult.card_negative)"
 		case .invalid: return AppStrings.ExposureSubmissionResult.card_invalid
 		case .pending: return AppStrings.ExposureSubmissionResult.card_pending
+		case .expired: return AppStrings.ExposureSubmissionResult.card_invalid
 		}
 	}
 }

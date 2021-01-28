@@ -1,35 +1,21 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
+import ExposureNotification
 
 class ENAUITests_00_Onboarding: XCTestCase {
 	var app: XCUIApplication!
 
 	override func setUp() {
+		super.setUp()
 		continueAfterFailure = false
 		app = XCUIApplication()
 		setupSnapshot(app)
 		app.setDefaults()
 		app.launchArguments.append(contentsOf: ["-isOnboarded", "NO"])
-		app.launchArguments += ["-AppleLanguages", "(de)"]
-		app.launchArguments += ["-AppleLocale", "de_DE"]
+		app.launchArguments.append(contentsOf: ["-ENStatus", ENStatus.unknown.stringValue])
 	}
 
 	override func tearDownWithError() throws {
@@ -44,19 +30,19 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		//snapshot("ScreenShot_\(#function)_0000")
+		// snapshot("ScreenShot_\(#function)_0000")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		//snapshot("ScreenShot_\(#function)_0001")
+		// snapshot("ScreenShot_\(#function)_0001")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		//snapshot("ScreenShot_\(#function)_0002")
+		// snapshot("ScreenShot_\(#function)_0002")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		//snapshot("ScreenShot_\(#function)_0003")
+		// snapshot("ScreenShot_\(#function)_0003")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		//snapshot("ScreenShot_\(#function)_0004")
+		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingDoNotAllow"].tap()
 
@@ -72,19 +58,19 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.staticTexts["AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title"].waitForExistence(timeout: 5.0))
 
 		// tap through the onboarding screens
-		//snapshot("ScreenShot_\(#function)_0000")
+		// snapshot("ScreenShot_\(#function)_0000")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingLetsGo"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
-		//snapshot("ScreenShot_\(#function)_0001")
+		// snapshot("ScreenShot_\(#function)_0001")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		//snapshot("ScreenShot_\(#function)_0002")
+		// snapshot("ScreenShot_\(#function)_0002")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
-		//snapshot("ScreenShot_\(#function)_0003")
+		// snapshot("ScreenShot_\(#function)_0003")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
-		//snapshot("ScreenShot_\(#function)_0004")
+		// snapshot("ScreenShot_\(#function)_0004")
 		XCTAssertTrue(app.buttons["AppStrings.Onboarding.onboardingContinue"].waitForExistence(timeout: 5.0))
 		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
 
@@ -92,4 +78,42 @@ class ENAUITests_00_Onboarding: XCTestCase {
 		XCTAssert(app.buttons["AppStrings.Home.rightBarButtonDescription"].waitForExistence(timeout: 5.0))
 	}
 
+	
+	// MARK: -
+
+	func test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S() throws {
+		var screenshotCounter = 0
+		app.launchArguments.append(contentsOf: ["-userNeedsToBeInformedAboutHowRiskDetectionWorks", "YES"])
+		app.setPreferredContentSizeCategory(accessibililty: .normal, size: .S)
+		app.launch()
+		
+		let prefix = "OnboardingFlow_EnablePermission_"
+		
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingLetsGo"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		app.swipeUp()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+		app.buttons["AppStrings.Onboarding.onboardingContinue"].tap()
+		snapshot(prefix + (String(format: "%04d", (screenshotCounter.inc() ))))
+		
+//		Onboarding ends here. Next screen is the home screen.
+	}
 }

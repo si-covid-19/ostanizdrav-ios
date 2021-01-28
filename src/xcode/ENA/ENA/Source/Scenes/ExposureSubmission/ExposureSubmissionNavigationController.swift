@@ -1,36 +1,30 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
 
+protocol DismissHandling {
+	/// if a view controller fulfulls this protocol and is member a ExposureSubmissionNavigationController and
+	/// on top of the viewcontrollers stack - presentDismiss action (swipe down or close button) will call this
+	/// function
+	/// otherwise no reaction is possible and the dismiss logic depends on the navigation controller
+	func wasAttemptedToBeDismissed()
+}
+
 final class ExposureSubmissionNavigationController: ENANavigationControllerWithFooter, UINavigationControllerDelegate {
 
-	// MARK: - Attributes.
+	// MARK: - Init
 
-	private let coordinator: ExposureSubmissionCoordinating
-	private var rootViewController: UIViewController?
-
-	// MARK: - Initializers.
-
-	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating, rootViewController: UIViewController? = nil) {
+	init(
+		coordinator: ExposureSubmissionCoordinating? = nil,
+		dismissClosure: @escaping () -> Void,
+		rootViewController: UIViewController
+	) {
 		self.coordinator = coordinator
-		self.rootViewController = rootViewController
-		super.init(coder: coder)
+		self.dismissClosure = dismissClosure
+		super.init(rootViewController: rootViewController)
 	}
 
 	@available(*, unavailable)
@@ -38,31 +32,29 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		if let rootVC = rootViewController {
-			setViewControllers([rootVC], animated: false)
-		}
 
 		let closeButton = UIButton(type: .custom)
 		closeButton.setImage(UIImage(named: "Icons - Close"), for: .normal)
 		closeButton.setImage(UIImage(named: "Icons - Close - Tap"), for: .highlighted)
-		closeButton.addTarget(self, action: #selector(close), for: .primaryActionTriggered)
+		closeButton.addTarget(self, action: #selector(closeButtonHit), for: .primaryActionTriggered)
 
 		let barButtonItem = UIBarButtonItem(customView: closeButton)
 		barButtonItem.accessibilityLabel = AppStrings.AccessibilityLabel.close
 		barButtonItem.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		navigationItem.rightBarButtonItem = barButtonItem
-		navigationBar.accessibilityLabel = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
+		navigationBar.accessibilityIdentifier = AccessibilityIdentifiers.General.exposureSubmissionNavigationControllerTitle
+		navigationBar.prefersLargeTitles = true
 
 		delegate = self
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		applyDefaultRightBarButtonItem(to: topViewController)
 	}
 
@@ -70,26 +62,47 @@ final class ExposureSubmissionNavigationController: ENANavigationControllerWithF
 		super.viewWillDisappear(animated)
 
 		// Check if the ExposureSubmissionNavigationController is popped from its parent.
-		guard self.isMovingFromParent || self.isBeingDismissed else { return }
+		guard self.isMovingFromParent || self.isBeingDismissed,
+			  let coordinator = coordinator else { return }
 		coordinator.delegate?.exposureSubmissionCoordinatorWillDisappear(coordinator)
 	}
 
+	// MARK: - Protocol UINavigationControllerDelegate
+
+	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
+		applyDefaultRightBarButtonItem(to: viewController)
+	}
+
+	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+
+	/// override to implement an other default handling - call dismissClosure()
+	override func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		guard let topViewController = viewControllers.last,
+			  let dismissableViewController = topViewController as? DismissHandling  else {
+			Log.debug("ViewController found doesn't conforms to protocol DismissHandling -> stop")
+			dismissClosure()
+			return
+		}
+
+		dismissableViewController.wasAttemptedToBeDismissed()
+	}
+
+	// MARK: - Private
+
+	private let coordinator: ExposureSubmissionCoordinating?
+	private let dismissClosure: () -> Void
+
 	private func applyDefaultRightBarButtonItem(to viewController: UIViewController?) {
 		if let viewController = viewController,
-			viewController.navigationItem.rightBarButtonItem == nil ||
-				viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
+		   viewController.navigationItem.rightBarButtonItem == nil ||
+			viewController.navigationItem.rightBarButtonItem == navigationItem.rightBarButtonItem {
 			viewController.navigationItem.rightBarButtonItem = navigationItem.rightBarButtonItem
 		}
 	}
 
 	@objc
-	func close() {
-		self.coordinator.dismiss()
-	}
-}
-
-extension ExposureSubmissionNavigationController {
-	func navigationController(_: UINavigationController, willShow viewController: UIViewController, animated _: Bool) {
-		applyDefaultRightBarButtonItem(to: viewController)
+	func closeButtonHit() {
+		guard let presentationController = self.presentationController else { return }
+		presentationControllerDidAttemptToDismiss(presentationController)
 	}
 }

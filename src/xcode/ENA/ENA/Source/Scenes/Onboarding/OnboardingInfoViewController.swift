@@ -1,56 +1,33 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
+import Combine
 import UserNotifications
 import ExposureNotification
 
-enum OnboardingPageType: Int, CaseIterable {
-	case togetherAgainstCoronaPage = 0
-	case privacyPage = 1
-	case enableLoggingOfContactsPage = 2
-	case howDoesDataExchangeWorkPage = 3
-	case alwaysStayInformedPage = 4
-
-	func next() -> OnboardingPageType? {
-		OnboardingPageType(rawValue: rawValue + 1)
-	}
-
-	func isLast() -> Bool {
-		(self == OnboardingPageType.allCases.last)
-	}
-}
-
-extension OnboardingInfoViewController: RequiresAppDependencies {
-
-}
 
 final class OnboardingInfoViewController: UIViewController {
-	// MARK: Creating a Onboarding View Controller
 
+	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var stackView: UIStackView!
+	
+	// MARK: - Init
+	
 	init?(
 		coder: NSCoder,
 		pageType: OnboardingPageType,
 		exposureManager: ExposureManager,
-		store: Store
+		store: Store,
+		client: Client,
+		supportedCountries: [Country]? = nil
 	) {
 		self.pageType = pageType
 		self.exposureManager = exposureManager
 		self.store = store
+		self.client = client
+		self.supportedCountries = supportedCountries
 		super.init(coder: coder)
 	}
 
@@ -59,91 +36,124 @@ final class OnboardingInfoViewController: UIViewController {
 		fatalError("init(coder:) has intentionally not been implemented")
 	}
 
-	// MARK: Properties
-
-	var pageType: OnboardingPageType
-	var exposureManager: ExposureManager
-	var store: Store
-
-	@IBOutlet var imageView: UIImageView!
-	@IBOutlet var stateHeaderLabel: ENALabel!
-	@IBOutlet var stateTitleLabel: ENALabel!
-	@IBOutlet var stateStateLabel: ENALabel!
-	@IBOutlet var titleLabel: UILabel!
-	@IBOutlet var boldLabel: UILabel!
-	@IBOutlet var textLabel: UILabel!
-	@IBOutlet var nextButton: ENAButton!
-	@IBOutlet var ignoreButton: ENAButton!
-
-	@IBOutlet var scrollView: UIScrollView!
-	@IBOutlet var stackView: UIStackView!
-	@IBOutlet var stateView: UIView!
-	@IBOutlet var innerStackView: UIStackView!
-	@IBOutlet var footerView: UIView!
-
-	private var onboardingInfos = OnboardingInfo.testData()
-	private var exposureManagerActivated = false
-	var htmlTextView: HtmlTextView?
-
-	var onboardingInfo: OnboardingInfo?
-
+	// MARK: - Overrides
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		onboardingInfo = onboardingInfos[pageType.rawValue]
+		pageSetupDone = false
 		// should be revised in the future
 		viewRespectsSystemMinimumLayoutMargins = false
 		view.layoutMargins = .zero
 		setupAccessibility()
+
+		if pageType == .togetherAgainstCoronaPage { loadCountryList() }
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 
-		let preconditions = exposureManager.preconditions()
+		let preconditions = exposureManager.exposureManagerState
 		updateUI(exposureManagerState: preconditions)
 	}
-
+	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 
 		scrollView.contentInset.bottom = footerView.frame.height - scrollView.safeAreaInsets.bottom
 		scrollView.verticalScrollIndicatorInsets.bottom = scrollView.contentInset.bottom
 	}
+	
 
-	func runActionForPageType(completion: @escaping () -> Void) {
-		switch pageType {
-		case .privacyPage:
-			persistTimestamp(completion: completion)
-		case .enableLoggingOfContactsPage:
-			func handleBluetooth(completion: @escaping () -> Void) {
-				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
-					self.present(alertController, animated: true)
-				}
-				completion()
+	// MARK: - Private
+	
+	@IBOutlet private var imageView: UIImageView!
+	@IBOutlet private var stateHeaderLabel: ENALabel!
+	@IBOutlet private var stateTitleLabel: ENALabel!
+	@IBOutlet private var stateStateLabel: ENALabel!
+	@IBOutlet private var titleLabel: UILabel!
+	@IBOutlet private var boldLabel: UILabel!
+	@IBOutlet private var textLabel: UILabel!
+	@IBOutlet private var linkTextView: UITextView!
+	@IBOutlet private var nextButton: ENAButton!
+	@IBOutlet private var ignoreButton: ENAButton!
+	@IBOutlet private var stateView: UIView!
+	@IBOutlet private var innerStackView: UIStackView!
+	@IBOutlet private var footerView: UIView!
+
+	private var pageType: OnboardingPageType
+	private var exposureManager: ExposureManager
+	private var store: Store
+	private var htmlTextView: HtmlTextView?
+	private var onboardingInfo: OnboardingInfo?
+	private var supportedCountries: [Country]?
+	private var client: Client
+	private var pageSetupDone = false
+	private var onboardingInfos = OnboardingInfo.testData()
+	private var exposureManagerActivated = false
+
+	private var subscriptions = [AnyCancellable]()
+
+	@IBAction private func didTapNextButton(_: Any) {
+		nextButton.isUserInteractionEnabled = false
+		runActionForPageType(
+			completion: { [weak self] in
+				self?.gotoNextScreen()
+				self?.nextButton.isUserInteractionEnabled = true
 			}
-			askExposureNotificationsPermissions(completion: {
-				handleBluetooth {
-					completion()
-				}
-			})
-
-		case .alwaysStayInformedPage:
-			askLocalNotificationsPermissions(completion: completion)
-		default:
-			completion()
-		}
+		)
 	}
 
-	func runIgnoreActionForPageType(completion: @escaping () -> Void) {
-		guard pageType == .enableLoggingOfContactsPage, !exposureManager.preconditions().authorized else {
-			completion()
+	@IBAction private func didTapIgnoreButton(_: Any) {
+		runIgnoreActionForPageType(
+			completion: {
+				self.gotoNextScreen()
+			}
+		)
+	}
+
+	private func openSettings() {
+		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+	}
+
+
+	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
+		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
+		viewController.present(alert, animated: true, completion: completion)
+	}
+
+	private func gotoNextScreen() {
+		guard let nextPageType = pageType.next() else {
+			finishOnBoarding()
 			return
 		}
-
-		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
-			completion()
+		let storyboard = AppStoryboard.onboarding.instance
+		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
+			OnboardingInfoViewController(
+				coder: coder,
+				pageType: nextPageType,
+				exposureManager: self.exposureManager,
+				store: self.store,
+				client: client,
+				supportedCountries: supportedCountries
+			)
 		}
-		present(alert, animated: true, completion: nil)
+		// swiftlint:disable:next force_unwrapping
+		navigationController?.pushViewController(next!, animated: true)
+	}
+
+	private func loadCountryList() {
+		// force loading app configuration regardless the cached state. If, for some
+		// reason no app configuration is available, we'll use a minimal default config.
+		appConfigurationProvider.appConfiguration(forceFetch: true).sink { [weak self] configuration in
+			let supportedCountryIDs = configuration.supportedCountries
+
+			let supportedCountries = supportedCountryIDs.compactMap { Country(countryCode: $0) }
+			self?.supportedCountries = supportedCountries
+				.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		}.store(in: &subscriptions)
 	}
 
 	private func updateUI(exposureManagerState: ExposureManagerState) {
@@ -155,6 +165,7 @@ final class OnboardingInfoViewController: UIViewController {
 		let exposureNotificationsNotSet = exposureManagerState.status == .unknown || exposureManagerState.status == .bluetoothOff
 		let exposureNotificationsEnabled = exposureManagerState.enabled
 		let exposureNotificationsDisabled = !exposureNotificationsEnabled && !exposureNotificationsNotSet
+		// show state of "Expoure Logging" when it has been enabled by the user
 		let showStateView = onboardingInfo.showState && !exposureNotificationsNotSet
 
 		// swiftlint:disable force_unwrapping
@@ -167,7 +178,29 @@ final class OnboardingInfoViewController: UIViewController {
 		textLabel.text = onboardingInfo.text
 		textLabel.isHidden = onboardingInfo.text.isEmpty
 
-		nextButton.setTitle(onboardingInfo.actionText, for: .normal)
+		if Bundle.main.preferredLocalizations.first == "sl" {
+			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
+
+			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
+					
+			linkTextView.attributedText = attributedString
+			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
+			linkTextView.isScrollEnabled = false
+			linkTextView.isHidden = onboardingInfo.link.isEmpty
+			linkTextView.isUserInteractionEnabled = true
+			linkTextView.adjustsFontForContentSizeCategory = true
+			linkTextView.textContainerInset = .zero
+			linkTextView.textContainer.lineFragmentPadding = .zero
+			linkTextView.backgroundColor = .clear
+		} else {
+			linkTextView.isHidden = true
+		}
+
+		if pageType == .enableLoggingOfContactsPage && showStateView {
+			nextButton.setTitle(onboardingInfo.alternativeActionText, for: .normal)
+		} else {
+			nextButton.setTitle(onboardingInfo.actionText, for: .normal)
+		}
 		nextButton.isHidden = onboardingInfo.actionText.isEmpty
 
 		ignoreButton.setTitle(onboardingInfo.ignoreText, for: .normal)
@@ -178,9 +211,28 @@ final class OnboardingInfoViewController: UIViewController {
 		stateHeaderLabel.text = onboardingInfo.stateHeader?.uppercased()
 		stateTitleLabel.text = onboardingInfo.stateTitle
 		stateStateLabel.text = exposureNotificationsEnabled ? onboardingInfo.stateActivated : onboardingInfo.stateDeactivated
+		
+		if pageSetupDone {
+			return
+		} else {
+			setupPage()
+		}
+	}
 
+	private func setupPage() {
 		switch pageType {
 		case .enableLoggingOfContactsPage:
+			addParagraph(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_euDescription
+			)
+			addCountrySection(title: AppStrings.Onboarding.onboardingInfo_ParticipatingCountries_Title, countries: supportedCountries ?? [])
+			addPanel(
+				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle,
+				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_consentUnderagesText,
+				textColor: .textContrast,
+				bgColor: .riskNeutral
+			)
 			addPanel(
 				title: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelTitle,
 				body: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_panelBody
@@ -199,58 +251,27 @@ final class OnboardingInfoViewController: UIViewController {
 		default:
 			break
 		}
-
+		pageSetupDone = true
 	}
-
-	func setupAccessibility() {
-		imageView.isAccessibilityElement = true
-		titleLabel.isAccessibilityElement = true
-		boldLabel.isAccessibilityElement = true
-		textLabel.isAccessibilityElement = true
-		nextButton.isAccessibilityElement = true
-		ignoreButton.isAccessibilityElement = true
-
-		imageView.accessibilityLabel = onboardingInfo?.imageDescription
-
-		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
-		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
-		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
-		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
-
-		titleLabel.accessibilityTraits = .header
-	}
-
-	func addSkipAccessibilityActionToHeader() {
-		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
-		let actionName = AppStrings.Onboarding.onboardingContinue
-		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
-		titleLabel.accessibilityCustomActions = [skipAction]
-		htmlTextView?.accessibilityCustomActions = [skipAction]
-	}
-
-	@objc
-	func skip(_ sender: Any) {
-		didTapNextButton(sender)
-	}
-
+	
 	private func persistTimestamp(completion: (() -> Void)?) {
 		if let acceptedDate = store.dateOfAcceptedPrivacyNotice {
-			log(message: "User has already accepted the privacy terms on \(acceptedDate)", level: .warning)
+			Log.warning("User has already accepted the privacy terms on \(acceptedDate)", log: .localData)
 			completion?()
 			return
 		}
 		store.dateOfAcceptedPrivacyNotice = Date()
-		log(message: "Persist that user accepted the privacy terms on \(Date())", level: .info)
+		Log.info("Persist that user accepted the privacy terms on \(Date())", log: .localData)
 		completion?()
 	}
 
-	// MARK: Exposure notifications
-
 	private func askExposureNotificationsPermissions(completion: (() -> Void)?) {
+		#if DEBUG
 		if exposureManager is MockExposureManager {
 			completion?()
 			return
 		}
+		#endif
 
 		func persistForDPP(accepted: Bool) {
 			self.store.exposureActivationConsentAccept = accepted
@@ -260,11 +281,11 @@ final class OnboardingInfoViewController: UIViewController {
 		func shouldHandleError(_ error: ExposureNotificationError?) -> Bool {
 			switch error {
 			case .exposureNotificationRequired:
-				log(message: "Encourage the user to consider enabling Exposure Notifications.", level: .warning)
+				Log.warning("Encourage the user to consider enabling Exposure Notifications.", log: .api)
 			case .exposureNotificationAuthorization:
-				log(message: "Encourage the user to authorize this application", level: .warning)
+				Log.warning("Encourage the user to authorize this application", log: .api)
 			case .exposureNotificationUnavailable:
-				log(message: "Tell the user that Exposure Notifications is currently not available.", level: .warning)
+				Log.warning("Tell the user that Exposure Notifications is currently not available.", log: .api)
 			case .apiMisuse:
 				// User already enabled notifications, but went back to the previous screen. Just ignore error and proceed
 				return false
@@ -313,73 +334,76 @@ final class OnboardingInfoViewController: UIViewController {
 		}
 	}
 
-	func openSettings() {
-		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
-	}
+	private func finishOnBoarding() {
+		store.isOnboarded = true
+		store.onboardingVersion = Bundle.main.appVersion
 
-	func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
-		let alert = UIAlertController(title: AppStrings.ExposureSubmission.generalErrorTitle, message: String(describing: error), preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: AppStrings.Common.alertActionOk, style: .cancel))
-		viewController.present(alert, animated: true, completion: completion)
+		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
 	}
-
-	@IBAction func didTapNextButton(_: Any) {
-		nextButton.isUserInteractionEnabled = false
-		runActionForPageType(
-			completion: { [weak self] in
-				self?.gotoNextScreen()
-				self?.nextButton.isUserInteractionEnabled = true
+	
+	private func runActionForPageType(completion: @escaping () -> Void) {
+		switch pageType {
+		case .privacyPage:
+			persistTimestamp(completion: completion)
+		case .enableLoggingOfContactsPage:
+			func handleBluetooth(completion: @escaping () -> Void) {
+				if let alertController = self.exposureManager.alertForBluetoothOff(completion: { completion() }) {
+					self.present(alertController, animated: true)
+				}
+				completion()
 			}
-		)
+			askExposureNotificationsPermissions(completion: {
+				handleBluetooth {
+					completion()
+				}
+			})
+
+		case .alwaysStayInformedPage:
+			askLocalNotificationsPermissions(completion: completion)
+		default:
+			completion()
+		}
 	}
-
-	@IBAction func didTapIgnoreButton(_: Any) {
-		runIgnoreActionForPageType(
-			completion: {
-				self.gotoNextScreen()
-			}
-		)
-	}
-
-	func gotoNextScreen() {
-
-		guard let nextPageType = pageType.next() else {
-			finishOnBoarding()
+	
+	private func runIgnoreActionForPageType(completion: @escaping () -> Void) {
+		guard pageType == .enableLoggingOfContactsPage, !exposureManager.exposureManagerState.authorized else {
+			completion()
 			return
 		}
 
-		let storyboard = AppStoryboard.onboarding.instance
-		let next = storyboard.instantiateInitialViewController { [unowned self] coder in
-			OnboardingInfoViewController(
-				coder: coder,
-				pageType: nextPageType,
-				exposureManager: self.exposureManager,
-				store: self.store
-			)
+		let alert = OnboardingInfoViewControllerUtils.setupExposureConfirmationAlert {
+			completion()
 		}
-		// swiftlint:disable:next force_unwrapping
-		navigationController?.pushViewController(next!, animated: true)
+		present(alert, animated: true, completion: nil)
+	}
+	
+	private func setupAccessibility() {
+		imageView.isAccessibilityElement = true
+		imageView.accessibilityLabel = onboardingInfo?.imageDescription
+		imageView.accessibilityIdentifier = onboardingInfo?.imageAccessibilityIdentifier
+		titleLabel.isAccessibilityElement = true
+		titleLabel.accessibilityIdentifier = onboardingInfo?.titleAccessibilityIdentifier
+		titleLabel.accessibilityTraits = .header
+		boldLabel.isAccessibilityElement = true
+		textLabel.isAccessibilityElement = true
+		linkTextView.isAccessibilityElement = true
+		nextButton.isAccessibilityElement = true
+		nextButton.accessibilityIdentifier = onboardingInfo?.actionTextAccessibilityIdentifier
+		ignoreButton.accessibilityIdentifier = onboardingInfo?.ignoreTextAccessibilityIdentifier
+		ignoreButton.isAccessibilityElement = true
 	}
 
-
-	private func finishOnBoarding() {
-		store.isOnboarded = true
-		NotificationCenter.default.post(name: .isOnboardedDidChange, object: nil)
+	private func addSkipAccessibilityActionToHeader() {
+		titleLabel.accessibilityHint = AppStrings.Onboarding.onboardingContinueDescription
+		let actionName = AppStrings.Onboarding.onboardingContinue
+		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
+		titleLabel.accessibilityCustomActions = [skipAction]
+		htmlTextView?.accessibilityCustomActions = [skipAction]
 	}
 
-}
-
-extension OnboardingInfoViewController: UITextViewDelegate {
-	func textView(_ textView: UITextView, shouldInteractWith url: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-		WebPageHelper.openSafari(withUrl: url, from: self)
-		return false
+	@objc
+	private func skip(_ sender: Any) {
+		didTapNextButton(sender)
 	}
-}
-
-extension OnboardingInfoViewController: NavigationBarOpacityDelegate {
-	var preferredNavigationBarOpacity: CGFloat {
-		let alpha = (scrollView.adjustedContentInset.top + scrollView.contentOffset.y) / scrollView.adjustedContentInset.top
-		return max(0, min(alpha, 1))
-	}
+	
 }

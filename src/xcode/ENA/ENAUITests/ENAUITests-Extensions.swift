@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import XCTest
 
@@ -64,45 +51,21 @@ extension XCUIApplication {
 		launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategory\(accessibililty.description())\(size)"]
 	}
 
-	// string localization
-	func getLocale(str: String) -> String {
-		if str.count == 2 {
-			return str
-		}
-		let start = str.index(str.startIndex, offsetBy: 1)
-		let end = str.index(start, offsetBy: 2)
-		let range = start..<end
-
-		let locale = str[range]
-		if locale == "en" {
-			return "Base"
-		}
-		return String(locale)
-	}
-
 	func localized(_ key: String) -> String {
-		guard let localeArgIdx = launchArguments.firstIndex(of: "-AppleLocale") else {
-			return ""
-		}
-		if localeArgIdx >= launchArguments.count {
-			return ""
-		}
-		let str = launchArguments[localeArgIdx + 1]
-		let locale = getLocale(str: str)
 		let testBundle = Bundle(for: Snapshot.self)
-		if let testBundlePath = testBundle.path(forResource: locale, ofType: "lproj") ?? testBundle.path(forResource: locale, ofType: "lproj"),
+		if let currentLanguage = currentLanguage,
+			let testBundlePath = testBundle.path(forResource: currentLanguage.localeCode, ofType: "lproj") ?? testBundle.path(forResource: currentLanguage.langCode, ofType: "lproj"),
 			let localizedBundle = Bundle(path: testBundlePath) {
 			return NSLocalizedString(key, bundle: localizedBundle, comment: "")
 		}
 		return ""
 	}
 
-
-}
-
-extension XCTestCase {
-	var currentLanguage: (langCode: String, localeCode: String)? {
-		let currentLocale = Locale(identifier: Locale.preferredLanguages.first!)
+	private var currentLanguage: (langCode: String, localeCode: String)? {
+		guard let preferredLanguage = Locale.preferredLanguages.first else {
+			fatalError("Cant unwrap: Locale.preferredLanguages.first")
+		}
+		let currentLocale = Locale(identifier: preferredLanguage)
 		guard let langCode = currentLocale.languageCode else {
 			return nil
 		}
@@ -114,7 +77,9 @@ extension XCTestCase {
 		}
 		return (langCode, localeCode)
 	}
+}
 
+extension XCTestCase {
 	func wait(for seconds: TimeInterval = 0.2) {
 		let expectation = XCTestExpectation(description: "Pause test")
 		DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { expectation.fulfill() }

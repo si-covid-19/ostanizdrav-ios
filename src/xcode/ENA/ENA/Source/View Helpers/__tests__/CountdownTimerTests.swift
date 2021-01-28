@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -26,6 +11,7 @@ class CountdownTimerTests: XCTestCase {
 	private var countdownTimerTarget: CountdownTimerTarget!
 
 	override func setUp() {
+		super.setUp()
 		countdownTimerTarget = CountdownTimerTarget()
 	}
 
@@ -41,7 +27,7 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 3.0)
+		self.waitForExpectations(timeout: .long)
 	}
 
 	func test_callsDoneWhenEndInPast() {
@@ -55,7 +41,7 @@ class CountdownTimerTests: XCTestCase {
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 3.0)
+		self.waitForExpectations(timeout: .long)
 	}
 
 	func test_countsDown() {
@@ -65,21 +51,22 @@ class CountdownTimerTests: XCTestCase {
 
 		let updateExpectation = self.expectation(description: "Calls update every second.")
 		updateExpectation.expectedFulfillmentCount = 3
-		countdownTimerTarget.updateCallback = { _, time in
+		countdownTimerTarget.updateCallback = { _, _ in
 			updateExpectation.fulfill()
 		}
 
 		let doneExpectation = self.expectation(description: "Calls done when finished.")
-		countdownTimerTarget.doneCallback = { _, _ in
+		countdownTimerTarget.doneCallback = { _, finished in
+			XCTAssertTrue(finished)
 			doneExpectation.fulfill()
 		}
 
 		c.start()
-		self.waitForExpectations(timeout: 5.0)
+		self.waitForExpectations(timeout: .extraLong) // just add enough buffer
 	}
 }
 
-class CountdownTimerTarget: CountdownTimerDelegate {
+private class CountdownTimerTarget: CountdownTimerDelegate {
 
 	var updateCallback: ((CountdownTimer, String) -> Void)?
 	var doneCallback: ((CountdownTimer, Bool) -> Void)?

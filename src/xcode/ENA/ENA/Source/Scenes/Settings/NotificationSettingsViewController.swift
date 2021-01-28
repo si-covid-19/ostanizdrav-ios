@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
 
@@ -95,7 +82,7 @@ class NotificationSettingsViewController: UIViewController {
 			guard let self = self else { return }
 
 			if let error = error {
-				log(message: "Error while requesting notifications permissions: \(error.localizedDescription)")
+				Log.info("Error while requesting notifications permissions: \(error.localizedDescription)", log: .api)
 				self.viewModel = NotificationSettingsViewModel.notificationsOff()
 				return
 			}
@@ -138,9 +125,6 @@ class NotificationSettingsViewController: UIViewController {
 		infoViewImage.image = UIImage(named: viewModel.icon)
 		infoViewDescriptionLabel.text = viewModel.description
 		infoViewButton.setTitle(viewModel.openSettings, for: .normal)
-
-		// TODO: Remove these lines after they are added to ENAButton
-		infoViewButton.titleLabel?.lineBreakMode = .byWordWrapping
 
 		if let infoViewButton = infoViewButton {
 			infoViewButton.addConstraint(NSLayoutConstraint(item: infoViewButton, attribute: .height, relatedBy: .equal, toItem: infoViewButton.titleLabel, attribute: .height, multiplier: 1, constant: 0))

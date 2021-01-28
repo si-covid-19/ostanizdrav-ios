@@ -1,24 +1,23 @@
 //
-// Created by Hu, Hao on 08.06.20.
-// Copyright (c) 2020 SAP SE. All rights reserved.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
 extension ENStateHandler {
-	enum State {
+	enum State: Equatable {
 		/// Exposure Notification is enabled.
 		case enabled
 		/// Exposure Notification is disabled.
 		case disabled
 		/// Bluetooth is off.
 		case bluetoothOff
-		/// Internet is off.
-		case internetOff
 		/// Restricted Mode due to parental controls.
 		case restricted
-		///Not authorized. The user declined consent in onboarding.
+		/// Not authorized. The user declined consent in onboarding.
 		case notAuthorized
-		///The user was never asked the consent before, that's why unknown.
+		/// ENStatus is restricted but ENAuthorization Status is authorized. App was not set as active for the region.
+		case notActiveApp
+		/// The user was never asked the consent before, that's why unknown.
 		case unknown
 	}
 }

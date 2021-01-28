@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
@@ -22,9 +9,13 @@ import UIKit
 class ENAButton: DynamicTypeButton {
 	@IBInspectable var color: UIColor?
 
-	@IBInspectable var isTransparent: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
 	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
 	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var hasBorder: Bool = false { didSet {
+		applyStyle()
+
+	} }
 
 	override var isEnabled: Bool { didSet { applyStyle() } }
 	override var isHighlighted: Bool { didSet { applyHighlight() } }
@@ -98,7 +89,7 @@ class ENAButton: DynamicTypeButton {
 
 	private func applyStyle() {
 		let style: Style
-		if isTransparent {
+		if !hasBackground {
 			style = .transparent
 		} else if isInverted {
 			style = .contrast
@@ -116,6 +107,14 @@ class ENAButton: DynamicTypeButton {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+		}
+
+		if hasBorder {
+			layer.borderWidth = 1
+			layer.borderColor = style.foregroundColor.cgColor
+			layer.cornerRadius = 8
+		} else {
+			layer.borderWidth = 0
 		}
 
 		highlightView?.backgroundColor = style.highlightColor

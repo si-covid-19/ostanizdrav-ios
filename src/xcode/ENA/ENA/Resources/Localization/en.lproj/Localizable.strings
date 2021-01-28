@@ -1,966 +1,742 @@
-/* General */
-"Alert_TitleGeneral" = "An error occurred.";
-
-"Alert_ActionOk" = "OK";
-
-"Alert_ActionRetry" = "Repeat";
-
-"Alert_ActionCancel" = "Cancel";
-
-"Alert_ActionRemove" = "Remove";
-
-"Alert_BluetoothOff_Title" = "Turn on Bluetooth";
-
-"Alert_BluetoothOff_Description" = "Bluetooth must be turned on in your system settings for this app to work.";
-
-"Alert_CancelAction_Later" = "Later";
-
-"Alert_DefaultAction_OpenSettings" = "Open Settings";
-
-"General_BackButtonTitle" = "Back";
-
-"Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be assessed. We are working on a solution of the problem.";
-
-"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be assessed. Please restart your device and try again tomorrow.";
-
-"Common_ENError13_Description" = "Error 13: Your risk assessmrnt for today has already been carried out. Please try again in 24 hours.";
-
-"Common_Alert_Action_moreInfo" = "Learn more";
-
-"Common_BackgroundFetch_AlertMessage" = "You have deactivated background updates for the #OstaniZdrav App. Please activate background updates to use automatic exposure logging. If you do not activate background updates, you can only start exposure logging manually in the app.\n\nYou can activate background updates for the app in your device settings.";
-
-"Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
-
-"Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
-
-"Common_BackgroundFetch_AlertTitle" = "Background updates deactivated";
-
-/* General - Links */
-"General_moreInfo_URL" = "https://www.gov.si/en/topics/coronavirus-disease-covid-19/the-ostanizdrav-mobile-application/";
-
-"General_moreInfo_URL_EN5" = "https://www.gov.si/en/topics/coronavirus-disease-covid-19/the-ostanizdrav-mobile-application/";
-
-"General_moreInfo_URL_EN11" = " https://www.gov.si/en/topics/coronavirus-disease-covid-19/the-ostanizdrav-mobile-application/";
-
-"General_moreInfo_URL_EN13" = " https://www.gov.si/en/topics/coronavirus-disease-covid-19/the-ostanizdrav-mobile-application/";
-
-/* Accessibility */
 "AccessibilityLabel_Close" = "Close";
-
 "AccessibilityLabel_PhoneNumber" = "Phone number";
-
-/* Exposure Detection */
-"ExposureDetection_Off" = "Exposure logging stopped";
-
-"ExposureDetection_Outdated" = "Exposure logging is not possible";
-
-"ExposureDetection_Unknown" = "Unknown Risk";
-
-"ExposureDetection_Low" = "Low Risk";
-
-"ExposureDetection_High" = "Increased Risk";
-
-"ExposureDetection_NumberOfDaysStored" = "%d of 14 days active";
-
-"ExposureDetection_Refreshed" = "Updated: %@";
-
-"ExposureDetection_Refreshed_Never" = "Unknown";
-
-"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
-
-"ExposureDetection_RefreshIn" = "Update in %@";
-
-"ExposureDetection_Refresh_24h" = "Updated daily";
-
-"ExposureDetection_LastRiskLevel" = "Last exposure logging: %@";
-
-"ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
-
-"ExposureDetection_OutdatedText" = "Your exposure logging could not be updated for more than 48 hours.";
-
-"ExposureDetection_UnknownText" = "Since you have not activated exposure logging for long enough, we could not assess your risk of infection.";
-
-"ExposureDetection_LoadingText" = "Current data is being downloaded and checked. This can take several minutes.";
-
-"ExposureDetection_Behavior_Title" = "Recommendations";
-
-"ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
-
-"ExposureDetection_Guide_Hands" = "Wash your hands regularly and thoroughly with soap and water. In case they are not available, disinfect your hands. Do not touch your eyes, nose and mouth with unwashed or contaminated hands.";
-
-"ExposureDetection_Guide_Mask" = "Indoors, where sufficient interpersonal distance cannot be maintained, the use of a mask is advised. Ventilate the premises regularly.";
-
-"ExposureDetection_Guide_Distance" = "Maintain social distance of at least 1.5 metres";
-
-"ExposureDetection_Guide_Sneeze" = "Before coughing or sneezing, cover your mouth and nose with a tissue or cough or sneeze in the top of the sleeve.";
-
-"ExposureDetection_Guide_Home" = "Avoid unnecessary contact with other people, especially those at increased risk of severe course of disease, such as the elderly and chronically ill patients. Indoors, where sufficient interpersonal distance cannot be maintained, the use of a mask is advised.";
-
-"ExposureDetection_Guide_Hotline1" = "Monitor your health. If you experience any of the following symptoms or signs, stay at home and contact your primary doctor or the doctor on call:";
-
-"ExposureDetection_Guide_Hotline2" = "Feeling unwell, symptoms of a cold, cough, fever, shortness of breath, headache, muscle aches, loss of smell or taste, sore throat.";
-
-"ExposureDetection_Guide_Hotline3" = "Continue to adhere to general measures to prevent the spread of infection.";
-
-"ExposureDetection_Guide_Hotline4" = "General information on COVID-19 is available on the website of the National Institute of Public Health and the Ministry of Health.";
-
-"ExposureDetection_Explanation_Title" = "Risk of Infection";
-
-"ExposureDetection_Explanation_Subtitle_Active" = " ";
-
-"ExposureDetection_Explanation_Subtitle_Inactive" = " ";
-
-"ExposureDetection_Explanation_Text_Off" = "Your risk of infection is assessed from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
-
-"ExposureDetection_Explanation_Text_Outdated" = "Since you have not activated exposure logging for long enough, we could not assess your risk of infection.\n\nYour risk of infection is assessed from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
-
-"ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we could not assess your risk of infection.\n\nYour risk of infection is assessed from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.";
-
-"ExposureDetection_Explanation_Text_Low" = "You have a low risk of infection because no exposure to people later diagnosed with SARS-CoV-2 was logged, or because your encounters were only for a short time and at a greater distance.";
-
-"ExposureDetection_Explanation_Text_High" = "You have an increased risk of infection because you were last exposed two days ago over a longer period of time and in close proximity to at least one person diagnosed with SARS-CoV-2.";
-
-"ExposureDetection_Button_Enable" = "Activate Exposure Logging";
-
-"ExposureDetection_Button_Refresh" = "Update";
-
-/* Active Tracing Section */
-"ExposureDetection_ActiveTracingSection_Title" = "Period logged";
-
-"ExposureDetection_ActiveTracingSection_Subtitle" = "This period is included in the calculation.";
-
-/* There are two paragraphs in this section. The first one just contains text… */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Your risk of infection can be assessed only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.";
-
-/* … the second paragraph contains two columns. On the left there is our active\n tracing indicator. On the right column there is just text that explains what\n the indicator shows.\n\n Parameters:\n - first: total number of relevant days (usually 14).\n - second: the actual number of days with active tracing. */
-"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the past %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
-
-/* Exposure Detection Errors */
-"ExposureDetectionError_Alert_Title" = "Error";
-
-"ExposureDetectionError_Alert_Action_Details" = "Details";
-
-"ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
-
-/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
-"How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
-
-"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be assessed only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our web page.";
-
-/* Settings */
-"Settings_StatusActive" = "On";
-
-"Settings_StatusInactive" = "Off";
-
-"Settings_StatusEnable" = "Activate";
-
-"Settings_StatusDisable" = "Deactivate";
-
-"Settings_KontaktProtokollStatusActive" = "Active";
-
-"Settings_KontaktProtokollStatusInactive" = "Stopped";
-
-"Settings_Tracing_Label" = "Exposure Logging";
-
-"Settings_Notification_Label" = "Notifications";
-
-"Settings_Reset_Label" = "Reset App";
-
-"Settings_Tracing_Description" = " Allow random IDs to be generated and shared in order to use exposure logging.";
-
-"Settings_Notification_Description" = "The App can notify you automatically about your risk status and warn you about new infections of people you have been exposed to.";
-
-"Settings_Reset_Description" = "Delete all data in the app";
-
-"Settings_NavTitle" = "Settings";
-
-/* Noticiation Settings */
-"NotificationSettings_On_Title" = "Receive warnings and identify risks";
-
-"NotificationSettings_On_SectionTitle" = "Setting";
-
-"NotificationSettings_On_RiskChanges" = "Your risk of infection changed";
-
-"NotificationSettings_On_TestsStatus" = " ";
-
-"NotificationSettings_Off_SectionTitle" = "Setting";
-
-"NotificationSettings_Off_EnableNotifications" = "Notifications";
-
-"NotificationSettings_Off_StatusInactive" = "Off";
-
-"NotificationSettings_Off_InfoTitle" = "Activate Notifications";
-
-"NotificationSettings_Off_InfoDescription" = "To activate notifications, you must allow notifications for the #OstaniZdrav App in your device settings.";
-
-"NotificationSettings_Off_OpenSettings" = "Open Settings";
-
-"NotificationSettings_NavTitle" = "Notifications";
-
-"NotificationSettings_onImageDescription" = "One woman receives a notification from her #OstaniZdrav App.";
-
-"NotificationSettings_offImageDescription" = "One woman cannot receive notifications from her #OstaniZdrav App.";
-
-/* Onboarding */
-"Onboarding_LetsGo_actionText" = "Let’s get started";
-
-"Onboarding_Continue_actionText" = "Next";
-
-"Onboarding_EnableLogging_actionText" = "Next";
-
-"Onboarding_Continue_actionTextHint" = "You can skip this screen";
-
-"Onboarding_doNotAllow_actionText" = "Do Not Allow";
-
-"Onboarding_DoNotActivate_actionText" = "Do Not Activate";
-
-"Onboarding_DeactivateExposureConfirmation_title" = "This means the #OstaniZdrav App cannot send or receive notifications about your risk of infection with SARS-CoV-2.";
-
-"Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of people are all using their devices in town.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_title" = "Let's fight COVID-19 together";
-
-"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the #OstaniZdrav App we can break infection chains much quicker.";
-
-"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Use your device into a COVID-19 warning system. Get an overview of your risk status and find out whether you\'ve had close contact with anyone diagnosed with SARS-CoV-2 in the last 14 days.";
-
-"OnboardingInfo_privacyPage_imageDescription" = "One of the women is using the #OstaniZdrav App on her device. The padlock on the shield is the symbol for encrypted data.";
-
-"OnboardingInfo_privacyPage_title" = "Data Privacy";
-
-"OnboardingInfo_privacyPage_boldText" = " ";
-
-"OnboardingInfo_privacyPage_normalText" = "You remain anonymous.\nYour data is transmitted fully encrypted and under a pseudonym.\n\nResponsible body: National Institute of Public Health and Ministry of Public Administration \n\nGeneral Data Protection Regulation (GDPR), in conjunction with the Personal Data Protection Act of the Republic of Slovenia\nPlease read our data privacy regulations.\n\nData privacy information:";
-
-"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three people have activated exposure logging on their devices, which will log their encounters with each other.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to Enable Exposure Logging";
-
-"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity (calculated using signal strength) to other people. Personal data such as name, address, and location is never recorded. Individuals cannot be identified.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Declaration of Consent";
-
-"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "To find out whether you have been in contact with an infected person and whether there is a risk that you yourself have been infected, you need to enable the App’s exposure logging feature. By tapping on the “Turn On” button, you agree to the enabling of the App’s exposure logging feature and the associated data processing.\n\n\nIn order to use the App’s exposure logging feature, you will have to enable the COVID-19 Exposure Logging functionality provided by Apple on your iPhone and grant the #OstaniZdrav App permission to use this.\n\nWhen exposure logging is enabled, your iPhone continuously generates and transmits random IDs via Bluetooth, which other Apple and Android smartphones in your vicinity can receive if exposure logging is also enabled on them. Your iPhone, in turn, receives the random IDs of the other smartphones. Your own random IDs and those received from other smartphones are recorded in the exposure log and stored there for 14 days.\n\n\nTo identify your risk of infection, the App loads a list – once a day – of the random IDs of all users who have told the App that they have been infected with SARS-CoV-2. This list is then compared with the random IDs stored in the exposure log. If the App detects that you may have been in contact with an infected user, it will inform you of this and tell you that there is a risk that you are also infected. In this case, the App is also given access to other data stored in your iPhone’s exposure log (date, duration and Bluetooth signal strength of the contact).\n\nThe Bluetooth signal strength is used to derive the physical distance (the stronger the signal, the smaller the distance). The App then analyses this information in order to assess your likelihood of having been infected with SARS-CoV-2 and to give you recommendations for what to do next. This analysis is only performed locally on your iPhone. Apart from you, nobody will know whether you have been in contact with an infected person and what risk has been identified for you.\n\nTo withdraw your consent to the exposure logging feature, you can disable the feature using the toggle switch in the App or delete the App. If you decide to use the exposure logging feature again, you can toggle the feature back on or reinstall the App. If you disable the exposure logging feature, the App will no longer check whether you have been in contact with an infected user. If you also wish to stop your device sending and receiving random IDs, you will need to disable COVID-19 Exposure Logging in your iPhone settings. Please note that your own random IDs and those received from other smartphones which are stored in the exposure log will not be deleted in the App. You can only permanently delete the data stored in the exposure log in your iPhone settings.\n\n\nThe App’s privacy notice (including an explanation of the data processing carried out for the exposure logging feature) can be found in the menu under “Data Privacy Information”.";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Risk of infection";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Active";
-
-"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Stopped";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "An encrypted positive test notification is transmitted to the system, which will now warn other users.";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you are diagnosed with diagnosed with SARS-CoV-2 …";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please share this in the #OstaniZdrav App. Sharing your test results is voluntary and secure. Please do this for the sake of everyone\'s health.";
-
-"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected, will now receive a warning along with information about what they should now do.";
-
-"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "One woman receives a notification from her #OstaniZdrav App.";
-
-"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks";
-
-"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status and warn you about new infections of people you have been exposed to. Allow the app now to notify you. ";
-
-"OnboardingInfo_alwaysStayInformedPage_normalText" = "Follow the isolation instructions received from your healthcare provider. \nInsulation period usually lasts 14 days until symptoms and signs subside. The duration of the isolation shall be determined by your treating doctor. \nIn case your disease worsens, please call your selected GP or an emergency doctor. In case of emergencies, call 112. Tell them that you have a confirmed SARS-CoV-2 infection.";
-
-/* Exposure Submission */
-"ExposureSubmission_Hotline_Number" = "080 1787";
-
-"ExposureSubmission_DataPrivacyTitle" = "Data Privacy";
-
-"ExposureSubmission_Continue_actionText" = "Next";
-
-"ExposureSubmission_DataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nSharing your test result via the App is voluntary. You will not be penalized if you do not share your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have shared the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information”.";
-
-"ExposureSubmissionDataPrivacy_AcceptTitle" = "Accept";
-
-"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Do Not Accept";
-
-"ExposureSubmission_Submit" = "Enter TAN";
-
-"ExposureSubmissionTanEntry_Title" = "TAN Entry";
-
-"ExposureSubmissionTanEntry_EntryField" = "TAN Entry Field";
-
-"ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
-
-"ExposureSubmissionTanEntry_Description" = "Please enter the 10-digit TAN that you were given.";
-
-"ExposureSubmissionTanEntry_Submit" = "Next";
-
-"ExposureSubmissionTanEntry_InvalidCharacterError" = "Invalid entry, please check your entry.";
-
-"ExposureSubmissionTanEntry_InvalidError" = "Invalid TAN, please check your entry.";
-
-"ExposureSubmission_NavTitle" = " ";
-
-"ExposureSubmissionConfirmation_Title" = "Positive Diagnosis";
-
-"ExposureSubmission_GeneralErrorTitle" = "Error";
-
-"ExposureSubmission_DispatchTitle" = "Selection";
-
-"ExposureSubmission_DispatchDescription" = " ";
-
-"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Document with QR code";
-
-"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Register your test by scanning the QR code of your test document.";
-
-"ExposureSubmissionDispatch_TANButtonTitle" = "TAN";
-
-"ExposureSubmissionDispatch_TANButtonDescription" = "Enter your TAN.";
-
-"ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN";
-
-"ExposureSubmissionDispatch_HotlineButtonDescription" = "Please call us if you were tested %@.";
-
-"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "Positive";
-
-"ExposureSubmissionHotline_Title" = "Request TAN";
-
-"ExposureSubmissionHotline_Description" = "Please keep your test result (if available) and your phone number ready to request a TAN.";
-
-"ExposureSubmissionHotline_SectionTitle" = "How this works";
-
-"ExposureSubmissionHotline_SectionDescription1" = " ";
-
-"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Step 1 of 2";
-
-"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Step 2 of 2";
-
-"ExposureSubmission_PhoneNumber" = "080 1787";
-
-"ExposureSubmission_PhoneDetailDescription" = "Languages: \nSlovene and English\n\nBusiness hours:\nMonday to Sunday: 8am to 8pm\n\nThe call is free of charge.";
-
-"ExposureSubmission_SectionDescription2" = "Register the test by entering the TAN in the app.";
-
-"ExposureSubmission_CallButtonTitle" = "Call";
-
-"ExposureSubmission_TANInputButtonTitle" = "Enter TAN";
-
-"ExposureSubmissionHotline_imageDescription" = " ";
-
-/* Exposure Submission QR Code Scanner */
-"ExposureSubmissionQRScanner_title" = "QR Code Scan";
-
-"ExposureSubmissionQRScanner_instruction" = "Position the frame over the QR code of your document.";
-
-"ExposureSubmissionQRScanner_notFoundAlertTitle" = "Diagnosis could not be found";
-
-"ExposureSubmissionQRScanner_notFoundAlertText" = "To make it easier to read the QR code, try to align the QR code vertically to the scanner, or turn on the flash.";
-
-"ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
-
-"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
-
-"ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_On" = "Turned On";
-
-"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turned Off";
-
-"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn on camera flash";
-
-"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
-
-/* Exposure Submission Success */
-"ExposureSubmissionSuccess_Title" = "Thank you!";
-
-"ExposureSubmissionSuccess_AccImageDescription" = "Everyone in the group is cheering because someone has shared their test result.";
-
-"ExposureSubmissionSuccess_Button" = "That’s it!";
-
-"ExposureSubmissionSuccess_Description" = "Thanks to your support, other people can now be warned and respond appropriately.";
-
-"ExposureSubmissionSuccess_subTitle" = "Other information:";
-
-"ExposureSubmissionSuccess_listTitle" = "Please note:";
-
-"ExposureSubmissionSuccess_listItem1" = "You are diagnosed with SARS-CoV-2.";
-
-"ExposureSubmissionSuccess_listItem2" = "Follow the isolation instructions received from your healthcare provider.";
-
-"ExposureSubmissionSuccess_listItem2_1" = " Insulation period usually lasts 14 days until symptoms and signs subside. The duration of the isolation shall be determined by your treating doctor.";
-
-"ExposureSubmissionSuccess_listItem2_2" = "In case your disease worsens, please call your selected GP or an emergency doctor.";
-
-"ExposureSubmissionSuccess_listItem2_3" = "In case of emergencies, call 112.";
-
-"ExposureSubmissionSuccess_listItem2_4" = "Tell them that you have a confirmed SARS-CoV-2 infection.";
-
-/* Exposure Submission Introduction */
-"ExposureSubmissionIntroduction_Title" = "Information";
-
-"ExposureSubmissionIntroduction_SubTitle" = "This is how the #OstaniZdrav App works";
-
-"ExposureSubmissionIntroduction_AccImageDescription" = "A device is transmitting an encrypted positive test diagnosis to the system.";
-
-"ExposureSubmissionIntroduction_Usage01" = "For the app to work well, we are relying on the support of people who were infected with SARS-CoV-2.";
-
-"ExposureSubmissionIntroduction_Usage02" = "Since only encrypted random IDs are exchanged, you remain anonymous. You can now proceed as follows:";
-
-"ExposureSubmissionIntroduction_ListItem1" = "If you have been infected with SARS-CoV-2, you can notify others.";
-
-"ExposureSubmissionIntroduction_ListItem2" = " ";
-
-"ExposureSubmissionIntroduction_ListItem3" = " ";
-
-"ExposureSubmissionIntroduction_ListItem4" = " ";
-
-/* Exposure Submission Result */
-"ExposureSubmissionResult_Title" = "Test Result";
-
-"ExposureSubmissionResult_CardSubTitle" = "Your Diagnosis";
-
-"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
-
-"ExposureSubmissionResult_CardPositive" = "Positive";
-
-"ExposureSubmissionResult_CardNegative" = "Negative";
-
-"ExposureSubmissionResult_CardInvalid" = "Evaluation not possible";
-
-"ExposureSubmissionResult_CardPending" = "Your result is not yet available";
-
-"ExposureSubmissionResult_Procedure" = " ";
-
-"ExposureSubmissionResult_testAdded" = "Test added successfully";
-
-"ExposureSubmissionResult_testAddedDesc" = "Your test has been stored in the #OstaniZdrav App.";
-
-"ExposureSubmissionResult_warnOthers" = "Warning Others";
-
-"ExposureSubmissionResult_warnOthersDesc" = "Share your random IDs of the last 14 days in order to protect others and break the chain of infection.";
-
-"ExposureSubmissionResult_testPositive" = "Positive Diagnosis";
-
-"ExposureSubmissionResult_testPositiveDesc" = "Your test result was verified as positive.";
-
-"ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
-
-"ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have coronavirus SARS-CoV-2.";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Still feeling unwell? If you feel very poorly and/or your symptoms have worsened, please contact your general practitioner.";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with coronavirus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness.";
-
-"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
-
-"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need a further SARS-CoV-2 test.";
-
-"ExposureSubmissionResult_testInvalid" = "Test has errors";
-
-"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the public health authority to find out how to proceed. ";
-
-"ExposureSubmissionResult_testPending" = "Test result is not yet available";
-
-"ExposureSubmissionResult_testPendingDesc" = "Your test result is not yet available.";
-
-"ExposureSubmissionResult_testRemove" = "Delete test";
-
-"ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the #OstaniZdrav, so that you can save a new test code here if necessary.";
-
-"ExposureSubmissionResult_continueButton" = "Next";
-
-"ExposureSubmissionResult_deleteButton" = "Delete test";
-
-"ExposureSubmissionResult_refreshButton" = "Update";
-
-"ExposureSubmissionWarnOthers_title" = "Warning Others";
-
-"ExposureSubmissionWarnOthers_AccImageDescription" = "A device is transmitting an encrypted positive test diagnosis to the system.";
-
-"ExposureSubmissionWarnOthers_continueButton" = "Next";
-
-"ExposureSubmissionWarnOthers_sectionTitle" = "Please help all of us!";
-
-"ExposureSubmissionWarnOthers_description" = "Next, you can make sure that the #OstaniZdrav App shares your random IDs of the last 14 days with others. By doing this, you can warn other people and help to break the infection chain.\n\nSince only impersonal random IDs are transmitted, your identity remains anonymous.";
-
-"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping on “Accept”, you consent to the App sending your positive test result to the App’s server system along with your random IDs from the last 14 days, so that other App users who have enabled the exposure logging feature can be automatically notified that they may have been exposed to risk of infection. The random IDs transmitted for this purpose do not contain any information that would allow conclusions to be drawn about your identity or your person. \n\nSharing your test result via the App is voluntary. You will not be penalized if you do not share your test result. Since it is not possible to trace or check whether and how you use the App, nobody but you will know whether you have shared the information that you are infected.\n\nYou can withdraw your consent at any time by deleting the App. This withdrawal of your consent will not affect the lawfulness of the processing carried out based on the consent prior to the withdrawal. Further information can be found in the menu under “Data Privacy Information” ";
-
-"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Data Privacy";
-
-"ExposureSubmissionResult_RemoveAlert_Title" = "Delete the test?";
-
-"ExposureSubmissionResult_RemoveAlert_Text" = "The test will be permanently deleted from the #OstaniZdrav and cannot be added again. This procedure cannot be undone.";
-
-"ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
-
-"ExposureSubmissionResult_RegistrationDate" = "Registered on";
-
-/* Exposure Submission */
-"ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
-
-"ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please, check your entry or contact the epidemiological service.";
-
-"ExposureSubmissionError_EnNotEnabled" = "Exposure logging is not active.";
-
-"ExposureSubmissionError_NoRegistrationToken" = "No registration token could be found on the device.";
-
-"ExposureSubmissionError_InvalidResponse" = "The response cannot be processed.";
-
-"ExposureSubmissionError_NoResponse" = "The response has no content.";
-
-"ExposureSubmissionError_QRAlreadyUsed" = "The QR code has been used already. Please contact the technical hotline via App Information -> Technical Hotline.";
-
-"ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has been used already. Please try again or contact your epidemiologic service.";
-
-"ExposureSubmissionError_RegTokenNotExist" = "A TAN for submission could not be generated. Please contact the technical hotline via App Information -> Single Contact Centre.";
-
-"ExposureSubmissionError_other" = "A connection error occurred. Error code for technical support: ";
-
-"ExposureSubmissionError_otherend" = "Please try again.";
-
-"ExposureSubmissionError_httpError" = "The connection could not be established.";
-
-"ExposureSubmissionError_declined" = "Please release your random IDs to warn other people.";
-
-"ExposureSubmissionError_unknown" = "Unknown error";
-
-"ExposureSubmissionError_defaultError" = "General exposure submission error";
-
-/* Tracing Enable/Disable Settings */
-"ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
-
-"ExposureNotificationSetting_EnableTracing" = "Exposure Logging";
-
-"ExposureNotificationSetting_Tracing_Limited" = "Restricted";
-
-"ExposureNotificationSetting_Tracing_Deactivated" = "Deactivated";
-
-"ExposureNotificationSetting_ActionCell_Header" = "Setting";
-
-"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Activate Exposure Logging";
-
-"ExposureNotificationSetting_DescriptionTitle" = "This is how your exposure logging works";
-
-"ExposureNotificationSetting_DescriptionText1" = "To identify whether you are at risk of infection, you must activate the exposure logging feature.";
-
-"ExposureNotificationSetting_DescriptionText2" = "Exposure logging works by your device receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be deactivated at any time.";
-
-"ExposureNotificationSetting_DescriptionText3" = "The encrypted random IDs only pass information about date, duration and proximity (using signal strength) to other people. Personal data such as name, address, location is never recorded. Individuals cannot be identified.";
-
-"ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
-
-"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth must be turned on for exposure logging in order to log encounters. Please turn on Bluetooth in your device settings.";
-
-"ExposureNotificationSetting_Activate_Internet" = "Open Internet connection";
-
-"ExposureNotificationSetting_Internet_Description" = "Exposure logging requires an Internet connection to calculate exposures. Please turn on Wi-Fi or mobile data in your device settings.";
-
-"ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
-
-"ExposureNotificationSetting_Activate_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
-
-"ExposureNotificationSetting_Activate_OSENSetting_Description" = "For assessing the risk of infection, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
-
-"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
-
-"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
-
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
-
-"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Please confirm use of COVID-19 exposure logging.";
-
-"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
-
-"ExposureNotificationSetting_AccLabel_Enabled" = "Three people have activated exposure logging on their devices, which will log their encounters with each other.";
-
-"ExposureNotificationSetting_AccLabel_Disabled" = "One person has deactivated exposure logging on their device, so an encounter with two other people is not logged.";
-
-"ExposureNotificationSetting_AccLabel_BluetoothOff" = "One person has turned off Bluetooth on the device, so an encounter with two other people is not logged.";
-
-"ExposureNotificationSetting_AccLabel_InternetOff" = "One person has turned off the Internet connection on their device, so the app cannot calculate risk of infection.";
-
-"ExposureNotificationSetting_Activate_Action" = "Accept";
-
-"ExposureNotificationSetting_Dismiss_Action" = "Cancel";
-
-"ExposureNotificationSetting_GeneralError_Title" = "Error";
-
-"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Learn more";
-
-"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.gov.si/en/topics/coronavirus-disease-covid-19/the-ostanizdrav-mobile-application/";
-
-"ExposureNotificationSetting_AuthenticationError" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is authorized to make use of COVID-19 exposure logging.";
-
-"ExposureNotificationSetting_exposureNotification_Required" = "An error occurred when activating the exposure logging. Please go to system settings and make sure the exposure notifications are enabled for this app.";
-
-"ExposureNotificationSetting_exposureNotification_unavailable" = "An error occurred when activating the exposure logging. Please go to system settings and make sure this app is set active to make use of exposure notifications. Please visit our website for more information.";
-
-"ExposureNotificationSetting_unknownError" = "An unknown error occurred. Please visit our website for more information.";
-
-"ExposureNotificationSetting_apiMisuse" = "An internal error occurred when activating the risk identification. Please visit our website for more information and try exposure logging later again.";
-
-/* Home Navigation Bar */
-"Home_LeftBarButton_description" = "#OstaniZdrav logo";
-
-"Home_RightBarButton_description" = "Information";
-
-/* Home Active card */
-"Home_Activate_Card_On_Title" = "Exposure logging active";
-
-"Home_Activate_Card_Off_Title" = "Exposure logging stopped";
-
-"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth turned off";
-
-"Home_Activate_Card_Internet_Off_Title" = "No Internet connection";
-
-/* Home common card */
-"Home_Risk_Date_Item_Title" = "Updated: %@";
-
-"Home_Risk_No_Date_Title" = "Unknown";
-
-"Home_Risk_Period_Update_Title" = "Updated every %@\U00A0hours";
-
-"Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0hours";
-
-/* Home Unknown card */
-"Home_Risk_Unknown_Title" = "Unknown Risk";
-
-"Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we could not assess your risk of infection.";
-
-"Home_RiskCard_Unknown_Button" = "Update";
-
-/* Home Inactive card */
-"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Exposure logging stopped";
-
-"Home_Risk_Inactive_Outdated_Results_Title" = "Exposure logging is not possible";
-
-"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Activate exposure logging to evaluate your risk status today.";
-
-"Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
-
-"Home_Risk_Inactive_Activate_Item_Title" = "Last exposure logging: %@";
-
-"Home_Risk_Inactive_Activate_Item_Unknown_Title" = "Unknown Risk";
-
-"Home_Risk_Inactive_Activate_Item_Low_Title" = "Low Risk";
-
-"Home_Risk_Inactive_Activate_Item_High_Title" = "Higher Risk";
-
-"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
-
-"Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
-
-/* Home Low card */
-"Home_Risk_Low_Title" = "Low Risk";
-
-"Home_Risk_Low_SaveDays_Item_Title" = "Exposure logging was active for %1$u of the past %2$u days.";
-
-"Home_Risk_Low_SaveDays_Item_Title__Permanently_Active" = "Exposure logging permanently active";
-
-"Home_Risk_Low_Button" = "Update";
-
-/* Home High card */
-"Home_Risk_High_Title" = "Increased Risk";
-
-"Home_Risk_High_Button" = "Update";
-
-/* Home Status Check */
-"Home_Risk_Status_Check_Title" = "Check is running …";
-
-"Home_Risk_Status_Check_Body" = "Current data is being downloaded and checked. This can take several minutes.";
-
-"Home_Risk_Status_Check_Button" = "Update";
-
-/* Home Thank you card */
-"Home_Thank_You_Card_Title" = "Thank you!";
-
-"Home_Thank_You_Card_Body" = "Thanks to your support, other people can now be warned and respond appropriately.";
-
-"Home_Thank_You_Card_Note_Title" = "Please note:";
-
-"Home_Thank_You_Card_Phone_Item_Title" = "You are diagnosed with SARS-CoV-2.";
-
-"Home_Thank_You_Card_Home_Item_Title" = "Follow the isolation instructions received from your healthcare provider.";
-
-"Home_Thank_You_Card_Further_Info_Item_Title" = "Other information:";
-
-"Home_Thank_You_Card_14Days_Item_Title" = "Insulation period usually lasts 14 days until symptoms and signs subside. The duration of the isolation shall be determined by your treating doctor";
-
-"Home_Thank_You_Card_Contacts_Item_Title" = "In case your disease worsens, please call your selected GP or an emergency doctor.";
-
-"Home_Thank_You_Card_App_Item_Title" = "In case of emergencies, call 112.";
-
-"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Tell them that you have a confirmed SARS-CoV-2 infection.";
-
-/* Home Finding positive */
-"Home_Finding_Positive_Card_Title" = "Notify others";
-
-"Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2";
-
-"Home_Finding_Positive_Card_Status_Subtitle" = "You are infected with the SARS-CoV-2 virus.";
-
-"Home_Finding_Positive_Card_Note_Title" = "Please note:";
-
-"Home_Finding_Positive_Card_Phone_Item_Title" = " ";
-
-"Home_Finding_Positive_Card_Home_Item_Title" = "Please, follow the isolation instructions received from your healthcare provider. ";
-
-"Home_Finding_Positive_Card_Share_Item_Title" = "Share your random IDs so that others can be warned. ";
-
-"Home_Finding_Positive_Card_Button" = "Next";
-
-/* Home Submit card */
-"Home_SubmitCard_Title" = "Have you been tested?";
-
-"Home_SubmitCard_Body" = "Help to break the infection chain by notifying others.";
-
-"Home_SubmitCard_Button" = "Input the test result";
-
-"Home_InfoCard_ShareTitle" = "Share the #OstaniZdrav App";
-
-"Home_InfoCard_ShareBody" = "The more people who use the app, the faster we can break the infection chain. Please invite your family and friends to download the app.";
-
-"Home_InfoCard_AboutTitle" = "More about #OstaniZdrav App";
-
-"Home_InfoCard_AboutBody" = "More about the #OstaniZdrav App. You will be forwarded to an external website.";
-
-"Home_SettingsCard_Title" = "Settings";
-
-"Home_AppInformationCard_Title" = "App Information";
-
-"Home_AppInformationCard_Version" = "Version";
-
-/* Home Result Card */
-"Home_resultCard_ResultAvailableTitle" = "Your result is available";
-
-"Home_resultCard_ResultUnvailableTitle" = "Your result is not yet available";
-
-"Home_resultCard_ShowResultButton" = "Display Test";
-
-"Home_resultCard_LoadingBody" = "Current data is being downloaded.\nThis can take several minutes.";
-
-"Home_resultCard_LoadingTitle" = "Update in progress …";
-
-"Home_resultCard_NegativeTitle" = "Negative Diagnosis";
-
-"Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
-
-"Home_resultCard_PendingDesc" = "The evaluation of your test is not yet done.";
-
-"Home_resultCard_InvalidTitle" = "Invalid test";
-
-"Home_resultCard_InvalidDesc" = "Your test could not be evaluated.";
-
-"Home_resultCard_LoadingErrorTitle" = "Your test result could not be loaded.";
-
-/* App Information - About */
-"App_Information_About_Navigation" = "About the App";
-
-"App_Information_About_ImageDescription" = " ";
-
-"App_Information_About_Title" = "Let's fight COVID-19 together";
-
-"App_Information_About_Description" = " The National Institute of Public Health (NIJZ) is the central institution for health protection in Slovenia. The NIJZ provides professional or content support to the application, which is managed and maintained by the Ministry of Public Administration of the Republic of Slovenia. With the help of the application, we can further limit the spread of SARS-CoV-2 in addition to hygienic preventive measures: social distancing, hygiene behaviour and face masks.";
-
-"App_Information_About_Text" = "Whoever uses the app helps to trace and break chains of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with CSARS-CoV-2. Your identity and privacy are always protected.";
-
-/* App Information - FAQ */
-"App_Information_FAQ_Navigation" = "Information about the App";
-
-/* App Information - Contact */
-"App_Information_Contact_Navigation" = "Hotline";
-
-"App_Information_Contact_ImageDescription" = "One man is wearing a headset while he is telephoning.";
-
-"App_Information_Contact_Title" = "How can we help you?";
-
-"App_Information_Contact_Description" = "For questions about the #OstaniZdrav App, please contact our hotline.";
-
-"App_Information_Contact_Hotline_Title" = "Single Contact Centre";
-
-"App_Information_Contact_Hotline_Text" = "080 1787";
-
-"App_Information_Contact_Hotline_Number" = "080 1787";
-
-"App_Information_Contact_Hotline_Description" = "Our customer service is here to help.";
-
-"App_Information_Contact_Hotline_Terms" = "Languages: Slovene and English\n\nBusiness hours:\nMonday to Sunday: 8am - 8pm\n\n\nThe call is free of charge.";
-
-/* App Information - Imprint */
-"App_Information_Imprint_Navigation" = "Imprint";
-
-"App_Information_Imprint_ImageDescription" = "One person is holding a device with a lot of text on the screen. Next to the text is a section symbol representing the imprint.";
-
-"App_Information_Imprint_Section1_Title" = "Published by";
-
-"App_Information_Imprint_Section1_Text" = " ";
-
-"App_Information_Imprint_Section2_Title" = " The #OstaniZdrav App is provided by the National Institute of Public Health (NIJZ) and the Ministry of Public Administration (MJU), with the NIJZ taking care of the content of the application and the MJU the technical part. Both are thus common data controllers, which are processed within the #OstaniZdrav App.";
-
-"App_Information_Imprint_Section2_Text" = " ";
-
-"App_Information_Imprint_Section3_Title" = "Contact";
-
-"App_Information_Imprint_Section3_Text" = "E-Mail: ekc@gov.si \nTelephone:080 1787";
-
-"App_Information_Imprint_Section4_Title" = " ";
-
-"App_Information_Imprint_Section4_Text" = " ";
-
-/* App Information - Legal */
-"App_Information_Legal_Navigation" = "Legal Notices";
-
-/* App Information - Privacy */
-"App_Information_Privacy_Navigation" = "Data Privacy";
-
-"App_Information_Legal_ImageDescription" = "One person is holding a device with a lot of text on the screen. Next to the text is a balance scale, which is the symbol for legal notices";
-
-"App_Information_Privacy_Title" = "Data Privacy";
-
-"App_Information_Privacy_Description" = "You remain anonymous.\nYour data is completely encrypted and transmitted under a pseudonym. ";
-
-/* App Information - Terms */
-"App_Information_Terms_Navigation" = "Terms of Use";
-
-"App_Information_Terms_ImageDescription" = "One person is holding a device with a lot of text on the screen. Next to the text is a tick, which is the symbol for accepting the terms of use.";
-
-"App_Information_Terms_Title" = "Terms of Use";
-
-/* Invite Friends */
-"InviteFriends_NavTitle" = "Share";
-
-"InviteFriends_Subtitle" = "Share the #OstaniZdrav App";
-
-"InviteFriends_Title" = "Let's fight COVID-19 together";
-
-"InviteFriends_Description" = "The more people who use the app, the faster we can break the infection chain. Please invite your family and friends to download the app.";
-
-"InviteFriends_Button" = "Send Download Link";
-
-"InviteFriends_ShareTitle" = "Fighting COVID-19 together. I'm in on this, you too?";
-
-"InviteFriends_ShareUrl" = "https://www.gov.si/en/topics/SARS-CoV-w/mobilna-aplikacija-ostanizdrav";
-
-"InviteFriends_Illustration_Label" = "A man is sharing the #OstaniZdrav App with four other people.";
-
-/* Reset View */
-"Reset_NavTitle" = "Reset";
-
-"Reset_Header1" = "Are you sure you want to reset the app?";
-
-"Reset_Descrition1" = "You will no longer be notified of your exposures and you will no longer be able to warn other users.";
-
-"Reset_Button" = "Reset App";
-
-"Reset_Discard" = "Cancel";
-
-"Reset_InfoTitle" = "Delete Exposure Log";
-
-"Reset_InfoDescription" = "The exposure log must be deleted separately in your device settings.";
-
-"Reset_Subtitle" = "Reset App";
-
-"Reset_ImageDescription" = "One person is holding a device displaying a symbol indicating that the app is being reset.";
-
-"Reset_ConfirmDialog_Title" = "Reset App";
-
-"Reset_ConfirmDialog_Description" = "You will no longer be notified of your exposures and you will no longer be able to warn other users. This procedure cannot be undone.";
-
-"Reset_ConfirmDialog_Cancel" = "Cancel";
-
-"Reset_ConfirmDialog_Confirm" = "Reset";
-
-/* Safari */
-"safari_corona_website" = "https://www.gov.si/en/topics/SARS-COV-2/mobilna-aplikacijaostanizdrav";
-
-/* Local Notifications */
-"local_notifications_ignore" = "Ignore";
-
-"local_notifications_detectexposure_title" = "#OstaniZdrav";
-
-"local_notifications_detectexposure_body" = "You have new messages from your #OstaniZdrav App.";
-
-"local_notifications_testresults_title" = "#OstaniZdrav";
-
-"local_notifications_testresults_body" = "You have new messages from your #OstaniZdrav App.";
-
-/* Risk Legend */
-"RiskLegend_Title" = "Overview";
-
-"RiskLegend_Subtitle" = "App features";
-
-"RiskLegend_Legend1_Title" = "Exposure Logging";
-
-"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people's devices are logged. You don't have to do anything else.";
-
-"RiskLegend_Legend2_Title" = "Risk of Infection";
-
-"RiskLegend_Legend2_Text" = "If you have had contact within the last 14 days with a person who was diagnosed with SARS-COV-2, the app assessesyour personal risk of infection. It does this by measuring duration and proximity of the exposure.";
-
-"RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
-
-"RiskLegend_Legend2_High" = "Increased Risk";
-
-"RiskLegend_Legend2_High_Color" = "Red";
-
-"RiskLegend_Legend2_Low" = "Low Risk";
-
-"RiskLegend_Legend2_Low_Color" = "Green";
-
-"RiskLegend_Legend2_Unknown" = "Unknown Risk";
-
-"RiskLegend_Legend2_Unknown_Color" = "Grey";
-
-"RiskLegend_Legend3_Title" = "Notifying Other Users";
-
-"RiskLegend_Legend3_Text" = "Another central feature is sharing your test. If you are diagnosed with SARS-CoV-2, you can notify others and break the chain of infection.";
-
-"RiskLegend_Definitions_Title" = "Definition of Terms";
-
-"RiskLegend_Store_Title" = "Exposure Log";
-
-"RiskLegend_Store_Text" = "List of received and sent temporary random IDs saved temporarily in the operating system storage. This list is read when the exposures are checked. All random IDs are automatically deleted after 14 days.";
-
-"RiskLegend_Check_Title" = "Exposure Check";
-
-"RiskLegend_Check_Text" = "Exposure log data is retrieved and synchronized with reported infections of other users.";
-
-"RiskLegend_Contact_Title" = "Exposures";
-
-"RiskLegend_Contact_Text" = "Encounters over a longer duration and close proximity to people diagnosed with SARS-CoV-2.";
-
-"RiskLegend_Notification_Title" = "Exposure Notification";
-
-"RiskLegend_Notification_Text" = "The display of exposures in the #OstaniZdrav App.";
-
-"RiskLegend_Random_Title" = "Random IDs";
-
-"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be assigned to a specific person and are automatically deleted after 14 days. People with a confirmed infection with SARS-CoV-2 can opt to share their random IDs of up to the last 14 days with other app users.";
-
-"RiskLegend_Image1_AccLabel" = "A device is showing different numbered contents.";
-
-/* Update Message */
-"Update_Message_Title" = "Update available";
-
-"Update_Message_Text" = "There is an update available for the #OstaniZdrav.";
-
-"Update_Message_Text_Force" = "Please note, you can only use the #OstaniZdrav App again once you have installed the latest update.";
-
-"Update_Message_Action_Update" = "Update";
-
-"Update_Message_Action_Later" = "Later";
-
-/* ENATanInput */
-"ENATanInput_Empty" = "Empty";
-
-"ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
-
-"ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
-
-/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
-"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past %2$u days.";
-
+"Active_Tracing_Interval_Partially_Active" = "Exposure logging was active for %1$u of the past 14 days.";
 "Active_Tracing_Interval_Permanently_Active" = "Exposure logging permanently active";
-
+"Alert_ActionCancel" = "Cancel";
+"Alert_ActionNo" = "No";
+"Alert_ActionOk" = "Ok";
+"Alert_ActionRemove" = "Remove";
+"Alert_ActionRetry" = "Repeat";
+"Alert_ActionYes" = "Yes";
+"Alert_BluetoothOff_Description" = "Activate Bluetooth in your system settings to use this app.";
+"Alert_BluetoothOff_Title" = "Turn on Bluetooth";
+"Alert_CancelAction_Later" = "Later";
+"Alert_DefaultAction_OpenSettings" = "Open Settings";
+"Alert_TitleGeneral" = "An error occurred.";
+"App_Information_About_Description" = "The National Institute of Public Health (NIJZ) is the central institution for health protection in Slovenia. The NIJZ provides professional or content support to the application, which is managed and maintained by the Ministry of Public Administration of the Republic of Slovenia. In addition to preventive measures, we can also further limit the spread of SARS-CoV-2 by using the application.";
+"App_Information_About_ImageDescription" = "";
+"App_Information_About_Link" = "https://arhiv.mm.gov.si/vlada/MJJ/TolmačkaAPPvodič.mp4";
+"App_Information_About_LinkText" = "App Information in Simplified Language and Sign Language";
+"App_Information_About_Navigation" = "About the App";
+"App_Information_About_Text" = "People who use the app help to trace and break chain of infection. The app saves encounters with other people locally on your device. You are notified if you have encountered people who were later diagnosed with COVID-19. Your identity and privacy are always protected.";
+"App_Information_About_Title" = "Let’s fight coronavirus together";
+"App_Information_Contact_Description" = "For technical questions about the #OstaniZdrav App, please contact our Single Contact Centre. For psychological support during the COVID-19 epidemic please call 080-51-00.";
+"App_Information_Contact_Form_Link" = "";
+"App_Information_Contact_Form_Title" = "";
+"App_Information_Contact_Hotline_Description" = "Languages: Slovene and English\n\nBusiness hours:\nMonday to Sunday: 8am - 8pm\n\nThe call is free of charge.\nFor calls from abroad: +386 1 478 7557";
+"App_Information_Contact_Hotline_Number" = "080 17 87";
+"App_Information_Contact_Hotline_Number1" = "080 51 00";
+"App_Information_Contact_Hotline_Terms" = "Psychological support during the COVID-19 epidemic is available to you on the toll-free number 080-51-00 24 hours a day, 7 days a week. \n\n";
+"App_Information_Contact_Hotline_Text" = "080 17 87";
+"App_Information_Contact_Hotline_Text1" = "080 51 00";
+"App_Information_Contact_Hotline_Title" = "Single Contact Centre";
+"App_Information_Contact_ImageDescription" = "A man wears a headset while making a phone call.";
+"App_Information_Contact_Navigation" = "User support";
+"App_Information_Contact_Title" = "How can we help you?";
+"App_Information_FAQ_Navigation" = "More on the #OstaniZdrav App";
+"App_Information_Imprint_ImageDescription" = "A hand holds a smartphone displaying a large body of text on the screen. Next to the text is a section symbol representing the imprint.";
+"App_Information_Imprint_Navigation" = "Imprint";
+"App_Information_Imprint_Section1_Text" = "The #OstaniZdrav App is provided by the National Institute of Public Health (NIJZ) and the Ministry of Public Administration (MJU), with the NIJZ taking care of the content of the application and the MJU the technical part. Both are thus common data controllers, which are processed within the #OstaniZdrav App.";
+"App_Information_Imprint_Section1_Title" = "Published by";
+"App_Information_Imprint_Section2_Text" = "E-mail: ekc@gov.si\nPhone No.: 080 1787 \nFrom abroad: +386 1 478 7557";
+"App_Information_Imprint_Section2_Title" = "Contact";
+"App_Information_Imprint_Section3_Text" = "";
+"App_Information_Imprint_Section3_Title" = "";
+"App_Information_Imprint_Section4_Text" = "";
+"App_Information_Imprint_Section4_Title" = "";
+"App_Information_Legal_ImageDescription" = "A hand holds a smartphone displaying a large body of text on the screen. Next to the text is a balance scale that symbolizes legal notices.";
+"App_Information_Legal_Navigation" = "Legal Notices";
+"App_Information_Privacy_Description" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.";
+"App_Information_Privacy_Navigation" = "Data Privacy";
+"App_Information_Privacy_Title" = "Data Privacy";
+"App_Information_Terms_ImageDescription" = "A hand holds a smartphone displaying a large body of text on the screen. Next to the text is a tick mark symbolizing that the terms of use have been accepted.";
+"App_Information_Terms_Navigation" = "Terms of Use";
+"App_Information_Terms_Title" = "Terms of Use";
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Detailed Information on Data Processing and Your Consent";
+"AutomaticSharingConsent_SwitchTitle" = "Warn Others";
+"AutomaticSharingConsent_SwitchTitleDesc" = "You have granted the following consent:";
+"AutomaticSharingConsent_Title" = "Your Consent";
+"BackgroundAppRefreshSettings_Description" = "Once background app refresh is activated, the #OstaniZdrav evaluates your risk status automatically.\n\nIf background app refresh is deactivated, you will have to open the app manually each day to update your risk status.";
+"BackgroundAppRefreshSettings_Image_Description_Off" = "A person holds a smartphone in which background app refresh is deactivated.";
+"BackgroundAppRefreshSettings_Image_Description_On" = "A person holds a smartphone in which background app refresh is activated.";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Open Settings";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Open the settings for the #OstaniZdrav App";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Activate Background App Refresh";
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Activate Background App Refresh for the #OstaniZdrav App";
+"BackgroundAppRefreshSettings_InfoBox_Description" = "You have to activate background app refresh in both the general settings of your iPhone and in the settings of the #OstaniZdrav App.";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Open Settings";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Open Battery";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Deactivate Low Power Mode";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Deactivate Low Power Mode";
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Please note that low power mode must be deactivated for you to activate background app refresh.";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Open Settings";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Open General";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Open Background App Refresh";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Select either Wi-Fi or Wi-Fi & Cellular Data";
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Activate Background App Refresh in General";
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Activate Background App Refresh";
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Open Settings";
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Share Instructions";
+"BackgroundAppRefreshSettings_Status_Header" = "Setting";
+"BackgroundAppRefreshSettings_Status_Off" = "Off";
+"BackgroundAppRefreshSettings_Status_On" = "On";
+"BackgroundAppRefreshSettings_Status_Title" = "Background App Refresh";
+"BackgroundAppRefreshSettings_Subtitle" = "Update Risk Status in the Background";
+"BackgroundAppRefreshSettings_Title" = "Background App Refresh";
+"Common_Alert_Action_moreInfo" = "Find out more";
+"Common_BackgroundFetch_AlertMessage" = "You have deactivated background app refresh for the #OstaniZdrav App. Please activate background app refresh to use automatic exposure logging in your device settings. If you do not activate background app refresh, you can only start exposure logging manually in the app.";
+"Common_BackgroundFetch_AlertTitle" = "Background app refresh deactivated";
+"Common_BackgroundFetch_OKTitle" = "Start Exposure Logging Manually";
+"Common_BackgroundFetch_SettingsTitle" = "Open Device Settings";
+"Common_Deadman_AlertBody" = "Please remember to open the #OstaniZdrav App regularly to check your risk status.";
+"Common_Deadman_AlertTitle" = "Your Risk Status";
+"Common_ENError11_Description" = "Error 11: Something went wrong. Your level of risk cannot be determined. Please restart your device and try again tomorrow.";
+"Common_ENError13_Description" = "Error 13: Your exposure logging for today has already been carried out. Please try again in 24 hours.";
+"Common_ENError5_Description" = "Error 5: Something went wrong. Your level of risk cannot be determined. We are working on a solution of the problem.";
+"Common_Tess_Relay_Description" = "";
+"ContactDiary_AddEditEntry_LocationPlaceholder" = "Place";
+"ContactDiary_AddEditEntry_LocationTitle" = "Place";
+"ContactDiary_AddEditEntry_PersonPlaceholder" = "Person";
+"ContactDiary_AddEditEntry_PersonTitle" = "Person";
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Save";
+"ContactDiary_Day_AddContactPerson" = "Add Person";
+"ContactDiary_Day_AddLocation" = "Add Place";
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Create a person and add them to your contact journal.";
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "A silhouette of a woman who is walking across a meadow.";
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "No people defined yet";
+"ContactDiary_Day_ContactPersonsSegment" = "People";
+"ContactDiary_Day_LocationsEmptyDescription" = "Create a place and add it to your contact journal.";
+"ContactDiary_Day_LocationsEmptyImageDescription" = "A building is marked with a location flag.";
+"ContactDiary_Day_LocationsEmptyTitle" = "No places defined yet";
+"ContactDiary_Day_LocationsSegment" = "Places";
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "No";
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Yes";
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Do you really want to remove this person?";
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "No";
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Yes";
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "If you remove a person, all the entries for that person will be removed from your journal.";
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Do you really want to remove all people?";
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Remove All";
+"ContactDiary_EditEntries_ContactPersons_Title" = "People";
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "No";
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Yes";
+"ContactDiary_EditEntries_Location_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+"ContactDiary_EditEntries_Location_AlertTitle" = "Do you really want to remove this place?";
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "No";
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Yes";
+"ContactDiary_EditEntries_Locations_AlertMessage" = "If you remove a place, all the entries for that place will be removed from your journal.";
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Do you really want to remove all places?";
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Remove All";
+"ContactDiary_EditEntries_Locations_Title" = "Places";
+"ContactDiary_Information_Dataprivacy_Title" = "For more information, please refer to the privacy notice.";
+"ContactDiary_Information_DescriptionSubHeadline" = "Create an overview of your contacts in the last 14 days, so you’ll have a complete list at hand quickly if needed.";
+"ContactDiary_Information_DescriptionTitle" = "Keep track of your contacts.";
+"ContactDiary_Information_ImageDescription" = "Several people are outside, looking at their smartphones.";
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "You can remove entries for people and places from your journal at any time. Journal entries will be deleted automatically after 16 days.";
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "You can export your contact journal in plain text format and then print out the entries, edit them, or provide them to your public health office as needed.";
+"ContactDiary_Information_Item_Location_Title" = "Enter the places where you’ve encountered others.";
+"ContactDiary_Information_Item_Lock_Title" = "You are the only one who can access your journal entries. Your entries will be saved only on your smartphone.";
+"ContactDiary_Information_Item_Person_Title" = "Enter the people you have met.";
+"ContactDiary_Information_PrimaryButton_Title" = "Manage Journal";
+"ContactDiary_Information_Title" = "Contact Journal";
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edit Places";
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edit People";
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Export Entries";
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Information";
+"ContactDiary_Overview_Description" = "Write down the people you have met and places you have visited. ";
+"ContactDiary_Overview_Title" = "Contact Journal";
+"DeltaOnboarding_AccessibilityImageLabel" = "Transnational Exposure Logging";
+"DeltaOnboarding_Description" = "The functionality of the #OstaniZdrav App has been extended. Several countries are now working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can now also be taken into account for exposure logging.\n\nTo do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone.\n\n";
+"DeltaOnboarding_Headline" = "Transnational Exposure Logging";
+"DeltaOnboarding_ParticipatingCountries" = "The following countries currently participate in transnational exposure logging:";
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "You can view the participating countries in the exposure logging details.";
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Participating Countries";
+"DeltaOnboarding_PrimaryButton_Continue" = "Next";
+"DeltaOnboarding_Terms_Button" = "Display terms of use";
+"DeltaOnboarding_Terms_Description1" = "The terms of use have been updated, to include transnational exposure logging functionality.";
+"DeltaOnboarding_Terms_Description2" = "The Terms of Use and privacy notice can also be found in the menu under “App Information” and in the app description in your app store. The changes will not affect how you use the app. If you continue to use the app or reopen it, we will assume that you agree to the updated Terms of Use.";
+"ENATanInput_CharacterIndex" = "Character %1$u of %2$u";
+"ENATanInput_Empty" = "Empty";
+"ENATanInput_InvalidCharacter" = "Invalid Character\n\n%@";
+"ExposureDetectionError_Alert_Action_Details" = "Details ";
+"ExposureDetectionError_Alert_AppConfig_Missing_Message" = "";
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "There is not enough free memory available for the current data.\nPlease free up memory on your smartphone to enable your risk status to be updated.";
+"ExposureDetectionError_Alert_Message" = "An error occurred during exposure logging.";
+"ExposureDetectionError_Alert_Title" = "";
+"ExposureDetection_ActiveTracingSection_Subtitle" = "";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "";
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1" = "Exposure logging covers the past %1$u days. During this time, the logging feature on your device was active for %2$u days. The app automatically deletes older logs, as these are no longer relevant for infection prevention.";
+"ExposureDetection_ActiveTracingSection_Title" = "Period Logged";
+"ExposureDetection_Behavior_Subtitle" = "This is what you should do:";
+"ExposureDetection_Behavior_Title" = "Guidelines";
+"ExposureDetection_Button_Enable" = "Activate Exposure Logging";
+"ExposureDetection_Button_Refresh" = "Update";
+"ExposureDetection_Button_Title_Restart" = "Restart";
+"ExposureDetection_Explanation_FAQ_Link_Text" = "For further information, please see our webpage.";
+"ExposureDetection_Explanation_GOV_Link_Text" = "You can obtain a home quarantine certificate on the eGovernment portal.";
+"ExposureDetection_Explanation_Subtitle" = "";
+"ExposureDetection_Explanation_Text_High" = "\n\nPsychological support during the COVID-19 epidemic is available to you on the toll-free number 080-51-00 24 hours a day, 7 days a week.";
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "You have an increased risk of infection because you were exposed over a longer period of time and at close proximity to at least one person confirmed with a SARS-CoV-2 infection. Most recently on %@.";
+"ExposureDetection_Explanation_Text_Low" = "";
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "You have a low risk of infection because no exposure to people who were later confirmed with a SARS-CoV-2 infection was logged.\n\nPsychological support during the COVID-19 epidemic is available to you on the toll-free number 080-51-00 24 hours a day, 7 days a week.";
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "The risk of infection is calculated locally on your smartphone, using exposure logging data. The calculation also takes into account distance and duration of any exposure to persons diagnosed with COVID-19, as well as their potential infectiousness. Your risk of infection cannot be seen by or passed on to anyone else.";
+"ExposureDetection_Explanation_Text_Off" = "Your risk of infection is evaluated from the exposure logging data (duration and proximity) locally on your device. Your risk of infection cannot be seen by, or passed on to, anyone else.\n\nFor psychological support during the COVID-19 epidemic call 080-51-00, available 14 hours a day, 7 days a week, free of charge.";
+"ExposureDetection_Explanation_Text_Outdated" = "Your exposure check has not been updated for more than 48 hours. Please update the calculation.\n\nFor psychological support during the COVID-19 epidemic call 080-51-00, available 14 hours a day, 7 days a week, free of charge.";
+"ExposureDetection_Explanation_Text_Unknown" = "Since you have not activated exposure logging for long enough, we cannot calculate your risk of infection.\n\nYour risk of infection is evaluated from the exposure logging data (duration and proximity) locally on your smartphone. Your risk of infection cannot be seen by, or passed on to anyone else. \n\nFor psychological support during the COVID-19 epidemic call 080-51-00, available 14 hours a day, 7 days a week, free of charge.";
+"ExposureDetection_Explanation_Title" = "Risk of Infection";
+"ExposureDetection_Guide_Distance" = "Maintain an interpersonal distance of at least 2 metres.";
+"ExposureDetection_Guide_Hands" = "Wash your hands regularly and thoroughly with soap and water. Do not touch the eyes, nose and mouth with unclean hands.";
+"ExposureDetection_Guide_Home" = "We advise you to stay at home at a time when the app alerts you to an increased risk. You can obtain a home quarantine certificate on the eGovernment portal.";
+"ExposureDetection_Guide_Hotline1" = "Monitor your health. If you experience any of the following symptoms or signs, stay at home and contact the emergency doctor:";
+"ExposureDetection_Guide_Hotline2" = "Feeling unwell, symptoms of a cold, cough, fever, shortness of breath, headache, muscle aches, loss of smell or taste, sore throat.";
+"ExposureDetection_Guide_Hotline3" = "Continue to adhere to general measures to prevent the spread of infection.";
+"ExposureDetection_Guide_Hotline4" = "";
+"ExposureDetection_Guide_Mask" = "The use of a mask is advised. Ventilate the premises regularly.";
+"ExposureDetection_Guide_Sneeze" = "Before coughing or sneezing, cover your mouth and nose with a tissue or cough or sneeze in the top of your sleeve.";
+"ExposureDetection_High" = "Increased Risk";
+"ExposureDetection_LastExposure" = "Most recently on %@";
+"ExposureDetection_LastRiskLevel" = "Last exposure check: %@";
+"ExposureDetection_LoadingText" = "Current data is being downloaded and checked. This can take several minutes.";
+"ExposureDetection_Low" = "Low Risk";
+"ExposureDetection_LowRiskExposure_Body" = "You encountered a person who was later confirmed with a SARS-CoV-2 infection. Nevertheless, based on your exposure logging data, your risk of infection is low. The risk is low if your encounter was brief or occurred at a distance. You do not need to worry and there is no specific need for action. We recommend that you adhere to the current measures and recommendations in place to prevent the spread of SARS-CoV-2 infection.";
+"ExposureDetection_LowRiskExposure_Subtitle" = "Why your risk of infection is low";
+"ExposureDetection_LowRiskExposure_Title" = "Exposures with low risk";
+"ExposureDetection_Off" = "Exposure logging stopped";
+"ExposureDetection_OffText" = "Activate exposure logging to evaluate your risk status today.";
+"ExposureDetection_OutdatedText" = "Your risk calculation logging has not been updated for more than 48 hours. Please update the calculation.";
+"ExposureDetection_RefreshIn" = "Update in %@";
+"ExposureDetection_Refresh_24h" = "";
+"ExposureDetection_Refreshed" = "Updated: %@";
+"ExposureDetection_Refreshed_Never" = "Unknown";
+"ExposureDetection_RefreshingIn" = "Update in %02d:%02d\U00A0minutes";
+"ExposureDetection_Risk_Failed_Body" = "The synchronization of random IDs with the server failed. You can restart the synchronization manually.";
+"ExposureDetection_Risk_Failed_Title" = "Exposure check failed";
+"ExposureDetection_Risk_Restart_Button_Title" = "Restart";
+"ExposureDetection_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Thank you for your patience.";
+"ExposureDetection_Risk_Status_Detecting_Title" = "Check is running …";
+"ExposureDetection_Risk_Status_Downloading_Body" = "This may take several minutes. Thank you for your patience.";
+"ExposureDetection_Risk_Status_Downloading_Title" = "Data is being downloaded…";
+"ExposureDetection_Unknown" = "Unknown Risk";
+"ExposureDetection_UnknownText" = "Since you have not activated exposure logging for long enough, we could not calculate your risk of infection.";
+"ExposureDetection_WrongTime_Notification_Body" = "The time set on your device does not match the current time. As a result, your risk cannot be checked right now. Please set the correct time in your device settings.";
+"ExposureDetection_WrongTime_Notification_Popover_Body" = "The time set on your device does not match the current time. As a result, your risk cannot be checked right now. Please set the correct time in your device settings.";
+"ExposureDetection_WrongTime_Notification_Popover_Title" = "Exposure Check Not Possible";
+"ExposureDetection_WrongTime_Notification_Title" = "Exposure Check Not Possible";
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "A person has turned off Bluetooth on their smartphone, so an encounter with two other persons is not logged.";
+"ExposureNotificationSetting_AccLabel_Disabled" = "A person has deactivated exposure logging on their smartphone, so an encounter with two other persons is not logged.";
+"ExposureNotificationSetting_AccLabel_Enabled" = "Three persons have activated exposure logging on their smartphones, which will log their encounters with each other.";
+"ExposureNotificationSetting_AccLabel_InternetOff" = "A person has turned off the Internet connection on their smartphone, so it is not possible to identify their last encounters.";
+"ExposureNotificationSetting_ActionCell_Header" = "Setting";
+"ExposureNotificationSetting_Activate_Action" = "Accept";
+"ExposureNotificationSetting_Activate_Bluetooth" = "Turn on Bluetooth";
+"ExposureNotificationSetting_Activate_Internet" = "Open Internet connection";
+"ExposureNotificationSetting_Activate_OSENSetting" = "Enable Exposure Notifications";
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Exposure logging requires exposure notifications to be activated in the system settings, so that encounters can be logged. Activate 'COVID-19 Exposure Notifications' in your system settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Exposure logging requires COVID-19 Exposure Notifications to be activated in the system settings, so that encounters can be logged. Select 'Open Device Settings' and activate 'COVID-19 Exposure Notifications' in the settings.";
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Activate COVID-19 Exposure Notifications";
+"ExposureNotificationSetting_AuthenticationError" = "An error occurred while activating the exposure logging feature. Please check whether you have activated the COVID-19 exposure log in your settings.";
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Authorization";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Authorization required";
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Please confirm use of COVID-19 exposure logging.";
+"ExposureNotificationSetting_Bluetooth_Description" = "Bluetooth must be turned on for exposure logging in order to log encounters. Please turn on Bluetooth in your device settings.";
+"ExposureNotificationSetting_DescriptionText1" = "";
+"ExposureNotificationSetting_DescriptionText2" = "The exposure logging feature works by your smartphone receiving encrypted random IDs from other users via Bluetooth and passing your own random IDs to their smartphones. You can use the toggle switch to disable exposure logging at any time.";
+"ExposureNotificationSetting_DescriptionText3" = "You can use the toggle switch to disable exposure logging at any time.";
+"ExposureNotificationSetting_DescriptionText4" = "The app never collects personal data such as your name, address or location, nor is this information passed on to other users. It is not possible to use random IDs to draw conclusions about individual persons.";
+"ExposureNotificationSetting_DescriptionTitle" = "How exposure logging works";
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Activate Exposure Logging";
+"ExposureNotificationSetting_Detail_Action_Button" = "Open Device Settings";
+"ExposureNotificationSetting_Dismiss_Action" = "Cancel";
+"ExposureNotificationSetting_EU_Desc_1" = "Several countries are working together to enable transnational alerts via a joint exchange server. For example, contacts with users of an official coronavirus app from other participating countries can also be taken into account for calculating risk level.";
+"ExposureNotificationSetting_EU_Desc_2" = "To do this, the app downloads a list, which is updated daily, of the random IDs of all users who have shared their random IDs via their own app. This list is then compared with the random IDs recorded by your smartphone.";
+"ExposureNotificationSetting_EU_Desc_3" = "The following countries currently participate in transnational exposure logging:";
+"ExposureNotificationSetting_EU_Desc_4" = "The app’s privacy notice (including information about the data processing carried out for the transnational exposure logging feature) can be found in the menu under “App Information” > “Data Privacy”.";
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Open Device Settings";
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Your Internet connection may have been lost. Please ensure that you are connected to the Internet.";
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Countries cannot be displayed now.";
+"ExposureNotificationSetting_EU_Title" = "Transnational Exposure Logging";
+"ExposureNotificationSetting_EnableTracing" = "Exposure Logging";
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "More information";
+"ExposureNotificationSetting_GeneralError_LearnMore_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"ExposureNotificationSetting_GeneralError_Title" = "Error";
+"ExposureNotificationSetting_Internet_Description" = "Exposure logging requires an Internet connection to calculate exposures. Please turn on WIFI or mobile data in your device settings.";
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Enable COVID-19 Exposure Logging and Notifications";
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "For exposure logging, COVID-19 exposure logging and notifications must be activated in the system settings so that encounters can be logged. Please enable “COVID-19 Exposure Logging and Notifications” in your system settings.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Specify Active Region";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Exposure logging requires the #OstaniZdrav App to be defined as active app in the system settings, so that encounters can be logged. Specify the Active Region in your system settings.";
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Exposure logging requires the #OstaniZdrav App to be defined as active app in the system settings, so that encounters can be logged. Select the #OstaniZdrav App as the active app in your system settings.";
+"ExposureNotificationSetting_TracingSettingTitle" = "Exposure Logging";
+"ExposureNotificationSetting_Tracing_Deactivated" = "Deactivated";
+"ExposureNotificationSetting_Tracing_Limited" = "Restricted";
+"ExposureNotificationSetting_apiMisuse" = "An internal error occurred while activating the exposure logging feature. For more information, visit our webpage and try again later.";
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Participating Countries";
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Transnational Exposure Logging";
+"ExposureNotificationSetting_exposureNotification_Required" = "An error occurred while activating the exposure logging feature. Please check whether the COVID-19 exposure notification feature in your settings is activated for the app.";
+"ExposureNotificationSetting_exposureNotification_unavailable" = "An error occurred while activating the exposure logging feature. Please check whether this app is selected as the active app for COVID-19 exposure logging in your settings. For more information, visit our FAQ page.";
+"ExposureNotificationSetting_unknownError" = "An unknown error occurred.";
+"ExposureSubmissionConfirmation_Title" = "Confirmed infection";
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Allow";
+"ExposureSubmissionDataPrivacy_DontAcceptTitle" = "Do Not Allow";
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "If you have not yet received the TAN code or it has expired, you can obtain it via the online form.";
+"ExposureSubmissionDispatch_HotlineButtonPositiveWord" = "";
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Request TAN";
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Scan your QR code to retrieve your test result and then warn others.";
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Test with QR Code";
+"ExposureSubmissionDispatch_TANButtonDescription" = "Share the information about your SARS-CoV-2 infection by entering the TAN code you received via SMS.";
+"ExposureSubmissionDispatch_TANButtonTitle" = "Enter TAN";
+"ExposureSubmissionError_EnNotEnabled" = "Exposure logging is not active.";
+"ExposureSubmissionError_ErrorPrefix" = "A technical error occurred while sending your data. Please contact the technical hotline. You will find the phone number under App Information.";
+"ExposureSubmissionError_InvalidResponse" = "The response cannot be processed.";
+"ExposureSubmissionError_InvalidTan" = "The generated TAN is invalid for submission. Please contact the technical hotline via App Information -> Single Contact Centre.";
+"ExposureSubmissionError_NoKeys" = "No diagnosis key is available. Please try again tomorrow.";
+"ExposureSubmissionError_NoRegistrationToken" = "No registration token could be found on the smartphone.";
+"ExposureSubmissionError_NoResponse" = "The response has no content.";
+"ExposureSubmissionError_QRAlreadyUsed" = "The QR code is invalid or has been registered on another smartphone already. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "QR code is invalid";
+"ExposureSubmissionError_QRNotExist" = "Please remove the test from the app.\nYou can then add a new test to the app.";
+"ExposureSubmissionError_QRNotExist_Title" = "QR code has expired";
+"ExposureSubmissionError_RegTokenNotExist" = "A TAN for submission cannot be generated. Please contact the technical hotline via App Information -> Technical Hotline.";
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "The TAN is invalid or has already been used.";
+"ExposureSubmissionError_declined" = "Please release your random IDs to warn other people.";
+"ExposureSubmissionError_defaultError" = "Error during key transmission";
+"ExposureSubmissionError_httpError" = "The connection cannot be established.";
+"ExposureSubmissionError_noAppConfiguration" = "Your internet connection was lost. Please check the connection and then reopen the app.";
+"ExposureSubmissionError_other" = "A connection error occurred. Error code for technical support:";
+"ExposureSubmissionError_otherend" = "Please try again.";
+"ExposureSubmissionError_unknown" = "Unknown error";
+"ExposureSubmissionHotline_Description" = "";
+"ExposureSubmissionHotline_SectionDescription1" = "Click on the 'Open' button to access";
+"ExposureSubmissionHotline_SectionTitle" = "To obtain a TAN code:";
+"ExposureSubmissionHotline_Title" = "Request TAN";
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Step 1 of 2";
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Step 2 of 2";
+"ExposureSubmissionHotline_imageDescription" = "A man wears a headset while making a phone call.";
+"ExposureSubmissionIntroduction_AccImageDescription" = "A device transmits an encrypted information based on your confirmed SARS-CoV-2 infection.";
+"ExposureSubmissionIntroduction_ListItem1" = "If you have a confirmed SARS-CoV-2 infection, you can warn others by entering the TAN code. You received the TAN code via SMS.";
+"ExposureSubmissionIntroduction_ListItem2" = "If you have not received your TAN yet, you can request for one by using an online form.";
+"ExposureSubmissionIntroduction_ListItem3" = "";
+"ExposureSubmissionIntroduction_ListItem4" = "";
+"ExposureSubmissionIntroduction_SubTitle" = "";
+"ExposureSubmissionIntroduction_Title" = "Is your test positive?";
+"ExposureSubmissionIntroduction_Usage01" = "";
+"ExposureSubmissionIntroduction_Usage02" = "Notifying contacts via the app is completely anonymous.";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Your test is more than 21 days old and can no longer be registered in the app. If you are tested again in future, please make sure to scan the QR code as soon as you get it.";
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "QR code no longer valid";
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Your consent is voluntary.";
+"ExposureSubmissionQRInfo_acknowledgement_4" = "You can retrieve your test result even if you do not choose to share it. But if you share your test result, you will help to protect others against infection.";
+"ExposureSubmissionQRInfo_acknowledgement_5" = "Your identity will remain secret. ";
+"ExposureSubmissionQRInfo_acknowledgement_6" = "You must be at least 16 years old to grant your consent.";
+"ExposureSubmissionQRInfo_body_section_1" = "In the next step, scan the QR code on your test and retrieve your test result.";
+"ExposureSubmissionQRInfo_body_section_2" = "If you have been diagnosed with coronavirus, you can warn others through the app. The warning feature works in several countries. The following countries are currently participating:";
+"ExposureSubmissionQRInfo_header_section_1" = "Retrieve Test Result";
+"ExposureSubmissionQRInfo_header_section_2" = "Please help others you have encountered by warning them!";
+"ExposureSubmissionQRInfo_imageDescription" = "A person is holding a smartphone. A QR code on a test symbolizes the code to be scanned.";
+"ExposureSubmissionQRInfo_instruction1" = "Please only scan your own test.";
+"ExposureSubmissionQRInfo_instruction2" = "Your test can only be scanned once. The app cannot manage multiple tests at the same time.";
+"ExposureSubmissionQRInfo_instruction2_highlightedPhrase" = "";
+"ExposureSubmissionQRInfo_instruction3" = "The app can%@ manage multiple tests at the same time.";
+"ExposureSubmissionQRInfo_instruction3_highlightedPhrase" = "not";
+"ExposureSubmissionQRInfo_instruction4" = "";
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Next";
+"ExposureSubmissionQRInfo_title" = "Your Consent";
+"ExposureSubmissionQRInfo_title_description" = "Your consent is needed before you can retrieve your test result and warn others.";
+"ExposureSubmissionQRScanner_CameraFlash" = "Camera flash";
+"ExposureSubmissionQRScanner_CameraFlash_Disable" = "Turn off camera flash";
+"ExposureSubmissionQRScanner_CameraFlash_Enable" = "Turn on camera flash";
+"ExposureSubmissionQRScanner_CameraFlash_Off" = "Turned Off";
+"ExposureSubmissionQRScanner_CameraFlash_On" = "Turned On";
+"ExposureSubmissionQRScanner_cameraPermissionDenied" = "Allow the app to use the camera to scan the QR code.";
+"ExposureSubmissionQRScanner_instruction" = "Position the frame over the QR code of your document.";
+"ExposureSubmissionQRScanner_notFoundAlertText" = "";
+"ExposureSubmissionQRScanner_notFoundAlertTitle" = "";
+"ExposureSubmissionQRScanner_otherError" = "An unknown error occurred.";
+"ExposureSubmissionQRScanner_title" = "QR Code Scan";
+"ExposureSubmissionResult_CardInvalid" = "Evaluation not possible";
+"ExposureSubmissionResult_CardNegative" = "Negative";
+"ExposureSubmissionResult_CardPending" = "Your result is not yet available";
+"ExposureSubmissionResult_CardPositive" = "Positive";
+"ExposureSubmissionResult_CardSubTitle" = "";
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+"ExposureSubmissionResult_Procedure" = "";
+"ExposureSubmissionResult_RegistrationDate" = "Entered on";
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Registration date unknown";
+"ExposureSubmissionResult_RemoveAlert_Text" = "If you remove the test, you can no longer retrieve your test result. You will receive your test result from the test center or laboratory regardless of the validity of the QR code. If you are diagnosed with COVID-19, the public health authority will be notified through the legally prescribed channel and will contact you.";
+"ExposureSubmissionResult_RemoveAlert_Title" = "The test can only be scanned once.";
+"ExposureSubmissionResult_Title" = "Warn Others";
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Consent “Warn others” granted";
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Consent “Warn others” not granted";
+"ExposureSubmissionResult_continueButton" = "Next";
+"ExposureSubmissionResult_deleteButton" = "Delete test";
+"ExposureSubmissionResult_furtherInfos_hint_testAgain" = "If your symptoms worsen, you might need another SARS-CoV-2 test.";
+"ExposureSubmissionResult_primaryButtonTitle" = "Enter Date";
+"ExposureSubmissionResult_refreshButton" = "Update";
+"ExposureSubmissionResult_secondaryButtonTitle" = "Skip";
+"ExposureSubmissionResult_testAdded" = "Your test result was added successfully";
+"ExposureSubmissionResult_testAddedDesc" = "";
+"ExposureSubmissionResult_testExpired" = "Test has errors";
+"ExposureSubmissionResult_testExpiredDesc" = "There was a problem evaluating your test. Your QR code has already expired.";
+"ExposureSubmissionResult_testInvalid" = "Test has errors";
+"ExposureSubmissionResult_testInvalidDesc" = "There was a problem evaluating your test. Please contact the test center or laboratory involved to find out how to proceed.";
+"ExposureSubmissionResult_testNegative" = "Negative Diagnosis";
+"ExposureSubmissionResult_testNegativeDesc" = "The laboratory result indicates no verification that you have coronavirus SARS-CoV-2.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Still feeling unwell? If you feel very poorly and/or your symptoms have worsened, please contact your general practitioner.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Remain at home until you feel well again. If you were to get infected with coronavirus (SARS-CoV-2) whilst weakened from another infection, this could lead to a serious illness.";
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Do not go to work if you feel unwell to ensure you do not put other people at risk.";
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Other information:";
+"ExposureSubmissionResult_testPending" = "Your test result is not available yet.";
+"ExposureSubmissionResult_testPendingDesc" = "As soon as your test result becomes available, it will be displayed in the app.\n\nYou will also receive your test result outside of the app. The public health authorities will notify you, should your test be positive.\n\nIn you are notified of a positive test result outside the app, please remove the test currently registered in the app. Call the number shown under “Request TAN” to get a TAN. You can then use this TAN to register your result in the app and warn others.";
+"ExposureSubmissionResult_testPendingDesc_paragraph1" = "";
+"ExposureSubmissionResult_testPendingDesc_paragraph2" = "";
+"ExposureSubmissionResult_testPendingDesc_paragraph3" = "";
+"ExposureSubmissionResult_testPositive" = "Let others stay healthy";
+"ExposureSubmissionResult_testPositiveDesc" = "Share your random ID's from the past 14 days to protect others and break the infection chain.";
+"ExposureSubmissionResult_testRedeemed" = "";
+"ExposureSubmissionResult_testRedeemedDesc" = "";
+"ExposureSubmissionResult_testRemove" = "Delete test";
+"ExposureSubmissionResult_testRemoveDesc" = "Please delete the test from the #OstaniZdrav app, so that you can save a new test code here if necessary.";
+"ExposureSubmissionResult_warnOthers" = "Enter the date of onset of symptoms.";
+"ExposureSubmissionResult_warnOthersDesc" = "Help determine the risk of infection for others more accurately by also indicating when you first noticed any coronavirus symptoms.";
+"ExposureSubmissionSuccess_AccImageDescription" = "Everyone in the group is cheering because someone has shared their test result.";
+"ExposureSubmissionSuccess_Button" = "That’s it!";
+"ExposureSubmissionSuccess_Description" = "Thanks to your support, other people can now be warned and respond appropriately.";
+"ExposureSubmissionSuccess_Title" = "Thank you!";
+"ExposureSubmissionSuccess_listItem1" = "You have a confirmed SARS-CoV-2 infection. Please follow the isolation instructions received by the health service.";
+"ExposureSubmissionSuccess_listItem2" = "For psychological support during the COVID-19 epidemic call 080-51-00, available 14 hours a day, 7 days a week, free of charge.";
+"ExposureSubmissionSuccess_listItem2_1" = "The duration of the isolation shall be determined by your treating doctor.";
+"ExposureSubmissionSuccess_listItem2_2" = "In case your disease worsens, please call your selected GP or an emergency doctor.";
+"ExposureSubmissionSuccess_listItem2_3" = "In case of emergencies, call 112. Tell them that you have a confirmed SARS-CoV-2 infection.";
+"ExposureSubmissionSuccess_listItem2_4" = "Once the isolation is complete, reset the app in the settings so you can use it  again.";
+"ExposureSubmissionSuccess_listTitle" = "Please note:";
+"ExposureSubmissionSuccess_subTitle" = "Other information:";
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "In the last 7 days";
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "More than 2 weeks ago";
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 weeks ago";
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "No statement";
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "Next";
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Exact date";
+"ExposureSubmissionSymptomsOnset_Description" = "Please specify the onset of symptoms as accurately as possible. If you cannot specify an exact date, you can choose from the options listed below. Then click Done.";
+"ExposureSubmissionSymptomsOnset_Subtitle" = "When did you first notice the symptoms?";
+"ExposureSubmissionSymptomsOnset_Title" = "Onset of Symptoms";
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "No";
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Skip";
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Yes";
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Exit";
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Complete the submission";
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Your entry will not be saved.";
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Do you want to cancel?";
+"ExposureSubmissionSymptoms_ContinueButton" = "Next";
+"ExposureSubmissionSymptoms_Description" = "Have you experienced one or more of the following symptoms?";
+"ExposureSubmissionSymptoms_Introduction" = "If you do not want to provide the information, select “Skip”.";
+"ExposureSubmissionSymptoms_Symptom0" = "General weakness and exhaustion";
+"ExposureSubmissionSymptoms_Symptom1" = "Runny nose";
+"ExposureSubmissionSymptoms_Symptom2" = "Cough";
+"ExposureSubmissionSymptoms_Symptom3" = "Increased temperature or fever";
+"ExposureSubmissionSymptoms_Symptom4" = "Shortness of breath";
+"ExposureSubmissionSymptoms_Symptom5" = "Headache and aching limbs";
+"ExposureSubmissionSymptoms_Symptom6" = "Loss of sense of smell/taste";
+"ExposureSubmissionSymptoms_Symptom7" = "Sore throat";
+"ExposureSubmissionSymptoms_Title" = "Onset of Symptoms";
+"ExposureSubmissionTanEntry_Description" = "Please enter the 10-digit TAN that you were given.";
+"ExposureSubmissionTanEntry_EntryField" = "TAN Entry Field";
+"ExposureSubmissionTanEntry_Info" = "Please enter the TAN you were given:";
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Your entry contains invalid characters. Please check your entry.";
+"ExposureSubmissionTanEntry_InvalidError" = "Invalid TAN. Please check your entry.";
+"ExposureSubmissionTanEntry_Submit" = "Next";
+"ExposureSubmissionTanEntry_Title" = "TAN Entry";
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "A woman holds her smartphone in her hand. It is sending a signal to another smartphone.";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Cancel";
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Continue";
+"ExposureSubmissionTestresultAvailable_CloseAlertMessage" = "Do you really want to cancel the process?";
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Important:\nYou are about to cancel this process. You have not warned others yet. Please complete the process and help to protect others.";
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Consent\n“Warn others” granted";
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Consent\n“Warn others” not granted";
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Thank you for agreeing to share your test result and helping to warn others as a result.";
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "You have chosen not to share your test result. Others will not be warned.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "In the next step, please share your test result by tapping “Share”.";
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "In the next step, you have the opportunity to change your mind and share your test result after all, to help stop the spread of coronavirus and protect others.";
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertMessage" = "Your entries will not be saved.";
+"ExposureSubmissionTestresultAvailable_NoConsentCloseAlertTitle" = "Do you want to cancel?";
+"ExposureSubmissionTestresultAvailable_Title" = "Your test result is available";
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Next";
+"ExposureSubmissionWarnOthers_AccImageDescription" = "A device transmits an encrypted positive test diagnosis to the system.";
+"ExposureSubmissionWarnOthers_consentUnderagesText" = "This app is intended for persons who reside in the Republic of Slovenia and are at least 16 years of age.";
+"ExposureSubmissionWarnOthers_consentUnderagesTitle" = "Age 16 Warning";
+"ExposureSubmissionWarnOthers_continueButton" = "Accept";
+"ExposureSubmissionWarnOthers_dataPrivacyDescription" = "By tapping “Accept”, you consent to ";
+"ExposureSubmissionWarnOthers_dataPrivacyTitle" = "Privacy";
+"ExposureSubmissionWarnOthers_description" = "Anonymously share information about your SARS-CoV-2 diagnosis so that others can be warned.";
+"ExposureSubmissionWarnOthers_sectionTitle" = "You can help!";
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "The warning feature works in several countries. The following countries currently participate in transnational exposure logging:";
+"ExposureSubmissionWarnOthers_title" = "Warn Others";
+"ExposureSubmission_CallButtonTitle" = "Open";
+"ExposureSubmission_ConfirmDismissPopUpText" = "Do you want to cancel?";
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Do you want to cancel?";
+"ExposureSubmission_Continue_actionText" = "Next";
+"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
+"ExposureSubmission_DataPrivacyTitle" = "Data Privacy";
+"ExposureSubmission_DispatchDescription" = "Notifying contacts via the app is completely anonymous.";
+"ExposureSubmission_DispatchSectionHeadline" = "Have you been tested?";
+"ExposureSubmission_DispatchSectionHeadline2" = "";
+"ExposureSubmission_DispatchTitle" = "Was your test positive?";
+"ExposureSubmission_GeneralErrorTitle" = "Error";
+"ExposureSubmission_Hotline_Number" = "080 1787";
+"ExposureSubmission_NavTitle" = "Send Diagnosis Key";
+"ExposureSubmission_PhoneDetailDescription" = "";
+"ExposureSubmission_PhoneNumber" = "the NIJZ website";
+"ExposureSubmission_SectionDescription2" = "By entering the data in the online form, you will receive a TAN code via SMS.";
+"ExposureSubmission_Submit" = "Share SARS-CoV-2 infection information by entering the TAN code in the app.";
+"ExposureSubmission_TANInputButtonTitle" = "Enter TAN";
+"General_BackButtonTitle" = "Back";
+"General_moreInfo_URL" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN11" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN13" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"General_moreInfo_URL_EN5" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth turned off";
+"Home_Activate_Card_Internet_Off_Title" = "No Internet connection";
+"Home_Activate_Card_Off_Title" = "Exposure logging stopped";
+"Home_Activate_Card_On_Title" = "Exposure Logging Active";
+"Home_Alert_RiskStatusLowered_Message" = "The last exposure that resulted in your increased risk was more than 14 days ago. Therefore, your risk of infection has been ranked as low again. If you do not have any COVID-19 symptoms, continue to follow the prevailing measures and recommendations. However, if you have COVID-19 symptoms, we recommend that you contact your doctor and get tested.";
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+"Home_Alert_RiskStatusLowered_Title" = "Change of Your Risk Status";
+"Home_AppInformationCard_Title" = "App Information";
+"Home_AppInformationCard_Version" = "Version";
+"Home_DiaryCard_Body" = "Keep track of where you have been and whom you met.";
+"Home_DiaryCard_Button" = "Manage Journal";
+"Home_DiaryCard_ImageDescription" = "A closed book with a bookmark.";
+"Home_DiaryCard_Title" = "Contact Journal";
+"Home_Finding_Positive_Card_Button" = "Next";
+"Home_Finding_Positive_Card_Home_Item_Title" = "Please follow the isolation instructions received by the health service.";
+"Home_Finding_Positive_Card_Note_Title" = "Please note:";
+"Home_Finding_Positive_Card_Phone_Item_Title" = "If you need psychological support during the COVID-19 epidemic, please call 080-51-00. The call is free of charge and available 24 hours a day, 7 days a week.";
+"Home_Finding_Positive_Card_Share_Item_Title" = "Anonymously share information about your SARS-CoV-2 diagnosis so that others can be warned.";
+"Home_Finding_Positive_Card_Status_Subtitle" = "";
+"Home_Finding_Positive_Card_Status_Title" = "SARS-CoV-2 positive";
+"Home_Finding_Positive_Card_Title" = "Warn others";
+"Home_InfoCard_AboutBody" = "More information about the #OstaniZdrav App is available at the gov.si webpage.";
+"Home_InfoCard_AboutTitle" = "More on the #OstaniZdrav App";
+"Home_InfoCard_ShareBody" = "The more people who use the app, the faster we can break the infection chain. Please invite your family and friends to download the app.";
+"Home_InfoCard_ShareTitle" = "Share #OstaniZdrav";
+"Home_LeftBarButton_description" = "#OstaniZdrav App logo";
+"Home_RightBarButton_description" = "Information";
+"Home_RiskCard_Unknown48h_Body" = "Your exposure logging has not been updated for more than 48 hours. Please update the risk evaluation.";
+"Home_RiskCard_Unknown_Button" = "Update";
+"Home_RiskCard_Unknown_Item_Title" = "Since you have not had exposure logging turned on for long enough, we cannot evaluate your risk of infection.";
+"Home_RiskCard_Update_Button" = "Update";
+"Home_Risk_Date_Item_Title" = "Updated: %@";
+"Home_Risk_Failed_Body" = "The synchronisation of random IDs with the server failed. You can restart the synchronisation manually.";
+"Home_Risk_Failed_Title" = "Exposure check failed";
+"Home_Risk_High_Title" = "Increased Risk";
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Activate exposure logging to evaluate your risk status today.";
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Activate Exposure Logging";
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Exposure logging stopped";
+"Home_Risk_Inactive_Outdated_Results_Body" = "Your exposure logging could not be updated for more than 24 hours.";
+"Home_Risk_Inactive_Outdated_Results_Button" = "Activate Exposure Logging";
+"Home_Risk_Inactive_Outdated_Results_Title" = "Exposure logging is not possible";
+"Home_Risk_Last_Activate_Item_High_Title" = "Increased Risk";
+"Home_Risk_Last_Activate_Item_Low_Title" = "Low Risk";
+"Home_Risk_Last_Activate_Item_Title" = "Last exposure check: %@";
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Unknown Risk";
+"Home_Risk_Last_Contact_Item_Title" = "Last exposure %@";
+"Home_Risk_Low_Title" = "Low Risk";
+"Home_Risk_No_Date_Title" = "Unknown";
+"Home_Risk_Period_Disabled_Button_Title" = "Updated only every %@\U00A0hours";
+"Home_Risk_Period_Update_Title" = "Updated only every %@\U00A0hours";
+"Home_Risk_Restart_Button_Title" = "Restart";
+"Home_Risk_Status_Check_Body" = "Your exposure data is being checked. This may take several minutes. Thank you for your patience.";
+"Home_Risk_Status_Check_Title" = "Check is running …";
+"Home_Risk_Status_Detecting_Body" = "Your exposure data is being checked. This may take several minutes. Thank you for your patience.";
+"Home_Risk_Status_Detecting_Title" = "Check is running …";
+"Home_Risk_Status_Downloading_Body" = "This may take several minutes. Thank you for your patience.";
+"Home_Risk_Status_Downloading_Title" = "Data is being downloaded…";
+"Home_Risk_Unknown_Title" = "Unknown Risk";
+"Home_SettingsCard_Title" = "Settings";
+"Home_SubmitCard_Body" = "Help to break the infection chain by notifying others.";
+"Home_SubmitCard_Button" = "TAN Entry";
+"Home_SubmitCard_Title" = "Is your test positive?";
+"Home_Thank_You_Card_14Days_Item_Title" = "The duration of the isolation shall be determined by your treating doctor.";
+"Home_Thank_You_Card_App_Item_Title" = "In case of emergencies, call 112. Tell them that you have a confirmed SARS-CoV-2 infection.";
+"Home_Thank_You_Card_Body" = "Thanks to your support, other people can now be warned and respond appropriately.";
+"Home_Thank_You_Card_Contacts_Item_Title" = "In case your disease worsens, please call your selected GP or an emergency doctor.";
+"Home_Thank_You_Card_Further_Info_Item_Title" = "Other information:";
+"Home_Thank_You_Card_Home_Item_Title" = "Psychological support during the COVID-19 epidemic is available to you on the toll-free number 080-51-00 24 hours a day, 7 days a week.";
+"Home_Thank_You_Card_NoSymptoms_Item_Title" = "Once the isolation is complete, reset the app in the settings so you can use it again.";
+"Home_Thank_You_Card_Note_Title" = "Please note:";
+"Home_Thank_You_Card_Phone_Item_Title" = "Please follow the isolation instructions received by the health service.";
+"Home_Thank_You_Card_Title" = "Thank you!";
+"Home_resultCard_AvailableDesc" = "If you have tested positive for coronavirus, you can warn others.";
+"Home_resultCard_AvailableSubtitle" = "You can now retrieve your test result.";
+"Home_resultCard_InvalidDesc" = "Your test cannot be evaluated.";
+"Home_resultCard_InvalidTitle" = "Invalid test";
+"Home_resultCard_LoadingBody" = "Current data is being downloaded.\nThis can take several minutes.";
+"Home_resultCard_LoadingErrorTitle" = "Your test result cannot be loaded.";
+"Home_resultCard_LoadingTitle" = "Update in progress …";
+"Home_resultCard_NegativeDesc" = "You have been diagnosed negative for SARS-CoV-2.";
+"Home_resultCard_NegativeTitle" = "Negative Diagnosis";
+"Home_resultCard_PendingDesc" = "The evaluation of your test is not yet done.";
+"Home_resultCard_ResultAvailableTitle" = "Your Test Result Is Available";
+"Home_resultCard_ResultUnvailableTitle" = "Your result is not yet available";
+"Home_resultCard_RetrieveResultButton" = "Retrieve Test Result";
+"Home_resultCard_ShowResultButton" = "Display Test";
+"How_Risk_Detection_Works_Alert_Message" = "Your risk of infection can be evaluated only for periods during which exposure logging was active. The logging feature should therefore remain active permanently.\nExposure logging covers the past %1$u days.\nThe app automatically deletes older logs, as these are no longer relevant for infection prevention.\n\nFor further information, please see our webpage.";
+"How_Risk_Detection_Works_Alert_Title" = "Information about exposure logging functionality";
+"InviteFriends_Button" = "Send Download Link";
+"InviteFriends_Description" = "The more people who use the app, the faster we can break the infection chain. Please invite your family and friends to download the app.";
+"InviteFriends_Illustration_Label" = "A man shares the #OstaniZdrav App with four other persons.";
+"InviteFriends_NavTitle" = "Share the #OstaniZdrav App";
+"InviteFriends_ShareTitle" = "Fighting COVID-19 together. I'm in on this, you too?";
+"InviteFriends_ShareUrl" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";
+"InviteFriends_Subtitle" = "";
+"InviteFriends_Title" = "Let’s fight COVID-19 together";
+"NotificationSettings_NavTitle" = "Notifications";
+"NotificationSettings_Off_EnableNotifications" = "Notifications";
+"NotificationSettings_Off_InfoDescription" = "To activate notifications, you must allow notifications for the #OstaniZdrav App in your device settings.";
+"NotificationSettings_Off_InfoTitle" = "Activate Notifications";
+"NotificationSettings_Off_OpenSettings" = "Open Settings";
+"NotificationSettings_Off_SectionTitle" = "Setting";
+"NotificationSettings_Off_StatusInactive" = "Off";
+"NotificationSettings_On_RiskChanges" = "Your risk of infection changed";
+"NotificationSettings_On_SectionTitle" = "Setting";
+"NotificationSettings_On_TestsStatus" = "Status of your COVID-19 test";
+"NotificationSettings_On_Title" = "Do you want to activate notifications of your SARS-CoV-2 infection risk status?";
+"NotificationSettings_offImageDescription" = "A woman cannot receive notifications from her #OstaniZdrav App.";
+"NotificationSettings_onImageDescription" = "A woman receives a notification from her #OstaniZdrav App.";
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "The app can notify you automatically about your risk status.";
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "A woman receives a notification from her #OstaniZdrav App.";
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "If you allow the app to notify you, you may receive a notification on your risk of infection and recommendations for further action.";
+"OnboardingInfo_alwaysStayInformedPage_title" = "Receive Warnings and Identify Risks";
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "This app is intended for persons who reside in the Republic of Slovenia and are at least 16 years of age.";
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Age Limit: 16 and Up";
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Three persons have activated exposure logging on their devices, which will log their encounters with each other.";
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Exposure logging works by your smartphone receiving, via Bluetooth, encrypted random IDs of other users and passing your own random ID to their devices. This feature can be disabled at any time. \n\nEncrypted random IDs only pass information about date, duration, and proximity to other persons (evaluated by signal strength). Personal data such as name, address, and location is never recorded. Individuals cannot be identified based on the random IDs.";
+"OnboardingInfo_enableLoggingOfContactsPage_panelBody" = "";
+"OnboardingInfo_enableLoggingOfContactsPage_panelTitle" = "Statement of consent";
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Active";
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Stopped";
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Risk assessment for SARS-CoV-2 infection";
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "How to enable exposure logging";
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "… please report this in the #OstaniZdrav App. Sharing information of a SARS-CoV-2 infection is voluntary and secure. Please do this for the sake of everyone's health.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "An encrypted positive test result is transmitted to the system, which will now warn other users.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Your notification is encrypted securely and processed on a secure server. People whose encrypted random IDs your device has collected will now receive a warning along with information about what they should now do.";
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "If you have a confirmed SARS-CoV-2 infection …";
+"OnboardingInfo_privacyPage_boldText" = "";
+"OnboardingInfo_privacyPage_imageDescription" = "A woman uses the #OstaniZdrav on her smartphone. An icon showing a padlock on the background of a shield symbolises encrypted data.";
+"OnboardingInfo_privacyPage_normalText" = "You will remain anonymous.\nYour data is fully encrypted and transmitted under a pseudonym.\n\nResponsible body: Ministry of Public Administration and the National Institute of Public Health\nGDPR in connection with Personal Data Protection Act of the Republic of Slovenia\nPlease read our data privacy regulations.\n\nData privacy information:";
+"OnboardingInfo_privacyPage_title" = "Data Privacy";
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "More protection for you and for us all. By using the #OstaniZdrav App we can break infection chain much quicker.";
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "A group of persons use their devices around town.";
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://arhiv.mm.gov.si/vlada/MJJ/TolmačkaAPPvodič.mp4";
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "App Information in Simplified Language and Sign Language";
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Use your smartphone as a novel coronavirus (SARS-CoV-2) warning system. Infection with this virus can cause the COVID-19 disease or pass without any symptoms. \n\nThe app logs encounters between individuals by exchanging encrypted, random IDs between their smartphones, whereby no personal data whatsoever is accessed.";
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Let’s fight COVID-19 together";
+"Onboarding_Continue_actionText" = "Next";
+"Onboarding_Continue_actionTextHint" = "You can skip this screen";
+"Onboarding_DeactivateExposureConfirmation_message" = "You can deactivate this feature at any time.";
+"Onboarding_DeactivateExposureConfirmation_title" = "This means the #OstaniZdrav App cannot send or receive notifications about your SARS-CoV-2 infection risk status.";
+"Onboarding_DoNotActivate_actionText" = "Do Not Activate";
+"Onboarding_EnableLogging_actionText" = "Activate Exposure Logging";
+"Onboarding_LetsGo_actionText" = "Let’s get started";
+"Onboarding_doNotAllow_actionText" = "Do Not Allow";
+"Reset_Button" = "Reset App";
+"Reset_ConfirmDialog_Cancel" = "Cancel";
+"Reset_ConfirmDialog_Confirm" = "Reset";
+"Reset_ConfirmDialog_Description" = "You will no longer be notified of your exposures and you will no longer be able to warn other users. This procedure cannot be undone.";
+"Reset_ConfirmDialog_Title" = "Reset App";
+"Reset_Descrition1" = "You will no longer be notified of your exposures and you will no longer be able to warn other users.";
+"Reset_Discard" = "Cancel";
+"Reset_Header1" = "Are you sure you want to reset the app?";
+"Reset_ImageDescription" = "A hand holds a smartphone displaying a symbol indicating that the app is being reset.";
+"Reset_InfoDescription" = "The exposure log must be deleted separately in your device settings.";
+"Reset_InfoTitle" = "Exposure Log";
+"Reset_NavTitle" = "Reset App";
+"Reset_Subtitle" = "Reset App";
+"RiskLegend_Check_Text" = "Exposure log data is retrieved and synchronised with reported infections of other users.";
+"RiskLegend_Check_Title" = "Exposure Check";
+"RiskLegend_Contact_Text" = "Encounters over a longer duration and close proximity to people with confirmed SARS-CoV-2 infection.";
+"RiskLegend_Contact_Title" = "Exposures";
+"RiskLegend_Definitions_Title" = "Definition of Terms";
+"RiskLegend_Image1_AccLabel" = "A device shows various numbered content.";
+"RiskLegend_Legend1_Text" = "Exposure logging is one of the three central features of the app. When you activate it, encounters with people’s devices are logged. You don’t have to do anything else.";
+"RiskLegend_Legend1_Title" = "Exposure Logging";
+"RiskLegend_Legend2_High" = "Increased Risk";
+"RiskLegend_Legend2_High_Color" = "Red";
+"RiskLegend_Legend2_Low" = "Low Risk";
+"RiskLegend_Legend2_Low_Color" = "Green";
+"RiskLegend_Legend2_Medium" = "Low Risk";
+"RiskLegend_Legend2_Medium_Color" = "Orange";
+"RiskLegend_Legend2_RiskLevels" = "The following risk status can be shown:";
+"RiskLegend_Legend2_Text" = "If you have had contact within the last 14 days with a person who was diagnosed with COVID-19, the app calculates your personal risk of infection. It does this by measuring duration and proximity of the exposure.";
+"RiskLegend_Legend2_Title" = "Risk of Infection";
+"RiskLegend_Legend2_Unknown" = "Unknown Risk";
+"RiskLegend_Legend2_Unknown_Color" = "Blue";
+"RiskLegend_Legend3_Text" = "Another central feature is registering your test and retrieving the result. If you are diagnosed with SARS-CoV-2, you can notify others and break the chain of infection.";
+"RiskLegend_Legend3_Title" = "Notifying Other Users";
+"RiskLegend_Notification_Text" = "The display of the infection risk in the #OstaniZdrav App.";
+"RiskLegend_Notification_Title" = "Exposure Notification";
+"RiskLegend_Random_Text" = "Random IDs are combinations of digits and letters generated randomly. They are exchanged between devices in close proximity. Random IDs cannot be traced to a specific person and are automatically deleted after 14 days. Persons infected with SARS-CoV-2 can opt to share their random IDs of up to the last 14 days with other app users.";
+"RiskLegend_Random_Title" = "Random IDs";
+"RiskLegend_Store_Text" = "List of received and temporary random IDs saved temporarily in the operating system storage. This list is read when the exposures are checked. All random IDs are automatically deleted after 14 days.";
+"RiskLegend_Store_Title" = "Exposure Log";
+"RiskLegend_Subtitle" = "Important Functions and Concepts";
+"RiskLegend_Title" = "Overview";
+"Settings_BackgroundAppRefresh_Description" = "Allow automatic updates of your risk status.";
+"Settings_BackgroundAppRefresh_Label" = "Background App Refresh";
+"Settings_BackgroundAppRefresh_StatusActive" = "On";
+"Settings_BackgroundAppRefresh_StatusInactive" = "Off";
+"Settings_KontaktProtokollStatusActive" = "Active";
+"Settings_KontaktProtokollStatusInactive" = "Stopped";
+"Settings_NavTitle" = "Settings";
+"Settings_Notification_Description" = "Allow automatic notifications of your SARS-CoV-2 infection risk status.";
+"Settings_Notification_Label" = "Notifications";
+"Settings_Notification_StatusActive" = "On";
+"Settings_Notification_StatusInactive" = "Off";
+"Settings_Reset_Description" = "Delete all your data in the app.";
+"Settings_Reset_Label" = "Reset App";
+"Settings_StatusActive" = "";
+"Settings_StatusDisable" = "Deactivate";
+"Settings_StatusEnable" = "Activate";
+"Settings_StatusInactive" = "";
+"Settings_Tracing_Description" = "Allow  random IDs for exposure logging to be generated and shared.";
+"Settings_Tracing_Label" = "Exposure Logging";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Do not warn others";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Warn others";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "You have to share the information about your diagnosis if you want to warn others.";
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Don’t you want to send a warning?";
+"TestResultPositive_NoConsent_Info1" = "Anonymously share information about your SARS-CoV-2 diagnosis so that others can be warned.";
+"TestResultPositive_NoConsent_Info2" = "Your identity will remain secret.";
+"TestResultPositive_NoConsent_Info3" = "Please follow the isolation instructions received by the health service.";
+"TestResultPositive_NoConsent_PrimaryButton" = "Next";
+"TestResultPositive_NoConsent_SecondaryButton" = "Cancel";
+"TestResultPositive_NoConsent_Title" = "Please help all of us!";
+"TestResultPositive_WithConsent_Info1" = "Others will now be warned.";
+"TestResultPositive_WithConsent_Info2" = "You can now help to improve the accuracy of the warnings. To do so, in the next step, tell us when you first developed symptoms. You can cancel this step at any time.";
+"TestResultPositive_WithConsent_PrimaryButton" = "Enter Symptoms";
+"TestResultPositive_WithConsent_SecondaryButton" = "Exit";
+"TestResultPositive_WithConsent_Title" = "Thank you for helping to stop the spread of coronavirus.";
+"Thank_You_AccImageDescription" = "Several people are looking at their smartphones.";
+"Thank_You_Cancel_Button" = "Cancel";
+"Thank_You_Continue_Button" = "Next";
+"Thank_You_Description1" = "";
+"Thank_You_Description2" = "Help determine the risk of infection for others more accurately with entering the exact date you first noticed any symptoms.";
+"Thank_You_SubTitle" = "Warn Others";
+"Thank_You_Title" = "Thank you";
+"Update_Message_Action_Later" = "Later";
+"Update_Message_Action_Update" = "Update";
+"Update_Message_Text" = "There is an update available for the #OstaniZdrav.";
+"Update_Message_Text_Force" = "Please note, you can only use the #OstaniZdrav App again once you have installed the latest update.";
+"Update_Message_Title" = "Update available";
+"WarnOthersNotification_Description" = "Please share your test result and warn others.";
+"WarnOthersNotification_Title" = "You can help!";
+"local_notifications_detectexposure_body" = "You have new messages from your #OstaniZdrav App.";
+"local_notifications_detectexposure_title" = "#OstaniZdrav App";
+"local_notifications_ignore" = "Ignore";
+"local_notifications_testresults_body" = "You have new messages from your #OstaniZdrav App.";
+"local_notifications_testresults_title" = "#OstaniZdrav App";
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "See the countries participating in the Transnational Exposure Logging";
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Participating Countries";
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Several countries have teamed up to enable transnational warnings. In other words, your potential exposure to users of the official corona apps in all participating countries can now be taken into account.";
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Transnational Exposure Logging";
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "The following countries currently participate in transnational exposure logging:";
+"safari_corona_website" = "https://www.gov.si/teme/koronavirus-sars-cov-2/mobilna-aplikacija-ostanizdrav/";

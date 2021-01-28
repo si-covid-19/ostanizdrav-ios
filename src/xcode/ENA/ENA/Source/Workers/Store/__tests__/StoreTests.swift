@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -23,8 +8,9 @@ import XCTest
 final class StoreTests: XCTestCase {
 	private var store: SecureStore!
 
-	override func setUp() {
-		store = SecureStore(at: URL(staticString: ":memory:"), key: "123456")
+	override func setUpWithError() throws {
+		XCTAssertNoThrow(try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment()))
+		store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
 	}
 
 	func testResultReceivedTimeStamp_Success() {
@@ -87,37 +73,8 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(store.tracingStatusHistory.isEmpty)
 	}
 
-	func testSummary_Success() {
-		XCTAssertNil(store.summary)
-
-		let date = Date()
-		let summary = CodableExposureDetectionSummary(
-			daysSinceLastExposure: 13,
-			matchedKeyCount: UInt64.max,
-			maximumRiskScore: 5,
-			attenuationDurations: [0.1, 7.42, 13.0],
-			maximumRiskScoreFullRange: 7
-		)
-
-		store.summary = SummaryMetadata(summary: summary, date: date)
-
-		XCTAssertEqual(store.summary?.date, date)
-		XCTAssertEqual(store.summary?.summary.daysSinceLastExposure, 13)
-		XCTAssertEqual(store.summary?.summary.matchedKeyCount, UInt64.max)
-		XCTAssertEqual(store.summary?.summary.maximumRiskScore, 5)
-		XCTAssertEqual(store.summary?.summary.configuredAttenuationDurations.count, 3)
-		XCTAssertEqual(store.summary?.summary.maximumRiskScoreFullRange, 7)
-	}
-
-	func testPreviousRiskLevel_Success() {
-		XCTAssertNil(store.previousRiskLevel)
-
-		store.previousRiskLevel = .low
-		XCTAssertEqual(store.previousRiskLevel, .low)
-	}
-
 	/// Reads a statically created db from version 1.0.0 into the app container and checks, whether all values from that version are still readable
-	func testBackwardsCompatibility() {
+	func testBackwardsCompatibility() throws {
 		// swiftlint:disable:next force_unwrapping
 		let testStoreSourceURL = Bundle(for: StoreTests.self).url(forResource: "testStore", withExtension: "sqlite")!
 
@@ -135,7 +92,7 @@ final class StoreTests: XCTestCase {
 				print("Target exists: \(fileManager.fileExists(atPath: testStoreTargetURL.path))")
 				try fileManager.copyItem(at: testStoreSourceURL, to: testStoreTargetURL)
 
-				return SecureStore(at: directoryURL, key: "12345678")
+				return try SecureStore(at: directoryURL, key: "12345678", serverEnvironment: ServerEnvironment())
 			} catch {
 				fatalError("Creating the database failed: \(error.localizedDescription)")
 			}
@@ -149,13 +106,11 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.isOnboarded)
 		XCTAssertEqual(tmpStore.dateOfAcceptedPrivacyNotice?.description, testDate1.description)
 		XCTAssertEqual(tmpStore.teleTan, "97RR2D5644")
-		XCTAssertFalse(tmpStore.hourlyFetchingEnabled)
 		XCTAssertEqual(tmpStore.tan, "97RR2D5644")
 		XCTAssertEqual(tmpStore.testGUID, "00000000-0000-4000-8000-000000000000")
 		XCTAssertTrue(tmpStore.devicePairingConsentAccept)
 		XCTAssertEqual(tmpStore.devicePairingConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertEqual(tmpStore.devicePairingSuccessfulTimestamp, testTimeStamp)
-		XCTAssertTrue(tmpStore.isAllowedToSubmitDiagnosisKeys)
 		XCTAssertTrue(tmpStore.allowRiskChangesNotification)
 		XCTAssertTrue(tmpStore.allowTestsStatusNotification)
 		XCTAssertEqual(tmpStore.registrationToken, "")
@@ -166,19 +121,95 @@ final class StoreTests: XCTestCase {
 		XCTAssertTrue(tmpStore.initialSubmitCompleted)
 		XCTAssertEqual(tmpStore.exposureActivationConsentAcceptTimestamp, testTimeStamp)
 		XCTAssertTrue(tmpStore.exposureActivationConsentAccept)
-		XCTAssertEqual(tmpStore.previousRiskLevel, .increased)
-
-		XCTAssertEqual(tmpStore.summary?.date, testDate1)
-		XCTAssertEqual(tmpStore.summary?.summary.daysSinceLastExposure, 13)
-		XCTAssertEqual(tmpStore.summary?.summary.matchedKeyCount, UInt64.max)
-		XCTAssertEqual(tmpStore.summary?.summary.maximumRiskScore, 5)
-		XCTAssertEqual(tmpStore.summary?.summary.configuredAttenuationDurations.count, 3)
-		XCTAssertEqual(tmpStore.summary?.summary.maximumRiskScoreFullRange, 7)
 
 		XCTAssertEqual(tmpStore.tracingStatusHistory.count, 2)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].on, true)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[0].date.description, testDate1.description)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].on, false)
 		XCTAssertEqual(tmpStore.tracingStatusHistory[1].date.description, testDate2.description)
+
+		
+	}
+	
+	func testDeviceTimeSettings_initalAfterInitialization() {
+		XCTAssertEqual(store.isDeviceTimeCorrect, true)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, false)
+		
+		store.isDeviceTimeCorrect = false
+		store.wasDeviceTimeErrorShown = true
+		
+		XCTAssertEqual(store.isDeviceTimeCorrect, false)
+		XCTAssertEqual(store.wasDeviceTimeErrorShown, true)
+	}
+
+	func testValueToggles() throws {
+		let store = try SecureStore(at: URL(staticString: ":memory:"), key: "123456", serverEnvironment: ServerEnvironment())
+
+		let isOnboarded = store.isOnboarded
+		store.isOnboarded.toggle()
+		XCTAssertNotEqual(isOnboarded, store.isOnboarded)
+
+		let allowRiskChangesNotification = store.allowRiskChangesNotification
+		store.allowRiskChangesNotification.toggle()
+		XCTAssertNotEqual(allowRiskChangesNotification, store.allowRiskChangesNotification)
+
+		// etc.
+	}
+
+	func testBackupRestoration() throws {
+		// prerequisite: clean state
+		let keychain = try KeychainHelper()
+		try keychain.clearInKeychain(key: SecureStore.keychainDatabaseKey)
+
+		// 1. create store and store db key in keychain
+		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		XCTAssertFalse(store.isOnboarded)
+		// user finished onboarding and used the app…
+		store.isOnboarded.toggle()
+		store.testGUID = UUID().uuidString
+
+		guard let databaseKey = keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey) else {
+			XCTFail("expected a key!")
+			return
+		}
+
+		// 2. restored with db key in keychain
+		// This simulates iCloud keychain
+		let restore = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		XCTAssertTrue(restore.isOnboarded)
+		XCTAssertEqual(restore.testGUID, store.testGUID)
+		// still the same key?
+		XCTAssertEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+
+		// 3. db key in keychain 'changed' for some reason
+		// swiftlint:disable:next force_unwrapping
+		try keychain.saveToKeychain(key: SecureStore.keychainDatabaseKey, data: "corrupted".data(using: .utf8)!)
+		let restore2 = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		// database reset?
+		XCTAssertFalse(restore2.isOnboarded)
+		XCTAssertEqual(restore2.testGUID, "") // init values…
+		XCTAssertNotEqual(databaseKey, keychain.loadFromKeychain(key: SecureStore.keychainDatabaseKey))
+
+		// cleanup
+		store.clearAll(key: nil)
+	}
+
+	func testConfigCaching() throws {
+		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		store.appConfigMetadata = nil
+		XCTAssertNil(store.appConfigMetadata)
+
+		let tag = "fake_\(Int.random(in: 100...999))"
+		let config = CachingHTTPClientMock.staticAppConfig
+		let appConfigMetadata = AppConfigMetadata(lastAppConfigETag: tag, lastAppConfigFetch: Date(), appConfig: config)
+		
+		store.appConfigMetadata = appConfigMetadata
+		XCTAssertEqual(store.appConfigMetadata, appConfigMetadata)
+	}
+	
+	func testConsentForAutomaticSharingTestResults_initial() throws {
+		let store = SecureStore(subDirectory: "test", serverEnvironment: ServerEnvironment())
+		XCTAssertFalse(store.isSubmissionConsentGiven, "isAllowedToAutomaticallyShareTestResults should be 'false' after initialization")
+
 	}
 }

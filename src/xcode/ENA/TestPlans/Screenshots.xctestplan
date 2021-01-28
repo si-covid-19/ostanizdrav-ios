@@ -1,0 +1,43 @@
+{
+  "configurations" : [
+    {
+      "id" : "0E0E0978-2717-4490-8723-B6BDF33AD923",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "mainThreadCheckerEnabled" : false,
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "selectedTests" : [
+        "ENAUITests\/test_0000_Generate_Screenshots_For_AppStore()",
+        "ENAUITests\/test_0001_Generate_Screenshots_For_AppStore_Submission()",
+        "ENAUITests_00_Onboarding\/test_0002_Screenshots_OnboardingFlow_EnablePermissions_normal_S()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardHigh_activeExposureLogging()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardInactive()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_activeExposureLogging()",
+        "ENAUITests_01_Home\/test_screenshot_homescreen_riskCardLow_noExposureLogging()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmissionNotPossible()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitQR()",
+        "ENAUITests_04_ExposureSubmissionUITests\/test_screenshot_SubmitTAN()",
+        "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLogging()",
+        "ENAUITests_05_ExposureLogging\/test_screenshot_exposureLoggingOff()",
+        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
+      ],
+      "target" : {
+        "containerPath" : "container:ENA.xcodeproj",
+        "identifier" : "85D7595E24570491008175F0",
+        "name" : "ENAUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

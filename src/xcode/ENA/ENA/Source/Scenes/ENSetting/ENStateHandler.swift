@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import ExposureNotification
@@ -34,45 +21,17 @@ final class ENStateHandler {
 	var state: ENStateHandler.State {
 		currentState
 	}
-	
-	private let reachabilityService: ReachabilityService
+
 	private weak var delegate: ENStateHandlerUpdating?
-	private var internetOff = false
 	private var latestExposureManagerState: ExposureManagerState
 	
 	init(
 		initialExposureManagerState: ExposureManagerState,
-		reachabilityService: ReachabilityService,
 		delegate: ENStateHandlerUpdating
 	) {
-		self.reachabilityService = reachabilityService
 		self.delegate = delegate
 		self.latestExposureManagerState = initialExposureManagerState
 		self.currentState = determineCurrentState(from: latestExposureManagerState)
-		self.reachabilityService.observe(on: self) { [weak self] reachabilityState in
-			self?.internet(reachabilityState == .connected)
-		}
-	}
-
-	private func internet(_ isReachable: Bool) {
-		if !isReachable {
-			internetOff = true
-		} else {
-			internetOff = false
-		}
-
-		switch currentState {
-		case .disabled, .bluetoothOff, .restricted, .notAuthorized, .unknown:
-			return
-		case .enabled:
-			if !isReachable {
-				currentState = .internetOff
-			}
-		case .internetOff:
-			currentState = determineCurrentState(from: latestExposureManagerState)
-		case .none:
-			fatalError("Unexpected state found in ENState Handler")
-		}
 	}
 
 	private func stateDidChange() {
@@ -86,9 +45,6 @@ final class ENStateHandler {
 
 		switch enManagerState.status {
 		case .active:
-			guard !internetOff else {
-				return .internetOff
-			}
 			return .enabled
 		case .bluetoothOff:
 			guard !enManagerState.enabled == false else {
@@ -98,15 +54,20 @@ final class ENStateHandler {
 		case .disabled:
 			return .disabled
 		case .restricted:
-			return differentiateRestrictedCase()
+			return differentiateWithAuthorizationStatus()
 		case .unknown:
 			return .disabled
+		case .paused:
+			return .disabled
+		case .unauthorized:
+			return differentiateWithAuthorizationStatus()
 		@unknown default:
-			fatalError("New state was added that is not being covered by ENStateHandler")
+			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
+			return .unknown
 		}
 	}
 
-	private func differentiateRestrictedCase() -> State {
+	private func differentiateWithAuthorizationStatus() -> State {
 		switch ENManager.authorizationStatus {
 		case .notAuthorized:
 			return .notAuthorized
@@ -115,9 +76,10 @@ final class ENStateHandler {
 		case .unknown:
 			return .unknown
 		case .authorized:
-			return .disabled
+			return .notActiveApp
 		@unknown default:
-			fatalError("New state was added that is not being covered by ENStateHandler")
+			Log.error("New state was added that is not being covered by ENStateHandler", log: .api)
+			return .unknown
 		}
 	}
 }

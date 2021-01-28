@@ -1,24 +1,10 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
 @testable import ENA
+import UIKit
 
 class DynamicTableViewControllerHeaderTests: XCTestCase {
 	
@@ -204,7 +190,7 @@ extension DynamicTableViewControllerHeaderTests {
 		XCTAssertEqual(headerSeparatorView.layoutMargins, insets)
 	}
 	
-	func testViewForHeader_whenHeaderIsImage_returnsImageView() {
+	func testViewForHeader_whenHeaderIsImageWithHeight_returnsImageView() {
 		// set up view model
 		let image = UIImage()
 		let height: CGFloat = 42
@@ -219,6 +205,32 @@ extension DynamicTableViewControllerHeaderTests {
 		}
 		XCTAssertEqual(headerImageView.imageView.image, image)
 		XCTAssertEqual(headerImageView.height, height)
+	}
+
+	func testViewForHeader_whenHeaderIsImageWithoutHeight_returnsImageView() {
+		// set up view model
+		let rect = CGRect(origin: .zero, size: CGSize(width: UIScreen.main.bounds.size.width, height: 80.0))
+		UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+		UIRectFill(rect)
+		let image = UIGraphicsGetImageFromCurrentImageContext()
+		UIGraphicsEndImageContext()
+		guard let cgImage = image?.cgImage else {
+			XCTFail("Failed to create a test image with expected size")
+			return
+		}
+
+		let fixedImage = UIImage(cgImage: cgImage)
+		let section = DynamicSection.section(header: .image(fixedImage, accessibilityIdentifier: nil), cells: [.body(text: "Bar",
+																								  accessibilityIdentifier: "Bar")])
+		sut.dynamicTableViewModel = DynamicTableViewModel([section])
+
+		let view = sut.tableView?.delegate?.tableView?(sut.tableView, viewForHeaderInSection: 0)
+
+		guard let headerImageView = view as? DynamicTableViewHeaderImageView else {
+			return XCTFail("Unexpeced type")
+		}
+		XCTAssertEqual(headerImageView.imageView.image, fixedImage)
+		XCTAssertEqual(headerImageView.height, 80.0)
 	}
 	
 	func testViewForHeader_whenHeaderIsView_returnsView() {

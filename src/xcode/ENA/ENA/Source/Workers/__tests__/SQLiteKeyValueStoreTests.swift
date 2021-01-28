@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -51,7 +36,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 			attributes: nil
 		)
 		// Old DB is deinited and hence connection closed at every setUp() call
-		kvStore = SQLiteKeyValueStore(with: storeDir, key: "password")
+		kvStore = try SQLiteKeyValueStore(with: storeDir, key: "password")
 	}
 
 	override func setUpWithError() throws {
@@ -85,17 +70,17 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		XCTAssertEqual(kvStore[rawMockData[0].key], someOtherData)
 	}
 
-	func testClearAll_Success() {
+	func testClearAll_Success() throws {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
-		kvStore.clearAll(key: "newPassword")
+		try kvStore.clearAll(key: "newPassword")
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])
 	}
 
-	func testFlush_OverridesNotCleared() {
+	func testFlush_OverridesNotCleared() throws {
 		kvStore[rawMockData[0].key] = rawMockData[0].data
 		kvStore[rawMockData[1].key] = rawMockData[1].data
 
@@ -103,7 +88,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 		kvStore[rawMockData[3].key] = rawMockData[3].data
 		kvStore[rawMockData[4].key] = rawMockData[4].data
 
-		kvStore.flush()
+		try kvStore.flush()
 
 		XCTAssertNil(kvStore[rawMockData[0].key])
 		XCTAssertNil(kvStore[rawMockData[1].key])
@@ -161,7 +146,7 @@ final class SQLiteKeyValueStoreTests: XCTestCase {
 			}
 		}
 
-		let result = group.wait(timeout: .now() + 15)
+		let result = group.wait(timeout: .now() + .extraLong)
 		XCTAssert(result == .success)
 		for j in 0...1000 {
 			if j.isMultiple(of: 2) {

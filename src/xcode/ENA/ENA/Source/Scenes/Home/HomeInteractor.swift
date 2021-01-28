@@ -1,25 +1,10 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
 import UIKit
-
-// swiftlint:disable file_length
 
 final class HomeInteractor: RequiresAppDependencies {
 	typealias SectionDefinition = (section: HomeViewController.Section, cellConfigurators: [CollectionViewCellConfiguratorAny])
@@ -29,46 +14,53 @@ final class HomeInteractor: RequiresAppDependencies {
 
 	init(
 		homeViewController: HomeViewController,
-		state: State
+		state: State,
+		exposureSubmissionService: ExposureSubmissionService,
+		warnOthersReminder: WarnOthersReminder
 	) {
 		self.homeViewController = homeViewController
 		self.state = state
+		self.exposureSubmissionService = exposureSubmissionService
+		self.warnOthersReminder = warnOthersReminder
+
+		self.riskProviderActivityState = riskProvider.activityState
+
 		observeRisk()
 	}
 
 	// MARK: Properties
-	var state: State {
+	private(set) var state: State {
 		didSet {
-			homeViewController.setStateOfChildViewControllers()
-			// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
-			// because `scheduleCountdownTimer()` relies on the sections to be already built.
-			buildSections()
-			scheduleCountdownTimer()
+			if state != oldValue {
+				homeViewController.setStateOfChildViewControllers()
+				// `buildSections()` has to be called prior to `scheduleCountdownTimer()`
+				// because `scheduleCountdownTimer()` relies on the sections to be already built.
+				buildSections()
+				scheduleCountdownTimer()
+			}
 		}
 	}
 
 	private unowned var homeViewController: HomeViewController
-	lazy var exposureSubmissionService: ExposureSubmissionService = {
-		ExposureSubmissionServiceFactory.create(
-			diagnosiskeyRetrieval: self.exposureManager,
-			client: self.client,
-			store: self.store
-		)
-	}()
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let warnOthersReminder: WarnOthersReminder
+
 	var enStateHandler: ENStateHandler?
 
 	private var detectionMode: DetectionMode { state.detectionMode }
 	private(set) var sections: SectionConfiguration = []
 
-	private var activeConfigurator: HomeActivateCellConfigurator!
+	private var activeConfigurator: HomeActivateCellConfigurator?
 	private var testResultConfigurator = HomeTestResultCellConfigurator()
 	private var riskLevelConfigurator: HomeRiskLevelCellConfigurator?
-	private var inactiveConfigurator: HomeInactiveRiskCellConfigurator?
+	private var failedConfigurator: HomeFailedCellConfigurator?
+
 	private var countdownTimer: CountdownTimer?
 
 	private(set) var testResult: TestResult?
 
-	private lazy var isRequestRiskRunning = riskProvider.isLoading
+	private var riskProviderActivityState: RiskProviderActivityState = .idle
+
 	private let riskConsumer = RiskConsumer()
 
 	deinit {
@@ -81,10 +73,6 @@ final class HomeInteractor: RequiresAppDependencies {
 		homeViewController.reloadCell(at: indexPath)
 	}
 
-	private func updateRiskLoading() {
-		isRequestRiskRunning ? riskLevelConfigurator?.startLoading() : riskLevelConfigurator?.stopLoading()
-	}
-
 	private func updateRiskButton(isEnabled: Bool) {
 		riskLevelConfigurator?.updateButtonEnabled(isEnabled)
 	}
@@ -93,24 +81,63 @@ final class HomeInteractor: RequiresAppDependencies {
 		riskLevelConfigurator?.updateButtonHidden(isHidden)
 	}
 
-	private func reloadRiskCell() {
-		guard let indexPath = indexPathForRiskCell() else { return }
+	private func reloadRiskOrFailedCell() {
+		guard let indexPath = indexPathForRiskOrFailedCell() else { return }
 		homeViewController.updateSections()
 		homeViewController.reloadCell(at: indexPath)
 	}
 
 	private func observeRisk() {
-		riskConsumer.didChangeLoadingStatus = { isLoading in
-			self.updateAndReloadRiskLoading(isRequestRiskRunning: isLoading)
+		riskConsumer.didChangeActivityState = { [weak self] state in
+			self?.updateAndReloadRiskCellState(to: state)
+		}
+
+		riskConsumer.didCalculateRisk = { [weak self] risk in
+			self?.state.riskState = .risk(risk)
+			self?.reloadActionSection()
+		}
+
+		riskConsumer.didFailCalculateRisk = { [weak self] error in
+			guard let self = self else { return }
+
+			// Don't show already running errors.
+			guard !error.isAlreadyRunningError else {
+				Log.info("[HomeInteractor] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[HomeInteractor] Don't show error to user: \(error).", log: .riskDetection)
+				return
+			}
+
+            switch error {
+            case .inactive:
+				self.state.riskState = .inactive
+            default:
+				self.state.riskState = .detectionFailed
+            }
+
+			self.reloadActionSection()
 		}
 
 		riskProvider.observeRisk(riskConsumer)
 	}
 
-	func updateAndReloadRiskLoading(isRequestRiskRunning: Bool) {
-		self.isRequestRiskRunning = isRequestRiskRunning
-		updateRiskLoading()
-		reloadRiskCell()
+	func updateDetectionMode(_ detectionMode: DetectionMode) {
+		state.detectionMode = detectionMode
+	}
+
+	func updateExposureManagerState(_ exposureManagerState: ExposureManagerState) {
+		state.exposureManagerState = exposureManagerState
+	}
+
+	func updateAndReloadRiskCellState(to state: RiskProviderActivityState) {
+		Log.info("[HomeInteractor] Update and reload risk cell with state: \(state)")
+		riskProviderActivityState = state
+		riskLevelConfigurator?.riskProviderState = state
+		failedConfigurator?.riskProviderState = state
+		reloadRiskOrFailedCell()
 	}
 
 	func requestRisk(userInitiated: Bool) {
@@ -177,10 +204,9 @@ extension HomeInteractor {
 	}
 
 	func reloadActionSection() {
-		precondition(
-			!sections.isEmpty,
-			"Serious programmer error: reloadActionSection() was called without calling buildSections() first."
-		)
+		if sections.isEmpty {
+			buildSections()
+		}
 		sections[0] = setupActionSectionDefinition()
 		homeViewController.reloadData(animatingDifferences: false)
 	}
@@ -189,75 +215,71 @@ extension HomeInteractor {
 // MARK: - Action section setup helpers.
 
 extension HomeInteractor {
-	private var risk: Risk? { state.risk }
-	private var riskDetails: Risk.Details? { risk?.details }
 
-	// swiftlint:disable:next function_body_length
 	func setupRiskConfigurator() -> CollectionViewCellConfiguratorAny? {
-
 		let detectionIsAutomatic = detectionMode == .automatic
-		let dateLastExposureDetection = riskDetails?.exposureDetectionDate
+		let dateLastExposureDetection = store.riskCalculationResult?.calculationDate
 
-		riskLevelConfigurator = nil
-		inactiveConfigurator = nil
+		let detectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
 
-		let detectionInterval = (riskProvider.configuration.exposureDetectionInterval.day ?? 1) * 24
+		let riskState: RiskState = state.exposureManagerState.enabled ? state.riskState : .inactive
 
-		let riskLevel: RiskLevel? = state.exposureManagerState.enabled ? state.riskLevel : .inactive
-
-		switch riskLevel {
-		case .unknownInitial:
-			riskLevelConfigurator = HomeUnknownRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
-				lastUpdateDate: nil,
-				detectionInterval: detectionInterval,
-				detectionMode: detectionMode,
-				manualExposureDetectionState: riskProvider.manualExposureDetectionState
-			)
+		switch riskState {
 		case .inactive:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
+			let inactiveConfigurator = HomeInactiveRiskCellConfigurator(
 				inactiveType: .noCalculationPossible,
-				previousRiskLevel: store.previousRiskLevel,
+				previousRiskLevel: store.riskCalculationResult?.riskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-		case .unknownOutdated:
-			inactiveConfigurator = HomeInactiveRiskCellConfigurator(
-				inactiveType: .outdatedResults,
-				previousRiskLevel: store.previousRiskLevel,
+			inactiveConfigurator.activeAction = { [weak self] in
+				self?.homeViewController.showExposureNotificationSetting()
+			}
+
+			return inactiveConfigurator
+		case .detectionFailed:
+			let _failedConfigurator = HomeFailedCellConfigurator(
+				state: riskProviderActivityState,
+				previousRiskLevel: store.riskCalculationResult?.riskLevel,
 				lastUpdateDate: dateLastExposureDetection
 			)
-			inactiveConfigurator?.activeAction = inActiveCellActionHandler
-		case .low:
-			let activeTracing = risk?.details.activeTracing ?? .init(interval: 0)
+			_failedConfigurator.activeAction = { [weak self] in
+				guard let self = self else { return }
+				self.requestRisk(userInitiated: true)
+			}
+			
+			failedConfigurator = _failedConfigurator
+
+			return _failedConfigurator
+		case .risk(let risk) where risk.level == .low:
 			riskLevelConfigurator = HomeLowRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
-				numberRiskContacts: state.numberRiskContacts,
+				state: riskProviderActivityState,
+				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				lastUpdateDate: dateLastExposureDetection,
 				isButtonHidden: detectionIsAutomatic,
-				detectionMode: detectionMode,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionInterval: detectionInterval,
-				activeTracing: activeTracing
+				activeTracing: risk.details.activeTracing,
+				minimumDistinctEncountersWithCurrentRiskLevel: risk.details.minimumDistinctEncountersWithCurrentRiskLevel
 			)
-		case .increased:
+		case .risk(let risk) where risk.level == .high:
 			riskLevelConfigurator = HomeHighRiskCellConfigurator(
-				isLoading: isRequestRiskRunning,
-				numberRiskContacts: state.numberRiskContacts,
-				daysSinceLastExposure: state.daysSinceLastExposure,
+				state: riskProviderActivityState,
+				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
+				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				lastUpdateDate: dateLastExposureDetection,
 				manualExposureDetectionState: riskProvider.manualExposureDetectionState,
 				detectionMode: detectionMode,
-				validityDuration: detectionInterval
+				detectionInterval: detectionInterval
 			)
-		case .none:
-			riskLevelConfigurator = nil
+		case .risk:
+			fatalError("The risk level has to be either .low or .high")
 		}
 
-		riskLevelConfigurator?.buttonAction = {
-			self.requestRisk(userInitiated: true)
+		riskLevelConfigurator?.buttonAction = { [weak self] in
+			self?.requestRisk(userInitiated: true)
 		}
-		return riskLevelConfigurator ?? inactiveConfigurator
+
+		return riskLevelConfigurator
 	}
 
 	private func setupTestResultConfigurator() -> HomeTestResultCellConfigurator {
@@ -269,6 +291,12 @@ extension HomeInteractor {
 		let submitConfigurator = HomeTestResultCellConfigurator()
 		submitConfigurator.primaryAction = homeViewController.showExposureSubmissionWithoutResult
 		return submitConfigurator
+	}
+
+	func setupDiaryConfigurator() -> HomeDiaryCellConfigurator {
+		let diaryConfigurator = HomeDiaryCellConfigurator()
+		diaryConfigurator.primaryAction = homeViewController.showDiary
+		return diaryConfigurator
 	}
 
 	func setupFindingPositiveRiskCellConfigurator() -> HomeFindingPositiveRiskCellConfigurator {
@@ -289,8 +317,10 @@ extension HomeInteractor {
 		// MARK: - Add cards that are always shown.
 
 		// Active card.
-		activeConfigurator = setupActiveConfigurator()
-		actionsConfigurators.append(activeConfigurator)
+		let _activeConfigurator = setupActiveConfigurator()
+		_activeConfigurator.updateEnState(state.enState)
+		actionsConfigurators.append(_activeConfigurator)
+		activeConfigurator = _activeConfigurator
 
 		// MARK: - Add cards depending on result state.
 
@@ -300,7 +330,7 @@ extension HomeInteractor {
 
 			let thankYou = HomeThankYouRiskCellConfigurator()
 			actionsConfigurators.append(thankYou)
-			log(message: "Reached end of life state.", file: #file, line: #line, function: #function)
+			Log.info("Reached end of life state.", log: .localData)
 
 		} else if store.registrationToken != nil {
 			// This is shown when we registered a test.
@@ -317,7 +347,7 @@ extension HomeInteractor {
 				let testResultLoadingCellConfigurator = HomeTestResultLoadingCellConfigurator()
 				actionsConfigurators.append(testResultLoadingCellConfigurator)
 
-			case .positive:
+			case .positive where warnOthersReminder.positiveTestResultWasShown:
 				let findingPositiveRiskCellConfigurator = setupFindingPositiveRiskCellConfigurator()
 				actionsConfigurators.append(findingPositiveRiskCellConfigurator)
 
@@ -342,6 +372,9 @@ extension HomeInteractor {
 			actionsConfigurators.append(submitCellConfigurator)
 		}
 
+//		let diaryConfigurator = setupDiaryConfigurator()
+//		actionsConfigurators.append(diaryConfigurator)
+
 		return actionsConfigurators
 	}
 
@@ -354,10 +387,10 @@ extension HomeInteractor {
 
 extension HomeInteractor {
 
-	private func indexPathForRiskCell() -> IndexPath? {
+	private func indexPathForRiskOrFailedCell() -> IndexPath? {
 		for section in sections {
 			let index = section.cellConfigurators.firstIndex { cellConfigurator in
-				cellConfigurator === self.riskLevelConfigurator
+				cellConfigurator === self.riskLevelConfigurator || cellConfigurator is HomeFailedCellConfigurator
 			}
 			guard let item = index else { return nil }
 			let indexPath = IndexPath(item: item, section: HomeViewController.Section.actions.rawValue)
@@ -395,6 +428,7 @@ extension HomeInteractor {
 	func updateTestResults() {
 		// Avoid unnecessary loading.
 		guard testResult == nil || testResult != .positive else { return }
+		
 		guard store.registrationToken != nil else { return }
 
 		// Make sure to make the loading cell appear for at least `minRequestTime`.
@@ -416,12 +450,24 @@ extension HomeInteractor {
 					}
 				)
 
-			case .success(let result):
-				let requestTime = Date().timeIntervalSince(requestStart)
-				let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-				DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-					self?.testResult = result
-					self?.reloadTestResult(with: result)
+			case .success(let testResult):
+				switch testResult {
+				case .expired:
+					self?.homeViewController.alertError(
+						message: AppStrings.ExposureSubmissionResult.testExpiredDesc,
+						title: AppStrings.Home.resultCardLoadingErrorTitle,
+						completion: {
+							self?.testResult = .expired
+							self?.reloadTestResult(with: .invalid)
+						}
+					)
+				case .invalid, .negative, .positive, .pending:
+					let requestTime = Date().timeIntervalSince(requestStart)
+					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
+					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+						self?.testResult = testResult
+						self?.reloadTestResult(with: testResult)
+					}
 				}
 			}
 		}
@@ -432,14 +478,8 @@ extension HomeInteractor {
 extension HomeInteractor: ENStateHandlerUpdating {
 	func updateEnState(_ state: ENStateHandler.State) {
 		self.state.enState = state
-		activeConfigurator.updateEnState(state)
+		activeConfigurator?.updateEnState(state)
 		updateActiveCell()
-	}
-}
-
-extension HomeInteractor {
-	private func inActiveCellActionHandler() {
-		homeViewController.showExposureNotificationSetting()
 	}
 }
 
@@ -456,8 +496,7 @@ extension HomeInteractor: CountdownTimerDelegate {
 
 		// Schedule new countdown.
 		NotificationCenter.default.addObserver(self, selector: #selector(invalidateCountdownTimer), name: UIApplication.didEnterBackgroundNotification, object: nil)
-		let nextUpdate = self.riskProvider.nextExposureDetectionDate()
-		countdownTimer = CountdownTimer(countdownTo: nextUpdate)
+		countdownTimer = CountdownTimer(countdownTo: riskProvider.nextExposureDetectionDate)
 		countdownTimer?.delegate = self
 		countdownTimer?.start()
 	}
@@ -474,11 +513,15 @@ extension HomeInteractor: CountdownTimerDelegate {
 	}
 
 	func countdownTimer(_ timer: CountdownTimer, didUpdate time: String) {
-		guard let indexPath = self.indexPathForRiskCell() else { return }
+		guard let indexPath = self.indexPathForRiskOrFailedCell() else { return }
 		guard let cell = homeViewController.cellForItem(at: indexPath) as? RiskLevelCollectionViewCell else { return }
 
 		// We pass the time and let the configurator decide whether the button can be activated or not.
 		riskLevelConfigurator?.timeUntilUpdate = time
 		riskLevelConfigurator?.configureButton(for: cell)
+	}
+	
+	func refreshTimerAfterResumingFromBackground() {
+		scheduleCountdownTimer()
 	}
 }

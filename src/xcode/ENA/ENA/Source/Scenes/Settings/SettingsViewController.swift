@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import MessageUI
@@ -38,19 +25,27 @@ final class SettingsViewController: UITableViewController {
 	private weak var delegate: SettingsViewControllerDelegate?
 
 	let store: Store
+	let appConfigurationProvider: AppConfigurationProviding
 
 	let tracingSegue = "showTracing"
 	let notificationsSegue = "showNotifications"
 	let resetSegue = "showReset"
+	let backgroundAppRefreshSegue = "showBackgroundAppRefresh"
 
 	let settingsViewModel = SettingsViewModel()
 	var enState: ENStateHandler.State
 
-
-	init?(coder: NSCoder, store: Store, initialEnState: ENStateHandler.State, delegate: SettingsViewControllerDelegate) {
+	init?(
+		coder: NSCoder,
+		store: Store,
+		initialEnState: ENStateHandler.State,
+		appConfigurationProvider: AppConfigurationProviding,
+		delegate: SettingsViewControllerDelegate
+	) {
 		self.store = store
 		self.delegate = delegate
 		self.enState = initialEnState
+		self.appConfigurationProvider = appConfigurationProvider
 		super.init(coder: coder)
 	}
 
@@ -75,7 +70,8 @@ final class SettingsViewController: UITableViewController {
 		super.viewWillAppear(animated)
 
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender _: Any?) {
@@ -87,10 +83,11 @@ final class SettingsViewController: UITableViewController {
 	@IBSegueAction
 	func createExposureNotificationSettingViewController(coder: NSCoder) -> ExposureNotificationSettingViewController? {
 		let vc = ExposureNotificationSettingViewController(
-				coder: coder,
-				initialEnState: enState,
-				store: store,
-				delegate: self
+			coder: coder,
+			initialEnState: enState,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			delegate: self
 		)
 		notificationSettingsController = vc
 		return vc
@@ -100,17 +97,24 @@ final class SettingsViewController: UITableViewController {
 	func createNotificationSettingsViewController(coder: NSCoder) -> NotificationSettingsViewController? {
 		NotificationSettingsViewController(coder: coder, store: store)
 	}
+	
+	@IBSegueAction
+	func createBackgroundAppRefreshViewController(coder: NSCoder) -> BackgroundAppRefreshViewController? {
+		BackgroundAppRefreshViewController(coder: coder)
+	}
 
 	@objc
 	private func willEnterForeground() {
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 	}
 
 	private func setupView() {
 
 		checkTracingStatus()
-		notificationSettings()
+		checkNotificationSettings()
+		checkBackgroundAppRefresh()
 
 		NotificationCenter.default.addObserver(
 			self,
@@ -132,7 +136,7 @@ final class SettingsViewController: UITableViewController {
 		}
 	}
 
-	private func notificationSettings() {
+	private func checkNotificationSettings() {
 		let currentCenter = UNUserNotificationCenter.current()
 
 		currentCenter.getNotificationSettings { [weak self] settings in
@@ -149,6 +153,12 @@ final class SettingsViewController: UITableViewController {
 				self.tableView.reloadData()
 			}
 		}
+	}
+	
+	private func checkBackgroundAppRefresh() {
+		self.settingsViewModel.backgroundAppRefresh.setState(
+			state: UIApplication.shared.backgroundRefreshStatus == .available
+		)
 	}
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then: @escaping SettingsViewControllerDelegate.Completion) {
@@ -185,6 +195,8 @@ extension SettingsViewController {
 			return AppStrings.Settings.notificationDescription
 		case .reset:
 			return AppStrings.Settings.resetDescription
+		case .backgroundAppRefresh:
+			return AppStrings.Settings.backgroundAppRefreshDescription
 		}
 	}
 
@@ -196,7 +208,7 @@ extension SettingsViewController {
 		switch section {
 		case .reset:
 			footerView.textLabel?.textAlignment = .center
-		case .tracing, .notifications:
+		case .tracing, .notifications, .backgroundAppRefresh:
 			footerView.textLabel?.textAlignment = .left
 		}
 	}
@@ -209,10 +221,10 @@ extension SettingsViewController {
 		switch section {
 		case .tracing:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.tracing)
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.tracingLabel
 		case .notifications:
 			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.notifications)
-			cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.notificationLabel
+		case .backgroundAppRefresh:
+			cell = configureMainCell(indexPath: indexPath, model: settingsViewModel.backgroundAppRefresh)
 		case .reset:
 			guard let labelCell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.reset.rawValue, for: indexPath) as? LabelTableViewCell else {
 				fatalError("No cell for reuse identifier.")
@@ -230,7 +242,7 @@ extension SettingsViewController {
 		return cell
 	}
 
-	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.Main) -> MainSettingsTableViewCell {
+	func configureMainCell(indexPath: IndexPath, model: SettingsViewModel.CellModel) -> MainSettingsTableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReuseIdentifier.main.rawValue, for: indexPath) as? MainSettingsTableViewCell else {
 			fatalError("No cell for reuse identifier.")
 		}
@@ -250,6 +262,8 @@ extension SettingsViewController {
 			performSegue(withIdentifier: notificationsSegue, sender: nil)
 		case .reset:
 			performSegue(withIdentifier: resetSegue, sender: nil)
+		case .backgroundAppRefresh:
+			performSegue(withIdentifier: backgroundAppRefreshSegue, sender: nil)
 		}
 
 		tableView.deselectRow(at: indexPath, animated: false)
@@ -260,6 +274,7 @@ private extension SettingsViewController {
 	enum Sections: CaseIterable {
 		case tracing
 		case notifications
+		case backgroundAppRefresh
 		case reset
 	}
 

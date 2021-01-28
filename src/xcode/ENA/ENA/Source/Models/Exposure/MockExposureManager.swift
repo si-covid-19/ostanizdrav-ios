@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import UIKit
@@ -34,6 +21,13 @@ final class MockExposureManager {
 	) {
 		self.exposureNotificationError = exposureNotificationError
 		self.diagnosisKeysResult = diagnosisKeysResult
+
+		#if RELEASE
+		// This whole class would/should be wrapped in a DEBUG block. However, there were some
+		// issues with the handling of cumminity and debug builds so we chose this way to prevent
+		// malicious usage
+		preconditionFailure("Don't use this mock in production!")
+		#endif
 	}
 }
 
@@ -62,11 +56,15 @@ extension MockExposureManager: ExposureManager {
 		completion(exposureNotificationError)
 	}
 
-	func preconditions() -> ExposureManagerState {
+	var exposureManagerState: ExposureManagerState {
 		ExposureManagerState(authorized: true, enabled: true, status: .active)
 	}
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler _: @escaping ENDetectExposuresHandler) -> Progress {
+		Progress()
+	}
+
+	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
 		Progress()
 	}
 
@@ -80,7 +78,7 @@ extension MockExposureManager: ExposureManager {
 		completionHandler(diagnosisKeysResult!.0, diagnosisKeysResult!.1)
 	}
 
-	func resume(observer: ENAExposureManagerObserver) {
+	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
 		
 	}
 

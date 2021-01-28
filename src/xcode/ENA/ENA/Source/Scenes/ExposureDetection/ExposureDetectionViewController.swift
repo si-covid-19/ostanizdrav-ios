@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import Foundation
@@ -33,6 +20,8 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	@IBOutlet var footerView: UIView!
 	@IBOutlet var checkButton: ENAButton!
 
+	let store: Store
+
 	var state: State {
 		didSet {
 			updateUI()
@@ -47,10 +36,12 @@ final class ExposureDetectionViewController: DynamicTableViewController, Require
 	init?(
 		coder: NSCoder,
 		state: State,
+		store: Store,
 		delegate: ExposureDetectionViewControllerDelegate
 	) {
-		self.delegate = delegate
 		self.state = state
+		self.store = store
+		self.delegate = delegate
 		super.init(coder: coder)
 	}
 
@@ -76,11 +67,34 @@ extension ExposureDetectionViewController {
 		closeButton.accessibilityIdentifier = AccessibilityIdentifiers.AccessibilityLabel.close
 
 		consumer.didCalculateRisk = { [weak self] risk in
-			self?.state.risk = risk
+			self?.state.riskState = .risk(risk)
 			self?.updateUI()
 		}
-		consumer.didChangeLoadingStatus = { [weak self] isLoading in
-			self?.state.isLoading = isLoading
+
+		consumer.didFailCalculateRisk = { [weak self] error in
+			// Ignore already running errors.
+			guard !error.isAlreadyRunningError else {
+				Log.info("[ExposureDetectionViewController] Ignore already running error.", log: .riskDetection)
+				return
+			}
+
+			guard error.shouldBeDisplayedToUser else {
+				Log.info("[ExposureDetectionViewController] Don't show error to user: \(error).", log: .riskDetection)
+				return
+			}
+			
+			switch error {
+			case .inactive:
+				self?.state.riskState = .inactive
+			default:
+				self?.state.riskState = .detectionFailed
+			}
+			
+			self?.updateUI()
+		}
+		
+		consumer.didChangeActivityState = { [weak self] activityState in
+			self?.state.activityState = activityState
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -151,16 +165,9 @@ private extension ExposureDetectionViewController {
 	}
 }
 
-extension ExposureDetectionViewController: ExposureStateUpdating {
-	func updateExposureState(_ exposureManagerState: ExposureManagerState) {
-		state.exposureManagerState = exposureManagerState
-		updateUI()
-	}
-}
-
 extension ExposureDetectionViewController {
 	func updateUI() {
-		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, isTracingEnabled: state.isTracingEnabled)
+		dynamicTableViewModel = dynamicTableViewModel(for: state.riskLevel, riskDetectionFailed: state.riskDetectionFailed, isTracingEnabled: state.isTracingEnabled)
 
 		updateCloseButton()
 		updateHeader()
@@ -171,7 +178,7 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateCloseButton() {
-		if state.isTracingEnabled && state.riskLevel != .unknownOutdated && state.riskLevel != .inactive {
+		if case .risk = state.riskState, state.isTracingEnabled {
 			closeButton.setImage(UIImage(named: "Icons - Close - Contrast"), for: .normal)
 			closeButton.setImage(UIImage(named: "Icons - Close - Tap - Contrast"), for: .highlighted)
 		} else {
@@ -181,9 +188,9 @@ extension ExposureDetectionViewController {
 	}
 
 	private func updateHeader() {
-		headerView.backgroundColor = state.riskTintColor
-		titleLabel.text = state.riskText
-		titleLabel.textColor = state.riskContrastColor
+		headerView.backgroundColor = state.riskBackgroundColor
+		titleLabel.text = state.titleText
+		titleLabel.textColor = state.titleTextColor
 	}
 
 	private func updateTableView() {
@@ -195,15 +202,20 @@ extension ExposureDetectionViewController {
 	/// - Parameters:
 	///   - time: formatted time string <hh:mm:ss>  that is displayed as remaining time.
 	private func updateCheckButton(_ time: String? = nil) {
-		if !state.isTracingEnabled {
+		if !state.isTracingEnabled || state.riskDetectionFailed {
 			footerView.isHidden = false
 			checkButton.isEnabled = true
-			checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+
+			if !state.isTracingEnabled {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonEnable, for: .normal)
+			} else if state.riskDetectionFailed {
+				checkButton.setTitle(AppStrings.ExposureDetection.buttonTitleRestart, for: .normal)
+			}
+
 			return
 		}
-		
-		switch state.detectionMode {
 
+		switch state.detectionMode {
 		// Automatic mode does not requred additional logic, this is often the default configuration.
 		case .automatic:
 			footerView.isHidden = true
@@ -213,7 +225,7 @@ extension ExposureDetectionViewController {
 		case .manual:
 			footerView.isHidden = false
 
-			let nextRefresh = riskProvider.nextExposureDetectionDate()
+			let nextRefresh = riskProvider.nextExposureDetectionDate
 			let now = Date()
 
 			// If there is not countdown and the next possible refresh date is in the future,

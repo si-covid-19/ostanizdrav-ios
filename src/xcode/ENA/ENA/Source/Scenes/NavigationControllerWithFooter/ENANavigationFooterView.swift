@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -82,6 +67,17 @@ class ENANavigationFooterView: ENAFooterView {
 		set { secondaryButton.isLoading = newValue }
 	}
 
+	var secondaryButtonHasBorder: Bool {
+		get { secondaryButton.hasBorder }
+		set { secondaryButton.hasBorder = newValue }
+	}
+	
+	var secondaryButtonHasBackground: Bool {
+		get { secondaryButton.hasBackground }
+		set { secondaryButton.hasBackground = newValue }
+	}
+	
+
 	private let spacing: CGFloat = 8
 
 	convenience init() {
@@ -143,13 +139,15 @@ extension ENANavigationFooterView {
 		primaryButton = ENAButton(type: .custom)
 		primaryButton.setTitle("Primary Button", for: .normal)
 		primaryButton.addTarget(self, action: #selector(didTapPrimaryButton), for: .primaryActionTriggered)
+		primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.primaryFooterButton
 	}
 
 	private func setupSecondaryButton() {
 		secondaryButton = ENAButton(type: .custom)
 		secondaryButton.setTitle("Secondary Button", for: .normal)
-		secondaryButton.isTransparent = true
+		secondaryButton.hasBackground = true
 		secondaryButton.addTarget(self, action: #selector(didTapSecondaryButton), for: .primaryActionTriggered)
+		secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.General.secondaryFooterButton
 	}
 }
 
@@ -186,6 +184,8 @@ extension ENANavigationFooterView {
 			isSecondaryButtonHidden = navigationItem.isSecondaryButtonHidden
 			isSecondaryButtonEnabled = navigationItem.isSecondaryButtonEnabled
 			isSecondaryButtonLoading = navigationItem.isSecondaryButtonLoading
+			secondaryButtonHasBorder = navigationItem.secondaryButtonHasBorder
+			secondaryButtonHasBackground = navigationItem.secondaryButtonHasBackground
 			if !isSecondaryButtonHidden { secondaryButtonTitle = navigationItem.secondaryButtonTitle }
 			
 		} else {
@@ -197,6 +197,8 @@ extension ENANavigationFooterView {
 			isSecondaryButtonHidden = true
 			isSecondaryButtonEnabled = false
 			isSecondaryButtonLoading = false
+			secondaryButtonHasBorder = false
+			secondaryButtonHasBackground = false
 			if !isSecondaryButtonHidden { secondaryButtonTitle = nil }
 		}
 	}

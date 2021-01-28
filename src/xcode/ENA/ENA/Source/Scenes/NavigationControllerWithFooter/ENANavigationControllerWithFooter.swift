@@ -1,26 +1,11 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
 import UIKit
 
-class ENANavigationControllerWithFooter: UINavigationController {
+class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePresentationControllerDelegate {
 	private var navigationItemObserver: ENANavigationFooterItem.Observer?
 
 	private(set) var footerView: ENANavigationFooterView! { didSet { footerView.delegate = self } }
@@ -34,6 +19,18 @@ class ENANavigationControllerWithFooter: UINavigationController {
 	private(set) var isFooterViewHidden: Bool = true
 
 	private var topViewControllerWithFooterChild: ENANavigationControllerWithFooterChild? { topViewController as? ENANavigationControllerWithFooterChild }
+
+	override init(rootViewController: UIViewController) {
+		super.init(rootViewController: rootViewController)
+		self.presentationController?.delegate = self
+		self.isModalInPresentation = true
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+		self.presentationController?.delegate = self
+		self.isModalInPresentation = true
+	}
 
 	override func loadView() {
 		super.loadView()
@@ -67,6 +64,20 @@ class ENANavigationControllerWithFooter: UINavigationController {
 		updateAdditionalSafeAreaInsets()
 		layoutFooterView()
 	}
+
+	// MARK: - Protocol UIAdaptivePresentationControllerDelegate
+
+	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+		guard let topViewController = viewControllers.last,
+			  let dismissableViewController = topViewController as? DismissHandling  else {
+			// this is the default behavior
+			dismiss(animated: true)
+			return
+		}
+
+		dismissableViewController.wasAttemptedToBeDismissed()
+	}
+
 }
 
 private extension ENANavigationControllerWithFooter {
@@ -140,6 +151,7 @@ extension ENANavigationControllerWithFooter {
 		transitionFooterView(to: viewController)
 	}
 
+	@discardableResult
 	override func popViewController(animated: Bool) -> UIViewController? {
 		let viewController = super.popViewController(animated: animated)
 		transitionFooterView(to: topViewController)
@@ -149,6 +161,12 @@ extension ENANavigationControllerWithFooter {
 	override func setViewControllers(_ viewControllers: [UIViewController], animated: Bool) {
 		super.setViewControllers(viewControllers, animated: animated)
 		transitionFooterView(to: topViewController)
+	}
+
+	override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+		let viewController = super.popToViewController(viewController, animated: animated)
+		transitionFooterView(to: topViewController)
+		return viewController
 	}
 }
 
@@ -207,7 +225,7 @@ extension ENANavigationControllerWithFooter {
 
 	private func transitionFooterView(to viewController: UIViewController?) {
 		if nil != firstResponder {
-			log(message: "[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", level: .warning)
+			Log.warning("[\(String(describing: Self.self))] Keyboard must be dismissed in `viewWillDisappear` of child before transitioning to another view controller!", log: .ui)
 		}
 
 		transitionCoordinator?.animate(alongsideTransition: { context in
@@ -279,7 +297,9 @@ private extension ENANavigationFooterItem {
 			observe(\.isSecondaryButtonHidden, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonEnabled, changeHandler: { _, _ in observer(self) }),
 			observe(\.isSecondaryButtonLoading, changeHandler: { _, _ in observer(self) }),
-			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) })
+			observe(\.secondaryButtonTitle, changeHandler: { _, _ in observer(self) }),
+			observe(\.secondaryButtonHasBorder, changeHandler: { _, _ in observer(self) }),
+			observe(\.secondaryButtonHasBackground, changeHandler: { _, _ in observer(self) })
 		]
 		return Observer(observers: observers)
 	}

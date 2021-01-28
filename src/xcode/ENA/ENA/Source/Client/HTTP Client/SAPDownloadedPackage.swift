@@ -1,30 +1,19 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import ZIPFoundation
 import CryptoKit
 
-struct SAPDownloadedPackage {
+/// A combined binary file (zipped) and the corresponding verification signature.
+struct SAPDownloadedPackage: Fingerprinting {
 	// MARK: Creating a Key Package
 
 	init(keysBin: Data, signature: Data) {
-		bin = keysBin
+		self.bin = keysBin
 		self.signature = signature
+		self.fingerprint = SHA256.hash(data: bin).compactMap { String(format: "%02x", $0) }.joined()
 	}
 
 	init?(compressedData: Data) {
@@ -40,34 +29,39 @@ struct SAPDownloadedPackage {
 	
 	// MARK: Properties
 
+	/// The zipped  key package
 	let bin: Data
+	/// The file-verification signature
 	let signature: Data
+	/// The SHA256 string of the package `bin`
+	let fingerprint: String
 
 	// MARK: - Verification
 
 	typealias Verification = (SAPDownloadedPackage) -> Bool
-	struct Verifier {
-		private let keyProvider: PublicKeyProviding
 
-		init(key provider: @escaping PublicKeyProviding = PublicKeyStore.get) {
-			self.keyProvider = provider
+	struct Verifier {
+		private let getPublicKey: PublicKeyProvider
+
+		init(key provider: @escaping PublicKeyProvider = DefaultPublicKeyProvider) {
+			getPublicKey = provider
 		}
 
 		func verify(_ package: SAPDownloadedPackage) -> Bool {
 			guard
-				let parsedSignatureFile = try? SAP_TEKSignatureList(serializedData: package.signature),
-				let bundleId = Bundle.main.bundleIdentifier
-			else {
+				let parsedSignatureFile = try? SAP_External_Exposurenotification_TEKSignatureList(serializedData: package.signature)
+				else {
 				return false
 			}
+
+			let publicKey = getPublicKey()
 
 			for signatureEntry in parsedSignatureFile.signatures {
 				let signatureData: Data = signatureEntry.signature
 				guard
-					let publicKey = try? keyProvider(bundleId),
 					let signature = try? P256.Signing.ECDSASignature(derRepresentation: signatureData)
 				else {
-					logError(message: "Could not validate signature of downloaded package", level: .warning)
+					Log.warning("Could not validate signature of downloaded package", log: .api)
 					continue
 				}
 
@@ -85,7 +79,7 @@ struct SAPDownloadedPackage {
 	}
 }
 
-private extension Archive {
+extension Archive {
 	typealias KeyPackage = (bin: Data, sig: Data)
 	enum KeyPackageError: Error {
 		case binNotFound

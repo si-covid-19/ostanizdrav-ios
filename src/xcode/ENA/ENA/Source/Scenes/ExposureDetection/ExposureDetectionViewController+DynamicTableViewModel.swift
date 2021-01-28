@@ -1,35 +1,23 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
 
 extension ExposureDetectionViewController {
-	func dynamicTableViewModel(for riskLevel: RiskLevel, isTracingEnabled: Bool) -> DynamicTableViewModel {
+	func dynamicTableViewModel(for riskLevel: RiskLevel, riskDetectionFailed: Bool, isTracingEnabled: Bool) -> DynamicTableViewModel {
 		if !isTracingEnabled {
 			return offModel
 		}
 
+		if riskDetectionFailed {
+			return failureModel
+		}
+
 		switch riskLevel {
-		case .unknownInitial: return unknownRiskModel
-		case .unknownOutdated: return outdatedRiskModel
-		case .inactive: return offModel
 		case .low: return lowRiskModel
-		case .increased: return highRiskModel
+		case .high: return highRiskModel
 		}
 	}
 }
@@ -47,7 +35,7 @@ private extension DynamicHeader {
 			let heightConstraint = view.heightAnchor.constraint(equalToConstant: 16)
 			heightConstraint.priority = .defaultHigh
 			heightConstraint.isActive = true
-			view.backgroundColor = (viewController as? ExposureDetectionViewController)?.state.riskTintColor
+			view.backgroundColor = (viewController as? ExposureDetectionViewController)?.state.riskBackgroundColor
 			return view
 		}
 	}
@@ -83,17 +71,9 @@ private extension DynamicCell {
 	static func risk(hasSeparator: Bool = true, configure: @escaping GenericCellConfigurator<ExposureDetectionViewController>) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.risk) { viewController, cell, indexPath in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
-
-
-			var tintColor: UIColor = state.isTracingEnabled ? .enaColor(for: .textContrast) : .enaColor(for: .riskNeutral)
-
-			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
-			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
-
-			cell.tintColor = tintColor
-
-			cell.textLabel?.textColor = state.riskContrastColor
+			cell.backgroundColor = state.riskBackgroundColor
+			cell.tintColor = state.riskContrastTintColor
+			cell.textLabel?.textColor = state.titleTextColor
 			if let cell = cell as? ExposureDetectionRiskCell {
 				cell.separatorView.isHidden = (indexPath.row == 0) || !hasSeparator
 				cell.separatorView.backgroundColor = state.isTracingEnabled ? .enaColor(for: .hairlineContrast) : .enaColor(for: .hairline)
@@ -113,24 +93,34 @@ private extension DynamicCell {
 	static func riskContacts(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			let risk = state.risk
-			cell.textLabel?.text = String(format: text, risk?.details.numberOfExposures ?? 0)
+			cell.textLabel?.text = String(format: text, state.riskDetails?.numberOfDaysWithRiskLevel ?? 0)
 			cell.imageView?.image = image
 		}
 	}
 
 	static func riskLastExposure(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
-			let daysSinceLastExposure = viewController.state.risk?.details.daysSinceLastExposure ?? 0
-			cell.textLabel?.text = .localizedStringWithFormat(text, daysSinceLastExposure)
 			cell.imageView?.image = image
+
+			guard let mostRecentDateWithHighRisk = viewController.state.riskDetails?.mostRecentDateWithRiskLevel else {
+				assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
+				cell.textLabel?.text = ""
+
+				return
+			}
+
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+
+			let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+			cell.textLabel?.text = .localizedStringWithFormat(text, formattedMostRecentDateWithHighRisk)
 		}
 	}
 
 	static func riskStored(activeTracing: ActiveTracing, imageName: String) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			let state = viewController.state
-			var numberOfDaysStored = state.risk?.details.numberOfDaysWithActiveTracing ?? 0
+			var numberOfDaysStored = state.riskDetails?.numberOfDaysWithActiveTracing ?? 0
 			cell.textLabel?.text = activeTracing.localizedDuration
 			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
 			if numberOfDaysStored > 13 {
@@ -144,7 +134,7 @@ private extension DynamicCell {
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.state.risk?.details.exposureDetectionDate {
+			if let date: Date = viewController.store.riskCalculationResult?.calculationDate {
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
@@ -158,24 +148,16 @@ private extension DynamicCell {
 	static func riskText(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskText) { viewController, cell, _ in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
-			cell.textLabel?.textColor = state.riskContrastColor
+			cell.backgroundColor = state.riskBackgroundColor
+			cell.textLabel?.textColor = state.titleTextColor
 			cell.textLabel?.text = text
-		}
-	}
-
-	static func riskRefresh(text: String) -> DynamicCell {
-		.exposureDetectionCell(ReusableCellIdentifer.riskRefresh) { viewController, cell, _ in
-			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
-			cell.textLabel?.text = AppStrings.ExposureDetection.refresh24h
 		}
 	}
 
 	static func riskLoading(text: String) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.riskLoading) { viewController, cell, _ in
 			let state = viewController.state
-			cell.backgroundColor = state.riskTintColor
+			cell.backgroundColor = state.riskBackgroundColor
 			cell.textLabel?.text = text
 		}
 	}
@@ -192,10 +174,7 @@ private extension DynamicCell {
 	static func guide(text: String, image: UIImage?) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.guide) { viewController, cell, _ in
 			let state = viewController.state
-			var tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
-			if state.riskLevel == .unknownOutdated { tintColor = .enaColor(for: .riskNeutral) }
-			if state.riskLevel == .inactive { tintColor = .enaColor(for: .riskNeutral) }
-			cell.tintColor = tintColor
+			cell.tintColor = state.riskTintColor
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
 		}
@@ -204,7 +183,7 @@ private extension DynamicCell {
 	static func guide(image: UIImage?, text: [String]) -> DynamicCell {
 		.exposureDetectionCell(ReusableCellIdentifer.longGuide) { viewController, cell, _ in
 			let state = viewController.state
-			cell.tintColor = state.isTracingEnabled ? state.riskTintColor : .enaColor(for: .riskNeutral)
+			cell.tintColor = state.riskTintColor
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
 		}
 	}
@@ -238,31 +217,28 @@ extension ExposureDetectionViewController {
 
 	private func riskDataSection(cells: [DynamicCell]) -> DynamicSection {
 		riskSection(
-			isHidden: { (($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { (($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: cells
 		)
 	}
 
-	private var riskRefreshSection: DynamicSection {
-		riskSection(
-			isHidden: { viewController in
-				guard let state = (viewController as? ExposureDetectionViewController)?.state else { return true }
-				if state.isLoading { return true }
-				return state.detectionMode != .automatic
-			},
-			cells: [
-				.riskRefresh(text: AppStrings.ExposureDetection.refreshingIn)
-			]
-		)
-	}
-
 	private var riskLoadingSection: DynamicSection {
-		.section(
+		var riskLoadingText = ""
+		switch state.activityState {
+		case .detecting:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDetectingBody
+		case .downloading:
+			riskLoadingText = AppStrings.ExposureDetection.riskCardStatusDownloadingBody
+		default:
+			break
+		}
+
+		return DynamicSection.section(
 			header: .none,
 			footer: .none,
-			isHidden: { !(($0 as? Self)?.state.isLoading ?? false) },
+			isHidden: { !(($0 as? Self)?.state.activityState.isActive ?? false) },
 			cells: [
-				.riskLoading(text: AppStrings.ExposureDetection.loadingText)
+				.riskLoading(text: riskLoadingText)
 			]
 		)
 	}
@@ -280,15 +256,35 @@ extension ExposureDetectionViewController {
 		)
 	}
 
+	/// - NOTE: This section should only be displayed when more than 0 exposures occured.
+	private func lowRiskExposureSection(_ numberOfExposures: Int, accessibilityIdentifier: String?) -> DynamicSection {
+		guard numberOfExposures > 0 else { return .section(cells: []) }
+		return .section(cells: [])
+//		return .section(
+//			header: .backgroundSpace(height: 8),
+//			footer: .backgroundSpace(height: 16),
+//			cells: [
+//				.header(
+//					title: AppStrings.ExposureDetection.lowRiskExposureTitle,
+//					subtitle: AppStrings.ExposureDetection.lowRiskExposureSubtitle
+//				),
+//				.body(
+//					text: AppStrings.ExposureDetection.lowRiskExposureBody,
+//					accessibilityIdentifier: accessibilityIdentifier
+//				)
+//			]
+//		)
+	}
+
 	private func activeTracingSection(accessibilityIdentifier: String?) -> DynamicSection {
-		let p0 = NSLocalizedString(
-			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
-			comment: ""
-		)
+//		let p0 = NSLocalizedString(
+//			"ExposureDetection_ActiveTracingSection_Text_Paragraph0",
+//			comment: ""
+//		)
 
-		let p1 = state.risk?.details.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1 ?? ""
+		let p1 = state.riskDetails?.activeTracing.exposureDetectionActiveTracingSectionTextParagraph1 ?? ""
 
-		let body = [p0, p1].joined(separator: "\n\n")
+		let body = [p1].joined(separator: "\n\n")
 
 		return .section(
 			header: .backgroundSpace(height: 8),
@@ -312,37 +308,77 @@ extension ExposureDetectionViewController {
 		)
 	}
 
-	private func explanationSection(text: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		.section(
-			header: .backgroundSpace(height: 8),
-			footer: .backgroundSpace(height: 16),
-			cells: [
-				.header(
-					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
-				),
-				.body(text: text, accessibilityIdentifier: accessibilityIdentifier)
-			]
-		)
-	}
-
-	private func highRiskExplanationSection(daysSinceLastExposureText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
-		let daysSinceLastExposure = state.risk?.details.daysSinceLastExposure ?? 0
+	private func explanationSection(text: String, numberOfExposures: Int = -1, accessibilityIdentifier: String?) -> DynamicSection {
 		return .section(
 			header: .backgroundSpace(height: 8),
 			footer: .backgroundSpace(height: 16),
 			cells: [
 				.header(
 					title: AppStrings.ExposureDetection.explanationTitle,
-					subtitle: isActive ? AppStrings.ExposureDetection.explanationSubtitleActive : AppStrings.ExposureDetection.explanationSubtitleInactive
+					subtitle: AppStrings.ExposureDetection.explanationSubtitle
+				),
+				.body(text: text, accessibilityIdentifier: accessibilityIdentifier),
+				infectionRiskExplanationFAQLink(numberOfExposures)
+			].compactMap { $0 }
+		)
+	}
+
+	/// - NOTE: This cell should only be displayed when more than 0 exposures occured.
+	private func infectionRiskExplanationFAQLink(_ numberOfExposures: Int) -> DynamicCell? {
+		return .link(
+			text: AppStrings.ExposureDetection.explanationFAQLinkText,
+			url: URL(string: AppStrings.ExposureDetection.explanationFAQLink)
+		)
+	}
+	
+	private func highRiskExplanationGovLink() -> DynamicCell? {
+		return .link(
+			text: AppStrings.ExposureDetection.explanationGOVLinkText,
+			url: URL(string: AppStrings.ExposureDetection.explanationGOVLink)
+		)
+	}
+
+	private func highRiskExplanationSection(mostRecentDateWithRiskLevelText: String, explanationText: String, isActive: Bool, accessibilityIdentifier: String?) -> DynamicSection {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+
+		guard let mostRecentDateWithHighRisk = state.riskDetails?.mostRecentDateWithRiskLevel else {
+			assertionFailure("mostRecentDateWithRiskLevel must be set on high risk state")
+
+			return .section(
+				header: .backgroundSpace(height: 8),
+				footer: .backgroundSpace(height: 16),
+				cells: [
+					.header(
+						title: AppStrings.ExposureDetection.explanationTitle,
+						subtitle: AppStrings.ExposureDetection.explanationSubtitle
+					),
+					.body(
+						text: explanationText,
+						accessibilityIdentifier: accessibilityIdentifier
+					),
+					highRiskExplanationGovLink()
+				].compactMap { $0 }
+			)
+		}
+
+		let formattedMostRecentDateWithHighRisk = dateFormatter.string(from: mostRecentDateWithHighRisk)
+		return .section(
+			header: .backgroundSpace(height: 8),
+			footer: .backgroundSpace(height: 16),
+			cells: [
+				.header(
+					title: AppStrings.ExposureDetection.explanationTitle,
+					subtitle: AppStrings.ExposureDetection.explanationSubtitle
 				),
 				.body(
 					text: [
-						.localizedStringWithFormat(daysSinceLastExposureText, daysSinceLastExposure),
+						.localizedStringWithFormat(mostRecentDateWithRiskLevelText, formattedMostRecentDateWithHighRisk),
 						explanationText
-					].joined(),
-					accessibilityIdentifier: accessibilityIdentifier)
-			]
+					].joined(separator: " "),
+					accessibilityIdentifier: accessibilityIdentifier),
+				highRiskExplanationGovLink()
+			].compactMap { $0 }
 		)
 	}
 
@@ -360,18 +396,18 @@ extension ExposureDetectionViewController {
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextOff, isActive: false,
+				text: AppStrings.ExposureDetection.explanationTextOff,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
 		])
 	}
-
-	private var outdatedRiskModel: DynamicTableViewModel {
+	
+	private var failureModel: DynamicTableViewModel {
 		DynamicTableViewModel([
 			.section(
 				header: .none,
 				footer: .separator(color: .enaColor(for: .hairline), height: 1, insets: UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)),
 				cells: [
-					.riskText(text: AppStrings.ExposureDetection.outdatedText),
+					.riskText(text: AppStrings.ExposureDetection.riskCardFailedCalculationBody),
 					.riskLastRiskLevel(hasSeparator: false, text: AppStrings.ExposureDetection.lastRiskLevel, image: UIImage(named: "Icons_LetzteErmittlung-Light")),
 					.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 				]
@@ -379,61 +415,49 @@ extension ExposureDetectionViewController {
 			riskLoadingSection,
 			standardGuideSection,
 			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextOutdated,
-				isActive: false,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOutdated
-			)
-		])
-	}
-
-	private var unknownRiskModel: DynamicTableViewModel {
-		DynamicTableViewModel([
-			riskDataSection(cells: [
-				.riskText(text: AppStrings.ExposureDetection.unknownText)
-			]),
-			riskRefreshSection,
-			riskLoadingSection,
-			standardGuideSection,
-			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextUnknown,
-				isActive: false,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextUnknown
-			)
+				text: AppStrings.ExposureDetection.explanationTextOff,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextOff)
 		])
 	}
 
 	private var lowRiskModel: DynamicTableViewModel {
-		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+		let activeTracing = state.riskDetails?.activeTracing ?? .init(interval: 0)
+		let numberOfExposures = state.riskDetails?.numberOfDaysWithRiskLevel ?? 0
 
 		return DynamicTableViewModel([
 			riskDataSection(
 				cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
+				.riskContacts(text: AppStrings.Home.riskCardLowNumberContactsItemTitle, image: UIImage(named: "Icons_KeineRisikoBegegnung")),
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
+			lowRiskExposureSection(
+				numberOfExposures,
+				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.lowRiskExposureSection
+			),
 			standardGuideSection,
-			activeTracingSection(accessibilityIdentifier: "hello"),
+			activeTracingSection(accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSection),
 			explanationSection(
-				text: AppStrings.ExposureDetection.explanationTextLow,
-				isActive: true,
-				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextLow
+				text: numberOfExposures > 0 ?
+					AppStrings.ExposureDetection.explanationTextLowWithEncounter :
+					AppStrings.ExposureDetection.explanationTextLowNoEncounter,
+				numberOfExposures: numberOfExposures,
+				accessibilityIdentifier: numberOfExposures > 0 ? AccessibilityIdentifiers.ExposureDetection.explanationTextLowWithEncounter :
+					AccessibilityIdentifiers.ExposureDetection.explanationTextLowNoEncounter
 			)
 		])
 	}
 
 	private var highRiskModel: DynamicTableViewModel {
-		let activeTracing = state.risk?.details.activeTracing ?? .init(interval: 0)
+		let activeTracing = state.riskDetails?.activeTracing ?? .init(interval: 0)
 		return DynamicTableViewModel([
 			riskDataSection(cells: [
-				.riskContacts(text: AppStrings.ExposureDetection.numberOfContacts, image: UIImage(named: "Icons_RisikoBegegnung")),
+				.riskContacts(text: AppStrings.Home.riskCardHighNumberContactsItemTitle, image: UIImage(named: "Icons_RisikoBegegnung")),
 				.riskLastExposure(text: AppStrings.ExposureDetection.lastExposure, image: UIImage(named: "Icons_Calendar")),
 				.riskStored(activeTracing: activeTracing, imageName: "Icons_TracingCircle-Dark_Step %u"),
 				.riskRefreshed(text: AppStrings.ExposureDetection.refreshed, image: UIImage(named: "Icons_Aktualisiert"))
 			]),
-			riskRefreshSection,
 			riskLoadingSection,
 			.section(
 				header: .backgroundSpace(height: 16),
@@ -441,11 +465,12 @@ extension ExposureDetectionViewController {
 					.header(title: AppStrings.ExposureDetection.behaviorTitle, subtitle: AppStrings.ExposureDetection.behaviorSubtitle),
 					.guide(text: AppStrings.ExposureDetection.guideHome, image: UIImage(named: "Icons - Home")),
 					.guide(text: AppStrings.ExposureDetection.guideDistance, image: UIImage(named: "Icons - Abstand")),
+					.guide(text: AppStrings.ExposureDetection.guideHands, image: UIImage(named: "Icons - Hands")),
+					.guide(text: AppStrings.ExposureDetection.guideMask, image: UIImage(named: "Icons - Mundschutz")),
 					.guide(image: UIImage(named: "Icons - Hotline"), text: [
 						AppStrings.ExposureDetection.guideHotline1,
 						AppStrings.ExposureDetection.guideHotline2,
-						AppStrings.ExposureDetection.guideHotline3,
-						AppStrings.ExposureDetection.guideHotline4
+						AppStrings.ExposureDetection.guideHotline3
 					])
 				]
 			),
@@ -453,7 +478,7 @@ extension ExposureDetectionViewController {
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.activeTracingSectionText
 			),
 			highRiskExplanationSection(
-				daysSinceLastExposureText: AppStrings.ExposureDetection.explanationTextHighDaysSinceLastExposure,
+				mostRecentDateWithRiskLevelText: AppStrings.ExposureDetection.explanationTextHighDateOfLastExposure,
 				explanationText: AppStrings.ExposureDetection.explanationTextHigh,
 				isActive: true,
 				accessibilityIdentifier: AccessibilityIdentifiers.ExposureDetection.explanationTextHigh

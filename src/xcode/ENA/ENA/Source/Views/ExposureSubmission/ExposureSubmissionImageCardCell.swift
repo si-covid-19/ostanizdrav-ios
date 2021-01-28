@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -22,12 +7,8 @@ import UIKit
 
 @IBDesignable
 class ExposureSubmissionImageCardCell: UITableViewCell {
-	@IBOutlet var cardView: UIView!
-	@IBOutlet var titleLabel: ENALabel!
-	@IBOutlet var descriptionLabel: ENALabel!
-	@IBOutlet var illustrationView: UIImageView!
 
-	private var highlightView: UIView!
+	// MARK: - Overrides
 
 	override func setHighlighted(_ highlighted: Bool, animated: Bool) {
 		super.setHighlighted(highlighted, animated: animated)
@@ -48,6 +29,37 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		setup()
 	}
 
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		super.traitCollectionDidChange(previousTraitCollection)
+
+		updateIllustration(for: traitCollection)
+	}
+
+	// MARK: - Internal
+
+	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
+		titleLabel.text = title
+		descriptionLabel.text = description
+		illustrationView?.image = image
+
+		if let attributedDescription = attributedDescription {
+			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
+			descriptionLabel.attributedText = attributedText
+		}
+
+		cardView.accessibilityLabel = "\(title)\n\n\(description) \(attributedDescription?.string ?? "")"
+		cardView.accessibilityIdentifier = accessibilityIdentifier
+	}
+
+	// MARK: - Private
+
+	@IBOutlet private var cardView: UIView!
+	@IBOutlet private var titleLabel: ENALabel!
+	@IBOutlet private var descriptionLabel: ENALabel!
+	@IBOutlet private var illustrationView: UIImageView!
+
+	private var highlightView: UIView!
+
 	private func setup() {
 		selectionStyle = .none
 
@@ -67,25 +79,6 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 		cardView.accessibilityTraits = .button
 	}
 
-	func configure(title: String, description: String, attributedDescription: NSAttributedString? = nil, image: UIImage?, accessibilityIdentifier: String?) {
-		titleLabel.text = title
-		descriptionLabel.text = description
-		illustrationView?.image = image
-
-		if let attributedDescription = attributedDescription {
-			let attributedText = NSMutableAttributedString(attributedString: attributedDescription)
-			descriptionLabel.attributedText = attributedText
-		}
-
-		cardView.accessibilityLabel = "\(title)\n\n\(description) \(attributedDescription?.string ?? "")"
-		cardView.accessibilityIdentifier = accessibilityIdentifier
-	}
-
-	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-		super.traitCollectionDidChange(previousTraitCollection)
-		updateIllustration(for: traitCollection)
-	}
-
 	private func updateIllustration(for traitCollection: UITraitCollection) {
 		if traitCollection.preferredContentSizeCategory >= .accessibilityLarge {
 			illustrationView.superview?.isHidden = true
@@ -93,4 +86,5 @@ class ExposureSubmissionImageCardCell: UITableViewCell {
 			illustrationView.superview?.isHidden = false
 		}
 	}
+
 }

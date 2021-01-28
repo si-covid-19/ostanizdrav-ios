@@ -1,23 +1,9 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
+import Combine
 import UIKit
 
 enum UpdateAlertType {
@@ -28,14 +14,15 @@ enum UpdateAlertType {
 
 final class AppUpdateCheckHelper {
 	// MARK: Properties
-	private let client: Client
+	private let appConfigurationProvider: AppConfigurationProviding
 	private let store: Store
+	private var subscriptions = [AnyCancellable]()
 
 	/// The retained `NotificationCenter` observer that listens for `UIApplication.didBecomeActiveNotification` notifications.
 	var applicationDidBecomeActiveObserver: NSObjectProtocol?
 
-	init(client: Client, store: Store) {
-		self.client = client
+	init(appConfigurationProvider: AppConfigurationProviding, store: Store) {
+		self.appConfigurationProvider = appConfigurationProvider
 		self.store = store
 	}
 
@@ -45,23 +32,18 @@ final class AppUpdateCheckHelper {
 	}
 
 	func checkAppVersionDialog(for vc: UIViewController?) {
-		client.appConfiguration { result in
-			guard let versionInfo: SAP_ApplicationVersionConfiguration = result?.appVersion else {
-				return
-			}
-			guard let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
-				return
-			}
-
+		appConfigurationProvider.appConfiguration().sink { [weak self] applicationConfiguration in
+			guard let self = self else { return }
+			
 			let alertType = self.alertTypeFrom(
-				currentVersion: appVersion,
-				minVersion: versionInfo.ios.min,
-				latestVersion: versionInfo.ios.latest
+				currentVersion: Bundle.main.appVersion,
+				minVersion: applicationConfiguration.minVersion,
+				latestVersion: applicationConfiguration.latestVersion
 			)
 
 			guard let alert = self.createAlert(alertType, vc: vc) else { return }
 			vc?.present(alert, animated: true, completion: nil)
-		}
+		}.store(in: &subscriptions)
 	}
 
 	private func setObserver(vc: UIViewController?, alertType: UpdateAlertType) {
@@ -87,13 +69,13 @@ final class AppUpdateCheckHelper {
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
-			 let url = URL(staticString: "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8")
+			 let url = URL(staticString: "https://apps.apple.com/us/app/ostanizdrav/id1527561313")
 			UIApplication.shared.open(url, options: [:], completionHandler: nil)
 		}))
 		switch type {
 		case .update:
 			alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionLater, comment: ""), style: .default, handler: { _ in
-				//Do nothing
+				// Do nothing
 			}))
 		case .forceUpdate:
 			alert.message = AppStrings.UpdateMessage.textForce
@@ -106,8 +88,8 @@ final class AppUpdateCheckHelper {
 
 	func alertTypeFrom(
 		currentVersion: String,
-		minVersion: SAP_SemanticVersion,
-		latestVersion: SAP_SemanticVersion
+		minVersion: SAP_Internal_V2_SemanticVersion,
+		latestVersion: SAP_Internal_V2_SemanticVersion
 	) -> UpdateAlertType {
 		guard let currentSemanticVersion = currentVersion.semanticVersion else {
 			return .none

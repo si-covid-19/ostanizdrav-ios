@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 @testable import ENA
 import XCTest
@@ -24,8 +11,8 @@ final class SAPDownloadedPackageTests: XCTestCase {
 
 	private lazy var signingKey = P256.Signing.PrivateKey()
 	private lazy var publicKey = signingKey.publicKey
-	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "si.gov.ostanizdrav"
-	private lazy var mockKeyProvider: PublicKeyProviding = { _ in return self.publicKey }
+	private let defaultBundleId = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+	private lazy var mockKeyProvider: PublicKeyProvider = { self.publicKey }
 	private lazy var verifier = SAPDownloadedPackage.Verifier(key: mockKeyProvider)
 
 	// MARK: Signature Verification Tests
@@ -40,8 +27,12 @@ final class SAPDownloadedPackageTests: XCTestCase {
 		// Test the package signature verification process - rejecting when the signature does not match
 		let bytes = [0xA, 0xB, 0xC, 0xD]
 		// The bin and signature were  made for different data sets
-		let package = try SAPDownloadedPackage.makePackage(bin: Data(bytes: bytes, count: 4),
-														   signature: try SAPDownloadedPackage.makeSignature(data: Data(bytes: bytes, count: 3), key: signingKey).asList() //swiftlint:disable:this vertical_parameter_alignment_on_call
+		let package = try SAPDownloadedPackage.makePackage(
+			bin: Data(bytes: bytes, count: 4),
+			signature: try SAPDownloadedPackage.makeSignature(
+				data: Data(bytes: bytes, count: 3),
+				key: signingKey
+			).asList()
 		)
 
 		XCTAssertFalse(verifier(package))
@@ -50,7 +41,7 @@ final class SAPDownloadedPackageTests: XCTestCase {
 	func testVerifySignature_RejectCorruptSignature() throws {
 		let package = SAPDownloadedPackage(
 			keysBin: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4),
-			// This cannot be decoded into a SAP_TEKSignatureList
+			// This cannot be decoded into a SAP_External_Exposurenotification_TEKSignatureList
 			signature: Data(bytes: [0xA, 0xB, 0xC, 0xD], count: 4)
 		)
 

@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import XCTest
@@ -108,7 +93,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -119,7 +104,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let topSeparator = unwrappedCell.contentView.viewWithTag(100_001)
+		let topSeparator = unwrappedCell.viewWithTag(100_001)
 		let topSeparatorIsSubview = topSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(topSeparatorIsSubview, true)
 	}
@@ -129,7 +114,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -149,7 +134,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -161,7 +146,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let bottomSeparator = unwrappedCell.contentView.viewWithTag(100_002)
+		let bottomSeparator = unwrappedCell.viewWithTag(100_002)
 		let isSubview = bottomSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
@@ -171,7 +156,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Foo", accessibilityIdentifier: "Foo"),
 			.body(text: "Bar", accessibilityIdentifier: "Bar")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -192,7 +177,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -203,7 +188,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let insetSeparator = unwrappedCell.viewWithTag(100_003)
 		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
@@ -214,7 +199,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut
@@ -226,7 +211,7 @@ extension DynamicTableViewControllerRowsTests {
 		guard let unwrappedCell = cell else {
 			return XCTFail("cell should not be nil")
 		}
-		let insetSeparator = unwrappedCell.contentView.viewWithTag(100_003)
+		let insetSeparator = unwrappedCell.viewWithTag(100_003)
 		let isSubview = insetSeparator?.isDescendant(of: unwrappedCell)
 		XCTAssertEqual(isSubview, true)
 	}
@@ -237,7 +222,7 @@ extension DynamicTableViewControllerRowsTests {
 			.body(text: "Bar", accessibilityIdentifier: "Bar"),
 			.body(text: "Baz", accessibilityIdentifier: "Baz")
 		]
-		let section = DynamicSection.section(separators: true, cells: cells)
+		let section = DynamicSection.section(separators: .all, cells: cells)
 		sut.dynamicTableViewModel = DynamicTableViewModel([section])
 		// Set as root of a window with non-zero frame because otherwise cellForRow returns nil
 		window.rootViewController = sut

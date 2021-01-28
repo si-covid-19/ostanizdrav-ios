@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ostanizdrav-1.pdf",
+      "filename" : "appicon.png",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ostanizdrav.pdf",
       "idiom" : "universal"
     }
   ],

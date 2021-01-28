@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import ExposureNotification
 import UIKit
@@ -33,18 +20,21 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 
 	private var lastActionCell: ActionCell?
 
-	let model = ENSettingModel(content: [.banner, .actionCell, .actionDetailCell, .descriptionCell])
+	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
 	let store: Store
+	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
 
 	init?(
 		coder: NSCoder,
 		initialEnState: ENStateHandler.State,
 		store: Store,
+		appConfigurationProvider: AppConfigurationProviding,
 		delegate: ExposureNotificationSettingViewControllerDelegate
 	) {
 		self.delegate = delegate
 		self.store = store
+		self.appConfigurationProvider = appConfigurationProvider
 		enState = initialEnState
 		super.init(coder: coder)
 	}
@@ -84,7 +74,12 @@ extension ExposureNotificationSettingViewController {
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
-		let faqAction = UIAlertAction(title: AppStrings.ExposureNotificationError.learnMoreActionTitle, style: .default, handler: { _ in WebPageHelper.showWebPage(from: self, urlString: AppStrings.ExposureNotificationError.learnMoreURL) })
+		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
+			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
+				UIApplication.shared.canOpenURL(settingsUrl) {
+				UIApplication.shared.open(settingsUrl, completionHandler: nil)
+			}
+		})
 		var errorMessage = ""
 		switch error {
 		case .exposureNotificationAuthorization:
@@ -99,9 +94,9 @@ extension ExposureNotificationSettingViewController {
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [faqAction])
+			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
-		logError(message: error.localizedDescription + " with message: " + errorMessage, level: .error)
+		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
 		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
 			mySceneDelegate.requestUpdatedExposureState()
 		}
@@ -154,6 +149,7 @@ extension ExposureNotificationSettingViewController {
 }
 
 extension ExposureNotificationSettingViewController {
+
 	override func numberOfSections(in _: UITableView) -> Int {
 		model.content.count
 	}
@@ -186,6 +182,16 @@ extension ExposureNotificationSettingViewController {
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		1
 	}
+	
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = indexPath.section
+		let content = model.content[section]
+
+		guard content.cellType == .euTracingCell else { return }
+
+		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
+		navigationController?.pushViewController(vc, animated: true)
+	}
 
 	override func tableView(
 		_ tableView: UITableView,
@@ -193,58 +199,80 @@ extension ExposureNotificationSettingViewController {
 	) -> UITableViewCell {
 		let section = indexPath.section
 		let content = model.content[section]
-		if let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell {
-			switch content {
-			case .banner:
-				cell.configure(for: enState)
-			case .actionCell:
-				if let lastActionCell = lastActionCell {
-					return lastActionCell
-				}
-				if let cell = cell as? ActionCell {
-					cell.configure(for: enState, delegate: self)
-					lastActionCell = cell
-				}
-			case .tracingCell, .actionDetailCell:
-				switch enState {
-				case .enabled, .disabled:
-					let tracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
-					if let tracingCell = tracingCell as? TracingHistoryTableViewCell {
-						let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
-							(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
-							(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-						let activeTracing = store.tracingStatusHistory.activeTracing()
-						let text = [
-							activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
-							activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
-							.joined(separator: "\n\n")
 
-						let numberOfDaysWithActiveTracing = activeTracing.inDays
-						let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
-						let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
-
-						tracingCell.configure(
-							progress: CGFloat(numberOfDaysWithActiveTracing),
-							title: title,
-							subtitle: subtitle,
-							text: text,
-							colorConfigurationTuple: colorConfig
-						)
-						return tracingCell
-					}
-				case .bluetoothOff, .internetOff, .restricted, .notAuthorized, .unknown:
-					if let cell = cell as? ActionCell {
-						cell.configure(for: enState, delegate: self)
-					}
-				}
-			case .descriptionCell:
-				cell.configure(for: enState)
-			}
-			return cell
-		} else {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell else {
 			return UITableViewCell()
 		}
+
+		switch content {
+		case .banner:
+			cell.configure(for: enState)
+		case .actionCell:
+			if let lastActionCell = lastActionCell {
+				return lastActionCell
+			}
+			if let cell = cell as? ActionCell {
+				cell.configure(for: enState, delegate: self)
+				lastActionCell = cell
+			}
+		case .euTracingCell:
+			return euTracingCell(for: indexPath, in: tableView)
+		case .tracingCell, .actionDetailCell:
+			switch enState {
+			case .enabled, .disabled:
+				return tracingCell(for: indexPath, in: tableView)
+			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
+				(cell as? ActionCell)?.configure(for: enState, delegate: self)
+			}
+		case .descriptionCell:
+			cell.configure(for: enState)
+		}
+
+		return cell
 	}
+
+	// MARK: - Private
+
+	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
+		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
+			return UITableViewCell()
+		}
+
+		euTracingCell.configure()
+		return euTracingCell
+	}
+
+	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
+		guard let tracingCell = dequeuedTracingCell as? TracingHistoryTableViewCell else {
+			return UITableViewCell()
+		}
+
+		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
+			(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
+			(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
+		let activeTracing = store.tracingStatusHistory.activeTracing()
+		let text = [
+			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
+			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
+			.joined(separator: "\n\n")
+
+		let numberOfDaysWithActiveTracing = activeTracing.inDays
+		let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
+		let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
+
+		tracingCell.configure(
+			progress: CGFloat(numberOfDaysWithActiveTracing),
+			title: title,
+			subtitle: subtitle,
+			text: text,
+			colorConfigurationTuple: colorConfig
+		)
+
+		return tracingCell
+	}
+
 }
 
 extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
@@ -264,6 +292,7 @@ extension ExposureNotificationSettingViewController {
 	fileprivate enum ReusableCellIdentifier: String {
 		case banner
 		case actionCell
+		case euTracingCell
 		case tracingCell
 		case actionDetailCell
 		case descriptionCell
@@ -277,6 +306,8 @@ private extension ENSettingModel.Content {
 			return .banner
 		case .actionCell:
 			return .actionCell
+		case .euTracingCell:
+			return .euTracingCell
 		case .tracingCell:
 			return .tracingCell
 		case .actionDetailCell:
@@ -290,7 +321,7 @@ private extension ENSettingModel.Content {
 // MARK: ENStateHandler Updating
 extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
 	func updateEnState(_ enState: ENStateHandler.State) {
-		log(message: "Get the new state: \(enState)")
+		Log.info("Get the new state: \(enState)", log: .api)
 		self.enState = enState
 		lastActionCell?.configure(for: enState, delegate: self)
 		self.tableView.reloadData()

@@ -1,29 +1,12 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
 
 class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
 
-	// MARK: - Attributes.
-
-	private(set) weak var coordinator: ExposureSubmissionCoordinating?
-
-	// MARK: - Initializers.
+	// MARK: - Init
 
 	init?(coder: NSCoder, coordinator: ExposureSubmissionCoordinating) {
 		self.coordinator = coordinator
@@ -35,38 +18,45 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	// MARK: - View lifecycle methods.
+	// MARK: - Overrides
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setUpView()
+		title = AppStrings.ExposureSubmissionHotline.title
+		setupTableView()
+		setupBackButton()
+		
+		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
+		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		setupButtons()
 	}
-
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 	}
 
-	// MARK: - View setup.
-
-	private func setUpView() {
-		title = AppStrings.ExposureSubmissionHotline.title
-		setupButtons()
-		setupTableView()
-		setupBackButton()
+	override var navigationItem: UINavigationItem {
+		navigationFooterItem
 	}
 
-	private func setupButtons() {
-		navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
-		navigationFooterItem?.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
-		navigationFooterItem?.isSecondaryButtonHidden = false
-	}
-
-	// MARK: - Data setup.
+	// MARK: - Private
+	
+	private(set) weak var coordinator: ExposureSubmissionCoordinating?
+	
+	private lazy var navigationFooterItem: ENANavigationFooterItem = {
+		let item = ENANavigationFooterItem()
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		item.isPrimaryButtonEnabled = true
+		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
+		item.isSecondaryButtonEnabled = true
+		item.isSecondaryButtonHidden = false
+		footerView?.isHidden = false
+		item.title = AppStrings.ExposureSubmissionHotline.title
+		return item
+	}()
 
 	private func setupTableView() {
 		tableView.delegate = self
@@ -80,7 +70,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
 								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
 					cells: [
-						.body(text: AppStrings.ExposureSubmissionHotline.description,
+						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
 							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
 								cell.textLabel?.accessibilityTraits = .header
 						}
@@ -94,7 +84,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							icon: UIImage(named: "Icons_Grey_1"),
-							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1,
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel1 + " " + AppStrings.ExposureSubmissionHotline.sectionDescription1,
 							hairline: .iconAttached,
 							bottomSpacing: .normal
 						),
@@ -102,13 +92,16 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .headline,
 							color: .enaColor(for: .textTint),
 							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.callButtonTitle,
+							accessibilityTraits: [.button],
 							hairline: .topAttached,
 							bottomSpacing: .normal,
-							action: .execute { [weak self] _ in self?.callHotline() }
+							action: .execute { [weak self] _, _ in self?.callHotline() }
 						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .footnote,
 							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
 							hairline: .topAttached,
 							bottomSpacing: .large
 						),
@@ -116,7 +109,7 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							icon: UIImage(named: "Icons_Grey_2"),
-							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2,
+							iconAccessibilityLabel: AppStrings.ExposureSubmissionHotline.iconAccessibilityLabel2 + " " + AppStrings.ExposureSubmissionHotline.sectionDescription2,
 							hairline: .none
 						)
 					])
@@ -145,7 +138,7 @@ extension ExposureSubmissionHotlineViewController {
 	}
 
 	private func callHotline() {
-		if let url = URL(string: "telprompt:\(AppStrings.ExposureSubmission.hotlineNumber)") {
+		if let url = URL(string: "https://www.nijz.si/koda") {
 			if UIApplication.shared.canOpenURL(url) {
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}

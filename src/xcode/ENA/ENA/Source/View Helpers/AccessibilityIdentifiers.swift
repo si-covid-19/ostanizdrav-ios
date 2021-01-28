@@ -1,20 +1,6 @@
 //
-// Corona-Warn-App
+// 🦠 Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 enum AccessibilityIdentifiers {
 
@@ -24,6 +10,7 @@ enum AccessibilityIdentifiers {
 		static let descriptionText1 = "AppStrings.ExposureNotificationSetting.descriptionText1"
 		static let descriptionText2 = "AppStrings.ExposureNotificationSetting.descriptionText2"
 		static let descriptionText3 = "AppStrings.ExposureNotificationSetting.descriptionText3"
+		static let descriptionText4 = "AppStrings.ExposureNotificationSetting.descriptionText4"
 		static let enableTracing = "AppStrings.ExposureNotificationSetting.enableTracing"
 	}
 
@@ -34,18 +21,18 @@ enum AccessibilityIdentifiers {
 	}
 
 	enum RiskCollectionViewCell {
-		static let topContainer =  "RiskLevelCollectionViewCell.topContainer"
+		static let topContainer = "RiskLevelCollectionViewCell.topContainer"
 		static let bodyLabel = "RiskLevelCollectionViewCell.bodyLabel"
-		static let detectionIntervalLabel =  "RiskLevelCollectionViewCell.detectionIntervalLabel"
+		static let detectionIntervalLabel = "RiskLevelCollectionViewCell.detectionIntervalLabel"
 		static let updateButton = "RiskLevelCollectionViewCell.updateButton"
 	}
 
 	enum Home {
 		static let submitCardButton = "AppStrings.Home.submitCardButton"
+		static let diaryCardButton = "AppStrings.Home.diaryCardButton"
 		static let activateCardOnTitle = "AppStrings.Home.activateCardOnTitle"
 		static let activateCardOffTitle = "AppStrings.Home.activateCardOffTitle"
 		static let activateCardBluetoothOffTitle = "AppStrings.Home.activateCardBluetoothOffTitle"
-		static let activateCardInternetOffTitle = "AppStrings.Home.activateCardInternetOffTitle"
 		static let riskCardIntervalUpdateTitle = "AppStrings.Home.riskCardIntervalUpdateTitle"
 		static let resultCardShowResultButton = "AppStrings.Home.resultCardShowResultButton"
 		static let leftBarButtonDescription = "AppStrings.Home.leftBarButtonDescription"
@@ -54,7 +41,15 @@ enum AccessibilityIdentifiers {
 		static let infoCardAboutTitle = "AppStrings.Home.infoCardAboutTitle"
 		static let appInformationCardTitle = "AppStrings.Home.appInformationCardTitle"
 		static let settingsCardTitle = "AppStrings.Home.settingsCardTitle"
+		static let thankYouCard = "AppStrings.Home.thankYouCard"
+	}
 
+	enum ContactDiaryInformation {
+		static let imageDescription = "AppStrings.ContactDiaryInformation.imageDescription"
+		static let descriptionTitle = "AppStrings.ContactDiaryInformation.descriptionTitle"
+		static let descriptionSubHeadline = "AppStrings.ContactDiaryInformation.descriptionSubHeadline"
+		static let dataPrivacyTitle = "AppStrings.ContactDiaryInformation.dataPrivacyTitle"
+		static let legal_1 = "AppStrings.ContactDiaryInformation.legalHeadline_1"
 	}
 
 	enum Onboarding {
@@ -81,11 +76,11 @@ enum AccessibilityIdentifiers {
 		static let legend2RiskLevels = "AppStrings.RiskLegend.legend2RiskLevels"
 		static let legend2High = "AppStrings.RiskLegend.legend2High"
 		static let legend2LowColor = "AppStrings.RiskLegend.legend2LowColor"
-		static let legend2UnknownColor = "AppStrings.RiskLegend.legend2UnknownColor"
+		static let legend2MediumColor = "AppStrings.RiskLegend.legend2MediumColor"
 		static let legend3Text = "AppStrings.RiskLegend.legend3Text"
 		static let definitionsTitle = "AppStrings.RiskLegend.definitionsTitle"
 		static let storeTitle = "AppStrings.RiskLegend.storeTitle"
-		static let storeText =  "AppStrings.RiskLegend.storeText"
+		static let storeText = "AppStrings.RiskLegend.storeText"
 		static let checkTitle = "AppStrings.RiskLegend.checkTitle"
 		static let checkText = "AppStrings.RiskLegend.checkText"
 		static let contactTitle = "AppStrings.RiskLegend.contactTitle"
@@ -99,7 +94,9 @@ enum AccessibilityIdentifiers {
 	enum Settings {
 		static let tracingLabel = "AppStrings.Settings.tracingLabel"
 		static let notificationLabel = "AppStrings.Settings.notificationLabel"
+		static let backgroundAppRefreshLabel = "AppStrings.Settings.backgroundAppRefreshLabel"
 		static let resetLabel = "AppStrings.Settings.resetLabel"
+		static let backgroundAppRefreshImageDescription = "AppStrings.Settings.backgroundAppRefreshImageDescription"
 	}
 
 	enum AppInformation {
@@ -114,6 +111,8 @@ enum AccessibilityIdentifiers {
 		static let aboutTitle = "AppStrings.AppInformation.aboutTitle"
 		static let aboutDescription = "AppStrings.AppInformation.aboutDescription"
 		static let aboutText = "AppStrings.AppInformation.aboutText"
+		static let aboutLink = "AppStrings.AppInformation.aboutLink"
+		static let aboutLinkText = "AppStrings.AppInformation.aboutLinkText"
 		static let contactImageDescription = "AppStrings.AppInformation.contactImageDescription"
 		static let contactTitle = "AppStrings.AppInformation.contactTitle"
 		static let contactDescription = "AppStrings.AppInformation.contactDescription"
@@ -141,14 +140,32 @@ enum AccessibilityIdentifiers {
 		static let explanationTextOff = "AppStrings.ExposureDetection.explanationTextOff"
 		static let explanationTextOutdated = "AppStrings.ExposureDetection.explanationTextOutdated"
 		static let explanationTextUnknown = "AppStrings.ExposureDetection.explanationTextUnknown"
-		static let explanationTextLow = "AppStrings.ExposureDetection.explanationTextLow"
+		static let explanationTextLowNoEncounter = "AppStrings.ExposureDetection.explanationTextLowNoEncounter"
+		static let explanationTextLowWithEncounter = "AppStrings.ExposureDetection.explanationTextLowWithEncounter"
 		static let explanationTextHigh = "AppStrings.ExposureDetection.explanationTextHigh"
 
-		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSection"
+		static let activeTracingSectionText = "AppStrings.ExposureDetection.activeTracingSectionText"
+		static let activeTracingSection = "AppStrings.ExposureDetection.activeTracingSection"
+		static let lowRiskExposureSection = "AppStrings.ExposureDetection.lowRiskExposureSection"
+		static let infectionRiskExplanationSection = "AppStrings.ExposureDetection.infectionRiskExplanationSection"
+	}
+
+	enum ExposureSubmissionQRScanner {
+		static let flash = "AppStrings.ExposureSubmissionQRScanner.flash"
+	}
+
+	enum ExposureSubmissionQRInfo {
+		static let headerSection1 = "AppStrings.ExposureSubmissionQRInfo.headerSection1"
+		static let headerSection2 = "AppStrings.ExposureSubmissionQRInfo.headerSection2"
+		static let acknowledgementTitle = "ExposureSubmissionQRInfo_acknowledgement_title"
+		static let countryList = "ExposureSubmissionQRInfo_countryList"
+		static let dataProcessingDetailInfo = "AppStrings.AutomaticSharingConsent.dataProcessingDetailInfo"
 	}
 
 	enum ExposureSubmissionDispatch {
 		static let description = "AppStrings.ExposureSubmissionDispatch.description"
+		static let sectionHeadline = "AppStrings.ExposureSubmission_DispatchSectionHeadline"
+		static let sectionHeadline2 = "AppStrings.ExposureSubmission_DispatchSectionHeadline2"
 		static let qrCodeButtonDescription = "AppStrings.ExposureSubmissionDispatch.qrCodeButtonDescription"
 		static let tanButtonDescription = "AppStrings.ExposureSubmissionDispatch.tanButtonDescription"
 		static let hotlineButtonDescription = "AppStrings.ExposureSubmissionDispatch.hotlineButtonDescription"
@@ -157,6 +174,26 @@ enum AccessibilityIdentifiers {
 	enum ExposureSubmissionResult {
 		static let procedure = "AppStrings.ExposureSubmissionResult.procedure"
 		static let furtherInfos_Title = "AppStrings.ExposureSubmissionResult.furtherInfos_Title"
+		static let warnOthersConsentGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentGiven"
+		static let warnOthersConsentNotGivenCell = "AppStrings.ExposureSubmissionResult.warnOthersConsentNotGiven"
+	}
+	
+	enum ExposureSubmissionPositiveTestResult {
+		static let noConsentTitle = "TestResultPositive_NoConsent_Title"
+		static let noConsentInfo1 = "TestResultPositive_NoConsent_Info1"
+		static let noConsentInfo2 = "TestResultPositive_NoConsent_Info2"
+		static let noConsentInfo3 = "TestResultPositive_NoConsent_Info3"
+		static let noConsentPrimaryButtonTitle = "TestResultPositive_NoConsent_PrimaryButton"
+		static let noConsentSecondaryButtonTitle = "TestResultPositive_NoConsent_SecondaryButton"
+		static let noConsentAlertTitle = "TestResultPositive_NoConsent_AlertNotWarnOthers_Title"
+		static let noConsentAlertDescription = "TestResultPositive_NoConsent_AlertNotWarnOthers_Description"
+		static let noConsentAlertButton1 = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne"
+		static let noConsentAlertButton2 = "TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo"
+		static let withConsentTitle = "TestResultPositive_WithConsent_Title"
+		static let withConsentInfo1 = "TestResultPositive_WithConsent_Info1"
+		static let withConsentInfo2 = "TestResultPositive_WithConsent_Info2"
+		static let withConsentPrimaryButtonTitle = "TestResultPositive_WithConsent_PrimaryButton"
+		static let withConsentSecondaryButtonTitle = "TestResultPositive_WithConsent_SecondaryButton"
 	}
 
 	enum ExposureSubmissionSuccess {
@@ -170,6 +207,9 @@ enum AccessibilityIdentifiers {
 		static let imageDescription = "AppStrings.ExposureSubmissionHotline.imageDescription"
 		static let description = "AppStrings.ExposureSubmissionHotline.description"
 		static let sectionTitle = "AppStrings.ExposureSubmissionHotline.sectionTitle"
+		static let primaryButton = "AppStrings.ExposureSubmissionHotline.callButtonTitle"
+		static let secondaryButton = "AppStrings.ExposureSubmissionHotline.tanInputButtonTitle"
+
 	}
 
 	enum ExposureSubmissionIntroduction {
@@ -177,15 +217,65 @@ enum AccessibilityIdentifiers {
 		static let usage01 = "AppStrings.ExposureSubmissionIntroduction.usage01"
 		static let usage02 = "AppStrings.ExposureSubmissionIntroduction.usage02"
 	}
+	
+	enum ExposureSubmissionSymptoms {
+		static let description = "AppStrings.ExposureSubmissionSymptoms.description"
+		static let introduction = "AppStrings.ExposureSubmissionSymptoms.introduction"
+		static let answerOptionYes = "AppStrings.ExposureSubmissionSymptoms.answerOptionYes"
+		static let answerOptionNo = "AppStrings.ExposureSubmissionSymptoms.answerOptionNo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptoms.answerOptionPreferNotToSay"
+	}
+
+	enum ExposureSubmissionSymptomsOnset {
+		static let description = "AppStrings.ExposureSubmissionSymptomsOnset.description"
+		static let answerOptionExactDate = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionExactDate"
+		static let answerOptionLastSevenDays = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionLastSevenDays"
+		static let answerOptionOneToTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionOneToTwoWeeksAgo"
+		static let answerOptionMoreThanTwoWeeksAgo = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionMoreThanTwoWeeksAgo"
+		static let answerOptionPreferNotToSay = "AppStrings.ExposureSubmissionSymptomsOnset.answerOptionPreferNotToSay"
+	}
 
 	enum ExposureSubmissionWarnOthers {
 		static let accImageDescription = "AppStrings.ExposureSubmissionWarnOthers.accImageDescription"
 		static let sectionTitle = "AppStrings.ExposureSubmissionWarnOthers.sectionTitle"
 		static let description = "AppStrings.ExposureSubmissionWarnOthers.description"
 	}
+	
+	enum DeltaOnboarding {
+		static let accImageDescription = "AppStrings.DeltaOnboarding.accImageLabel"
+		static let sectionTitle = "AppStrings.DeltaOnboarding.title"
+		static let description = "AppStrings.DeltaOnboarding.description"
+		static let downloadInfo = "AppStrings.DeltaOnboarding.downloadInfo"
+		static let participatingCountriesListUnavailable = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailable"
+		static let participatingCountriesListUnavailableTitle = "AppStrings.DeltaOnboarding.participatingCountriesListUnavailableTitle"
+		static let primaryButton = "AppStrings.DeltaOnboarding.primaryButton"
+	}
+
+	enum ExposureSubmissionWarnEuropeConsent {
+		static let imageDescription = "AppStrings.ExposureSubmissionWarnEuropeConsent.imageDescription"
+		static let sectionTitle = "AppStrings.ExposureSubmissionWarnEuropeConsent.sectionTitle"
+		static let consentSwitch = "AppStrings.ExposureSubmissionWarnEuropeConsent.consentSwitch"
+	}
+
+	enum ExposureSubmissionWarnEuropeTravelConfirmation {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let optionYes = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionYes"
+		static let optionNo = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNo"
+		static let optionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.optionNone"
+	}
+
+	enum ExposureSubmissionWarnEuropeCountrySelection {
+		static let description1 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description1"
+		static let description2 = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.description2"
+		static let answerOptionCountry = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionCountry"
+		static let answerOptionOtherCountries = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionOtherCountries"
+		static let answerOptionNone = "AppStrings.ExposureSubmissionWarnEuropeTravelConfirmation.answerOptionNone"
+	}
 
 	enum ExposureSubmission {
-		static let continueText = "AppStrings.ExposureSubmission.continueText"
+		static let primaryButton = "AppStrings.ExposureSubmission.primaryButton"
+		static let secondaryButton = "AppStrings.ExposureSubmission.secondaryButton"
 	}
 
 	enum Reset {
@@ -203,6 +293,19 @@ enum AccessibilityIdentifiers {
 	enum General {
 		static let exposureSubmissionNavigationControllerTitle = "ExposureSubmissionNavigationController"
 		static let image = "ExposureSubmissionIntroViewController.image"
+
+		static let primaryFooterButton = "General.primaryFooterButton"
+		static let secondaryFooterButton = "General.secondaryFooterButton"
+		static let cancelButton = "General.cancelButton"
+		static let defaultButton = "General.defaultButton"
+	}
+
+	enum DatePickerOption {
+		static let day = "AppStrings.DatePickerOption.day"
+	}
+	
+	enum ThankYouScreen {
+		static let accImageDescription = "AppStrings.ThankYouScreen.accImageDescription"
 	}
 
 }

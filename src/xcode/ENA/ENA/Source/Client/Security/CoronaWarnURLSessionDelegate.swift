@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors /
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -55,13 +40,13 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			func accept() { completionHandler(.useCredential, URLCredential(trust: trust)) }
 
 			guard isValid else {
-				logError(message: "Server certificate is not valid. Rejecting challenge!")
+				Log.error("Server certificate is not valid. Rejecting challenge!", log: .api)
 				reject()
 				return
 			}
 
 			guard error == nil else {
-				logError(message: "Encountered error when evaluating server trust challenge, rejecting!")
+				Log.error("Encountered error when evaluating server trust challenge, rejecting!", log: .api)
 				reject()
 				return
 			}
@@ -73,7 +58,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 				SecTrustEvaluateWithError(trust, nil),
 				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 0)
 			else {
-				logError(message: "Could not trust or get certificate, rejecting!")
+				Log.error("Could not trust or get certificate, rejecting!", log: .api)
 				reject()
 				return
 			}
@@ -82,7 +67,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 				let remotePublicKey = SecCertificateCopyKey(remoteCertificate),
 				let remotePublicKeyData = SecKeyCopyExternalRepresentation(remotePublicKey, nil) as Data?
 			else {
-				logError(message: "Failed to get the remote server's public key!")
+				Log.error("Failed to get the remote server's public key!", log: .api)
 				reject()
 				return
 			}
@@ -90,7 +75,7 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 			let hashedRemotePublicKey = self.sha256ForRSA2048(data: remotePublicKeyData)
 			// We simply compare the two hashed keys, and reject the challenge if they do not match
 			guard hashedRemotePublicKey == localPublicKey else {
-				logError(message: "The server's public key did not match what we expected!")
+				Log.error("The server's public key did not match what we expected!", log: .api)
 				reject()
 				return
 			}

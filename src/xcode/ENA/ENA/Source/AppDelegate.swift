@@ -1,75 +1,116 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
-import BackgroundTasks
+import Combine
 import ExposureNotification
 import FMDB
 import UIKit
 
 protocol CoronaWarnAppDelegate: AnyObject {
 	var client: HTTPClient { get }
+	var wifiClient: WifiOnlyHTTPClient { get }
 	var downloadedPackagesStore: DownloadedPackagesStore { get }
 	var store: Store { get }
+	var appConfigurationProvider: AppConfigurationProviding { get }
 	var riskProvider: RiskProvider { get }
 	var exposureManager: ExposureManager { get }
 	var taskScheduler: ENATaskScheduler { get }
-	var lastRiskCalculation: String { get set } // TODO: REMOVE ME
+	var serverEnvironment: ServerEnvironment { get }
+	var contactDiaryStore: ContactDiaryStoreV1 { get }
 }
 
 extension AppDelegate: CoronaWarnAppDelegate {
-	// required - otherwise app will crash because cast will fails
+	// required - otherwise app will crash because cast will fail.
 }
 
-extension AppDelegate: ExposureSummaryProvider {
-	func detectExposure(completion: @escaping (ENExposureDetectionSummary?) -> Void) {
-		exposureDetection = ExposureDetection(delegate: exposureDetectionExecutor)
-		exposureDetection?.start { result in
-			switch result {
-			case .success(let summary):
-				completion(summary)
-			case .failure(let error):
-				self.showError(exposure: error)
-				completion(nil)
-			}
-		}
-	}
+extension AppDelegate {
 
-	private func showError(exposure didEndPrematurely: ExposureDetection.DidEndPrematurelyReason) {
-
+	func showError(_ riskProviderError: RiskProviderError) {
 		guard
 			let scene = UIApplication.shared.connectedScenes.first,
 			let delegate = scene.delegate as? SceneDelegate,
-			let rootController = delegate.window?.rootViewController,
-			let alert = didEndPrematurely.errorAlertController(rootController: rootController)
+			let rootController = delegate.window?.rootViewController
 		else {
 			return
 		}
 
-		func _showError() {
+		guard let alert = makeErrorAlert(
+				riskProviderError: riskProviderError,
+				rootController: rootController
+		) else {
+			return
+		}
+
+		func presentAlert() {
 			rootController.present(alert, animated: true, completion: nil)
 		}
 
 		if rootController.presentedViewController != nil {
 			rootController.dismiss(
 				animated: true,
-				completion: _showError
+				completion: presentAlert
 			)
 		} else {
-			rootController.present(alert, animated: true, completion: nil)
+			presentAlert()
+		}
+	}
+
+	private func makeErrorAlert(riskProviderError: RiskProviderError, rootController: UIViewController) -> UIAlertController? {
+		switch riskProviderError {
+		case .failedRiskDetection(let didEndPrematurelyReason):
+			switch didEndPrematurelyReason {
+			case let .noExposureWindows(error):
+				return makeAlertController(
+					noExposureWindowsError: error,
+					localizedDescription: didEndPrematurelyReason.localizedDescription,
+					rootController: rootController
+				)
+			case .wrongDeviceTime:
+				return rootController.setupErrorAlert(message: didEndPrematurelyReason.localizedDescription)
+			default:
+				return nil
+			}
+		case .failedKeyPackageDownload(let downloadError):
+			switch downloadError {
+			case .noDiskSpace:
+				return rootController.setupErrorAlert(message: downloadError.description)
+			default:
+				return nil
+			}
+		default:
+			return nil
+		}
+	}
+
+	private func makeAlertController(noExposureWindowsError: Error?, localizedDescription: String, rootController: UIViewController) -> UIAlertController? {
+
+		if let enError = noExposureWindowsError as? ENError {
+			switch enError.code {
+			case .dataInaccessible:
+				return nil
+			default:
+				let openFAQ: (() -> Void)? = {
+					guard let url = enError.faqURL else { return nil }
+					return {
+						UIApplication.shared.open(url, options: [:])
+					}
+				}()
+				return rootController.setupErrorAlert(
+					message: localizedDescription,
+					secondaryActionTitle: AppStrings.Common.errorAlertActionMoreInfo,
+					secondaryActionCompletion: openFAQ
+				)
+			}
+		} else if let exposureDetectionError = noExposureWindowsError as? ExposureDetectionError {
+			switch exposureDetectionError {
+			case .isAlreadyRunning:
+				return nil
+			}
+		} else {
+			return rootController.setupErrorAlert(
+				message: localizedDescription
+			)
 		}
 	}
 }
@@ -77,29 +118,61 @@ extension AppDelegate: ExposureSummaryProvider {
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	//TODO: Handle it
-	var store: Store = SecureStore(subDirectory: "database")
-	
-	private let consumer = RiskConsumer()
+	let store: Store
+	let contactDiaryStore = ContactDiaryStoreV1.make()
+	let serverEnvironment: ServerEnvironment
+
 	let taskScheduler: ENATaskScheduler = ENATaskScheduler.shared
+	let backgroundTaskConsumer = RiskConsumer()
+
+	lazy var appConfigurationProvider: AppConfigurationProviding = {
+		#if DEBUG
+		if isUITesting {
+			// provide a static app configuration for ui tests to prevent validation errors
+			let mockConfig = isScreenshotMode ?
+				CachedAppConfigurationMock.screenshotConfiguration :
+				CachedAppConfigurationMock.defaultAppConfiguration
+			return CachedAppConfigurationMock(with: mockConfig)
+		}
+		#endif
+		// use a custom http client that uses/recognized caching mechanisms
+		let appFetchingClient = CachingHTTPClient(clientConfiguration: client.configuration)
+		
+		let provider = CachedAppConfiguration(client: appFetchingClient, store: store)
+		// used to remove invalidated key packages
+		provider.packageStore = downloadedPackagesStore
+		return provider
+	}()
 
 	lazy var riskProvider: RiskProvider = {
-		let exposureDetectionInterval = self.store.hourlyFetchingEnabled ? DateComponents(minute: 45) : DateComponents(hour: 24)
-
-		let config = RiskProvidingConfiguration(
-			exposureDetectionValidityDuration: DateComponents(day: 2),
-			exposureDetectionInterval: exposureDetectionInterval,
-			detectionMode: .default
+		let keyPackageDownload = KeyPackageDownload(
+			downloadedPackagesStore: downloadedPackagesStore,
+			client: client,
+			wifiClient: wifiClient,
+			store: store
 		)
 
-
+		#if !RELEASE
 		return RiskProvider(
-			configuration: config,
-			store: self.store,
-			exposureSummaryProvider: self,
-			appConfigurationProvider: CachedAppConfiguration(client: self.client),
-			exposureManagerState: self.exposureManager.preconditions()
+			configuration: .default,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			riskCalculation: DebugRiskCalculation(riskCalculation: RiskCalculation(), store: store),
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
 		)
+		#else
+		return RiskProvider(
+			configuration: .default,
+			store: store,
+			appConfigurationProvider: appConfigurationProvider,
+			exposureManagerState: exposureManager.exposureManagerState,
+			keyPackageDownload: keyPackageDownload,
+			exposureDetectionExecutor: exposureDetectionExecutor
+		)
+		#endif
+
 	}()
 
 	#if targetEnvironment(simulator) || COMMUNITY
@@ -114,14 +187,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	#endif
 
 	private var exposureDetection: ExposureDetection?
-	private var exposureSubmissionService: ENAExposureSubmissionService?
+	private let consumer = RiskConsumer()
 
 	let downloadedPackagesStore: DownloadedPackagesStore = DownloadedPackagesSQLLiteStore(fileName: "packages")
 
-	var client = HTTPClient(configuration: .backendBaseURLs)
-
-	// TODO: REMOVE ME
-	var lastRiskCalculation: String = ""
+	let client: HTTPClient
+	let wifiClient: WifiOnlyHTTPClient
 
 	private lazy var exposureDetectionExecutor: ExposureDetectionExecutor = {
 		ExposureDetectionExecutor(
@@ -132,14 +203,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		)
 	}()
 
+	override init() {
+		self.serverEnvironment = ServerEnvironment()
+
+		self.store = SecureStore(subDirectory: "database", serverEnvironment: serverEnvironment)
+
+		let configuration = HTTPClient.Configuration.makeDefaultConfiguration(store: store)
+		self.client = HTTPClient(configuration: configuration)
+		self.wifiClient = WifiOnlyHTTPClient(configuration: configuration)
+
+		downloadedPackagesStore.keyValueStore = self.store
+	}
+
 	func application(
 		_: UIApplication,
 		didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
 	) -> Bool {
+
 		UIDevice.current.isBatteryMonitoringEnabled = true
 
 		taskScheduler.delegate = self
 
+		// Setup DeadmanNotification after AppLaunch
+		UNUserNotificationCenter.current().scheduleDeadmanNotificationIfNeeded()
+
+		consumer.didFailCalculateRisk = { [weak self] error in
+			self?.showError(error)
+		}
 		riskProvider.observeRisk(consumer)
 
 		return true
@@ -156,72 +246,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(_: UIApplication, didDiscardSceneSessions _: Set<UISceneSession>) {}
-}
-
-extension AppDelegate: ENATaskExecutionDelegate {
-
-	/// This method executes the background tasks needed for: a) fetching test results and b) performing exposure detection requests
-	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-		executeFetchTestResults(task: task) { fetchTestResultSuccess in
-
-			// NOTE: We are currently fetching the test result first, and then execute
-			// the exposure detection check. Instead of implementing this behaviour in the completion handler,
-			// queues could be used as well. Due to time/resource constraints, we settled for this option.
-			self.executeExposureDetectionRequest(task: task) { exposureDetectionSuccess in
-				completion(fetchTestResultSuccess && exposureDetectionSuccess)
-			}
-		}
-	}
-
-	/// This method executes a  test result fetch, and if it is successful, and the test result is different from the one that was previously
-	/// part of the app, a local notification is shown.
-	/// NOTE: This method will always return true.
-	private func executeFetchTestResults(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-
-		exposureSubmissionService = ENAExposureSubmissionService(diagnosiskeyRetrieval: exposureManager, client: client, store: store)
-
-		if store.registrationToken != nil && store.testResultReceivedTimeStamp == nil {
-			self.exposureSubmissionService?.getTestResult { result in
-				switch result {
-				case .failure(let error):
-					logError(message: error.localizedDescription)
-				case .success(let testResult):
-					if testResult != .pending {
-						UNUserNotificationCenter.current().presentNotification(
-							title: AppStrings.LocalNotifications.testResultsTitle,
-							body: AppStrings.LocalNotifications.testResultsBody,
-							identifier: task.identifier
-						)
-					}
-				}
-
-				completion(true)
-			}
-		} else {
-			completion(true)
-		}
-
-	}
-
-	/// This method performs a check for the current exposure detection state. Only if the risk level has changed compared to the
-	/// previous state, a local notification is shown.
-	/// NOTE: This method will always return true.
-	private func executeExposureDetectionRequest(task: BGTask, completion: @escaping ((Bool) -> Void)) {
-
-		let detectionMode = DetectionMode.fromBackgroundStatus()
-		riskProvider.configuration.detectionMode = detectionMode
-
-		riskProvider.requestRisk(userInitiated: false) { risk in
-			// present a notification if the risk score has increased.
-			if let risk = risk,
-				risk.riskLevelHasChanged {
-				UNUserNotificationCenter.current().presentNotification(
-					title: AppStrings.LocalNotifications.detectExposureTitle,
-					body: AppStrings.LocalNotifications.detectExposureBody,
-					identifier: task.identifier
-				)
-			}
-			completion(true)
-		}
-	}
 }

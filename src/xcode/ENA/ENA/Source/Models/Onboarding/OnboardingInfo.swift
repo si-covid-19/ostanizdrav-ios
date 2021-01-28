@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 
@@ -29,7 +16,10 @@ struct OnboardingInfo {
 	var stateDeactivated: String?
 	var boldText: String
 	var text: String
+	var link: String
+	var linkDisplayText: String
 	var actionText: String
+	var alternativeActionText: String
 	var ignoreText: String
 	var titleAccessibilityIdentifier: String?
 	var imageAccessibilityIdentifier: String?
@@ -46,7 +36,10 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_normalText,
+			link: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_link,
+			linkDisplayText: AppStrings.Onboarding.onboardingInfo_togetherAgainstCoronaPage_linkText,
 			actionText: AppStrings.Onboarding.onboardingLetsGo,
+			alternativeActionText: "",
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_togetherAgainstCoronaPage_title,
 			imageAccessibilityIdentifier:
@@ -62,7 +55,10 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_privacyPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_privacyPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
+			alternativeActionText: "",
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_title,
 			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_imageDescription,
@@ -82,7 +78,10 @@ extension OnboardingInfo {
 			stateDeactivated: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_stateDeactivated,
 			boldText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingInfo_enableLoggingOfContactsPage_button,
+			alternativeActionText: AppStrings.Onboarding.onboardingContinue,
 			ignoreText: AppStrings.Onboarding.onboardingDoNotActivate,
 			titleAccessibilityIdentifier:
 			AccessibilityIdentifiers.Onboarding.onboardingInfo_privacyPage_title,
@@ -98,7 +97,10 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
+			alternativeActionText: "",
 			ignoreText: "",
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_title,
 			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_howDoesDataExchangeWorkPage_imageDescription,
@@ -113,7 +115,10 @@ extension OnboardingInfo {
 			showState: false,
 			boldText: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_boldText,
 			text: AppStrings.Onboarding.onboardingInfo_alwaysStayInformedPage_normalText,
+			link: "",
+			linkDisplayText: "",
 			actionText: AppStrings.Onboarding.onboardingContinue,
+			alternativeActionText: "",
 			ignoreText: AppStrings.Onboarding.onboardingDoNotAllow,
 			titleAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_title,
 			imageAccessibilityIdentifier: AccessibilityIdentifiers.Onboarding.onboardingInfo_alwaysStayInformedPage_imageDescription,

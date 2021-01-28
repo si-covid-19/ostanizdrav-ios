@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import BackgroundTasks
 import ExposureNotification
@@ -30,7 +17,7 @@ enum ENATaskIdentifier: String, CaseIterable {
 }
 
 protocol ENATaskExecutionDelegate: AnyObject {
-	func executeENABackgroundTask(task: BGTask, completion: @escaping ((Bool) -> Void))
+	func executeENABackgroundTask(completion: @escaping ((Bool) -> Void))
 }
 
 /// - NOTE: To simulate the execution of a background task, use the following:
@@ -59,13 +46,18 @@ final class ENATaskScheduler {
 		let identifierString = taskIdentifier.backgroundTaskSchedulerIdentifier
 		BGTaskScheduler.shared.register(forTaskWithIdentifier: identifierString, using: .main) { task in
 			self.scheduleTask()
+			let backgroundTask = DispatchWorkItem {
+				execute(task)
+			}
+
 			task.expirationHandler = {
-				logError(message: "ERROR: Task has expired.")
 				self.scheduleTask()
+				backgroundTask.cancel()
+				Log.error("Task has expired.", log: .api)
 				task.setTaskCompleted(success: false)
 			}
-			// Make sure to set expiration handler before doing any work.
-			execute(task)
+
+			DispatchQueue.global().async(execute: backgroundTask)
 		}
 	}
 
@@ -79,15 +71,16 @@ final class ENATaskScheduler {
 			taskRequest.earliestBeginDate = nil
 			try BGTaskScheduler.shared.submit(taskRequest)
 		} catch {
-			logError(message: "ERROR: scheduleTask() could NOT submit task request: \(error)")
+			Log.error("ERROR: scheduleTask() could NOT submit task request: \(error)", log: .api)
 		}
 	}
 
 	// MARK: - Task execution handlers.
 
 	private func exposureNotificationTask(_ task: BGTask) {
-		delegate?.executeENABackgroundTask(task: task) { success in
+		delegate?.executeENABackgroundTask { success in
 			task.setTaskCompleted(success: success)
 		}
 	}
+	
 }

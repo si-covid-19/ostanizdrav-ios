@@ -1,19 +1,6 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import Foundation
 import UIKit
@@ -52,17 +39,27 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateBluetooth
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.bluetoothDescription
 			iconImageView2.isHidden = true
-		case .internetOff:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateInternet
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.internetDescription
-			iconImageView2.isHidden = false
 		case .restricted:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSetting
 			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateParentalControlENSettingDescription
 			iconImageView2.isHidden = true
 		case .notAuthorized:
-			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
-			descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldOSENSettingDescription
+			}
+			iconImageView2.isHidden = true
+		case .notActiveApp:
+			if #available(iOS 13.7, *) {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSettingDescription
+			} else {
+				actionTitleLabel.text = AppStrings.ExposureNotificationSetting.activateAppOSENSetting
+				descriptionLabel.text = AppStrings.ExposureNotificationSetting.activateOldAppOSENSettingDescription
+			}
 			iconImageView2.isHidden = true
 		case .unknown:
 			actionTitleLabel.text = AppStrings.ExposureNotificationSetting.authorizationRequiredENSetting
@@ -84,9 +81,7 @@ class ActionDetailTableViewCell: UITableViewCell, ActionCell {
 			return (nil, nil)
 		case .bluetoothOff:
 			return (UIImage(named: "Icons_Bluetooth"), nil)
-		case .internetOff:
-			return (UIImage(named: "Icons_MobileDaten"), UIImage(named: "Icons_iOS_Wifi"))
-		case .restricted, .notAuthorized, .unknown:
+		case .restricted, .notAuthorized, .unknown, .notActiveApp:
 			return (UIImage(named: "Icons_iOS_Settings"), nil)
 		}
 	}

@@ -1,25 +1,12 @@
-// Corona-Warn-App
 //
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
+// 🦠 Corona-Warn-App
 //
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
 
 import UIKit
 
 final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
-	private var previousRiskLevel: EitherLowOrIncreasedRiskLevel?
+	private var previousRiskLevel: RiskLevel?
 	private var lastUpdateDate: Date?
 
 	enum InactiveType {
@@ -51,7 +38,7 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 
 	init(
 		inactiveType: InactiveType,
-		previousRiskLevel: EitherLowOrIncreasedRiskLevel?,
+		previousRiskLevel: RiskLevel?,
 		lastUpdateDate: Date?
 	) {
 		self.inactiveType = inactiveType
@@ -59,48 +46,70 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		self.lastUpdateDate = lastUpdateDate
 	}
 
-	// MARK: Configuration
+	// MARK: - Computed properties.
 
-	func configure(cell: RiskInactiveCollectionViewCell) {
-		cell.delegate = self
+	var title: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
+	}
 
-		let title: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleTitle : AppStrings.Home.riskCardInactiveOutdatedResultsTitle
-		let titleColor: UIColor = .enaColor(for: .textPrimary1)
-		cell.configureTitle(title: title, titleColor: titleColor)
+	var body: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
+	}
 
-		let bodyText: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleBody : AppStrings.Home.riskCardInactiveOutdatedResultsBody
-		cell.configureBody(text: bodyText, bodyColor: titleColor)
-
-		let color: UIColor = .enaColor(for: .background)
-		let separatorColor: UIColor = .enaColor(for: .hairline)
-		var itemCellConfigurators: [HomeRiskViewConfiguratorAny] = []
-
-		let previousRiskTitle: String
+	var previousRiskTitle: String {
 		switch previousRiskLevel {
 		case .low?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemLowTitle
-		case .increased?:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemHighTitle
+			return AppStrings.Home.riskCardLastActiveItemLowTitle
+		case .high?:
+			return AppStrings.Home.riskCardLastActiveItemHighTitle
 		default:
-			previousRiskTitle = AppStrings.Home.riskCardInactiveActiveItemUnknownTitle
+			return AppStrings.Home.riskCardLastActiveItemUnknownTitle
 		}
+	}
 
-		let activateItemTitle = String(format: AppStrings.Home.riskCardInactiveActivateItemTitle, previousRiskTitle)
-		let iconTintColor: UIColor = .enaColor(for: .riskNeutral)
-		let item1 = HomeRiskImageItemViewConfigurator(title: activateItemTitle, titleColor: titleColor, iconImageName: "Icons_LetzteErmittlung-Light", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
+	var buttonTitle: String {
+		return inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
+	}
+
+	// MARK: - UI Helpers
+
+	/// Adjusts the UI for the given cell, including setting text and adjusting colors.
+	private func configureUI(for cell: RiskInactiveCollectionViewCell) {
+		cell.configureTitle(title: title, titleColor: .enaColor(for: .textPrimary1))
+		cell.configureBody(text: body, bodyColor: .enaColor(for: .textPrimary1))
+		cell.configureBackgroundColor(color: .enaColor(for: .background))
+		cell.configureActiveButton(title: buttonTitle)
+	}
+
+	/// Adjusts the UI for the risk views of a given cell.
+	private func configureRiskViewsUI(for cell: RiskInactiveCollectionViewCell) {
+		let activateItemTitle = String(format: AppStrings.Home.riskCardLastActiveItemTitle, previousRiskTitle)
 		let dateTitle = String(format: AppStrings.Home.riskCardDateItemTitle, lastUpdateDateString)
-		let item2 = HomeRiskImageItemViewConfigurator(title: dateTitle, titleColor: titleColor, iconImageName: "Icons_Aktualisiert", iconTintColor: iconTintColor, color: color, separatorColor: separatorColor)
-		itemCellConfigurators.append(contentsOf: [item1, item2])
+
+		let itemCellConfigurators = [
+			// Card for the last state of the risk state.
+			HomeRiskImageItemViewConfigurator(
+				title: activateItemTitle,
+				titleColor: .enaColor(for: .textPrimary1),
+				iconImageName: "Icons_LetzteErmittlung-Light",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: .enaColor(for: .background),
+				separatorColor: .enaColor(for: .hairline)
+			),
+
+			// Card for the last exposure date.
+			HomeRiskImageItemViewConfigurator(
+				title: dateTitle,
+				titleColor: .enaColor(for: .textPrimary1),
+				iconImageName: "Icons_Aktualisiert",
+				iconTintColor: .enaColor(for: .riskNeutral),
+				color: .enaColor(for: .background),
+				separatorColor: .enaColor(for: .hairline)
+			)
+
+		]
 
 		cell.configureRiskViews(cellConfigurators: itemCellConfigurators)
-		cell.configureBackgroundColor(color: color)
-
-		let buttonTitle: String = inactiveType == .noCalculationPossible ? AppStrings.Home.riskCardInactiveNoCalculationPossibleButton : AppStrings.Home.riskCardInactiveOutdatedResultsButton
-
-		cell.configureActiveButton(title: buttonTitle)
-
-		setupAccessibility(cell)
-
 	}
 
 	func setupAccessibility(_ cell: RiskInactiveCollectionViewCell) {
@@ -115,6 +124,21 @@ final class HomeInactiveRiskCellConfigurator: HomeRiskCellConfigurator {
 		let topContainerText = cell.titleLabel.text ?? ""
 		cell.topContainer.accessibilityLabel = topContainerText
 		cell.topContainer.accessibilityTraits = [.button, .header]
+	}
+
+	// MARK: - Configuration.
+
+	func configure(cell: RiskInactiveCollectionViewCell) {
+
+		cell.delegate = self
+
+		// Configuring the UI.
+
+		configureUI(for: cell)
+		configureRiskViewsUI(for: cell)
+
+		setupAccessibility(cell)
+
 	}
 
 	// MARK: Hashable
