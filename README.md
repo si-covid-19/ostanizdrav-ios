@@ -16,6 +16,7 @@ Objava kode je namenjena seznanitvi in pregledu izvorne kode, v tem obdobju ne s
 
 * Izvedena je bila prilagoditev grafične podobe
 * Vključeni prevodi besedil in ukazov v slovenskem jeziku
+* Dodana oranžna barva za majhno tveganje
 
 ## Arhitektura in Dokumentacija
 
