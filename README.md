@@ -29,7 +29,7 @@ Nemška vlada je prosila SAP in Deutsche Telekom, naj razvijejo Corona-Warn-App 
 
 Slovenska Vlada je naložila Ministrstvu za javno upravo, da skupaj ob sodelovanju z NIJZ vzpostavi nemški model aplikacije, objavljene na [GitHub](https://github.com/corona-warn-app/cwa-app-ios/), za delovanje v Sloveniji. Aplikacije z imenom "OstaniZdrav" so prilagojene za android in iOS mobilne telefone.
 Podjetje RSTeam je kot izvajalec vključil prevode, ki jih je pripravila prevajalska služba Generalnega sekretariata Vlade RS skupaj z Ministrstvom za javno upravo.
-Ministrstvo za javno upravo, kot upravljavec centralne informacijske infrastrukture zagotavlja delovanje zalednega sistema, prav tako povzetega po originalni nemški različici objavljeni na [GitHub](https://github.com/corona-warn-app/cwa-documentation), za potrebe delovanja aplikacij ostanizdrav.
+Ministrstvo za javno upravo, kot upravljavec centralne informacijske infrastrukture zagotavlja delovanje zalednega sistema, prav tako povzetega po originalni nemški različici objavljeni na [GitHub](https://github.com/corona-warn-app/cwa-documentation), za potrebe delovanja aplikacij ostanizdrav. Ternutno je v uporabi verzija 1.8.0 zalednega sistema cwa-app.
 
 
 ## Povezani repozitoriji izvorne kode
