@@ -214,10 +214,19 @@ final class SQLiteKeyValueStore {
 	/// - returns: `Data` if the key/value pair is found (even if the value BLOB is empty), or nil if no value exists for the given key.
 	subscript(key: String) -> Data? {
 		get {
-			try? getData(for: key)
+			do {
+				return try getData(for: key)
+			} catch {
+				Log.error("Cant fetch data for key '\(key)'", log: .localData, error: error)
+				return nil
+			}
 		}
 		set {
-			try? setData(newValue, for: key)
+			do {
+				try setData(newValue, for: key)
+			} catch {
+				Log.error("Cant set data for key '\(key)'", log: .localData, error: error)
+			}
 		}
 	}
 
@@ -226,19 +235,31 @@ final class SQLiteKeyValueStore {
 	///
 	/// - attention: Errors encountered during encoding with `JSONEncoder` silently fail (but are logged)!
 	///	If encoding fails, fetching the value for that key will result in empty `Data`
+	/// Model needs to wrapped into array for iOS 12.5: https://drewag.me/posts/2019/09/11/json-encoder-change-in-swift-5
+	/// On installations that are already in use we have to fallback to the old way to get the data that is not wrapped inside an array
 	subscript<Model: Codable>(key: String) -> Model? {
 		get {
 			guard let data = try? getData(for: key) else {
 				return nil
 			}
-			return try? JSONDecoder().decode(Model.self, from: data)
+			do {
+				let array = try JSONDecoder().decode(Array<Model>.self, from: data)
+				if let value = array.first {
+					return value
+				}
+			} catch let DecodingError.typeMismatch(expectedType, context) {
+				Log.warning("Type mismatch for key \(key) in K/V decoding: \(expectedType) not found in \(context). Trying fallback implementation.", log: .localData)
+			} catch {
+				Log.error("Error when decoding value for key \(key) from K/V SQLite store: \(error.localizedDescription)", log: .localData, error: error)
+			}
+			return try? JSONDecoder().decode(Model.self, from: data) // Fallback for old installations
 		}
 		set {
 			do {
-				let encoded = try JSONEncoder().encode(newValue)
+				let encoded = try JSONEncoder().encode([newValue])
 				try setData(encoded, for: key)
 			} catch {
-				Log.error("Error when encoding value for inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)
+				Log.error("Error when encoding value for key \(key) inserting into K/V SQLite store: \(error.localizedDescription)", log: .localData)
 			}
 		}
 	}

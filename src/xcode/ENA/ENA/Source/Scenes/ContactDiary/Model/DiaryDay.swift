@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import Combine
 
 struct DiaryDay: Equatable {
 
@@ -30,14 +29,24 @@ struct DiaryDay: Equatable {
 		let dateFormatter = DateFormatter()
 		dateFormatter.setLocalizedDateFormatFromTemplate("EEEEddMMyy")
 
-		return dateFormatter.string(from: date)
+		return dateFormatter.string(from: localMidnightDate)
+	}
+
+	var utcMidnightDate: Date {
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+
+		guard let date = dateFormatter.date(from: dateString) else {
+			Log.error("Could not get date from date string", log: .contactdiary)
+			return Date()
+		}
+
+		return date
 	}
 
 	// MARK: - Private
 
-	private var date: Date {
-		let dateFormatter = ISO8601DateFormatter()
-		dateFormatter.formatOptions = [.withFullDate]
+	private var localMidnightDate: Date {
+		let dateFormatter = ISO8601DateFormatter.contactDiaryFormatter
 
 		guard let date = dateFormatter.date(from: dateString) else {
 			Log.error("Could not get date from date string", log: .contactdiary)

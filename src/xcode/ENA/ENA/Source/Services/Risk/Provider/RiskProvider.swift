@@ -5,7 +5,7 @@
 import Foundation
 import ExposureNotification
 import UIKit
-import Combine
+import OpenCombine
 
 final class RiskProvider: RiskProviding {
 
@@ -35,7 +35,14 @@ final class RiskProvider: RiskProviding {
 
 	// MARK: - Protocol RiskProviding
 
-	var riskProvidingConfiguration: RiskProvidingConfiguration
+	var riskProvidingConfiguration: RiskProvidingConfiguration {
+		didSet {
+			if riskProvidingConfiguration != oldValue {
+				riskProvidingConfigurationChanged(riskProvidingConfiguration)
+			}
+		}
+	}
+
 	var exposureManagerState: ExposureManagerState
 	private(set) var activityState: RiskProviderActivityState = .idle
 
@@ -62,24 +69,41 @@ final class RiskProvider: RiskProviding {
 
 	/// Called by consumers to request the risk level. This method triggers the risk level process.
 	func requestRisk(userInitiated: Bool, timeoutInterval: TimeInterval) {
+		#if DEBUG
+		if isUITesting {
+			self._requestRiskLevel_Mock(userInitiated: userInitiated)
+			return
+		}
+		#endif
+
 		Log.info("RiskProvider: Request risk was called. UserInitiated: \(userInitiated)", log: .riskDetection)
 
 		guard activityState == .idle else {
-			Log.info("RiskProvider: Risk detection is allready running. Don't start new risk detection", log: .riskDetection)
+			Log.info("RiskProvider: Risk detection is already running. Don't start new risk detection.", log: .riskDetection)
 			failOnTargetQueue(error: .riskProviderIsRunning, updateState: false)
+			return
+		}
+
+		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
+			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
+			return
+		}
+
+		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
+			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+
+			// Keep downloading key packages for plausible deniability
+			downloadKeyPackages()
+
 			return
 		}
 
 		queue.async {
 			self.updateActivityState(.riskRequested)
-
-			#if DEBUG
-			if isUITesting {
-				self._requestRiskLevel_Mock(userInitiated: userInitiated)
-				return
-			}
-			#endif
-
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
@@ -157,13 +181,13 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func downloadKeyPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
+	private func downloadKeyPackages(completion: ((Result<Void, RiskProviderError>) -> Void)? = nil) {
 		// The result of a hour package download is not handled, because for the risk detection it is irrelevant if it fails or not.
 		self.downloadHourPackages { [weak self] in
 			guard let self = self else { return }
 
 			self.downloadDayPackages(completion: { result in
-				completion(result)
+				completion?(result)
 			})
 		}
 	}
@@ -268,9 +292,6 @@ final class RiskProvider: RiskProviding {
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
 
 				let exposureWindows = detectedExposureWindows.map { ExposureWindow(from: $0) }
-
-				/// We were able to calculate a risk so we have to reset the deadman notification
-				UNUserNotificationCenter.current().resetDeadmanNotification()
 				completion(.success(exposureWindows))
 			case .failure(let error):
 				Log.error("RiskProvider: Detect exposure failed", log: .riskDetection, error: error)
@@ -289,7 +310,7 @@ final class RiskProvider: RiskProviding {
 
 		do {
 			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-
+			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
 			let risk = Risk(
 				activeTracing: store.tracingStatusHistory.activeTracing(),
 				riskCalculationResult: riskCalculationResult,
@@ -298,11 +319,12 @@ final class RiskProvider: RiskProviding {
 
 			store.riskCalculationResult = riskCalculationResult
 			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
 
 			completion(.success(risk))
 
 			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			UNUserNotificationCenter.current().resetDeadmanNotification()
+			DeadmanNotificationManager(store: store).resetDeadmanNotification()
 		} catch {
 			completion(.failure(.failedRiskCalculation))
 		}
@@ -328,6 +350,7 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
+				store.dateOfConversionToHighRisk = Date()
 			}
 		}
 	}
@@ -385,6 +408,16 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
+	private func riskProvidingConfigurationChanged(_ configuration: RiskProvidingConfiguration) {
+		Log.info("RiskProvider: Inform consumers about risk providing configuration change to: \(configuration)", log: .riskDetection)
+
+		targetQueue.async { [weak self] in
+			self?.consumers.forEach {
+				$0.didChangeRiskProvidingConfiguration?(configuration)
+			}
+		}
+	}
+
 	private func registerForPackageDownloadStatusUpdate() {
 		self.keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
 			guard let self = self else { return }
@@ -392,6 +425,9 @@ final class RiskProvider: RiskProviding {
 			switch downloadStatus {
 			case .downloading:
 				self.updateActivityState(.downloading)
+			/// In end-of-life state we only download the keys, therefore the activity state needs to be reset to idle when the download is finished
+			case .idle where self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown:
+				self.updateActivityState(.idle)
 			default:
 				break
 			}
@@ -419,6 +455,13 @@ extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
 
+		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let todayString = dateFormatter.string(from: Date())
+		guard let today = dateFormatter.date(from: todayString),
+			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
+			fatalError("Could not create date test data for riskLevelPerDate.")
+		}
+
 		switch risk.level {
 		case .high:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -429,7 +472,15 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
-				calculationDate: Date()
+				calculationDate: Date(),
+				riskLevelPerDate: [
+					today: .high,
+					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 1,
+					someDaysAgo: 1
+				]
 			)
 		default:
 			store.riskCalculationResult = RiskCalculationResult(
@@ -440,7 +491,15 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date()
+				calculationDate: Date(),
+				riskLevelPerDate: [
+					today: .low,
+					someDaysAgo: .low
+				],
+				minimumDistinctEncountersWithHighRiskPerDate: [
+					today: 1,
+					someDaysAgo: 1
+				]
 			)
 		}
 		successOnTargetQueue(risk: risk)

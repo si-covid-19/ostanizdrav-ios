@@ -5,38 +5,22 @@
 import ExposureNotification
 import UIKit
 
-protocol ExposureNotificationSettingViewControllerDelegate: AnyObject {
-	typealias Completion = (ExposureNotificationError?) -> Void
+final class ExposureNotificationSettingViewController: UITableViewController, ActionTableViewCellDelegate, ENStateHandlerUpdating {
 
-	func exposureNotificationSettingViewController(
-		_ controller: ExposureNotificationSettingViewController,
-		setExposureManagerEnabled enabled: Bool,
-		then completion: @escaping Completion
-	)
-}
+	// MARK: - Init
 
-final class ExposureNotificationSettingViewController: UITableViewController {
-	private weak var delegate: ExposureNotificationSettingViewControllerDelegate?
-
-	private var lastActionCell: ActionCell?
-
-	let model = ENSettingModel(content: [.banner, .actionCell, .euTracingCell, .actionDetailCell, .descriptionCell])
-	let store: Store
-	let appConfigurationProvider: AppConfigurationProviding
-	var enState: ENStateHandler.State
-
-	init?(
-		coder: NSCoder,
+	init(
 		initialEnState: ENStateHandler.State,
 		store: Store,
 		appConfigurationProvider: AppConfigurationProviding,
-		delegate: ExposureNotificationSettingViewControllerDelegate
+		setExposureManagerEnabled: @escaping (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
 	) {
-		self.delegate = delegate
+		self.enState = initialEnState
 		self.store = store
 		self.appConfigurationProvider = appConfigurationProvider
-		enState = initialEnState
-		super.init(coder: coder)
+		self.setExposureManagerEnabled = setExposureManagerEnabled
+
+		super.init(style: .grouped)
 	}
 
 	@available(*, unavailable)
@@ -44,33 +28,185 @@ final class ExposureNotificationSettingViewController: UITableViewController {
 		fatalError("init(coder:) has not been implemented")
 	}
 
+	// MARK: - Overrides
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		view.backgroundColor = .enaColor(for: .background)
+
+		navigationItem.title = AppStrings.ExposureNotificationSetting.title
 		navigationItem.largeTitleDisplayMode = .always
-		setUIText()
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
+		registerCells()
+
 		tableView.sectionFooterHeight = 0.0
+		tableView.separatorStyle = .none
+		tableView.estimatedRowHeight = 1000 // this is need to prevent jumping of scroll position when tableview datasource is reloaded
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		navigationItem.largeTitleDisplayMode = .always
 		tableView.reloadData()
 	}
 
-	private func setExposureManagerEnabled(
-		_ enabled: Bool,
-		then completion: @escaping ExposureNotificationSettingViewControllerDelegate.Completion
-	) {
-		delegate?.exposureNotificationSettingViewController(
-			self,
-			setExposureManagerEnabled: enabled,
-			then: completion
-		)
-	}
-}
+	// MARK: - Protocol UITableViewDataSource
 
-extension ExposureNotificationSettingViewController {
-	private func setUIText() {
-		title = AppStrings.ExposureNotificationSetting.title
+	override func numberOfSections(in _: UITableView) -> Int {
+		sections.count
+	}
+	
+	override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		return CGFloat.leastNormalMagnitude
+	}
+	
+	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		switch sections[section] {
+		case .actionCell:
+			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
+				return UITableView.automaticDimension
+			}
+			return 40
+		default:
+			return CGFloat.leastNormalMagnitude
+		}
+	}
+
+	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
+		switch sections[section] {
+		case .actionCell:
+			return AppStrings.ExposureNotificationSetting.actionCellHeader
+		default:
+			return nil
+		}
+	}
+
+	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+		return 1
+	}
+
+	override func tableView(
+		_ tableView: UITableView,
+		cellForRowAt indexPath: IndexPath
+	) -> UITableViewCell {
+		let section = sections[indexPath.section]
+		switch section {
+		case .banner:
+			return bannerCell(for: indexPath, in: tableView)
+		case .actionCell:
+			return actionCell(for: indexPath, in: tableView)
+		case .euTracingCell:
+			return euTracingCell(for: indexPath, in: tableView)
+		case .tracingCell, .actionDetailCell:
+			switch enState {
+			case .enabled, .disabled:
+				return tracingCell(for: indexPath, in: tableView)
+			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
+				return actionDetailCell(for: indexPath, in: tableView)
+			}
+		case .descriptionCell:
+			return descriptionCell(for: indexPath, in: tableView)
+		}
+	}
+
+	// MARK: - Protocol UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let section = sections[indexPath.section]
+
+		guard section == .euTracingCell else { return }
+		
+		if #available(iOS 13, *) {
+			navigationItem.largeTitleDisplayMode = .always
+		} else {
+			navigationItem.largeTitleDisplayMode = .never
+		}
+		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
+		navigationController?.pushViewController(vc, animated: true)
+	}
+
+	// MARK: - Protocol ActionTableViewCellDelegate
+
+	func performAction(action: SettingAction) {
+		switch action {
+		case .enable(true):
+			setExposureManagerEnabled(true, handleErrorIfNeed)
+		case .enable(false):
+			setExposureManagerEnabled(false, handleErrorIfNeed)
+		case .askConsent:
+			askConsentToUser()
+		}
+	}
+
+	// MARK: - Protocol ENStateHandlerUpdating
+
+	func updateEnState(_ enState: ENStateHandler.State) {
+		Log.info("Get the new state: \(enState)", log: .api)
+		self.enState = enState
+		lastActionCell?.configure(for: enState, delegate: self)
+		tableView.reloadData()
+	}
+
+	// MARK: - Internal
+
+	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .tracingCell, .descriptionCell]
+	let store: Store
+	let appConfigurationProvider: AppConfigurationProviding
+	var enState: ENStateHandler.State
+
+	func persistForDPP(accepted: Bool) {
+		self.store.exposureActivationConsentAccept = accepted
+		self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
+	}
+
+	// MARK: - Private
+
+	enum ReusableCellIdentifier: String {
+		case banner
+		case actionCell
+		case euTracingCell
+		case tracingCell
+		case actionDetailCell
+		case descriptionCell
+	}
+
+	private var lastActionCell: ActionTableViewCell?
+
+	private let setExposureManagerEnabled: (Bool, @escaping (ExposureNotificationError?) -> Void) -> Void
+
+	private func registerCells() {
+		tableView.register(
+			TracingHistoryTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
+		)
+
+		tableView.register(
+			ImageTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.banner.rawValue
+		)
+
+		tableView.register(
+			DescriptionTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.descriptionCell.rawValue
+		)
+
+		tableView.register(
+			ActionTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.actionCell.rawValue
+		)
+		
+		tableView.register(
+			ActionDetailTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue
+		)
+
+		tableView.register(
+			EuTracingTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.euTracingCell.rawValue
+		)
 	}
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
@@ -97,8 +233,10 @@ extension ExposureNotificationSettingViewController {
 			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
 		}
 		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
-		if let mySceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-			mySceneDelegate.requestUpdatedExposureState()
+
+		// should only fail when running tests (see `main.swift`)
+		if let delegate = UIApplication.shared.delegate as? CoronaWarnAppDelegate {
+			delegate.requestUpdatedExposureState()
 		}
 		tableView.reloadData()
 	}
@@ -129,7 +267,7 @@ extension ExposureNotificationSettingViewController {
 			switch action.style {
 			case .default:
 				self.persistForDPP(accepted: true)
-				self.setExposureManagerEnabled(true, then: self.silentErrorIfNeed)
+				self.setExposureManagerEnabled(true, self.silentErrorIfNeed)
 			case .cancel, .destructive:
 				self.lastActionCell?.configure(for: self.enState, delegate: self)
 				self.tableView.reloadData()
@@ -141,112 +279,46 @@ extension ExposureNotificationSettingViewController {
 		alert.addAction(UIAlertAction(title: AppStrings.ExposureNotificationSetting.privacyConsentDismissAction, style: .cancel, handler: { action in completionHandler(action) }))
 		self.present(alert, animated: true, completion: nil)
 	}
-
-	func persistForDPP(accepted: Bool) {
-		self.store.exposureActivationConsentAccept = accepted
-		self.store.exposureActivationConsentAcceptTimestamp = Int64(Date().timeIntervalSince1970)
-	}
-}
-
-extension ExposureNotificationSettingViewController {
-
-	override func numberOfSections(in _: UITableView) -> Int {
-		model.content.count
-	}
-
-	override func tableView(_: UITableView, heightForFooterInSection _: Int) -> CGFloat {
-		0
-	}
-
-	override func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		switch model.content[section] {
-		case .actionCell:
-			if traitCollection.preferredContentSizeCategory.isAccessibilityCategory {
-				return UITableView.automaticDimension
-			}
-			return 40
-		default:
-			return 0
+	
+	private func bannerCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.banner.rawValue, for: indexPath) as? ImageTableViewCell else {
+			fatalError("Cell is not registered")
 		}
-	}
-
-	override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
-		switch model.content[section] {
-		case .actionCell:
-			return AppStrings.ExposureNotificationSetting.actionCellHeader
-		default:
-			return nil
-		}
-	}
-
-	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-		1
+		cell.configure(for: enState)
+		return cell
 	}
 	
-	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let section = indexPath.section
-		let content = model.content[section]
-
-		guard content.cellType == .euTracingCell else { return }
-
-		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
-		navigationController?.pushViewController(vc, animated: true)
+	private func actionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		if let lastActionCell = lastActionCell {
+			return lastActionCell
+		}
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionCell.rawValue, for: indexPath) as? ActionTableViewCell else {
+			fatalError("Cell is not registered")
+		}
+		cell.configure(for: enState, delegate: self)
+		lastActionCell = cell
+		return cell
 	}
-
-	override func tableView(
-		_ tableView: UITableView,
-		cellForRowAt indexPath: IndexPath
-	) -> UITableViewCell {
-		let section = indexPath.section
-		let content = model.content[section]
-
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: content.cellType.rawValue, for: indexPath) as? ConfigurableENSettingCell else {
-			return UITableViewCell()
+	
+	private func actionDetailCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.actionDetailCell.rawValue, for: indexPath) as? ActionDetailTableViewCell else {
+			fatalError("Cell is not registered")
 		}
-
-		switch content {
-		case .banner:
-			cell.configure(for: enState)
-		case .actionCell:
-			if let lastActionCell = lastActionCell {
-				return lastActionCell
-			}
-			if let cell = cell as? ActionCell {
-				cell.configure(for: enState, delegate: self)
-				lastActionCell = cell
-			}
-		case .euTracingCell:
-			return euTracingCell(for: indexPath, in: tableView)
-		case .tracingCell, .actionDetailCell:
-			switch enState {
-			case .enabled, .disabled:
-				return tracingCell(for: indexPath, in: tableView)
-			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
-				(cell as? ActionCell)?.configure(for: enState, delegate: self)
-			}
-		case .descriptionCell:
-			cell.configure(for: enState)
-		}
-
+		cell.configure(for: enState, delegate: self)
 		return cell
 	}
 
-	// MARK: - Private
-
 	private func euTracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedEUTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.euTracingCell.cellType.rawValue, for: indexPath)
-		guard let euTracingCell = dequeuedEUTracingCell as? EuTracingTableViewCell else {
-			return UITableViewCell()
+		guard let euTracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.euTracingCell.rawValue, for: indexPath) as? EuTracingTableViewCell else {
+			fatalError("Cell is not registered")
 		}
-
 		euTracingCell.configure()
 		return euTracingCell
 	}
 
 	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		let dequeuedTracingCell = tableView.dequeueReusableCell(withIdentifier: ENSettingModel.Content.tracingCell.cellType.rawValue, for: indexPath)
-		guard let tracingCell = dequeuedTracingCell as? TracingHistoryTableViewCell else {
-			return UITableViewCell()
+		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath) as? TracingHistoryTableViewCell else {
+			fatalError("Cell is not registered")
 		}
 
 		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
@@ -273,57 +345,11 @@ extension ExposureNotificationSettingViewController {
 		return tracingCell
 	}
 
-}
-
-extension ExposureNotificationSettingViewController: ActionTableViewCellDelegate {
-	func performAction(action: SettingAction) {
-		switch action {
-		case .enable(true):
-			setExposureManagerEnabled(true, then: handleErrorIfNeed)
-		case .enable(false):
-			setExposureManagerEnabled(false, then: handleErrorIfNeed)
-		case .askConsent:
-			askConsentToUser()
+	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.descriptionCell.rawValue, for: indexPath) as? DescriptionTableViewCell else {
+			fatalError("Cell is not registered")
 		}
-	}
-}
-
-extension ExposureNotificationSettingViewController {
-	fileprivate enum ReusableCellIdentifier: String {
-		case banner
-		case actionCell
-		case euTracingCell
-		case tracingCell
-		case actionDetailCell
-		case descriptionCell
-	}
-}
-
-private extension ENSettingModel.Content {
-	var cellType: ExposureNotificationSettingViewController.ReusableCellIdentifier {
-		switch self {
-		case .banner:
-			return .banner
-		case .actionCell:
-			return .actionCell
-		case .euTracingCell:
-			return .euTracingCell
-		case .tracingCell:
-			return .tracingCell
-		case .actionDetailCell:
-			return .actionDetailCell
-		case .descriptionCell:
-			return .descriptionCell
-		}
-	}
-}
-
-// MARK: ENStateHandler Updating
-extension ExposureNotificationSettingViewController: ENStateHandlerUpdating {
-	func updateEnState(_ enState: ENStateHandler.State) {
-		Log.info("Get the new state: \(enState)", log: .api)
-		self.enState = enState
-		lastActionCell?.configure(for: enState, delegate: self)
-		self.tableView.reloadData()
+		cell.configure(for: enState)
+		return cell
 	}
 }

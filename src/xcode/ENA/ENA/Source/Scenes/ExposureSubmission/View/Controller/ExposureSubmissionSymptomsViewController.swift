@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 final class ExposureSubmissionSymptomsViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
@@ -16,6 +16,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.onDismiss = onDismiss
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -30,7 +31,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupView()
 	}
-	
+
 	override var navigationItem: UINavigationItem {
 		navigationFooterItem
 	}
@@ -73,7 +74,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 	private var selectedSymptomsOptionConfirmationButtonStateSubscription: AnyCancellable?
 	private var optionGroupSelectionSubscription: AnyCancellable?
 
-	@Published private var selectedSymptomsOption: SymptomsOption?
+	@OpenCombine.Published private var selectedSymptomsOption: SymptomsOption?
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
@@ -91,10 +92,13 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 			switch index {
 			case 0:
 				selectedSymptomsOption = .yes
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.continueButton
 			case 1:
 				selectedSymptomsOption = .no
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
 			case 2:
 				selectedSymptomsOption = .preferNotToSay
+				navigationFooterItem?.primaryButtonTitle = AppStrings.ExposureSubmissionSymptoms.doneButton
 			default:
 				break
 			}
@@ -109,7 +113,7 @@ final class ExposureSubmissionSymptomsViewController: DynamicTableViewController
 
 		setupTableView()
 
-		selectedSymptomsOptionConfirmationButtonStateSubscription = $selectedSymptomsOption.receive(on: RunLoop.main).sink {
+		selectedSymptomsOptionConfirmationButtonStateSubscription = $selectedSymptomsOption.receive(on: RunLoop.main.ocombine).sink {
 			self.navigationFooterItem?.isPrimaryButtonEnabled = $0 != nil
 		}
 	}

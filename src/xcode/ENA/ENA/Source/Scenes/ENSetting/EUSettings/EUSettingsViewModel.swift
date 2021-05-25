@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 import UIKit
 
 class EUSettingsViewModel {
@@ -29,8 +29,7 @@ class EUSettingsViewModel {
 	}
 
 	init(countries availableCountries: [Country]) {
-		self.countryModels = availableCountries
-			.sorted { $0.localizedName.localizedCompare($1.localizedName) == .orderedAscending }
+		self.countryModels = availableCountries.sortedByLocalizedName
 			.map { CountryModel($0) }
 	}
 

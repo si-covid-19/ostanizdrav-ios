@@ -13,7 +13,7 @@ final class HTTPClientTANForExposureSubmitTests: XCTestCase {
 		let tan = "0987654321"
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetTANResponse(tan: tan))
+			responseData: try JSONEncoder().encode(GetTANResponse(tan: tan))
 		)
 
 		let successExpectation = expectation(
@@ -89,7 +89,7 @@ final class HTTPClientTANForExposureSubmitTests: XCTestCase {
 	func testGetTANForExposureSubmit_MalformedResponse() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: Data(bytes: [0xA, 0xB], count: 2)
+			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
 		let successExpectation = expectation(
@@ -162,7 +162,7 @@ final class HTTPClientTANForExposureSubmitTests: XCTestCase {
 		}
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: try? JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
+			responseData: try JSONEncoder().encode(GetRegistrationTokenResponse(registrationToken: expectedToken)),
 			requestObserver: verifyPostBodyContent
 		)
 

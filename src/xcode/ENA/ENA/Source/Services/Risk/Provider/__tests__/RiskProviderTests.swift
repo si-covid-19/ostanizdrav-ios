@@ -120,7 +120,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -167,6 +169,8 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = false
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -187,12 +191,22 @@ final class RiskProviderTests: XCTestCase {
 
 		let consumer = RiskConsumer()
 
-		let didCalculateRiskCalled = expectation(description: "expect didCalculateRisk to be called")
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
+
 		consumer.didCalculateRisk = { _ in
-			didCalculateRiskCalled.fulfill()
+			didCalculateRiskExpectation.fulfill()
 		}
 		consumer.didFailCalculateRisk = { _ in
-			XCTFail("didFailCalculateRisk should not be called.")
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
 		}
 
 		riskProvider.observeRisk(consumer)
@@ -206,6 +220,8 @@ final class RiskProviderTests: XCTestCase {
 
 		let store = MockTestStore()
 		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = false
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = nil
 
 		let config = RiskProvidingConfiguration(
 			exposureDetectionValidityDuration: duration,
@@ -225,21 +241,131 @@ final class RiskProviderTests: XCTestCase {
 		)
 
 		let consumer = RiskConsumer()
-		let didCalculateRiskFailedCalled = expectation(
-			description: "expect didFailCalculateRisk to be called"
-		)
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called 3 times")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 3
 
 		consumer.didCalculateRisk = { _ in
-			XCTFail("didCalculateRisk should not be called.")
+			didCalculateRiskExpectation.fulfill()
 		}
-
 		consumer.didFailCalculateRisk = { _ in
-			didCalculateRiskFailedCalled.fulfill()
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
 		}
 
 		sut.observeRisk(consumer)
 		sut.requestRisk(userInitiated: true)
 		
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testThatDetectionIsNotRequestedIfPositiveTestResultWasShown() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+
+		store.riskCalculationResult = nil
+		store.positiveTestResultWasShown = true
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let consumer = RiskConsumer()
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: true)
+
+		waitForExpectations(timeout: .medium)
+	}
+
+	func testThatDetectionIsNotRequestedIfKeysWereSubmitted() throws {
+		let duration = DateComponents(day: 1)
+
+		let store = MockTestStore()
+		store.riskCalculationResult = nil
+		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = Int64(Date().timeIntervalSince1970)
+
+		let config = RiskProvidingConfiguration(
+			exposureDetectionValidityDuration: duration,
+			exposureDetectionInterval: duration
+		)
+
+		let exposureDetectionDelegateStub = ExposureDetectionDelegateStub(result: .success([MutableENExposureWindow()]))
+
+		let riskProvider = RiskProvider(
+			configuration: config,
+			store: store,
+			appConfigurationProvider: CachedAppConfigurationMock(with: SAP_Internal_V2_ApplicationConfigurationIOS()),
+			exposureManagerState: .init(authorized: true, enabled: true, status: .active),
+			riskCalculation: RiskCalculationFake(),
+			keyPackageDownload: makeKeyPackageDownloadMock(with: store),
+			exposureDetectionExecutor: exposureDetectionDelegateStub
+		)
+
+		let consumer = RiskConsumer()
+
+		let didCalculateRiskExpectation = expectation(description: "expect didCalculateRisk not to be called")
+		didCalculateRiskExpectation.isInverted = true
+
+		let didFailCalculateRiskExpectation = expectation(description: "expect didFailCalculateRisk not to be called")
+		didFailCalculateRiskExpectation.isInverted = true
+
+		let didChangeActivityStateExpectation = expectation(description: "expect didChangeActivityState to be called")
+		didChangeActivityStateExpectation.expectedFulfillmentCount = 2
+
+		consumer.didCalculateRisk = { _ in
+			didCalculateRiskExpectation.fulfill()
+		}
+		consumer.didFailCalculateRisk = { _ in
+			didFailCalculateRiskExpectation.fulfill()
+		}
+		consumer.didChangeActivityState = { _ in
+			didChangeActivityStateExpectation.fulfill()
+		}
+
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: true)
+
 		waitForExpectations(timeout: .medium)
 	}
 
@@ -408,7 +534,6 @@ final class RiskProviderTests: XCTestCase {
 	}
 
 	// MARK: - RiskProvider stress test
-
 	func test_When_RequestRiskIsCalledFromDifferentThreads_Then_ItReturnsWithAlreadyRunningErrorOrCalculatedRisk() {
 
 		let numberOfRequestRiskCalls = 30
@@ -445,7 +570,7 @@ final class RiskProviderTests: XCTestCase {
 		appDelegate.riskProvider = riskProvider
 
 		for _ in 0...numberOfExecuteENABackgroundTask - 1 {
-			appDelegate.executeENABackgroundTask { _ in }
+			appDelegate.taskExecutionDelegate.executeENABackgroundTask { _ in }
 		}
 
 		waitForExpectations(timeout: .extraLong)
@@ -510,7 +635,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 
 		let config = RiskProvidingConfiguration(
@@ -565,7 +692,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -642,7 +771,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -718,7 +849,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 		store.lastKeyPackageDownloadDate = .distantPast
@@ -795,7 +928,9 @@ final class RiskProviderTests: XCTestCase {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: lastExposureDetectionDate
+			calculationDate: lastExposureDetectionDate,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 		store.tracingStatusHistory = [.init(on: true, date: Date().addingTimeInterval(.init(days: -1)))]
 
@@ -851,10 +986,35 @@ final class RiskProviderTests: XCTestCase {
 		waitForExpectations(timeout: .medium)
 	}
 
+	func test_WhenExposureWindowsRetievalIsSuccessful_TheyShouldBeAddedToTheMetadata() throws {
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		XCTAssertNil(store.exposureWindowsMetadata, "The exposureWindowsMetadata should be initially nil")
+		
+		let riskProvider = try riskProviderChangingRiskLevel(from: .high, to: .high, store: store)
+
+		let consumer = RiskConsumer()
+		riskProvider.observeRisk(consumer)
+		riskProvider.requestRisk(userInitiated: false)
+
+		let didCalculateRiskExpectation = expectation(description: "didCalculateRisk called")
+		consumer.didCalculateRisk = { _ in
+			guard let newWindowsMetadata = store.exposureWindowsMetadata else {
+				XCTFail("Windows metadata should be initialized")
+				return
+			}
+			XCTAssertFalse(newWindowsMetadata.newExposureWindowsQueue.isEmpty, "newExposureWindowsQueue should be populated")
+			XCTAssertFalse(newWindowsMetadata.reportedExposureWindowsQueue.isEmpty, "reportedExposureWindowsQueue should be populated")
+			didCalculateRiskExpectation.fulfill()
+		}
+
+		waitForExpectations(timeout: .long)
+	}
 }
 
-private struct RiskCalculationFake: RiskCalculationProtocol {
-
+private class RiskCalculationFake: RiskCalculationProtocol {
+	
 	init(riskLevel: RiskLevel = .low) {
 		self.riskLevel = riskLevel
 	}
@@ -865,7 +1025,10 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 		exposureWindows: [ExposureWindow],
 		configuration: RiskCalculationConfiguration
 	) throws -> RiskCalculationResult {
-		RiskCalculationResult(
+		
+		mappedExposureWindows = exposureWindows.map({ RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) })
+
+		return RiskCalculationResult(
 			riskLevel: riskLevel,
 			minimumDistinctEncountersWithLowRisk: 0,
 			minimumDistinctEncountersWithHighRisk: 0,
@@ -873,13 +1036,16 @@ private struct RiskCalculationFake: RiskCalculationProtocol {
 			mostRecentDateWithHighRisk: nil,
 			numberOfDaysWithLowRisk: 0,
 			numberOfDaysWithHighRisk: 0,
-			calculationDate: Date()
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
 		)
 	}
-
+	
+	var mappedExposureWindows: [RiskCalculationExposureWindow] = []
 }
 
-private final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
+final class ExposureDetectionDelegateStub: ExposureDetectionDelegate {
 
 	private let result: Result<[ENExposureWindow], Error>
 	private let keyPackagesToWrite: WrittenPackages

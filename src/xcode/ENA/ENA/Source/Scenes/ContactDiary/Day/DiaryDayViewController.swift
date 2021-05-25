@@ -3,16 +3,18 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	// MARK: - Init
 
 	init(
-		viewModel: DiaryDayViewModel
+		viewModel: DiaryDayViewModel,
+		onInfoButtonTap: @escaping () -> Void
 	) {
 		self.viewModel = viewModel
+		self.onInfoButtonTap = onInfoButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -32,22 +34,28 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		tableView.keyboardDismissMode = .interactive
+
 		setupSegmentedControl()
 		setupTableView()
 
 		viewModel.$day
-			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
-				self?.updateForSelectedEntryType()
+				DispatchQueue.main.async {
+					self?.updateForSelectedEntryType()
+				}
 			}
 			.store(in: &subscriptions)
 
 		viewModel.$selectedEntryType
-			.receive(on: RunLoop.main)
 			.sink { [weak self] _ in
-				// Scrolling to top prevents table view from flickering while reloading
-				self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-				self?.updateForSelectedEntryType()
+				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happend while scrolling.
+				// In that case cells were dequeued for the old model (entriesOfSelectedType) that was not available anymore.
+				DispatchQueue.main.async {
+					// Scrolling to top prevents table view from flickering while reloading
+					self?.tableView.setContentOffset(.zero, animated: false)
+					self?.updateForSelectedEntryType()
+				}
 			}
 			.store(in: &subscriptions)
 	}
@@ -80,7 +88,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		case .add:
 			viewModel.didTapAddEntryCell()
 		case .entries:
-			viewModel.toggleSelection(at: indexPath)
+			break
 		case .none:
 			fatalError("Invalid section")
 		}
@@ -89,18 +97,42 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	// MARK: - Private
 
 	private let viewModel: DiaryDayViewModel
+	private let onInfoButtonTap: () -> Void
 
 	private var subscriptions = [AnyCancellable]()
 
+	@IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
 
 	private func setupSegmentedControl() {
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline)], for: .normal)
-		segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.enaFont(for: .subheadline, weight: .bold)], for: .selected)
-
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.locationsSegment, forSegmentAt: 1)
+		segmentedControl.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.segmentedControl
+
+		// required to make segmented control look a bit like iOS 13
+		if #available(iOS 13, *) {
+		} else {
+			Log.debug("setup segmented control for iOS 12", log: .ui)
+			topSpaceConstraint.constant = 8.0
+			segmentedControl.tintColor = .enaColor(for: .cellBackground)
+			let unselectedBackgroundImage = UIImage.with(color: .enaColor(for: .cellBackground))
+			let selectedBackgroundImage = UIImage.with(color: .enaColor(for: .background))
+
+			segmentedControl.setBackgroundImage(unselectedBackgroundImage, for: .normal, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .selected, barMetrics: .default)
+			segmentedControl.setBackgroundImage(selectedBackgroundImage, for: .highlighted, barMetrics: .default)
+
+			segmentedControl.tintAdjustmentMode = .normal
+
+			segmentedControl.layer.borderWidth = 2.5
+			segmentedControl.layer.masksToBounds = true
+			segmentedControl.layer.cornerRadius = 5.0
+			segmentedControl.layer.borderColor = UIColor.enaColor(for: .cellBackground).cgColor
+		}
+
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .normal)
+		segmentedControl.setTitleTextAttributes([.font: UIFont.enaFont(for: .subheadline, weight: .bold), .foregroundColor: UIColor.enaColor(for: .textPrimary1)], for: .selected)
 	}
 
 	private func setupTableView() {
@@ -138,8 +170,13 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 			fatalError("Could not dequeue DiaryDayEntryTableViewCell")
 		}
 
-		let cellModel = DiaryDayEntryCellModel(entry: viewModel.entriesOfSelectedType[indexPath.row])
-		cell.configure(cellModel: cellModel)
+		let cellModel = viewModel.entryCellModel(at: indexPath)
+		cell.configure(
+			cellModel: cellModel,
+			onInfoButtonTap: { [weak self] in
+				self?.onInfoButtonTap()
+			}
+		)
 
 		return cell
 	}

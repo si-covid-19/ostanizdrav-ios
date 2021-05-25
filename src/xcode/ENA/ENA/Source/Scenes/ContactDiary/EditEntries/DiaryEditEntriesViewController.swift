@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -48,7 +48,7 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		setupTableView()
 
 		viewModel.$entries
-			.receive(on: RunLoop.main)
+			.receive(on: RunLoop.main.ocombine)
 			.sink { [weak self] _ in
 				guard let self = self, self.shouldReload else { return }
 				self.tableView.reloadData()
@@ -141,6 +141,8 @@ class DiaryEditEntriesViewController: UIViewController, UITableViewDataSource, U
 		tableView.estimatedRowHeight = 60
 
 		tableView.isEditing = true
+		
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.EditEntries.tableView
 	}
 
 	@IBAction private func didTapDeleteAllButton(_ sender: ENAButton) {

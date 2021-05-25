@@ -55,7 +55,7 @@ class AppInformationImprintViewModel {
 											 style: .textView([]),
 											 accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintSection4Text)])
 		let header: DynamicHeader = .image(UIImage(named: "Illu_Appinfo_Impressum"), accessibilityLabel: AppStrings.AppInformation.imprintImageDescription, accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.imprintImageDescription, height: 230)
-		dynamicTable = DynamicTableViewModel([.section(header: header, cells: cells)])
+		dynamicTable = DynamicTableViewModel([.section(header: header, footer: .image(UIImage(named: "EU_Flag"), accessibilityLabel: nil, accessibilityIdentifier: nil, height: 140, accessibilityTraits: UIAccessibilityTraits()), cells: cells)])
 	}
 
 }

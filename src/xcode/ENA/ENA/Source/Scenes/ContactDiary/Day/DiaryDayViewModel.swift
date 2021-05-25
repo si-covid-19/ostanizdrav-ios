@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryDayViewModel {
 
@@ -33,8 +33,8 @@ class DiaryDayViewModel {
 		case entries
 	}
 
-	@Published private(set) var day: DiaryDay
-	@Published var selectedEntryType: DiaryEntryType = .contactPerson
+	@OpenCombine.Published private(set) var day: DiaryDay
+	@OpenCombine.Published var selectedEntryType: DiaryEntryType = .contactPerson
 
 	var entriesOfSelectedType: [DiaryEntry] {
 		day.entries.filter {
@@ -57,16 +57,20 @@ class DiaryDayViewModel {
 		}
 	}
 
-	func didTapAddEntryCell() {
-		onAddEntryCellTap(day, selectedEntryType)
-	}
-
-	func toggleSelection(at indexPath: IndexPath) {
-		guard Section(rawValue: indexPath.section) == .entries else {
-			fatalError("Cannot toggle other elements outside the entries section")
+	func entryCellModel(at indexPath: IndexPath) -> DiaryDayEntryCellModel {
+		guard indexPath.section == Section.entries.rawValue else {
+			fatalError("Entry cell models have to used in the entries section")
 		}
 
-		toggleSelection(of: entriesOfSelectedType[indexPath.row])
+		return DiaryDayEntryCellModel(
+			entry: entriesOfSelectedType[indexPath.row],
+			dateString: day.dateString,
+			store: store
+		)
+	}
+
+	func didTapAddEntryCell() {
+		onAddEntryCellTap(day, selectedEntryType)
 	}
 
 	// MARK: - Private
@@ -75,35 +79,5 @@ class DiaryDayViewModel {
 	private let onAddEntryCellTap: (DiaryDay, DiaryEntryType) -> Void
 
 	private var subscriptions: [AnyCancellable] = []
-
-	private func toggleSelection(of entry: DiaryEntry) {
-		entry.isSelected ? deselect(entry: entry) : select(entry: entry)
-	}
-
-	private func select(entry: DiaryEntry) {
-		switch entry {
-		case .location(let location):
-			store.addLocationVisit(locationId: location.id, date: day.dateString)
-		case .contactPerson(let contactPerson):
-			store.addContactPersonEncounter(contactPersonId: contactPerson.id, date: day.dateString)
-		}
-	}
-
-	private func deselect(entry: DiaryEntry) {
-		switch entry {
-		case .location(let location):
-			guard let visitId = location.visitId else {
-				Log.error("Trying to deselect unselected location", log: .contactdiary)
-				return
-			}
-			store.removeLocationVisit(id: visitId)
-		case .contactPerson(let contactPerson):
-			guard let encounterId = contactPerson.encounterId else {
-				Log.error("Trying to deselect unselected contact person", log: .contactdiary)
-				return
-			}
-			store.removeContactPersonEncounter(id: encounterId)
-		}
-	}
 
 }

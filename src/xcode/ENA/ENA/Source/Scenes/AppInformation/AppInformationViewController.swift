@@ -25,10 +25,19 @@ class AppInformationViewController: DynamicTableViewController {
 			)
 		])
     }
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		// navigationbar is a shared property - so we need to trigger a resizing because others could have set it to false
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
+	}
+
 }
 
 extension AppInformationViewController {
 	enum Category: Int, Hashable, CaseIterable {
+		case versionInfo
 		case about
 		case faq
 		case terms

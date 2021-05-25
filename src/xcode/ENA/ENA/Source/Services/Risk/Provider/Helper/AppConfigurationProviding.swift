@@ -3,12 +3,10 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 /// A provider of the app configuration struct
 protocol AppConfigurationProviding: AnyObject {
-	typealias Completion = (Result<SAP_Internal_V2_ApplicationConfigurationIOS, Error>) -> Void
-
 
 	/// App configuration publisher that provides the latest app config or a locally stored default config.
 	///

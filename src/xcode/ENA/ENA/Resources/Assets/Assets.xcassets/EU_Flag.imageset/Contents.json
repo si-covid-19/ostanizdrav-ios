@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "flag_yellow_low.jpg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

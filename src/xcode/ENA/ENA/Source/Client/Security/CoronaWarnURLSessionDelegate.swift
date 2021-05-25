@@ -3,15 +3,17 @@
 //
 
 import Foundation
-import CommonCrypto
-import CryptoKit
 
 final class CoronaWarnURLSessionDelegate: NSObject {
-	private let localPublicKey: String
+	private let publicKeyHash: String
 
-	// MARK: Creating a Delegate
-	init(localPublicKey: String) {
-		self.localPublicKey = localPublicKey
+	// MARK: - Creating a Delegate
+
+
+	/// Initializes a CWA Session delegate
+	/// - Parameter publicKeyHash: the SHA256 of the certificate to pin
+	init(publicKeyHash: String) {
+		self.publicKeyHash = publicKeyHash
 	}
 }
 
@@ -21,84 +23,71 @@ extension CoronaWarnURLSessionDelegate: URLSessionDelegate {
 		didReceive challenge: URLAuthenticationChallenge,
 		completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
 	) {
-		func reject() { completionHandler(.cancelAuthenticationChallenge, /* credential */ nil) }
-
 		// `serverTrust` not nil implies that authenticationMethod == NSURLAuthenticationMethodServerTrust
-		guard
-			let trust = challenge.protectionSpace.serverTrust
-		else {
+		guard let trust = challenge.protectionSpace.serverTrust else {
 			// Reject all requests that we do not have a public key to pin for
-			reject()
+			completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			return
 		}
 
-		let localPublicKey = self.localPublicKey
-
-		// We discard the returned status code (OSStatus) because this is also how
-		// Apple is doing it in their official sample code – see [0] for more info.
-		SecTrustEvaluateAsyncWithError(trust, .main) { trust, isValid, error in
-			func accept() { completionHandler(.useCredential, URLCredential(trust: trust)) }
-
-			guard isValid else {
-				Log.error("Server certificate is not valid. Rejecting challenge!", log: .api)
-				reject()
-				return
+		// Apple's sample code[1] ignores the result of `SecTrustEvaluateAsyncWithError`.
+		// We consider it also safe to not check for failures within `SecTrustEvaluateAsyncWithError`
+		// that might return something different than `errSecSuccess`.
+		//
+		// [1]: https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
+		if #available(iOS 13.0, *) {
+			SecTrustEvaluateAsyncWithError(trust, .main) { [weak self] trust, isValid, error in
+				guard isValid else {
+					Log.error("Evaluation failed", log: .api, error: error)
+					completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
+					return
+				}
+				self?.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
 			}
+		} else {
+			var secresult = SecTrustResultType.invalid
+			let status = SecTrustEvaluate(trust, &secresult)
 
-			guard error == nil else {
-				Log.error("Encountered error when evaluating server trust challenge, rejecting!", log: .api)
-				reject()
-				return
+			if status == errSecSuccess {
+				self.evaluate(challenge: challenge, trust: trust, completionHandler: completionHandler)
+			} else {
+				completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 			}
-
-			// Our landscape has a certificate chain with three certificates.
-			// We want to get the intermediate certificate, in our case the second.
-			guard
-				SecTrustGetCertificateCount(trust) >= 1,
-				SecTrustEvaluateWithError(trust, nil),
-				let remoteCertificate = SecTrustGetCertificateAtIndex(trust, 0)
-			else {
-				Log.error("Could not trust or get certificate, rejecting!", log: .api)
-				reject()
-				return
-			}
-
-			guard
-				let remotePublicKey = SecCertificateCopyKey(remoteCertificate),
-				let remotePublicKeyData = SecKeyCopyExternalRepresentation(remotePublicKey, nil) as Data?
-			else {
-				Log.error("Failed to get the remote server's public key!", log: .api)
-				reject()
-				return
-			}
-
-			let hashedRemotePublicKey = self.sha256ForRSA2048(data: remotePublicKeyData)
-			// We simply compare the two hashed keys, and reject the challenge if they do not match
-			guard hashedRemotePublicKey == localPublicKey else {
-				Log.error("The server's public key did not match what we expected!", log: .api)
-				reject()
-				return
-			}
-
-			accept()
 		}
 	}
-}
 
-// [0] https://developer.apple.com/documentation/security/certificate_key_and_trust_services/trust/evaluating_a_trust_and_parsing_the_result
 
-extension CoronaWarnURLSessionDelegate {
-	var rsa2048Asn1HeaderBytes: [UInt8] { [
-		0x30, 0x82, 0x01, 0x22, 0x30, 0x0d, 0x06, 0x09,
-		0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
-		0x01, 0x05, 0x00, 0x03, 0x82, 0x01, 0x0f, 0x00
-	] }
+	/// Common evaluation, covering iOS versions 12.5 or 13.x
+	/// - Parameters:
+	///   - challenge: A challenge from a server requiring authentication from the client.
+	///   - trust: Shortcut for `challenge.protectionSpace.serverTrust`
+	///   - completionHandler: the completion handler to accept or reject the request
+	private func evaluate(challenge: URLAuthenticationChallenge, trust: SecTrust, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+		#if DEBUG
+		// debug/review: print the chain
+		for i in 0..<SecTrustGetCertificateCount(trust) {
+			if let cert = SecTrustGetCertificateAtIndex(trust, i) {
+				Log.debug("[\(challenge.protectionSpace.host)] @ \(i): \(cert)", log: .crypto)
+			}
+		}
+		#endif
 
-	private func sha256ForRSA2048(data: Data) -> String {
-		var keyWithHeader = Data(rsa2048Asn1HeaderBytes)
-		keyWithHeader.append(data)
+		// we expect a chain of at least 2 certificates
+		// index '1' is the required intermediate
+		if
+			let serverCertificate = SecTrustGetCertificateAtIndex(trust, 0),
+			let serverPublicKey = SecCertificateCopyKey(serverCertificate),
+			let serverPublicKeyData = SecKeyCopyExternalRepresentation(serverPublicKey, nil ) as Data? {
 
-		let hash = SHA256.hash(data: keyWithHeader)
-		return Data(hash).base64EncodedString()
+			// Matching fingerprint?
+			let keyHash = serverPublicKeyData.sha256String()
+			if publicKeyHash == keyHash {
+				// Success! This is our server
+				completionHandler(.useCredential, URLCredential(trust: trust))
+				return
+			}
+		}
+
+		completionHandler(.cancelAuthenticationChallenge, /* credential */ nil)
 	}
 }

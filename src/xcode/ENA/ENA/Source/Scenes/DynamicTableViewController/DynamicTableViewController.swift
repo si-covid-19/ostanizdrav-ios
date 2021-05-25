@@ -41,7 +41,7 @@ class DynamicTableViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.register(DynamicTypeTableViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeLabel.rawValue)
 		tableView.register(DynamicTableViewTextViewCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.dynamicTypeTextView.rawValue)
 		tableView.register(DynamicTableViewSpaceCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.space.rawValue)
-		tableView.register(UINib(nibName: String(describing: DynamicTableViewIconCell.self), bundle: nil), forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
+		tableView.register(DynamicTableViewIconCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.icon.rawValue)
 		tableView.register(DynamicTableViewBulletPointCell.self, forCellReuseIdentifier: DynamicCell.CellReuseIdentifier.bulletPoint.rawValue)
 	}
 }
@@ -95,7 +95,7 @@ extension DynamicTableViewController {
 			view?.layoutMargins = insets
 			return view
 
-		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height):
+		case let .image(image, accessibilityLabel: label, accessibilityIdentifier: accessibilityIdentifier, height, accessibilityTraits):
 			let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: HeaderFooterReuseIdentifier.header.rawValue) as? DynamicTableViewHeaderImageView
 			view?.imageView?.image = image
 			if let label = label {
@@ -103,6 +103,7 @@ extension DynamicTableViewController {
 				view?.imageView?.accessibilityLabel = label
 			}
 			view?.imageView?.accessibilityIdentifier = accessibilityIdentifier
+			view?.imageView?.accessibilityTraits = accessibilityTraits
 			if let height = height {
 				view?.height = height
 			} else if let imageWidth = image?.size.width,
@@ -149,9 +150,6 @@ extension DynamicTableViewController {
 
 		case let .call(number):
 			if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
-
-		case let .perform(segueIdentifier):
-			performSegue(withIdentifier: segueIdentifier, sender: nil)
 
 		case let .execute(block):
 			block(self, cell)
@@ -286,32 +284,33 @@ private extension UITableViewCell {
 	}
 
 	func removeSeparators() {
-		contentView.viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
-		contentView.viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.top.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.bottom.rawValue)?.removeFromSuperview()
+		viewWithTag(SeparatorLocation.inBetween.rawValue)?.removeFromSuperview()
 	}
 
 	func addSeparator(_ location: SeparatorLocation) {
 		let separator = UIView(frame: bounds)
-		contentView.addSubview(separator)
 		separator.backgroundColor = .enaColor(for: .hairline)
 		separator.translatesAutoresizingMaskIntoConstraints = false
-		separator.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor).isActive = true
-		separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+		addSubview(separator)
+		NSLayoutConstraint.activate([
+			separator.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+			separator.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+			separator.heightAnchor.constraint(equalToConstant: 1)
+		])
 
 		switch location {
 		case .top:
 			separator.tag = SeparatorLocation.top.rawValue
 			separator.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .bottom:
 			separator.tag = SeparatorLocation.bottom.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		case .inBetween:
 			separator.tag = SeparatorLocation.inBetween.rawValue
 			separator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-			separator.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor).isActive = true
 		}
 	}
 }

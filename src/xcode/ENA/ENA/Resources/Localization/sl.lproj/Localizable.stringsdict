@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
@@ -12,23 +13,17 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<!--Plural form for ZERO.-->
 			<string>Brez izpostavljenosti</string>
 			<key>one</key>
-			<!--Plural form for ONE.-->
-			<string>Bili ste izpostavljeni v enem dnevu</string>
+			<string>Izpostavljeni ste bili v 1 dnevu</string>
 			<key>few</key>
-			<!--Plural form for FEW.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>many</key>
-			<!--Plural form for MANY.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>two</key>
-			<!--Plural form for TWO.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>other</key>
-			<!--Plural form for OTHER.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
@@ -43,22 +38,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Bili ste izpostavljeni v enem dnevu</string>
+			<string>Izpostavljeni ste bili v 1 dnevu</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Bili ste izpostavljeni v %u dneh</string>
+			<string>Izpostavljeni ste bili v %u dneh</string>
 		</dict>
 	</dict>
 	<key>Home_Risk_Status_Counter_Label</key>
@@ -73,22 +68,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ sekund</string>
+			<string>Update in %02u:%2$#@seconds@ seconds</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
+			<string>Update in %02u:%2$#@seconds@ minute</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Posodobljeno %02u:%2$#@seconds@ minut</string>
+			<string>Update in %02u:%2$#@seconds@ minutes</string>
 		</dict>
 		<key>seconds</key>
 		<dict>

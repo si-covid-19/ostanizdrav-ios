@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import UIKit
@@ -28,8 +13,12 @@ class WarnOthersReminder: WarnOthersRemindable {
 	
 	// MARK: - Init
 
-	init(store: Store) {
+	init(
+		store: Store,
+		deadmanNotificationManager: DeadmanNotificationManageable? = nil
+	) {
 		self.store = store
+		self.deadmanNotificationManager = deadmanNotificationManager ?? DeadmanNotificationManager(store: store)
 	}
 
 	// MARK: - Protocol WarnOthersRemindable
@@ -69,11 +58,14 @@ class WarnOthersReminder: WarnOthersRemindable {
 
 	/// This function takes a `TestResult` as parameter to evaluate, if possible notifications need to be scheduled for the warn others notification process.
 	func evaluateShowingTestResult(_ testResult: TestResult) {
-		// If incoming test restuls are others than positive, we don't deal with them
+		/// If incoming test restuls are others than positive, we don't deal with them
 		guard testResult == .positive, !positiveTestResultWasShown else { return }
 		
-		// We are "clean" to go. So lock the door until result was removed
+		/// We are "clean" to go. So lock the door until result was removed
 		positiveTestResultWasShown = true
+
+		/// Deactivate deadman notification for end-of-life-state
+		deadmanNotificationManager.resetDeadmanNotification()
 		
 		guard !isSubmissionConsentGiven else { return }
 		
@@ -95,6 +87,7 @@ class WarnOthersReminder: WarnOthersRemindable {
 	// MARK: - Private
 
 	private let store: Store
+	private let deadmanNotificationManager: DeadmanNotificationManageable
 	
 	private func scheduleNotifications() {
 		UNUserNotificationCenter.current().scheduleWarnOthersNotifications(

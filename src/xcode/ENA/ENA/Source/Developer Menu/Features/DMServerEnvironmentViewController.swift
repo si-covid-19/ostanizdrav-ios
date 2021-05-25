@@ -29,7 +29,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		view.backgroundColor = .systemBackground
+		view.backgroundColor = ColorCompatibility.systemBackground
 
 		currentEnvironmentLabel = UILabel(frame: .zero)
 		currentEnvironmentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +80,7 @@ class DMServerEnvironmentViewController: UIViewController, UIPickerViewDelegate,
 
 	// MARK: - Private
 
-	private let store: Store
+	private var store: Store
 	private let downloadedPackagesStore: DownloadedPackagesStore
 	private let serverEnvironment: ServerEnvironment
 	private var currentEnvironmentLabel: UILabel!

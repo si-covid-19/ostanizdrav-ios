@@ -4,8 +4,11 @@
       "id" : "A11977F5-134B-4CB5-B798-B2F3F30138CD",
       "name" : "DE",
       "options" : {
+        "defaultTestExecutionTimeAllowance" : 300,
         "language" : "de",
-        "region" : "DE"
+        "maximumTestExecutionTimeAllowance" : 600,
+        "region" : "DE",
+        "testTimeoutsEnabled" : true
       }
     },
     {
@@ -71,6 +74,10 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "StatisticsProviderTests\/testFetchLiveStats()"
+      ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",
         "identifier" : "85D7595324570491008175F0",
@@ -78,10 +85,11 @@
       }
     },
     {
+      "parallelizable" : true,
       "skippedTests" : [
         "ENAUITests",
-        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()",
-        "ENAUITests_06_DeltaOnboarding\/test_screenshotDeltaOnboardingV15View()"
+        "ENAUITestsQuickActions\/testLaunchViaShortcutFromFreshInstall()",
+        "ENAUITests_06_DeltaOnboarding\/testDeltaOnboardingV15View()"
       ],
       "target" : {
         "containerPath" : "container:ENA.xcodeproj",

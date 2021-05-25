@@ -4,7 +4,7 @@
 
 import Foundation
 import UIKit
-import Combine
+import OpenCombine
 
 final class TestResultAvailableViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
 
@@ -14,6 +14,7 @@ final class TestResultAvailableViewController: DynamicTableViewController, ENANa
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)

@@ -3,7 +3,7 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class DiaryOverviewTableViewController: UITableViewController {
 
@@ -26,12 +26,9 @@ class DiaryOverviewTableViewController: UITableViewController {
 
 		super.init(style: .plain)
 
-		viewModel.$days
-			.receive(on: RunLoop.main)
-			.sink { [weak self] _ in
-				self?.tableView.reloadData()
-			}
-			.store(in: &subscriptions)
+		self.viewModel.refreshTableView = { [weak self] in
+			self?.tableView.reloadData()
+		}
 	}
 
 	@available(*, unavailable)
@@ -53,8 +50,16 @@ class DiaryOverviewTableViewController: UITableViewController {
 		
 		let moreImage = UIImage(named: "Icons_More_Circle")
 		let rightBarButton = UIBarButtonItem(image: moreImage, style: .plain, target: self, action: #selector(onMore))
+		rightBarButton.accessibilityLabel = AppStrings.ContactDiary.Overview.menuButtonTitle
 		rightBarButton.tintColor = .enaColor(for: .tint)
 		self.navigationItem.setRightBarButton(rightBarButton, animated: false)
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		// navigationbar is a shared property - so we need to trigger a resizing because others could have set it to false
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.sizeToFit()
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -85,7 +90,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 			return
 		}
 
-		onCellSelection(viewModel.days[indexPath.row])
+		onCellSelection(viewModel.day(by: indexPath))
 	}
 
 	// MARK: - Private
@@ -113,6 +118,8 @@ class DiaryOverviewTableViewController: UITableViewController {
 		tableView.separatorStyle = .none
 		tableView.rowHeight = UITableView.automaticDimension
 		tableView.estimatedRowHeight = 60
+		
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiaryInformation.Overview.tableView
 	}
 
 	private func descriptionCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -127,9 +134,7 @@ class DiaryOverviewTableViewController: UITableViewController {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: DiaryOverviewDayTableViewCell.self), for: indexPath) as? DiaryOverviewDayTableViewCell else {
 			fatalError("Could not dequeue DiaryOverviewDayTableViewCell")
 		}
-
-		cell.configure(day: viewModel.days[indexPath.row])
-
+		cell.configure(cellViewModel: viewModel.cellModel(for: indexPath))
 		return cell
 	}
 	

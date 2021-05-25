@@ -2,7 +2,8 @@ version: 2.1
 
 configuration:
   - cache_key: &cache_key v7-{{ checksum "src/xcode/Gemfile.lock" }}
-  - xcode_version: &xcode_version 12.2.0
+  - xcode_version: &xcode_version 12.4.0
+  - resource_class: &resource_class large
 
 commands:
   install-tools:
@@ -30,7 +31,7 @@ commands:
       - install-tools
       - run:
           name: Install dependencies
-          command: cd src/xcode && bundle install --path=vendor --jobs=4
+          command: cd src/xcode && bundle install --path=vendor --jobs=8
       - save_cache:
           key: *cache_key
           paths:
@@ -43,6 +44,7 @@ jobs:
   dependencies:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - prepare-dependencies
       - persist_to_workspace:
@@ -52,6 +54,7 @@ jobs:
   build:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -62,6 +65,7 @@ jobs:
   test:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -69,24 +73,25 @@ jobs:
       - run:
           name: Run Fastlane tests
           command: cd src/xcode && bundle exec fastlane test
+          no_output_timeout: 20m
       - restore_cache:
           key: sonar-cloud-v2
       - run:
           name: Convert coverage information to SonarCloud format
           shell: /bin/zsh
           command: |
-            ./scripts/xcov_to_sonar.sh src/xcode/fastlane/test_output/xccovarchive-0.xccovarchive/ $CIRCLE_WORKING_DIRECTORY/ src/xcode/fastlane/test_output/coverage.xml
+            ./scripts/cococo src/xcode/fastlane/test_output/ENA.xcresult > src/xcode/fastlane/test_output/coverage.xml
       - run:
           name: Fix SwiftLint output for SonarCloud
           shell: /bin/zsh
           command: |
             ./scripts/fix_swiftlint_output.sh src/xcode/swiftlint.result.json
       - store_test_results:
-          path: src/xcode/fastlane/test_output
-      - store_artifacts:
-          path: src/xcode/fastlane/test_output
+          path: src/xcode/fastlane/test_output/
       - store_artifacts:
           path: src/xcode/swiftlint.result.json
+      - store_artifacts:
+          path: src/xcode/fastlane/test_output/ENA.xcresult.zip
       - run:
           name: Skip SonarCloud for external Pull Requests
           shell: /bin/zsh
@@ -110,9 +115,22 @@ jobs:
           key: sonar-cloud-v2
           paths:
             - ~/sonar/
+  test-community:
+    macos:
+      xcode: *xcode_version
+    resource_class: *resource_class
+    steps:
+      - attach_workspace:
+          at: .
+      - install-tools # chaching currently fails, needs some further tweaks
+      - run:
+          name: Run Fastlane smoke tests
+          command: cd src/xcode && bundle exec fastlane test_community
+          no_output_timeout: 10m
   snapshot:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     parameters:
       language:
         default: "de-DE"
@@ -138,6 +156,7 @@ jobs:
               clear_previous_screenshots:"false" \
               output_directory:screenshots/screenshots-<<parameters.language>>-<<parameters.displaymode>>
             cd -
+          no_output_timeout: 20m
       - persist_to_workspace:
           root: .
           paths:
@@ -145,17 +164,22 @@ jobs:
   collect-snapshots:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
       - run:
           name: Package Screenshots
-          command: cd src/xcode && tar -czf screenshots/screenshots.tar --exclude='*.tar' screenshots && cd -
+          command: cd src/xcode && tar -czf screenshots/screenshots.tar.gz --exclude='*.tar.gz' screenshots && cd -
       - store_artifacts:
-          path: src/xcode/screenshots/screenshots.tar
+          path: src/xcode/screenshots/screenshots.tar.gz
+      - run:
+          name: Announce new screenshots to MS Teams
+          command: ./scripts/announce_screenshots.sh https://${CIRCLE_BUILD_NUM}-268042230-gh.circle-artifacts.com/0/src/xcode/screenshots/screenshots.tar.gz
   testflight-release:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     steps:
       - attach_workspace:
           at: .
@@ -170,6 +194,7 @@ jobs:
   update-docs:
     macos:
       xcode: *xcode_version
+    resource_class: *resource_class
     shell: /bin/zsh
     steps:
       - attach_workspace:
@@ -192,6 +217,23 @@ workflows:
         - test:
             requires:
               - dependencies
+        - test-community:
+            requires:
+              - dependencies
+        - snapshot:
+            matrix:
+              parameters:
+                language: ["de-DE", "en-EN"]
+                displaymode: ["dark", "light"]
+            requires:
+              - dependencies
+            filters:
+              branches:
+                only:
+                  - /release\/.*/
+        - collect-snapshots:
+            requires:
+              - snapshot
         - update-docs:
             requires:
               - dependencies
@@ -199,26 +241,6 @@ workflows:
               branches:
                 only:
                   - main
-
-    snapshot-all:
-      jobs:
-        - dependencies:
-            filters:
-              tags:
-                only:
-                  - /^v.*/
-              branches:
-                ignore: /.*/
-        - snapshot:
-            matrix:
-              parameters:
-                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
-                displaymode: ["dark", "light"]
-            requires:
-              - dependencies
-        - collect-snapshots:
-            requires:
-              - snapshot
 
     beta-release:
       jobs:
@@ -250,16 +272,14 @@ workflows:
         - snapshot:
             matrix:
               parameters:
-                language: ["de-DE", "en-EN", "bg-BG", "ro-RO", "pl-PL", "tr-TR"]
+                language: ["de-DE", "en-EN"]
                 displaymode: ["dark", "light"]
             requires:
               - dependencies
             filters:
-              tags:
-                only:
-                  - /^v.*/
               branches:
-                ignore: /.*/
+                only:
+                  - /release\/.*/
         - collect-snapshots:
             requires:
               - snapshot

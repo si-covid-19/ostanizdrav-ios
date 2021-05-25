@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 import Foundation
@@ -22,7 +7,7 @@ import ExposureNotification
 
 /// Determines the risk level for one exposure window
 /// https://github.com/corona-warn-app/cwa-app-tech-spec/blob/7779cabcff42afb437f743f1d9e35592ef989c52/docs/spec/exposure-windows.md#determine-risk-level-for-exposure-windows
-final class RiskCalculationExposureWindow: Codable {
+final class RiskCalculationExposureWindow: Codable, CustomDebugStringConvertible {
 
 	// MARK: - Init
 
@@ -32,6 +17,21 @@ final class RiskCalculationExposureWindow: Codable {
 	) {
 		self.exposureWindow = exposureWindow
 		self.configuration = configuration
+	}
+
+	// MARK: - CustomDebugStringConvertible
+
+	var debugDescription: String {
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = .prettyPrinted
+		encoder.dateEncodingStrategy = .iso8601
+
+		if let data = try? encoder.encode(self),
+		   let jsonString = String(data: data, encoding: .utf8) {
+			return jsonString
+		}
+
+		return String(describing: Self.self)
 	}
 
 	// MARK: - Protocol Codable
@@ -66,6 +66,8 @@ final class RiskCalculationExposureWindow: Codable {
 	}
 
 	// MARK: - Internal
+	
+	private(set) var exposureWindow: ExposureWindow
 
 	var calibrationConfidence: ENCalibrationConfidence {
 		exposureWindow.calibrationConfidence
@@ -155,7 +157,6 @@ final class RiskCalculationExposureWindow: Codable {
 
 	// MARK: - Private
 
-	private let exposureWindow: ExposureWindow
 	private let configuration: RiskCalculationConfiguration
 
 	/// 4. Determine `Transmission Risk Value`

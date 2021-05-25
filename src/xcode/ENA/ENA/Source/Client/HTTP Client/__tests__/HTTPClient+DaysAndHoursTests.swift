@@ -5,13 +5,11 @@
 @testable import ENA
 import ExposureNotification
 import XCTest
-import CryptoKit
 
 // swiftlint:disable:next type_body_length
 final class HTTPClientDaysAndHoursTests: XCTestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
-	let expectationsTimeout: TimeInterval = 5
 	let mockUrl = URL(staticString: "http://example.com")
 	let tan = "1234"
 
@@ -47,7 +45,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				XCTFail("a valid response should never yiled an error like \(error)")
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testAvailableDays_StatusCodeNotAccepted() {
@@ -72,7 +70,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				expectation.fulfill()
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	// The hours of a given day can be missing
@@ -103,7 +101,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				XCTFail("a valid response should never yiled an error like \(error)")
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testAvailableHours_Success() {
@@ -133,7 +131,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				XCTFail("a valid response should never yield an error like \(error)")
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testFetchHour_InvalidPayload() throws {
@@ -155,7 +153,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				failureExpectation.fulfill()
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testFetchHour_Success() throws {
@@ -181,7 +179,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				XCTFail("a valid response should never yield and error like: \(error)")
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testFetchDay_Success() throws {
@@ -207,13 +205,13 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				XCTFail("a valid response should never yield and error like: \(error)")
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testFetchDay_InvalidPackage() throws {
 		let stack = MockNetworkStack(
 			httpStatus: 200,
-			responseData: Data(bytes: [0xA, 0xB], count: 2)
+			responseData: Data(bytes: [0xA, 0xB] as [UInt8], count: 2)
 		)
 
 		let successExpectation = expectation(
@@ -235,7 +233,7 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 				}
 			}
 		}
-		waitForExpectations(timeout: expectationsTimeout)
+		waitForExpectations(timeout: .medium)
 	}
 
 	func testDownloadRetry_dayPackage_failing() throws {

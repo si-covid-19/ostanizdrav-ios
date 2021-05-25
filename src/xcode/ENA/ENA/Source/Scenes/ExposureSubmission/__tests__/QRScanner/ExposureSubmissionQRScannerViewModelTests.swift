@@ -99,7 +99,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(viewModel.isScanningActivated, false)
+		XCTAssertFalse(viewModel.isScanningActivated)
 	}
 
 	func testScanningIsDeactivatedInitially() {
@@ -125,7 +125,7 @@ final class ExposureSubmissionQRScannerViewModelTests: XCTestCase {
 		viewModel.didScan(metadataObjects: [metaDataObject])
 
 		waitForExpectations(timeout: .short)
-		XCTAssertEqual(viewModel.isScanningActivated, false)
+		XCTAssertFalse(viewModel.isScanningActivated)
 	}
 
 	func testInitalUnsuccessfulScanWithSuccessfulRetry() {

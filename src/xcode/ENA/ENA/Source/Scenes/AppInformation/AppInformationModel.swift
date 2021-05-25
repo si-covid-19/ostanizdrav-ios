@@ -32,57 +32,41 @@ enum AppInformationModel {
 						   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactImageDescription,
 						   height: 230),
 			cells: [
-				.body(text: [AppStrings.AppInformation.contactDescription, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
+				.title2(text: AppStrings.AppInformation.contactTitle,
+						accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactTitle),
+				.body(text: [AppStrings.AppInformation.contactDescription, AppStrings.Common.tessRelayDescription].joined(separator: ""),
 					  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactDescription),
-				.headline(text: AppStrings.AppInformation.contactHotlineTitle,
+				.link(placeholder: AppStrings.AppInformation.contactHotlineText, link: "mailto:\(AppStrings.AppInformation.contactHotlineNumber)", font: .title2, style: .title2,
+						accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineText),
+				.title2(text: AppStrings.AppInformation.contactHotlineTitle,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineTitle),
-				.phone(text: AppStrings.AppInformation.contactHotlineText, number: AppStrings.AppInformation.contactHotlineNumber,
-					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineText),
 				.body(text: AppStrings.AppInformation.contactHotlineDescription,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineDescription),
-				.space(height: 8),
-				.headline(text: AppStrings.AppInformation.contactTitle,
-						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactTitle),
-				.phone(text: AppStrings.AppInformation.contactHotlineNumber1, number: AppStrings.AppInformation.contactHotlineNumber1,
-					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineText),
-				.body(text: AppStrings.AppInformation.contactHotlineTerms,
+				.phone(text: AppStrings.AppInformation.contactHotlineText1, number: AppStrings.AppInformation.contactHotlineNumber1,
+					   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineText1),
+				.footnote(text: AppStrings.AppInformation.contactHotlineTerms,
 						  accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.contactHotlineTerms)
 			]
 		)
 	])
 
-	static let privacyModel = DynamicTableViewModel([
-		.section(
-			header: .image(
-				UIImage(named: "Illu_Appinfo_Datenschutz"),
-				accessibilityLabel: AppStrings.AppInformation.privacyImageDescription,
-				accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyImageDescription,
-				height: 230
-			),
-			cells: [
-				.title2(
-					text: AppStrings.AppInformation.privacyTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.privacyTitle),
-				.html(url: Bundle.main.url(forResource: "privacy-policy", withExtension: "html"))
-			]
-		)
-	])
+	static let privacyModel = HtmlInfoModel(
+		title: AppStrings.AppInformation.privacyTitle,
+		titleAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.privacyTitle,
+		image: UIImage(named: "Illu_Appinfo_Datenschutz"),
+		imageAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.privacyImageDescription,
+		imageAccessabliltyLabel: AppStrings.AppInformation.privacyImageDescription,
+		urlResourceName: "privacy-policy"
+	)
 
-	static let termsModel = DynamicTableViewModel([
-		.section(
-			header: .image(UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
-						   accessibilityLabel: AppStrings.AppInformation.termsImageDescription,
-						   accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsImageDescription,
-						   height: 230),
-			cells: [
-				.title2(
-					text: AppStrings.AppInformation.termsTitle,
-					accessibilityIdentifier: AccessibilityIdentifiers.AppInformation.termsTitle),
-				.html(url: Bundle.main.url(forResource: "usage", withExtension: "html"))
-			]
-		)
-	])
-
+	static let termsModel = HtmlInfoModel(
+		title: AppStrings.AppInformation.termsTitle,
+		titleAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.termsTitle,
+		image: UIImage(named: "Illu_Appinfo_Nutzungsbedingungen"),
+		imageAccessabliltyIdentfier: AccessibilityIdentifiers.AppInformation.termsImageDescription,
+		imageAccessabliltyLabel: AppStrings.AppInformation.termsImageDescription,
+		urlResourceName: "usage"
+	)
 }
 
 private func isGerman() -> Bool {

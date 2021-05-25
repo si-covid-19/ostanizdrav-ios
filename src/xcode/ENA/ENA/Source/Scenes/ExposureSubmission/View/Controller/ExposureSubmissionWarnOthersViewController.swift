@@ -10,13 +10,14 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 	// MARK: - Init
 
 	init(
-		supportedCountries: [Country],
-		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void
+		viewModel: ExposureSubmissionWarnOthersViewModel,
+		onPrimaryButtonTap: @escaping (@escaping (Bool) -> Void) -> Void,
+		dismiss: @escaping () -> Void
 	) {
-		self.viewModel = ExposureSubmissionWarnOthersViewModel(supportedCountries: supportedCountries)
+		self.viewModel = viewModel
 		self.onPrimaryButtonTap = onPrimaryButtonTap
-
 		super.init(nibName: nil, bundle: nil)
+		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
 	}
 
 	@available(*, unavailable)
@@ -28,12 +29,12 @@ class ExposureSubmissionWarnOthersViewController: DynamicTableViewController, EN
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		setupView()
 		
 		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
 		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
 		footerView?.isHidden = false
-		
 	}
 
 	override var navigationItem: UINavigationItem {

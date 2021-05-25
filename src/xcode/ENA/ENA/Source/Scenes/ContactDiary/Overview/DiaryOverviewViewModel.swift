@@ -3,18 +3,42 @@
 //
 
 import Foundation
-import Combine
+import OpenCombine
 
 class DiaryOverviewViewModel {
 
 	// MARK: - Init
 
-	init(store: DiaryStoringProviding) {
-		self.store = store
+	init(
+		diaryStore: DiaryStoringProviding,
+		store: Store,
+		homeState: HomeState? = nil
+	) {
+		self.diaryStore = diaryStore
+		self.secureStore = store
 
-		store.diaryDaysPublisher.sink { [weak self] in
+		$days
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] _ in
+				self?.refreshTableView?()
+			}
+			.store(in: &subscriptions)
+
+		diaryStore.diaryDaysPublisher.sink { [weak self] in
 			self?.days = $0
 		}.store(in: &subscriptions)
+
+		homeState?.$riskState
+			.receive(on: DispatchQueue.OCombine(.main))
+			.sink { [weak self] updatedRiskState in
+				switch updatedRiskState {
+				case .risk:
+					self?.refreshTableView?()
+				default:
+					break
+				}
+			}
+			.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -24,10 +48,16 @@ class DiaryOverviewViewModel {
 		case days
 	}
 
-	@Published private(set) var days: [DiaryDay] = []
+	@OpenCombine.Published private(set) var days: [DiaryDay] = []
 
 	var numberOfSections: Int {
 		Section.allCases.count
+	}
+
+	var refreshTableView: (() -> Void)?
+
+	func day(by indexPath: IndexPath) -> DiaryDay {
+		return days[indexPath.row]
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -41,10 +71,32 @@ class DiaryOverviewViewModel {
 		}
 	}
 
+	func cellModel(for indexPath: IndexPath) -> DiaryOverviewDayCellModel {
+		let diaryDay = days[indexPath.row]
+		let currentHistoryExposure = historyExposure(by: diaryDay.utcMidnightDate)
+		let minimumDistinctEncountersWithHighRisk = minimumDistinctEncountersWithHighRiskValue(by: diaryDay.utcMidnightDate)
+
+		return DiaryOverviewDayCellModel(diaryDay, historyExposure: currentHistoryExposure, minimumDistinctEncountersWithHighRisk: minimumDistinctEncountersWithHighRisk)
+	}
+
 	// MARK: - Private
 
-	private let store: DiaryStoringProviding
+	private let diaryStore: DiaryStoringProviding
+	private let secureStore: Store
 
 	private var subscriptions: [AnyCancellable] = []
 
+	private func historyExposure(by date: Date) -> HistoryExposure {
+		guard let riskLevelPerDate = secureStore.riskCalculationResult?.riskLevelPerDate[date] else {
+			return .none
+		}
+		return .encounter(riskLevelPerDate)
+	}
+
+	private func minimumDistinctEncountersWithHighRiskValue(by date: Date) -> Int {
+		guard let minimumDistinctEncountersWithHighRisk = secureStore.riskCalculationResult?.minimumDistinctEncountersWithHighRiskPerDate[date] else {
+			return -1
+		}
+		return minimumDistinctEncountersWithHighRisk
+	}
 }

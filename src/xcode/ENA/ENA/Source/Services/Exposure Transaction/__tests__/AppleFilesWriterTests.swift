@@ -33,8 +33,8 @@ final class AppleFilesWriterTests: XCTestCase {
 	func testWriterWithPackagesWritesEverything() throws {
 		let packages: [SAPDownloadedPackage] = [
 			.init(
-				keysBin: Data(bytes: [0x0], count: 1),
-				signature: Data(bytes: [0x1], count: 1)
+				keysBin: Data(bytes: [0x0] as [UInt8], count: 1),
+				signature: Data(bytes: [0x1] as [UInt8], count: 1)
 			)
 		]
 		let writer = AppleFilesWriter(rootDir: rootDir)
@@ -54,13 +54,13 @@ final class AppleFilesWriterTests: XCTestCase {
 		let hasBin = url0.pathExtension == "bin" || url1.pathExtension == "bin"
 		XCTAssertTrue(hasBin)
 
-		let writtenFiles = try? FileManager().contentsOfDirectory(
+		let writtenFiles = try FileManager().contentsOfDirectory(
 			at: rootDir,
 			includingPropertiesForKeys: nil,
 			options: .skipsHiddenFiles
 		)
 
-		XCTAssertEqual(writtenFiles?.count, 2)
+		XCTAssertEqual(writtenFiles.count, 2)
 
 		writer.writtenPackages.cleanUp()
 	

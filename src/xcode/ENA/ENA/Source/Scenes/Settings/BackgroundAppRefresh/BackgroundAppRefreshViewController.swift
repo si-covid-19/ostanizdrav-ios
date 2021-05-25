@@ -3,14 +3,14 @@
 //
 
 import UIKit
-import Combine
+import OpenCombine
 
 class BackgroundAppRefreshViewController: UIViewController {
 
 	// MARK: - Init
 	
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
+	init() {
+		super.init(nibName: nil, bundle: nil)
 
 		viewModel = BackgroundAppRefreshViewModel(
 			onOpenSettings: {
@@ -20,12 +20,25 @@ class BackgroundAppRefreshViewController: UIViewController {
 				}
 			},
 			onShare: { [weak self] in
+				if #available(iOS 13.0, *) {
+					// force light mode for rendering the view to pdf
+					self?.overrideUserInterfaceStyle = .light
+				}
 				if let pdf = self?.contentView.asPDF {
+					if #available(iOS 13.0, *) {
+						// return to previous interface style
+						self?.overrideUserInterfaceStyle = .unspecified
+					}
 					let activityViewController = UIActivityViewController(activityItems: [pdf], applicationActivities: nil)
 					self?.present(activityViewController, animated: true, completion: nil)
 				}
 			}
 		)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 	
 	// MARK: - Overrides
@@ -54,7 +67,10 @@ class BackgroundAppRefreshViewController: UIViewController {
 	@IBOutlet private weak var contentScrollView: UIScrollView!
 	
 	private func setupView() {
-		title = viewModel.title
+		navigationItem.title = viewModel.title
+		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
+		
 		subTitleLabel.text = viewModel.subTitle
 		descriptionLabel.text = viewModel.description
 		settingsHeaderLabel.text = viewModel.settingsHeaderTitle
@@ -68,19 +84,19 @@ class BackgroundAppRefreshViewController: UIViewController {
 	
 	private func setupBindings() {
 		subscriptions = [
-			viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main).sink { [weak self] in
+			viewModel.$backgroundAppRefreshStatusText.receive(on: RunLoop.main.ocombine).sink { [weak self] in
 				self?.backgroundAppRefreshStatusLabel.text = $0
 			},
-			viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main).sink { [weak self] in
+			viewModel.$backgroundAppRefreshStatusAccessibilityLabel.receive(on: RunLoop.main.ocombine).sink { [weak self] in
 				self?.backgroundAppRefreshStatusStackView.accessibilityLabel = $0
 			},
-			viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main).sink { [weak self] in
+			viewModel.$backgroundAppRefreshStatusImageAccessibilityLabel.receive(on: RunLoop.main.ocombine).sink { [weak self] in
 				self?.imageView.accessibilityLabel = $0
 			},
-			viewModel.$image.receive(on: RunLoop.main).sink { [weak self] in
+			viewModel.$image.receive(on: RunLoop.main.ocombine).sink { [weak self] in
 					self?.imageView.image = $0
 			},
-			viewModel.$infoBoxViewModel.receive(on: RunLoop.main).sink { [weak self] in
+			viewModel.$infoBoxViewModel.receive(on: RunLoop.main.ocombine).sink { [weak self] in
 				self?.updateInfoxBox(with: $0)
 			}
 		]

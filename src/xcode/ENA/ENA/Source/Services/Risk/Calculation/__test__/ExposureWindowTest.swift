@@ -1,10 +1,7 @@
 //
-//  ExposureWindowTest.swift
-//  ENATests
+// 🦠 Corona-Warn-App
 //
-//  Created by Kai-Marcel Teuber on 31.10.20.
-//  Copyright © 2020 SAP SE. All rights reserved.
-//
+
 
 import XCTest
 import ExposureNotification
@@ -45,7 +42,7 @@ class ExposureWindowTest: XCTestCase {
 			return
 		}
 
-		XCTAssert(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
+		XCTAssertTrue(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
 		XCTAssertEqual(exposureWindow.reportType, .confirmedClinicalDiagnosis)
 		XCTAssertEqual(exposureWindow.infectiousness, .high)
 		XCTAssertEqual(exposureWindow.calibrationConfidence, .lowest)
@@ -81,7 +78,7 @@ class ExposureWindowTest: XCTestCase {
 			return
 		}
 
-		XCTAssert(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
+		XCTAssertTrue(Calendar.current.isDate(exposureWindow.date, inSameDayAs: expectedDate))
 		XCTAssertEqual(exposureWindow.reportType, .confirmedTest)
 		XCTAssertEqual(exposureWindow.infectiousness, .standard)
 		XCTAssertEqual(exposureWindow.calibrationConfidence, .low)

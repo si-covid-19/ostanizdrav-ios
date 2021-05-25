@@ -12,7 +12,7 @@ public enum ActionableNotificationIdentifier: String {
 	case warnOthersReminder2 = "warn-others-reminder-2"
 
 	var identifier: String {
-		let bundleIdentifier = Bundle.main.bundleIdentifier ?? "de.rki.coronawarnapp"
+		let bundleIdentifier = Bundle.main.bundleIdentifier ?? "si.gov.ostanizdrav"
 		return "\(bundleIdentifier).\(rawValue)"
 	}
 }
@@ -23,7 +23,8 @@ extension UNUserNotificationCenter {
 		title: String,
 		body: String = "",
 		identifier: String = UUID().uuidString,
-		in timeInterval: TimeInterval = 1
+		in timeInterval: TimeInterval = 1,
+		info: [AnyHashable: Any] = [:]
 	) {
 		let content = UNMutableNotificationContent()
 
@@ -32,7 +33,8 @@ extension UNUserNotificationCenter {
 		content.sound = UNNotificationSound.default
 		content.badge = 1
 		content.categoryIdentifier = identifier
-
+		content.userInfo = info
+		
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
 

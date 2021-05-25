@@ -1,20 +1,5 @@
 //
-// Corona-Warn-App
-//
-// SAP SE and all other contributors
-// copyright owners license this file to you under the Apache
-// License, Version 2.0 (the "License"); you may not use this
-// file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing,
-// software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-// KIND, either express or implied.  See the License for the
-// specific language governing permissions and limitations
-// under the License.
+// 🦠 Corona-Warn-App
 //
 
 @testable import ENA
@@ -32,7 +17,6 @@ class WarnOthersReminderTests: XCTestCase {
 	}
 	
 	func testWarnOthers_allVariablesAreInitial() throws {
-		
 		let store = MockTestStore()
 		
 		let warnOthersReminder = WarnOthersReminder(store: store)
@@ -44,7 +28,6 @@ class WarnOthersReminderTests: XCTestCase {
 		XCTAssertEqual(Double(warnOthersReminder.notificationTwoTimeInterval), timerTwoTime, "Notification timeInterval two has not the intial value of \(timerTwoTime)")
 		
 		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
-		
 	}
 	
 	func testWarnOthers_changedValuesShouldBeCorrect() throws {
@@ -63,10 +46,28 @@ class WarnOthersReminderTests: XCTestCase {
 		warnOthersReminder.reset()
 		XCTAssertFalse(warnOthersReminder.positiveTestResultWasShown, "Inital value of positiveTestResultWasShown should be 'false'")
 	}
-	
+
+	func testWarnOthers_ShowingPositiveTestResultResetsDeadmanNotification() throws {
+		let store = MockTestStore()
+
+		var deadmanNotificationManager = MockDeadmanNotificationManager()
+
+		let deadmanResetExpectation = expectation(description: "Deadman notification reset")
+		deadmanNotificationManager.resetDeadmanNotificationCalled = {
+			deadmanResetExpectation.fulfill()
+		}
+
+		let warnOthersReminder = WarnOthersReminder(
+			store: store,
+			deadmanNotificationManager: deadmanNotificationManager
+		)
+
+		warnOthersReminder.evaluateShowingTestResult(.positive)
+
+		waitForExpectations(timeout: .medium)
+	}
 	
 	func testWarnOthers_SubmissionConsentGiven() throws {
-		
 		let store = MockTestStore()
 		store.isSubmissionConsentGiven = true
 		

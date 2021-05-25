@@ -30,7 +30,7 @@ class DiaryInfoViewModelTest: XCTestCase {
 
 		// THEN
 		switch dynamicHeader {
-		case .image(let image, _, _, _):
+		case .image(let image, _, _, _, _):
 			XCTAssertEqual(image, UIImage(imageLiteralResourceName: "Illu_ContactDiary-Information"))
 		default:
 			XCTFail("Found wrong header image")
@@ -46,7 +46,7 @@ class DiaryInfoViewModelTest: XCTestCase {
 		let numberOfCells = viewModel.dynamicTableViewModel.numberOfRows(section: 0)
 
 		// THEN
-		XCTAssertEqual(numberOfCells, 12)
+		XCTAssertEqual(numberOfCells, 14)
 	}
 
 	/// test if number of cells in legal section (1) is correct

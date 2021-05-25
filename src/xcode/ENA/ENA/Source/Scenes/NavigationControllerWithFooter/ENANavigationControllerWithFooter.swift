@@ -21,15 +21,26 @@ class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePrese
 	private var topViewControllerWithFooterChild: ENANavigationControllerWithFooterChild? { topViewController as? ENANavigationControllerWithFooterChild }
 
 	override init(rootViewController: UIViewController) {
-		super.init(rootViewController: rootViewController)
+		if #available(iOS 13.0, *) {
+			super.init(rootViewController: rootViewController)
+		} else {
+			super.init(nibName: nil, bundle: nil)
+			self.viewControllers = [rootViewController]
+		}
+
 		self.presentationController?.delegate = self
-		self.isModalInPresentation = true
+
+		if #available(iOS 13.0, *) {
+			self.isModalInPresentation = true
+		}
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.presentationController?.delegate = self
-		self.isModalInPresentation = true
+		if #available(iOS 13.0, *) {
+			self.isModalInPresentation = true
+		}
 	}
 
 	override func loadView() {
@@ -69,13 +80,13 @@ class ENANavigationControllerWithFooter: UINavigationController, UIAdaptivePrese
 
 	func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
 		guard let topViewController = viewControllers.last,
-			  let dismissableViewController = topViewController as? DismissHandling  else {
-			// this is the default behavior
+			  let dismissAbleViewController = topViewController as? DismissHandling  else {
+			// this is the default behaviours
 			dismiss(animated: true)
 			return
 		}
 
-		dismissableViewController.wasAttemptedToBeDismissed()
+		dismissAbleViewController.wasAttemptedToBeDismissed()
 	}
 
 }
@@ -216,7 +227,11 @@ extension ENANavigationControllerWithFooter {
 		navigationItemObserver?.invalidate()
 
 		self.footerView.apply(navigationItem: viewController.hidesBottomBarWhenPushed ? nil : viewController.navigationItem)
-		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed)
+		
+		/// If we didn't set a ENANavigationFooterItem it is nicer to hide the footerView instead of showing a white rectangle
+		let enaNavigationFooterItem = viewController.navigationItem as? ENANavigationFooterItem
+		
+		self.setFooterViewHidden(viewController.hidesBottomBarWhenPushed || enaNavigationFooterItem == nil)
 		self.updateAdditionalSafeAreaInsets()
 		self.layoutFooterView()
 
