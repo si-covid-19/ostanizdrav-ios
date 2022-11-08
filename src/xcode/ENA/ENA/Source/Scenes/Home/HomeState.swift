@@ -1,4 +1,4 @@
-////
+//
 // 🦠 Corona-Warn-App
 //
 
@@ -14,14 +14,15 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider: RiskProviding,
 		exposureManagerState: ExposureManagerState,
 		enState: ENStateHandler.State,
-		exposureSubmissionService: ExposureSubmissionService,
-		statisticsProvider: StatisticsProviding
+		statisticsProvider: StatisticsProviding,
+		localStatisticsProvider: LocalStatisticsProviding
 	) {
-		if let riskCalculationResult = store.riskCalculationResult {
+		if let riskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinCalculationResult = store.checkinRiskCalculationResult {
 			self.riskState = .risk(
 				Risk(
-					activeTracing: store.tracingStatusHistory.activeTracing(),
-					riskCalculationResult: riskCalculationResult
+					enfRiskCalculationResult: riskCalculationResult,
+					checkinCalculationResult: checkinCalculationResult
 				)
 			)
 		} else {
@@ -31,22 +32,22 @@ class HomeState: ENStateHandlerUpdating {
 					details: .init(
 						mostRecentDateWithRiskLevel: nil,
 						numberOfDaysWithRiskLevel: 0,
-						activeTracing: store.tracingStatusHistory.activeTracing(),
-						exposureDetectionDate: nil
+						calculationDate: nil
 					),
 					riskLevelHasChanged: false
 				)
 			)
 		}
-		
+
 		self.store = store
 		self.riskProvider = riskProvider
 		self.exposureManagerState = exposureManagerState
 		self.enState = enState
-		self.exposureSubmissionService = exposureSubmissionService
 		self.statisticsProvider = statisticsProvider
-
+		self.localStatisticsProvider = localStatisticsProvider
 		self.exposureDetectionInterval = riskProvider.riskProvidingConfiguration.exposureDetectionInterval.hour ?? RiskProvidingConfiguration.defaultExposureDetectionsInterval
+
+		statistics = store.statistics?.statistics ?? SAP_Internal_Stats_Statistics()
 
 		observeRisk()
 	}
@@ -59,14 +60,11 @@ class HomeState: ENStateHandlerUpdating {
 
 	// MARK: - Internal
 
-	enum TestResultLoadingError {
-		case expired
-		case error(Error)
-	}
-
 	enum StatisticsLoadingError {
 		case dataVerificationError
 	}
+
+	let localStatisticsProvider: LocalStatisticsProviding
 
 	@OpenCombine.Published var riskState: RiskState
 	@OpenCombine.Published var riskProviderActivityState: RiskProviderActivityState = .idle
@@ -74,11 +72,7 @@ class HomeState: ENStateHandlerUpdating {
 	@OpenCombine.Published private(set) var exposureManagerState: ExposureManagerState
 	@OpenCombine.Published var enState: ENStateHandler.State
 
-	@OpenCombine.Published var testResult: TestResult?
-	@OpenCombine.Published var testResultIsLoading: Bool = false
-	@OpenCombine.Published var testResultLoadingError: TestResultLoadingError?
-
-	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics = SAP_Internal_Stats_Statistics()
+	@OpenCombine.Published var statistics: SAP_Internal_Stats_Statistics
 	@OpenCombine.Published var statisticsLoadingError: StatisticsLoadingError?
 
 	@OpenCombine.Published private(set) var exposureDetectionInterval: Int
@@ -87,20 +81,34 @@ class HomeState: ENStateHandlerUpdating {
 		riskProvider.manualExposureDetectionState
 	}
 
-	var lastRiskCalculationResult: RiskCalculationResult? {
-		store.riskCalculationResult
+	var risk: Risk? {
+		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
+			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
+			return nil
+		}
+		return Risk(
+			enfRiskCalculationResult: enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult
+		)
+	}
+
+	var riskCalculationDate: Date? {
+		risk?.details.calculationDate
 	}
 
 	var nextExposureDetectionDate: Date {
 		riskProvider.nextExposureDetectionDate
 	}
 
-	var positiveTestResultWasShown: Bool {
-		store.registrationToken != nil && testResult == .positive && WarnOthersReminder(store: store).positiveTestResultWasShown
+	var shouldShowDaysSinceInstallation: Bool {
+		daysSinceInstallation < 14
 	}
 
-	var keysWereSubmitted: Bool {
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil
+	var daysSinceInstallation: Int {
+		guard let appInstallationDate = store.appInstallationDate else {
+			return 0
+		}
+		return max(Calendar.autoupdatingCurrent.startOfDay(for: appInstallationDate).ageInDays ?? 0, 0)
 	}
 
 	func updateDetectionMode(_ detectionMode: DetectionMode) {
@@ -113,49 +121,6 @@ class HomeState: ENStateHandlerUpdating {
 
 	func requestRisk(userInitiated: Bool) {
 		riskProvider.requestRisk(userInitiated: userInitiated)
-	}
-
-	func updateTestResult() {
-		// Avoid unnecessary loading.
-		guard testResult == nil || testResult != .positive else { return }
-
-		guard store.registrationToken != nil else {
-			testResult = nil
-			return
-		}
-
-		// Make sure to make the loading cell appear for at least `minRequestTime`.
-		// This avoids an ugly flickering when the cell is only shown for the fraction of a second.
-		// Make sure to only trigger this additional delay when no other test result is present already.
-		let requestStart = Date()
-		let minRequestTime: TimeInterval = 0.5
-
-		testResultIsLoading = true
-
-		exposureSubmissionService.getTestResult { [weak self] result in
-			self?.testResultIsLoading = false
-
-			switch result {
-			case .failure(let error):
-				// When we fail here, publish the error to trigger an alert and set the state to pending.
-				self?.testResultLoadingError = .error(error)
-				self?.testResult = .pending
-
-			case .success(let testResult):
-				switch testResult {
-				case .expired:
-					self?.testResultLoadingError = .expired
-					self?.testResult = .expired
-
-				case .invalid, .negative, .positive, .pending:
-					let requestTime = Date().timeIntervalSince(requestStart)
-					let delay = requestTime < minRequestTime && self?.testResult == nil ? minRequestTime : 0
-					DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-						self?.testResult = testResult
-					}
-				}
-			}
-		}
 	}
 
 	func updateStatistics() {
@@ -177,16 +142,27 @@ class HomeState: ENStateHandlerUpdating {
 				}
 			)
 			.store(in: &subscriptions)
+
+		localStatisticsProvider.updateLocalStatistics { [weak self] result in
+			switch result {
+			case .success:
+				return
+			case .failure(let error):
+				// Propagate signature verification error to the user
+				if case CachingHTTPClient.CacheError.dataVerificationError = error {
+					self?.statisticsLoadingError = .dataVerificationError
+				}
+				Log.error("[HomeState] Could not load local statistics: \(error)", log: .api)
+			}
+		}
 	}
 
 	// MARK: - Private
 
-	private let store: Store
+	private (set) var store: Store
 
 	private let statisticsProvider: StatisticsProviding
 	private var subscriptions = Set<AnyCancellable>()
-
-	private let exposureSubmissionService: ExposureSubmissionService
 
 	private let riskProvider: RiskProviding
 	private let riskConsumer = RiskConsumer()
@@ -198,6 +174,11 @@ class HomeState: ENStateHandlerUpdating {
 
 		riskConsumer.didCalculateRisk = { [weak self] risk in
 			self?.riskState = .risk(risk)
+			/*
+			guard let self = self else { return }
+			self.riskState = .risk(
+				Risk(level: .high, details: Risk.Details(mostRecentDateWithRiskLevel: Date(), numberOfDaysWithRiskLevel: 1, calculationDate: Date(), minimumDistinctEncountersWithCurrentRiskLevel: 2), riskLevelHasChanged: false)
+			)*/
 		}
 
 		riskConsumer.didFailCalculateRisk = { [weak self] error in
@@ -206,11 +187,6 @@ class HomeState: ENStateHandlerUpdating {
 			// Don't show already running errors.
 			guard !error.isAlreadyRunningError else {
 				Log.info("[HomeTableViewModel.State] Ignore already running error.", log: .riskDetection)
-				return
-			}
-
-			guard error.shouldBeDisplayedToUser else {
-				Log.info("[HomeTableViewModel.State] Don't show error to user: \(error).", log: .riskDetection)
 				return
 			}
 

@@ -6,6 +6,7 @@ import Foundation
 
 enum PPASError: Error {
 
+	case submissionInProgress
 	case generalError
 	case urlCreationError
 	case responseError(Int)
@@ -15,7 +16,7 @@ enum PPASError: Error {
 	case ppacError(PPACError)
 	case appResetError
 	case onboardingError
-	case submission23hoursError
+	case submissionTimeAmountUndercutError
 	case probibilityError
 	case userConsentError
 }

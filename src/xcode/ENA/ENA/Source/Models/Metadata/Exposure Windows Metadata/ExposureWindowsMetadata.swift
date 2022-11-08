@@ -32,14 +32,14 @@ struct ExposureWindowsMetadata: Codable {
 	
 	// MARK: - Internal
 	
-	// Exposure Windows to be added to the next Submission
+	// Exposure Windows to be added to the next submission
 	var newExposureWindowsQueue: [SubmissionExposureWindow]
 	
-	// Exposure Windows that was sent in pervious Submissions
+	// Exposure Windows which were sent in previous submissions
 	var reportedExposureWindowsQueue: [SubmissionExposureWindow]
 }
 
-struct SubmissionExposureWindow: Codable {
+struct SubmissionExposureWindow: Codable, Equatable {
 
 	// MARK: - Init
 
@@ -51,6 +51,16 @@ struct SubmissionExposureWindow: Codable {
 		self.date = date
 	}
 	
+	// MARK: - Protocol Equatable
+
+	static func == (lhs: SubmissionExposureWindow, rhs: SubmissionExposureWindow) -> Bool {
+		return  lhs.exposureWindow == rhs.exposureWindow &&
+			lhs.transmissionRiskLevel == rhs.transmissionRiskLevel &&
+			lhs.normalizedTime == rhs.normalizedTime &&
+			lhs.hash == rhs.hash &&
+			lhs.date == rhs.date
+	}
+
 	// MARK: - Internal
 
 	var exposureWindow: ExposureWindow

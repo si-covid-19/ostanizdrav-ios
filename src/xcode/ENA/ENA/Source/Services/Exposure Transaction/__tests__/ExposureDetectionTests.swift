@@ -7,7 +7,7 @@ import OpenCombine
 import ExposureNotification
 @testable import ENA
 
-final class ExposureDetectionTransactionTests: XCTestCase {
+final class ExposureDetectionTransactionTests: CWATestCase {
 
 	func testGivenThatEveryNeedIsSatisfiedTheDetectionFinishes() throws {
 		let rootDir = FileManager().temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -34,10 +34,13 @@ final class ExposureDetectionTransactionTests: XCTestCase {
 		}
 
 		let startCompletionCalled = expectation(description: "start completion called")
+
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let detection = ExposureDetection(
 			delegate: delegate,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 		detection.start { _ in
 			startCompletionCalled.fulfill()

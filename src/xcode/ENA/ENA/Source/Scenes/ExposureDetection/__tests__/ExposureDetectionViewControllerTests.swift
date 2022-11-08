@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class ExposureDetectionViewControllerTests: XCTestCase {
+class ExposureDetectionViewControllerTests: CWATestCase {
 
 	func testHighRiskState() {
 		let vc = createVC()
@@ -25,9 +25,11 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
+				store: store
+			), localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)
@@ -37,7 +39,9 @@ class ExposureDetectionViewControllerTests: XCTestCase {
 				homeState: homeState,
 				appConfigurationProvider: CachedAppConfigurationMock(),
 				onSurveyTap: { },
-				onInactiveButtonTap: { _ in }
+				onInactiveButtonTap: { },
+				onHygieneRulesInfoButtonTap: { },
+				onRiskOfContagionInfoButtonTap: { }
 			),
 			store: store
 		)

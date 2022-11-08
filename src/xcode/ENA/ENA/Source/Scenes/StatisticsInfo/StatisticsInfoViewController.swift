@@ -86,26 +86,66 @@ class StatisticsInfoViewController: DynamicTableViewController {
 				insets: insets,
 				accessibilityIdentifier: nil
 			),
-//			.section(
-//				header: .image(UIImage(named: "Illu_StatisticsInfo"),
-//							   accessibilityLabel: AppStrings.Statistics.Info.titleImageAccLabel,
-//							   accessibilityIdentifier: nil,
-//							   height: 200),
-//				footer: .space(height: 16),
-//				cells: [
-//					.title2(
-//						text: AppStrings.Statistics.Info.infectionsTitle,
-//						accessibilityIdentifier: nil
-//					) { _, cell, _ in cell.accessibilityTraits = .header },
-//					.body(
-//						text: AppStrings.Statistics.Info.infectionsText,
-//						accessibilityIdentifier: nil
-//					)
-//				]
-//			),
 			.section(
+				header: .image(
+					UIImage(named: "Illu_StatisticsInfo"),
+					accessibilityLabel: AppStrings.Statistics.Info.titleImageAccLabel,
+					accessibilityIdentifier: nil,
+					height: 200
+				),
 				footer: .space(height: 16),
 				cells: [
+					/** // Lokale 7-Tage-Inzidenz
+					// 7-Tage-Inzidenz
+					.title2(
+						text: AppStrings.Statistics.Info.incidenceTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					// Bestätigte Neuinfektionen
+					.headline(
+						text: AppStrings.Statistics.Info.newInfectionTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.newInfectionText,
+						accessibilityIdentifier: nil
+					),
+					// Hospitalisierung
+					.headline(
+						text: AppStrings.Statistics.Info.hospitalizationRateTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.hospitalizationRateText,
+						accessibilityIdentifier: nil
+					),
+					.headline(
+						text: AppStrings.Statistics.Info.local7DaysTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.local7DaysText,
+						accessibilityIdentifier: nil
+					),
+					// COVID-19-Erkrankte auf Intensivstationen
+					.title2(
+						text: AppStrings.Statistics.Info.intensiveCareTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.intensiveCareText,
+						accessibilityIdentifier: nil
+					),
+					// Bestätigte Neuinfektionen
+					.title2(
+						text: AppStrings.Statistics.Info.infectionsTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.infectionsText,
+						accessibilityIdentifier: nil
+					), */
+					// Warnende Personen
 					.title2(
 						text: AppStrings.Statistics.Info.keySubmissionsTitle,
 						accessibilityIdentifier: nil
@@ -113,35 +153,54 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					.body(
 						text: AppStrings.Statistics.Info.keySubmissionsText,
 						accessibilityIdentifier: nil
-					)
+					),  /**
+					// 7-Tage-R-Wert
+					.title2(
+						text: AppStrings.Statistics.Info.reproductionNumberTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.reproductionNumberText,
+						accessibilityIdentifier: nil
+					),
+					// Mindestens einmal geimpfte Personen
+					.title2(
+						text: AppStrings.Statistics.Info.vaccinatedAtLeastOnceTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.vaccinatedAtLeastOnceText,
+						accessibilityIdentifier: nil
+					),
+					// Vollständig geimpfte Personen
+					.title2(
+						text: AppStrings.Statistics.Info.fullyVaccinatedTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.fullyVaccinatedText,
+						accessibilityIdentifier: nil
+					),
+					// Auffrischimpfung
+					.title2(
+						text: AppStrings.Statistics.Info.boosterVaccinationTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.boosterVaccinationText,
+						accessibilityIdentifier: nil
+					),
+					// Verabreichte Impfdosen
+					.title2(
+						text: AppStrings.Statistics.Info.dosesAdministeredTitle,
+						accessibilityIdentifier: nil
+					) { _, cell, _ in cell.accessibilityTraits = .header },
+					.body(
+						text: AppStrings.Statistics.Info.dosesAdministeredText,
+						accessibilityIdentifier: nil
+					)  */
 				]
 			),
-//			.section(
-//				footer: .space(height: 16),
-//				cells: [
-//					.title2(
-//						text: AppStrings.Statistics.Info.incidenceTitle,
-//						accessibilityIdentifier: nil
-//					) { _, cell, _ in cell.accessibilityTraits = .header },
-//					.body(
-//						text: AppStrings.Statistics.Info.incidenceText,
-//						accessibilityIdentifier: nil
-//					)
-//				]
-//			),
-//			.section(
-//				footer: .space(height: 16),
-//				cells: [
-//					.title2(
-//						text: AppStrings.Statistics.Info.reproductionNumberTitle,
-//						accessibilityIdentifier: nil
-//					) { _, cell, _ in cell.accessibilityTraits = .header },
-//					.body(
-//						text: AppStrings.Statistics.Info.reproductionNumberText,
-//						accessibilityIdentifier: nil
-//					)
-//				]
-//			),
 			.section(
 				footer: .separator(color: .enaColor(for: .hairline), insets: UIEdgeInsets(top: 32, left: 0, bottom: 32, right: 0)),
 				cells: [
@@ -149,9 +208,11 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.faqLinkText,
 						accessibilityIdentifier: nil
 					),
-					.link(
+					.textWithLinks(
 						text: AppStrings.Statistics.Info.faqLinkTitle,
-						url: URL(string: AppStrings.Statistics.Info.faqLink)
+						links: [
+							AppStrings.Statistics.Info.faqLinkTitle: AppStrings.Statistics.Info.faqLink
+						]
 					)
 				]
 			),
@@ -210,6 +271,7 @@ class StatisticsInfoViewController: DynamicTableViewController {
 						text: AppStrings.Statistics.Info.trendTitle,
 						accessibilityIdentifier: nil
 					),
+					.space(height: 8),
 					.bodyWithoutTopInset(
 						text: AppStrings.Statistics.Info.trendText,
 						accessibilityIdentifier: nil
@@ -222,10 +284,17 @@ class StatisticsInfoViewController: DynamicTableViewController {
 					.icon(UIImage(named: "Pfeil_steigend"), text: .string(AppStrings.Statistics.Info.trendsIncreasing), iconWidth: 19),
 					.icon(UIImage(named: "Pfeil_sinkend"), text: .string(AppStrings.Statistics.Info.trendsDecreasing), iconWidth: 19),
 					.icon(UIImage(named: "Pfeil_stabil"), text: .string(AppStrings.Statistics.Info.trendsStable), iconWidth: 19),
-					.footnote(
-						text: AppStrings.Statistics.Info.trendsFootnote,
-						accessibilityIdentifier: nil
-					)
+					.body(text: AppStrings.Statistics.Info.trendsFootnote),
+					/* .textWithLinks(
+						text: String(
+							format: AppStrings.Statistics.Info.blogDescription,
+							AppStrings.Statistics.Info.blog),
+						links: [
+							AppStrings.Statistics.Info.blog: AppStrings.Links.statisticsInfoBlog
+						],
+						linksColor: .enaColor(for: .textTint),
+						style: .body
+					) */
 				]
 			)
 		])

@@ -34,10 +34,25 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		view.backgroundColor = .enaColor(for: .darkBackground)
 
+		/*
+		    In iOS 15, the tab bar background automatically adjusts it self, when there is no content on the back it becomes transparent
+		    where as it has a background when there is content on the back. Unfortunately, in our case the tab bar remains transparent even
+		    through there is content on the back, so we fix this by overriding the appearance with a background.
+			Solution is inspired from: https://developer.apple.com/forums/thread/682420
+		*/
+		if #available(iOS 15, *) {
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			appearance.backgroundColor = .enaColor(for: .backgroundLightGray)
+			tabBarController?.tabBar.standardAppearance = appearance
+			tabBarController?.tabBar.scrollEdgeAppearance = tabBarController?.tabBar.standardAppearance
+		}
+		
 		tableView.keyboardDismissMode = .interactive
 
 		setupSegmentedControl()
 		setupTableView()
+		tableView.reloadData()
 
 		viewModel.$day
 			.sink { [weak self] _ in
@@ -49,7 +64,7 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 
 		viewModel.$selectedEntryType
 			.sink { [weak self] _ in
-				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happend while scrolling.
+				// DispatchQueue triggers immediately while .receive(on:) would wait until the main runloop is free, which lead to a crash if the switch happened while scrolling.
 				// In that case cells were dequeued for the old model (entriesOfSelectedType) that was not available anymore.
 				DispatchQueue.main.async {
 					// Scrolling to top prevents table view from flickering while reloading
@@ -58,6 +73,79 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 				}
 			}
 			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
+			.sink { [weak self] notification in
+
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+
+				let baseInset = self.view.safeAreaInsets.bottom - self.additionalSafeAreaInsets.bottom
+				let localOrigin = self.view.convert(keyboardFrame, from: nil)
+				var keyboardInset = self.view.bounds.height - localOrigin.minY
+				if keyboardInset > baseInset {
+					keyboardInset -= baseInset
+				}
+
+				// this is such a beautiful piece of code by me - Bastian Kohlbauer - that fixes an iOS bug
+				// where the tableview will not automatically scroll to the position of the first responder
+				// if it is a UIDatePicker. please acknowledge and admire!
+				var targetRect: CGRect?
+				if let currentResponder = self.view.firstResponder as? UIView {
+					let rect = currentResponder.convert(currentResponder.frame, to: self.view)
+					if keyboardFrame.intersects(rect) {
+						targetRect = currentResponder.convert(currentResponder.frame, to: self.tableView)
+					}
+				}
+								
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.tableView.scrollIndicatorInsets.bottom = keyboardInset
+					self?.tableView.contentInset.bottom = keyboardInset
+					if let targetRect = targetRect {
+						self?.tableView.scrollRectToVisible(targetRect, animated: false)
+					}
+					
+				}, completion: nil)
+			}
+			.store(in: &subscriptions)
+
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.tableView.scrollIndicatorInsets.bottom = 0
+					self?.tableView.contentInset.bottom = 0
+				}, completion: nil)
+			}
+			.store(in: &subscriptions)
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		// we need to reset to our default behaviour for tabbar's standardAppearance and scrollEdgeAppearance
+		if #available(iOS 15, *) {
+			let defaultAppearance = UITabBarAppearance()
+			defaultAppearance.configureWithDefaultBackground()
+			tabBarController?.tabBar.standardAppearance = defaultAppearance
+			
+			let transparentAppearance = UITabBarAppearance()
+			transparentAppearance.configureWithTransparentBackground()
+			tabBarController?.tabBar.scrollEdgeAppearance = transparentAppearance
+		}
 	}
 
 	// MARK: - Protocol UITableViewDataSource
@@ -104,6 +192,10 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	@IBOutlet weak var topSpaceConstraint: NSLayoutConstraint!
 	@IBOutlet weak var segmentedControl: UISegmentedControl!
 	@IBOutlet weak var tableView: UITableView!
+	
+	var day: DiaryDay {
+		return viewModel.day
+	}
 
 	private func setupSegmentedControl() {
 		segmentedControl.setTitle(AppStrings.ContactDiary.Day.contactPersonsSegment, forSegmentAt: 0)
@@ -150,8 +242,11 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 		tableView.dataSource = self
 
 		tableView.separatorStyle = .none
+		tableView.sectionFooterHeight = 0
+		tableView.sectionHeaderHeight = 0
 		tableView.rowHeight = UITableView.automaticDimension
-		tableView.estimatedRowHeight = 60
+
+		tableView.accessibilityIdentifier = AccessibilityIdentifiers.ContactDiary.dayTableView
 	}
 
 	private func entryAddCell(forRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -182,9 +277,33 @@ class DiaryDayViewController: UIViewController, UITableViewDataSource, UITableVi
 	}
 
 	private func updateForSelectedEntryType() {
-		tableView.reloadData()
-
-		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty ? DiaryDayEmptyView(entryType: viewModel.selectedEntryType) : nil
+				
+		if #available(iOS 13, *) {
+			tableView.reloadData()
+		} else {
+			UIView.performWithoutAnimation { [weak self] in
+				guard let self = self else {
+					return
+				}
+				let numberOfSections = self.numberOfSections(in: tableView)
+				self.tableView.beginUpdates()
+				self.tableView.reloadSections(IndexSet(0..<numberOfSections), with: .automatic)
+				self.tableView.endUpdates()
+			}
+		}
+		
+		// Since we set the empty state view as a background view we want to push it to a position where the text is visible,
+		// and that looks good on large and small screens
+		let safeInsetTop = tableView.rectForRow(at: IndexPath(row: 0, section: 0)).maxY + tableView.adjustedContentInset.top
+		let alignmentPadding = UIScreen.main.bounds.height / 5
+		tableView.backgroundView = viewModel.entriesOfSelectedType.isEmpty
+			? EmptyStateView(
+				viewModel: DiaryDayEmptyStateViewModel(entryType: viewModel.selectedEntryType),
+				safeInsetTop: safeInsetTop,
+				safeInsetBottom: tableView.adjustedContentInset.bottom,
+				alignmentPadding: alignmentPadding
+			  )
+			: nil
 	}
 
 	@IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {

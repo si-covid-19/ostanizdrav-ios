@@ -6,10 +6,13 @@ import UserNotifications
 
 public enum ActionableNotificationIdentifier: String {
 	case testResult = "test-result"
+	case testResultType = "test-result-type"
 	case riskDetection = "risk-detection"
 	case deviceTimeCheck = "device-time-check"
-	case warnOthersReminder1 = "warn-others-reminder-1"
-	case warnOthersReminder2 = "warn-others-reminder-2"
+	case pcrWarnOthersReminder1 = "pcr-warn-others-reminder-1"
+	case pcrWarnOthersReminder2 = "pcr-warn-others-reminder-2"
+	case antigenWarnOthersReminder1 = "antigen-warn-others-reminder-1"
+	case antigenWarnOthersReminder2 = "antigen-warn-others-reminder-2"
 
 	var identifier: String {
 		let bundleIdentifier = Bundle.main.bundleIdentifier ?? "si.gov.ostanizdrav"
@@ -17,7 +20,16 @@ public enum ActionableNotificationIdentifier: String {
 	}
 }
 
-extension UNUserNotificationCenter {
+public enum LocalNotificationIdentifier: String {
+	case checkout = "EventCheckoutNotification"
+	case certificateExpiringSoon = "HealthCertificateNotificationExpireSoon"
+	case certificateExpired = "HealthCertificateNotificationExpired"
+	case certificateInvalid = "HealthCertificateNotificationInvalid"
+	case certificateBlocked = "HealthCertificateNotificationBlocked"
+	case boosterVaccination = "BoosterVaccinationNotification"
+}
+
+extension UserNotificationCenter {
 
 	func presentNotification(
 		title: String,
@@ -34,6 +46,9 @@ extension UNUserNotificationCenter {
 		content.badge = 1
 		content.categoryIdentifier = identifier
 		content.userInfo = info
+		if #available(iOS 15.0, *) {
+			content.interruptionLevel = .timeSensitive
+		}
 		
 		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
 		let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)

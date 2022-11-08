@@ -14,14 +14,19 @@ final class DMPPAnalyticsViewModel {
 	init(
 		store: Store,
 		client: Client,
-		appConfig: AppConfigurationProviding
+		appConfig: AppConfigurationProviding,
+		coronaTestService: CoronaTestService,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.store = store
 		self.client = client
 		self.submitter = PPAnalyticsSubmitter(
 			store: store,
 			client: client,
-			appConfig: appConfig)
+			appConfig: appConfig,
+			coronaTestService: coronaTestService,
+			ppacService: ppacService
+		)
 	}
 
 	// MARK: - Internal
@@ -53,6 +58,8 @@ final class DMPPAnalyticsViewModel {
 				textColor: .white,
 				backgroundColor: .enaColor(for: .buttonPrimary),
 				action: { [weak self] in
+					// it's added for the testers in case of force submission
+					Analytics.collect(.riskExposureMetadata(.update))
 					Analytics.forcedAnalyticsSubmission(completion: { [weak self] result in
 						switch result {
 						case .success:

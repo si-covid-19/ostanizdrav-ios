@@ -7,7 +7,7 @@ import Foundation
 import XCTest
 
 // swiftlint:disable:next type_body_length
-class HourKeyPackagesDownloadTests: XCTestCase {
+class HourKeyPackagesDownloadTests: CWATestCase {
 
 	private lazy var dummyHourResponse: [Int: PackageDownloadResponse] = {
 		let dummyPackage = SAPDownloadedPackage(keysBin: Data(), signature: Data())
@@ -431,7 +431,7 @@ class HourKeyPackagesDownloadTests: XCTestCase {
 
 	func test_When_DownloadingDayPackage_Then_CleanupHourPackages() throws {
 		// Load day package for a particular day will cleanup
-		// all hour packages for exactely that day
+		// all hour packages for exactly that day
 
 		let store = MockTestStore()
 

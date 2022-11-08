@@ -2,38 +2,77 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
-import SafariServices
 import UIKit
 
 enum LinkHelper {
-	static func showWebPage(from viewController: UIViewController, urlString: String) {
+	
+	typealias Success = Bool
+	
+	enum Result {
+		case done
+		case error
+		case allow
+	}
+	
+	enum LinkType {
+		case faq
+	}
+
+	enum Links {
+		// hard coded in order to make them testable with unit tests
+		static let appFaqAnchorDE = "https://www.coronawarn.app/de/faq/#"
+		static let appFaqAnchorEN = "https://www.coronawarn.app/en/faq/#"
+	}
+
+	@discardableResult
+	static func open(urlString: String) -> Success {
 		if let url = URL(string: urlString) {
-			openLink(withUrl: url, from: viewController)
+			return open(url: url) == .done
 		} else {
 			let error = "\(urlString) is no valid URL"
 			Log.error(error, log: .api)
 			fatalError(error)
 		}
 	}
-
-	static func open(withUrl url: URL, from viewController: UIViewController) {
-		switch url.scheme {
-		case "tel", "mailto":
-			UIApplication.shared.open(url, options: [:], completionHandler: nil)
-		default:
-			openLink(withUrl: url, from: viewController)
+	
+	@discardableResult
+	static func open(url: URL, interaction: UITextItemInteraction = .invokeDefaultAction) -> Result {
+		#if DEBUG
+		if isUITesting {
+			showAlert(url: url)
+			return .done
+		}
+		#endif
+		guard interaction == .invokeDefaultAction else {
+			return .allow
+		}
+		guard UIApplication.shared.canOpenURL(url) else {
+			Log.error("Cannot open url \(url.absoluteString)", log: .api)
+			return .error
+		}
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		return .done
+	}
+	
+	static func urlString(suffix: String, type: LinkType, languageCode: String? = Locale.current.languageCode) -> String {
+		switch type {
+		case .faq:
+			return languageCode == "de" ? Links.appFaqAnchorDE + suffix : Links.appFaqAnchorEN + suffix
 		}
 	}
-
-	static func openLink(withUrl url: URL, from viewController: UIViewController) {
-		let config = SFSafariViewController.Configuration()
-		config.entersReaderIfAvailable = false
-		config.barCollapsingEnabled = true
-
-		let vc = SFSafariViewController(url: url, configuration: config)
-		vc.preferredControlTintColor = .enaColor(for: .tint)
-
-		viewController.present(vc, animated: true)
+	
+	#if DEBUG
+	private static func showAlert(url: URL) {
+		let alert = UIAlertController(title: nil, message: url.absoluteString, preferredStyle: .alert)
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		alert.addAction(cancelAction)
+		
+		if var topController = UIApplication.shared.keyWindow?.rootViewController {
+			  while let presentedViewController = topController.presentedViewController {
+					topController = presentedViewController
+				   }
+			topController.present(alert, animated: false, completion: nil)
+		}
 	}
+	#endif
 }

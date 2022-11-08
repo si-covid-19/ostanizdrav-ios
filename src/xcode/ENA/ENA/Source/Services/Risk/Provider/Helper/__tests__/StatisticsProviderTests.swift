@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class StatisticsProviderTests: XCTestCase {
+class StatisticsProviderTests: CWATestCase {
 
 	private var subscriptions = [AnyCancellable]()
 
@@ -18,11 +18,11 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
-				XCTAssertEqual(response.stats.keyFigureCards.count, 4)
+				XCTAssertEqual(response.stats.keyFigureCards.count, 11)
 				XCTAssertEqual(response.stats.cardIDSequence.count, response.stats.keyFigureCards.count)
 			case .failure(let error):
 				XCTFail(error.localizedDescription)
@@ -40,8 +40,7 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.statistics)
 
-		store.selectedServerEnvironment = ServerEnvironment().defaultEnvironment()
-		let client = CachingHTTPClient(serverEnvironmentProvider: store)
+		let client = CachingHTTPClient()
 		client.fetchStatistics(etag: "foo") { result in
 			switch result {
 			case .success(let response): // StatisticsFetchingResponse
@@ -66,7 +65,7 @@ class StatisticsProviderTests: XCTestCase {
 		valueReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let provider = StatisticsProvider(client: client, store: store)
 		provider.statistics()
 			.sink(receiveCompletion: { result in
@@ -77,7 +76,7 @@ class StatisticsProviderTests: XCTestCase {
 					XCTFail(error.localizedDescription)
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 4)
+				XCTAssertEqual(stats.keyFigureCards.count, 11)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				valueReceived.fulfill()
 			})
@@ -91,7 +90,7 @@ class StatisticsProviderTests: XCTestCase {
 		responseReceived.expectedFulfillmentCount = 1
 
 		let store = MockTestStore()
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			// fake a broken backend
 			let error = URLSessionError.serverError(503)
@@ -133,7 +132,7 @@ class StatisticsProviderTests: XCTestCase {
 			timestamp: try XCTUnwrap(301.secondsAgo))
 
 		// Fake, backend returns HTTP 304
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))
@@ -151,7 +150,7 @@ class StatisticsProviderTests: XCTestCase {
 					XCTFail("Expected a no error, got: \(error)")
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 4)
+				XCTAssertEqual(stats.keyFigureCards.count, 11)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				checkpoint.fulfill()
 			})
@@ -172,7 +171,7 @@ class StatisticsProviderTests: XCTestCase {
 			timestamp: try XCTUnwrap(301.secondsAgo))
 
 		// Fake, backend returns new data
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let response = StatisticsFetchingResponse(CachingHTTPClientMock.staticStatistics, "fake2")
 			completeWith(.success(response))
@@ -190,7 +189,7 @@ class StatisticsProviderTests: XCTestCase {
 					XCTFail("Expected a no error, got: \(error)")
 				}
 			}, receiveValue: { stats in
-				XCTAssertEqual(stats.keyFigureCards.count, 4)
+				XCTAssertEqual(stats.keyFigureCards.count, 11)
 				XCTAssertEqual(stats.cardIDSequence.count, stats.keyFigureCards.count)
 				XCTAssertEqual(store.statistics?.lastStatisticsETag, "fake2")
 				checkpoint.fulfill()
@@ -208,7 +207,7 @@ class StatisticsProviderTests: XCTestCase {
 		let store = MockTestStore()
 
 		// Simulate response for given ETag
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchStatistics = { _, completeWith in
 			let error = URLSessionError.notModified
 			completeWith(.failure(error))

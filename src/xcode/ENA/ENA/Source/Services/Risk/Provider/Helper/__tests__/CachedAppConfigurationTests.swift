@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-final class CachedAppConfigurationTests: XCTestCase {
+final class CachedAppConfigurationTests: CWATestCase {
 
 	func testCachedRequests() {
 		var subscriptions = Set<AnyCancellable>()
@@ -19,7 +19,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
@@ -61,7 +61,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
@@ -84,43 +84,6 @@ final class CachedAppConfigurationTests: XCTestCase {
 
 		subscription.cancel()
 	}
-	
-	func testClientMetadata_isUpdated_everytime_appconfiguration_isFetched() {
-		let mockStore = MockTestStore()
-		Analytics.setupMock(store: mockStore)
-		mockStore.isPrivacyPreservingAnalyticsConsentGiven = true
-		XCTAssertNil(mockStore.clientMetadata, "Client metadata should be initially nil")
-		let client = CachingHTTPClientMock(store: mockStore)
-		let cache = CachedAppConfiguration(client: client, store: mockStore)
-		let expectationClientMetadata = expectation(description: "ClientMetadata")
-		// AppVersion
-		let appVersionParts = Bundle.main.appVersion.split(separator: ".")
-		guard appVersionParts.count == 3,
-			  let majorAppVersion = Int(appVersionParts[0]),
-			  let minorAppVersion = Int(appVersionParts[1]),
-			  let patchAppVersion = Int((appVersionParts[2])) else {
-			return
-		}
-		let expectedAppVersion = Version(major: majorAppVersion, minor: minorAppVersion, patch: patchAppVersion)
-		// iOSVersion
-		let expectediosVersion = Version(
-			major: ProcessInfo().operatingSystemVersion.majorVersion,
-			minor: ProcessInfo().operatingSystemVersion.minorVersion,
-			patch: ProcessInfo().operatingSystemVersion.patchVersion
-		)
-		// eTag
-		let expectedETag = "fake"
-		let configuration = cache.appConfiguration(forceFetch: true).sink { _ in
-			expectationClientMetadata.fulfill()
-		}
-		waitForExpectations(timeout: .medium) { _ in
-			XCTAssertNotNil(configuration, "configuration is not nil")
-			XCTAssertNotNil(mockStore.clientMetadata, "Client metadata should be filled after fetching")
-			XCTAssertEqual(expectedAppVersion, mockStore.clientMetadata?.cwaVersion, "appVersion not equal clientMetaData appVersion")
-			XCTAssertEqual(expectediosVersion, mockStore.clientMetadata?.iosVersion, "iosVersion not equal clientMetaData iosVersion")
-			XCTAssertEqual(expectedETag, mockStore.clientMetadata?.eTag, "eTag not equal clientMetaData eTag")
-		}
-	}
 
 	func testCacheEmptySupportedCountries() throws {
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client")
@@ -129,7 +92,7 @@ final class CachedAppConfigurationTests: XCTestCase {
 		var config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		config.supportedCountries = []
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
@@ -137,8 +100,8 @@ final class CachedAppConfigurationTests: XCTestCase {
 		}
 
 		let gotValue = expectation(description: "got countries list")
-
 		let cache = CachedAppConfiguration(client: client, store: store)
+
 		wait(for: [fetchedFromClientExpectation], timeout: .medium)
 
 		let subscription = cache
@@ -149,37 +112,53 @@ final class CachedAppConfigurationTests: XCTestCase {
 				gotValue.fulfill()
 			}
 
-		wait(for: [gotValue], timeout: .medium)
+		waitForExpectations(timeout: .medium)
 
 		subscription.cancel()
 	}
 
-	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledOnce() {
+	func testGIVEN_CachedAppConfigration_WHEN_FetchAppConfigIsCalledMultipleTimes_THEN_FetchIsCalledAtLeastOnce() {
 		// GIVEN
 		let fetchedFromClientExpectation = expectation(description: "configuration fetched from client only once")
-		fetchedFromClientExpectation.expectedFulfillmentCount = 1
+		
+		// The callback might be called more than once, depending on how fast the HTTPClient responds.
+		fetchedFromClientExpectation.assertForOverFulfill = false
 
 		let store = MockTestStore()
 		XCTAssertNil(store.appConfigMetadata)
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		let expectedConfig = SAP_Internal_V2_ApplicationConfigurationIOS()
 
 		client.onFetchAppConfiguration = { _, completeWith in
-			sleep(2) // network
 			let config = AppConfigurationFetchingResponse(expectedConfig, "etag")
 			completeWith((.success(config), nil))
 			fetchedFromClientExpectation.fulfill()
 		}
 
 		// WHEN
-		// Initilize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
-		_ = CachedAppConfiguration(client: client, store: store)
+		var subscriptions = [AnyCancellable]()
+
+		let configFetchFinished = expectation(description: "Configuration fetch finished.")
+		configFetchFinished.expectedFulfillmentCount = 5
+
+		// Initialize the `CachedAppConfiguration` will trigger `fetchAppConfiguration`.
+		let cachedAppConfiguration = CachedAppConfiguration(client: client, store: store)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
+		cachedAppConfiguration.appConfiguration(forceFetch: true).sink { _ in
+			configFetchFinished.fulfill()
+		}.store(in: &subscriptions)
 
 		waitForExpectations(timeout: .medium)
 		XCTAssertNotNil(store.appConfigMetadata)
@@ -191,10 +170,13 @@ final class CachedAppConfigurationTests: XCTestCase {
 		config.supportedCountries = ["DE", "ES", "FR", "IT", "IE", "DK"]
 
 		let httpRequest = expectation(description: "server request")
+		// Could be overfullfilled if response returns fast enough.
+		httpRequest.assertForOverFulfill = false
+		
 		let gotValue = expectation(description: "got countries list")
 		gotValue.expectedFulfillmentCount = 3
 
-		let client = CachingHTTPClientMock(store: store)
+		let client = CachingHTTPClientMock()
 		client.onFetchAppConfiguration = { _, completeWith in
 			let config = AppConfigurationFetchingResponse(config, "etag")
 			completeWith((.success(config), nil))
@@ -202,8 +184,9 @@ final class CachedAppConfigurationTests: XCTestCase {
 		}
 
 		var subscriptions = [AnyCancellable]()
+		let cache = CachedAppConfiguration(client: client, store: store)
+
 		for _ in 0..<gotValue.expectedFulfillmentCount {
-			let cache = CachedAppConfiguration(client: client, store: store)
 			cache
 				.supportedCountries()
 				.sink { countries in
@@ -213,6 +196,43 @@ final class CachedAppConfigurationTests: XCTestCase {
 				.store(in: &subscriptions)
 		}
 
+		waitForExpectations(timeout: .medium)
+	}
+
+	func test_stressTestAppConfigurationAccess() {
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
+
+		let client = CachingHTTPClientMock()
+		client.onFetchAppConfiguration = { _, completeWith in
+			let config = AppConfigurationFetchingResponse(config, "etag")
+			completeWith((.success(config), nil))
+		}
+
+		let cache = CachedAppConfiguration(client: client, store: store)
+		let callbackExpectations = expectation(description: "AppConfigurationCallback")
+		callbackExpectations.expectedFulfillmentCount = 1001
+		
+		var stressTestSubscriptions = [AnyCancellable]()
+		let concurrentQueue = DispatchQueue(label: "AppConfigurationAccessQueue", attributes: .concurrent)
+		let subscriptionQueue = DispatchQueue(label: "SubscriptionQueue")
+		
+		for _ in 0...1000 {
+			// Stress the CachedAppConfiguration with a lot a concurrent calls.
+			concurrentQueue.async {
+				usleep(10_000) // 0.01s
+
+				let subscription = cache.appConfiguration(forceFetch: true).sink { _ in
+					callbackExpectations.fulfill()
+				}
+				
+				// Because we are in a concurrent call, we need to serial sync the access to the subsciptions queue to avoid data inconsistencies.
+				subscriptionQueue.sync {
+					stressTestSubscriptions.append(subscription)
+				}
+			}
+		}
+		
 		waitForExpectations(timeout: .medium)
 	}
 }

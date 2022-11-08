@@ -7,27 +7,8 @@ import UIKit
 
 @IBDesignable
 class ENAButton: DynamicTypeButton {
-	@IBInspectable var color: UIColor?
 
-	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
-	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
-	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
-	@IBInspectable var hasBorder: Bool = false { didSet {
-		applyStyle()
-
-	} }
-
-	override var isEnabled: Bool { didSet { applyStyle() } }
-	override var isHighlighted: Bool { didSet { applyHighlight() } }
-
-	private var highlightView: UIView!
-	private weak var activityIndicator: UIActivityIndicatorView?
-
-	override var intrinsicContentSize: CGSize {
-		var size = super.intrinsicContentSize
-		if size.height < 50 { size.height = 50 }
-		return size
-	}
+	// MARK: - Init
 
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
@@ -39,6 +20,10 @@ class ENAButton: DynamicTypeButton {
 		setup()
 	}
 
+	// MARK: - Overrides
+
+	override var isEnabled: Bool { didSet { applyStyle() } }
+	override var isHighlighted: Bool { didSet { applyHighlight() } }
 
 	override func prepareForInterfaceBuilder() {
 		setup()
@@ -50,6 +35,27 @@ class ENAButton: DynamicTypeButton {
 		setup()
 		super.awakeFromNib()
 	}
+
+	override var intrinsicContentSize: CGSize {
+		var size = super.intrinsicContentSize
+		if size.height < 50 { size.height = 50 }
+		return size
+	}
+
+	// MARK: - Internal
+
+	@IBInspectable var enabledBackgroundColor: UIColor?
+	@IBInspectable var disabledBackgroundColor: UIColor?
+	@IBInspectable var hasBackground: Bool = true { didSet { applyStyle() } }
+	@IBInspectable var isInverted: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var isLoading: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var hasBorder: Bool = false { didSet { applyStyle() } }
+	@IBInspectable var customTextColor: UIColor? { didSet { applyStyle() } }
+
+	// MARK: - Private
+
+	private var highlightView: UIView!
+	private weak var activityIndicator: UIActivityIndicatorView?
 
 	private func setup() {
 		setValue(ButtonType.custom.rawValue, forKey: "buttonType")
@@ -90,11 +96,11 @@ class ENAButton: DynamicTypeButton {
 	private func applyStyle() {
 		let style: Style
 		if !hasBackground {
-			style = .transparent
+			style = .transparent(customTextColor: customTextColor)
 		} else if isInverted {
 			style = .contrast
 		} else {
-			style = .emphasized(color: color)
+			style = .emphasized(enabledBackgroundColor: enabledBackgroundColor, disabledBackgroundColor: disabledBackgroundColor)
 		}
 
 		applyActivityIndicator()
@@ -103,15 +109,16 @@ class ENAButton: DynamicTypeButton {
 			backgroundColor = style.backgroundColor
 			setTitleColor(style.foregroundColor, for: .normal)
 			activityIndicator?.color = style.foregroundColor
+			layer.borderColor = style.foregroundColor.cgColor
 		} else {
 			backgroundColor = style.disabledBackgroundColor
 			setTitleColor(style.disabledForegroundColor.withAlphaComponent(0.5), for: .disabled)
 			activityIndicator?.color = style.disabledForegroundColor.withAlphaComponent(0.5)
+			layer.borderColor = style.disabledForegroundColor.withAlphaComponent(0.5).cgColor
 		}
 
 		if hasBorder {
 			layer.borderWidth = 1
-			layer.borderColor = style.foregroundColor.cgColor
 			layer.cornerRadius = 8
 		} else {
 			layer.borderWidth = 0
@@ -192,8 +199,8 @@ class ENAButton: DynamicTypeButton {
 
 private extension ENAButton {
 	enum Style {
-		case transparent
-		case emphasized(color: UIColor?)
+		case transparent(customTextColor: UIColor?)
+		case emphasized(enabledBackgroundColor: UIColor?, disabledBackgroundColor: UIColor?)
 		case contrast
 	}
 }
@@ -205,33 +212,43 @@ extension ENAButton.Style {
 
 	var backgroundColor: UIColor {
 		switch self {
-		case .transparent: return .clear
-		case .emphasized(let color): return color ?? .enaColor(for: .buttonPrimary)
+		case .transparent:
+			return .clear
+		case let .emphasized(enabledBackgroundColor, _): return enabledBackgroundColor ?? .enaColor(for: .buttonPrimary)
 		case .contrast: return .enaColor(for: .background)
 		}
 	}
 
 	var foregroundColor: UIColor {
 		switch self {
-		case .transparent: return .enaColor(for: .textTint)
-		case .emphasized: return .enaColor(for: .textContrast)
-		case .contrast: return .enaColor(for: .textPrimary1)
+		case let .transparent(customTextColor):
+			return customTextColor ?? .enaColor(for: .textTint)
+		case .emphasized:
+			return .enaColor(for: .textContrast)
+		case .contrast:
+			return .enaColor(for: .textPrimary1)
 		}
 	}
 
 	var disabledBackgroundColor: UIColor {
 		switch self {
-		case .transparent: return .clear
-		case .emphasized: return .enaColor(for: .separator)
-		case .contrast: return .enaColor(for: .separator)
+		case .transparent:
+			return .clear
+		case let .emphasized(_, disabledBackgroundColor):
+			return disabledBackgroundColor ?? .enaColor(for: .separator)
+		case .contrast:
+			return .enaColor(for: .separator)
 		}
 	}
 
 	var disabledForegroundColor: UIColor {
 		switch self {
-		case .transparent: return .enaColor(for: .textTint)
-		case .emphasized: return .enaColor(for: .textPrimary1)
-		case .contrast: return .enaColor(for: .textPrimary1)
+		case let .transparent(customTextColor):
+			return customTextColor ?? .enaColor(for: .textTint)
+		case .emphasized:
+			return .enaColor(for: .textPrimary1)
+		case .contrast:
+			return .enaColor(for: .textPrimary1)
 		}
 	}
 }

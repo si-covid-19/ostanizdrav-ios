@@ -13,7 +13,7 @@ class EuTracingTableViewCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		// self
-		selectionStyle = .none
+		selectionStyle = .default
 		backgroundColor = .enaColor(for: .background)
 		accessoryType = .disclosureIndicator
 		// iconView
@@ -38,11 +38,11 @@ class EuTracingTableViewCell: UITableViewCell {
 			// iconView
 			iconView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 			iconView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
-			iconView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 16),
+			iconView.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor, constant: 0),
 			iconView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -16),
 			iconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-			iconView.widthAnchor.constraint(equalToConstant: 35),
-			iconView.heightAnchor.constraint(equalToConstant: 25),
+			iconView.widthAnchor.constraint(equalToConstant: 50),
+			iconView.heightAnchor.constraint(equalToConstant: 50),
 			// titleLabel
 			titleLabel.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 10),
 			titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),

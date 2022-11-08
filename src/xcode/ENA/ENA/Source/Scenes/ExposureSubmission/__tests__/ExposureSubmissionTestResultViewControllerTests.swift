@@ -4,36 +4,66 @@
 
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
-class ExposureSubmissionViewControllerTests: XCTestCase {
+class ExposureSubmissionViewControllerTests: CWATestCase {
 	
 	private var store: Store!
 	
 	
 	override func setUpWithError() throws {
+		try super.setUpWithError()
 		store = MockTestStore()
 	}
 
-	private func createVC(testResult: TestResult) -> ExposureSubmissionTestResultViewController {
-		ExposureSubmissionTestResultViewController(
+	private func createVC(coronaTest: CoronaTest) -> ExposureSubmissionTestResultViewController {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+		
+		switch coronaTest.type {
+		case .pcr:
+			store.pcrTest = coronaTest.pcrTest
+		case .antigen:
+			store.antigenTest = coronaTest.antigenTest
+		}
+
+		return ExposureSubmissionTestResultViewController(
 			viewModel: ExposureSubmissionTestResultViewModel(
-				testResult: testResult,
-				exposureSubmissionService: MockExposureSubmissionService(),
-				warnOthersReminder: WarnOthersReminder(store: self.store),
+				coronaTestType: coronaTest.type,
+				coronaTestService: CoronaTestService(
+					client: client,
+					store: store,
+					eventStore: MockEventStore(),
+					diaryStore: MockDiaryStore(),
+					appConfiguration: appConfiguration,
+					healthCertificateService: HealthCertificateService(
+						store: store,
+						dccSignatureVerifier: DCCSignatureVerifyingStub(),
+						dscListProvider: MockDSCListProvider(),
+						client: client,
+						appConfiguration: appConfiguration,
+						cclService: FakeCCLService(),
+						recycleBin: .fake()
+					),
+					recycleBin: .fake(),
+					badgeWrapper: .fake()
+				),
 				onSubmissionConsentCellTap: { _ in },
 				onContinueWithSymptomsFlowButtonTap: { },
 				onContinueWarnOthersButtonTap: { _ in },
 				onChangeToPositiveTestResult: { },
-				onTestDeleted: { }
+				onTestDeleted: { },
+				onTestCertificateCellTap: { _, _ in }
 			),
 			exposureSubmissionService: MockExposureSubmissionService(),
 			onDismiss: { _, _ in }
 		)
 	}
 
-	func testPositiveState() {
-		let vc = createVC(testResult: .positive)
+	func testPositivePCRState() {
+		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .positive)))
 		_ = vc.view
 		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
 
@@ -45,4 +75,21 @@ class ExposureSubmissionViewControllerTests: XCTestCase {
 		XCTAssertEqual(cell?.contentTextLabel.text, AppStrings.ExposureSubmissionPositiveTestResult.noConsentTitle)
 	}
 
+	func testNegativePCRState() {
+		let vc = createVC(coronaTest: CoronaTest.pcr(PCRTest.mock(testResult: .negative)))
+		_ = vc.view
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+
+		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? ExposureSubmissionTestResultHeaderView
+		XCTAssertNotNil(header)
+	}
+	
+	func testNegativeAntigenState() {
+		let vc = createVC(coronaTest: CoronaTest.antigen(AntigenTest.mock(testResult: .negative)))
+		_ = vc.view
+		XCTAssertEqual(vc.dynamicTableViewModel.numberOfSection, 1)
+
+		let header = vc.tableView(vc.tableView, viewForHeaderInSection: 0) as? AntigenExposureSubmissionNegativeTestResultHeaderView
+		XCTAssertNotNil(header)
+	}
 }

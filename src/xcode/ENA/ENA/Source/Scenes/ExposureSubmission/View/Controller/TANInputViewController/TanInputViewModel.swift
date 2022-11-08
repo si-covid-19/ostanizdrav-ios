@@ -10,20 +10,28 @@ final class TanInputViewModel {
 	// MARK: - Init
 	
 	init(
-		exposureSubmissionService: ExposureSubmissionService,
-		presentInvalidTanAlert: @escaping (String, @escaping () -> Void) -> Void,
-		tanSuccessfullyTransferred: @escaping () -> Void,
+		title: String,
+		description: String,
+		onPrimaryButtonTap: @escaping (String, @escaping (Bool) -> Void) -> Void,
 		givenTan: String? = nil
 	) {
-		self.exposureSubmissionService = exposureSubmissionService
-		self.presentInvalidTanAlert = presentInvalidTanAlert
-		self.tanSuccessfullyTransferred = tanSuccessfullyTransferred
+		self.title = title
+		self.description = description
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 		self.text = givenTan ?? ""
+#if DEBUG
+		if isUITesting {
+			// UI-Tests sometimes fail to enter a tan via the software keyboard, so we prefill it on UI-Tests
+			self.text = "QWDZXCSRHE"
+			isPrimaryButtonEnabled = isChecksumValid
+		}
+#endif
 	}
-	
-	// MARK: - Overrides
 
-	// MARK: - Public
+	// MARK: - Internal
+
+	let title: String
+	let description: String
 
 	@OpenCombine.Published private(set) var errorText: String = ""
 	@OpenCombine.Published private(set) var isPrimaryButtonEnabled: Bool = false
@@ -35,12 +43,9 @@ final class TanInputViewModel {
 		}
 	}
 
-	// MARK: - Internal
-
 	let digitGroups: [Int] = [3, 3, 4]
 
 	var isInputBlocked: Bool = false
-	var didDissMissInvalidTanAlert: (() -> Void)?
 
 	var isNumberOfDigitsReached: Bool {
 		let count = text.count
@@ -57,28 +62,16 @@ final class TanInputViewModel {
 	}
 
 	func submitTan() {
-		// isChecksumValid will perfome isValid internal
+		// isChecksumValid will perform isValid internal
 		guard isChecksumValid else {
-			Log.debug("tried to submit tan \(text), but it is invalid")
+			Log.debug("tried to submit tan \(private: text, public: "TeleTan ID"), but it is invalid")
 			return
 		}
-
-		isPrimaryButtonEnabled = false
-		isPrimaryBarButtonIsLoading = true
-		exposureSubmissionService.getRegistrationToken(forKey: .teleTan(text)) { [weak self] result in
-
-			switch result {
-			case let .failure(error):
-				// If teleTAN is incorrect, show Alert Controller
-				self?.isPrimaryButtonEnabled = true
-				self?.isPrimaryBarButtonIsLoading = false
-				self?.presentInvalidTanAlert(error.localizedDescription) {
-					self?.didDissMissInvalidTanAlert?()
-				}
-			case .success:
-				self?.tanSuccessfullyTransferred()
-			}
-		}
+		
+		onPrimaryButtonTap(text, { [weak self] isLoading in
+			self?.isPrimaryButtonEnabled = !isLoading
+			self?.isPrimaryBarButtonIsLoading = isLoading
+		})
 	}
 
 	func addCharacter(_ char: String) {
@@ -101,12 +94,10 @@ final class TanInputViewModel {
 		errorText = errors.joined(separator: "\n\n")
 	}
 
-	private let exposureSubmissionService: ExposureSubmissionService
-	private let presentInvalidTanAlert: (String, @escaping () -> Void) -> Void
-	private let tanSuccessfullyTransferred: () -> Void
+	private let onPrimaryButtonTap: (String, @escaping (Bool) -> Void) -> Void
 
 	private func calculateChecksum(input: String) -> Character? {
-		let hash = Hasher.sha256(input)
+		let hash = ENAHasher.sha256(input)
 		switch hash.first?.uppercased() {
 		case "0":
 			return "G"
@@ -117,5 +108,4 @@ final class TanInputViewModel {
 		default: return nil
 		}
 	}
-
 }

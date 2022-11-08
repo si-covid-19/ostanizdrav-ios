@@ -6,7 +6,7 @@ import XCTest
 import OpenCombine
 @testable import ENA
 
-class HomeExposureLoggingCellModelTests: XCTestCase {
+class HomeExposureLoggingCellModelTests: CWATestCase {
 	
 	func test_whenHomeENStateChanges_then_changesAreReflectedInTheSubscription() {
 		
@@ -106,9 +106,12 @@ class HomeExposureLoggingCellModelTests: XCTestCase {
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: .init(),
 			enState: enState,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
+				store: store
+			),
+			localStatisticsProvider: LocalStatisticsProvider(
+				client: CachingHTTPClientMock(),
 				store: store
 			)
 		)

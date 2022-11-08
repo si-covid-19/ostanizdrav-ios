@@ -4,9 +4,11 @@
 
 import Foundation
 
-class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
+typealias StatisticsGroupIdentifier = String
 
-	private let serverEnvironmentProvider: ServerEnvironmentProviding
+class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching, LocalStatisticsFetching, QRCodePosterTemplateFetching, VaccinationValueSetsFetching, DSCListFetching {
+
+	private let environmentProvider: EnvironmentProviding
 
 	enum CacheError: Error {
 		case dataFetchError(message: String?)
@@ -16,29 +18,32 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	/// The client configuration - mostly server endpoints per environment
 	var configuration: HTTPClient.Configuration {
 		HTTPClient.Configuration.makeDefaultConfiguration(
-			serverEnvironmentProvider: serverEnvironmentProvider
+			environmentProvider: environmentProvider
 		)
 	}
 
 	/// The underlying URLSession for all network requests
 	let session: URLSession
 
-	/// Verifier for the fetched & signed protobuf packages
-	let packageVerifier: SAPDownloadedPackage.Verifier
+	/// SignatureVerifier for the fetched & signed protobuf packages
+	let signatureVerifier: SignatureVerifier
 
 	/// Initializer for the caching client.
 	///
 	/// - Parameters:
 	///   - clientConfiguration: The client configuration for the client.
 	///   - session: An optional session to use for network requests. Default is based on a predefined configuration.
-	///   - packageVerifier: The verifier to use for package validation.
+	///   - signatureVerifier: The signatureVerifier to use for package validation.
 	init(
-		serverEnvironmentProvider: ServerEnvironmentProviding,
-		session: URLSession = URLSession(configuration: .cachingSessionConfiguration()),
-		packageVerifier: SAPDownloadedPackage.Verifier = SAPDownloadedPackage.Verifier()) {
+		environmentProvider: EnvironmentProviding = Environments(),
+		session: URLSession = .coronaWarnSession(
+			configuration: .cachingSessionConfiguration()
+		),
+		signatureVerifier: SignatureVerifier = SignatureVerifier()
+	) {
 		self.session = session
-		self.serverEnvironmentProvider = serverEnvironmentProvider
-		self.packageVerifier = packageVerifier
+		self.environmentProvider = environmentProvider
+		self.signatureVerifier = signatureVerifier
 	}
 
 	// MARK: - AppConfigurationFetching
@@ -47,7 +52,10 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 	/// - Parameters:
 	///   - etag: an optional ETag to download only versions that differ the given tag
 	///   - completion: result handler
-	func fetchAppConfiguration(etag: String? = nil, completion: @escaping AppConfigResultHandler) {
+	func fetchAppConfiguration(
+		etag: String? = nil,
+		completion: @escaping AppConfigResultHandler
+	) {
 		// Manual ETagging because we don't use native cache
 		var headers: [String: String]?
 		if let etag = etag {
@@ -81,7 +89,14 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 
 	// MARK: - StatisticsFetching
 
-	func fetchStatistics(etag: String?, completion: @escaping StatisticsFetchingResultHandler) {
+	/// Fetches statistics
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchStatistics(
+		etag: String?,
+		completion: @escaping StatisticsFetchingResultHandler
+	) {
 		// Manual ETagging because we don't use native cache
 		var headers: [String: String]?
 		if let etag = etag {
@@ -106,6 +121,151 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 		}
 	}
 
+	// MARK: QRCodePosterTemplateFetching
+	
+	/// Fetches the QR Code Poster Template Protobuf
+	/// - Parameters:
+	/// - etag: an optional ETag to download only versions that differ the given tag
+	/// - completion: The completion handler of the get call, which contains the prootbuf response
+	func fetchQRCodePosterTemplateData(
+		etag: String?,
+		completion: @escaping QRCodePosterTemplateCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.qrCodePosterTemplateURL, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let qrCodePosterTemplateData = try SAP_Internal_Pt_QRCodePosterTemplateIOS(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let qrCodePosterResponse = QRCodePosterTemplateResponse(qrCodePosterTemplateData, responseETag)
+					completion(.success(qrCodePosterResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+	
+	// MARK: VaccinationValueSetsFetching
+	
+	/// Fetches vaccination value sets
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchVaccinationValueSets(
+		etag: String?,
+		completion: @escaping VaccinationValueSetsCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.vaccinationValueSetsURL, extraHeaders: headers) { result in
+			switch result {
+			case let .success(response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let vaccinationValueSetsData = try SAP_Internal_Dgc_ValueSets(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let vaccinationValueSetsResponse = VaccinationValueSetsResponse(vaccinationValueSetsData, responseETag)
+					Log.info("Received value sets: \(try vaccinationValueSetsData.jsonString())", log: .vaccination)
+					completion(.success(vaccinationValueSetsResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+
+	// MARK: Protocol DSCListFetching
+
+	/// Fetches lis of DSC certificates
+	/// - Parameters:
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchDSCList(
+		etag: String?,
+		completion: @escaping DSCListCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let etag = etag {
+			headers = ["If-None-Match": etag]
+		}
+
+		session.GET(configuration.DSCListURL, extraHeaders: headers) { result in
+			switch result {
+			case let .success(response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let DSCList = try SAP_Internal_Dgc_DscList(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let dscListResponse = DSCListResponse(dscList: DSCList, eTag: responseETag)
+					Log.info("Received DSCList \(try DSCList.jsonString())", log: .vaccination)
+					completion(.success(dscListResponse))
+				} catch URLSessionError.notModified {
+					Log.error("Server not modified since last update", log: .api)
+					completion(.failure(URLSessionError.notModified))
+				} catch {
+					Log.error("Failed to unpack / parse data from the response to expected data structure", log: .api)
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+
+	// MARK: LocalStatisticsFetching
+	
+	/// Fetches local statistics
+	/// - Parameters:
+	///   - groupID: string to pass group ID to the API to get local statistics
+	///   - etag: an optional ETag to download only versions that differ the given tag
+	///   - completion: result handler
+	func fetchLocalStatistics(
+		groupID: StatisticsGroupIdentifier,
+		eTag: String?,
+		completion: @escaping LocalStatisticsCompletionHandler
+	) {
+		// Manual ETagging because we don't use native cache
+		var headers: [String: String]?
+		if let eTag = eTag {
+			headers = ["If-None-Match": eTag]
+		}
+
+		let url = configuration.localStatisticsURL(groupID: groupID)
+		session.GET(url, extraHeaders: headers) { result in
+			switch result {
+			case .success(let response):
+				do {
+					let package = try self.verifyPackage(in: response)
+					let localStatistics = try SAP_Internal_Stats_LocalStatistics(serializedData: package.bin)
+					let responseETag = response.httpResponse.value(forCaseInsensitiveHeaderField: "ETag")
+					let localStatisticsResponse = LocalStatisticsResponse(localStatistics, responseETag, groupID)
+					completion(.success(localStatisticsResponse))
+				} catch {
+					completion(.failure(error))
+				}
+			case .failure(let error):
+				completion(.failure(error))
+			}
+		}
+	}
+	
 	// MARK: - Helpers
 
 	private func verifyPackage(in response: URLSession.Response) throws -> SAPDownloadedPackage {
@@ -124,8 +284,8 @@ class CachingHTTPClient: AppConfigurationFetching, StatisticsFetching {
 		}
 
 		// data verified?
-		guard self.packageVerifier(package) else {
-			let error = CacheError.dataVerificationError(message: "Failed to verify signature")
+		guard self.signatureVerifier(package) else {
+			let error = CacheError.dataVerificationError(message: "Failed to verify signature.")
 			throw error
 		}
 

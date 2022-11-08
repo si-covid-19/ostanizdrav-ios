@@ -18,13 +18,20 @@ protocol AppConfigurationProviding: AnyObject {
 
 	/// The list of partner countries provided by the app config, or the default country.
 	func supportedCountries() -> AnyPublisher<[Country], Never>
+
+	/// a publisher for the current app configuration
+	var currentAppConfig: CurrentValueSubject<SAP_Internal_V2_ApplicationConfigurationIOS, Never> { get }
+
+	var featureProvider: AppFeatureProviding { get }
+	var deviceTimeCheck: DeviceTimeChecking { get }
+
 }
 
 /// Some requirements for app configuration handling
 protocol AppConfigurationFetching {
 	var configuration: HTTPClient.Configuration { get }
 	var session: URLSession { get }
-	var packageVerifier: SAPDownloadedPackage.Verifier { get }
+	var signatureVerifier: SignatureVerifier { get }
 
 	typealias AppConfigResultHandler = ((Result<AppConfigurationFetchingResponse, Error>, Date?)) -> Void
 

@@ -9,18 +9,33 @@ import UIKit
 
 /// The root view controller of the developer menu.
 final class DMViewController: UITableViewController, RequiresAppDependencies {
-	// MARK: Creating a developer menu view controller
+	
+	// MARK: - Init
+	
 	init(
 		client: Client,
+		restServiceProvider: RestServiceProviding,
 		wifiClient: WifiOnlyHTTPClient,
 		exposureSubmissionService: ExposureSubmissionService,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		coronaTestService: CoronaTestService,
+		eventStore: EventStoringProviding,
+		qrCodePosterTemplateProvider: QRCodePosterTemplateProviding,
+		ppacService: PrivacyPreservingAccessControl,
+		healthCertificateService: HealthCertificateService,
+		cache: KeyValueCaching
 	) {
 		self.client = client
+		self.restServiceProvider = restServiceProvider
 		self.wifiClient = wifiClient
 		self.exposureSubmissionService = exposureSubmissionService
 		self.otpService = otpService
-
+		self.coronaTestService = coronaTestService
+		self.eventStore = eventStore
+		self.qrCodePosterTemplateProvider = qrCodePosterTemplateProvider
+		self.ppacService = ppacService
+		self.healthCertificateService = healthCertificateService
+		self.cache = cache
 		super.init(style: .plain)
 		title = "👩🏾‍💻 Developer Menu 🧑‍💻"
 	}
@@ -29,23 +44,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 	required init?(coder _: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-
-	// MARK: Properties
-	private let client: Client
-	private let consumer = RiskConsumer()
-	private let exposureSubmissionService: ExposureSubmissionService
-	private let otpService: OTPServiceProviding
-
-	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
-		didSet {
-			keys = self.keys.sorted()
-		}
-	}
-
-	// internal because of protocol RequiresAppDependencies
-	let wifiClient: WifiOnlyHTTPClient
-
-	// MARK: UIViewController
+	
+	// MARK: - Overrides
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		consumer.didCalculateRisk = { _ in
@@ -58,27 +59,9 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 
 		navigationController?.setToolbarHidden(true, animated: animated)
 	}
-
-	// MARK: Clear Registration Token of Submission
-	@objc
-	private func clearRegistrationToken() {
-		store.registrationToken = nil
-		let alert = UIAlertController(
-			title: "Token Deleted",
-			message: "Successfully deleted the submission registration token.",
-			preferredStyle: .alert
-		)
-		alert.addAction(
-			UIAlertAction(
-				title: AppStrings.Common.alertActionOk,
-				style: .cancel
-			)
-		)
-		present(alert, animated: true, completion: nil)
-	}
-
-	// MARK: UITableView
-
+	
+	// MARK: - Protocol UITableView
+	
 	override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
 		DMMenuItem.allCases.count
 	}
@@ -101,12 +84,26 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		let vc: UIViewController?
 
 		switch menuItem {
+		case .cclConfig:
+			vc = DMCCLConfigurationViewController()
+		case .newHttp:
+			vc = DMNHCViewController(
+				store: store,
+				cache: cache
+			)
+		case .ticketValidation:
+			vc = DMTicketValidationViewController(store: store)
+
 		case .keys:
 			vc = DMKeysViewController(
 				client: client,
 				store: store,
 				exposureManager: exposureManager
 			)
+		case .notifications:
+			vc = DMLocalNotificationsViewController(healthCertificateService: healthCertificateService)
+		case .boosterRules:
+			vc = DMBoosterChoosePersonViewController(store: store, healthCertificateService: healthCertificateService)
 		case .wifiClient:
 			vc = DMWifiClientViewController(wifiClient: wifiClient)
 		case .checkSubmittedKeys:
@@ -118,21 +115,20 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .appConfiguration:
 			vc = DMAppConfigurationViewController(appConfiguration: appConfigurationProvider)
 		case .backendConfiguration:
-			vc = makeBackendConfigurationViewController()
-		case .tracingHistory:
-			vc = DMTracingHistoryViewController(tracingHistory: store.tracingStatusHistory)
+			vc = DMBackendConfigurationViewController()
 		case .store:
 			vc = DMStoreViewController(store: store)
 		case .lastSubmissionRequest:
 			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastSubmissionRequest)
+		case .lastOnBehalfSubmissionRequest:
+			vc = DMLastSubmissionRequestViewController(lastSubmissionRequest: UserDefaults.standard.dmLastOnBehalfCheckinSubmissionRequest)
 		case .errorLog:
 			vc = DMLogsViewController()
+		case .els:
+			vc = DMErrorLogSharingViewController(store: store)
 		case .sendFakeRequest:
 			vc = nil
 			sendFakeRequest()
-		case .purgeRegistrationToken:
-			clearRegistrationToken()
-			vc = nil
 		case .manuallyRequestRisk:
 			vc = nil
 			manuallyRequestRisk()
@@ -147,19 +143,31 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 		case .listPendingNotifications:
 			vc = DMNotificationsViewController()
 		case .warnOthersNotifications:
-			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, exposureSubmissionService: exposureSubmissionService)
+			vc = DMWarnOthersNotificationViewController(warnOthersReminder: WarnOthersReminder(store: store), store: store, coronaTestService: coronaTestService)
 		case .deviceTimeCheck:
 			vc = DMDeviceTimeCheckViewController(store: store)
 		case .ppacService:
-			vc = DMPPACViewController(store)
+			vc = DMPPACViewController(store, ppacService: ppacService)
 		case .otpService:
 			vc = DMOTPServiceViewController(store: store, otpService: otpService)
 		case .ppaMostRecent:
-			vc = DMPPAnalyticsMostRecent(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAMostRecentData(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaActual:
-			vc = DMPPAnalyticsActualData(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAActualDataViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
 		case .ppaSubmission:
-			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider)
+			vc = DMPPAnalyticsViewController(store: store, client: client, appConfig: appConfigurationProvider, coronaTestService: coronaTestService, ppacService: ppacService)
+		case .installationDate:
+			vc = DMInstallationDateViewController(store: store)
+		case .allTraceLocations:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: false)
+		case .mostRecentTraceLocationCheckedInto:
+			vc = DMDMMostRecentTraceLocationCheckedIntoViewController(store: store)
+		case .adHocPosterGeneration:
+			vc = DMRecentCreatedEventViewController(store: store, eventStore: eventStore, qrCodePosterTemplateProvider: qrCodePosterTemplateProvider, isPosterGeneration: true)
+		case .appFeatures:
+			vc = DMAppFeaturesViewController(store: store)
+		case .dscLists:
+			vc = DMDSCListsController(store: store)
 		}
 
 		if let vc = vc {
@@ -169,20 +177,40 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 			)
 		}
 	}
+	
+	// MARK: - Public
+	
+	// MARK: - Internal
+	
+	// internal because of protocol RequiresAppDependencies
+	let wifiClient: WifiOnlyHTTPClient
+	
+	// MARK: - Private
+	
+	private let client: Client
+	private let restServiceProvider: RestServiceProviding
+	private let consumer = RiskConsumer()
+	private let exposureSubmissionService: ExposureSubmissionService
+	private let otpService: OTPServiceProviding
+	private let coronaTestService: CoronaTestService
+	private let eventStore: EventStoringProviding
+	private let qrCodePosterTemplateProvider: QRCodePosterTemplateProviding
+	private let ppacService: PrivacyPreservingAccessControl
+	private let healthCertificateService: HealthCertificateService
+	private let cache: KeyValueCaching
 
-	// MARK: Performing developer menu related tasks
-	@objc
-	private func sendFakeRequest() {
-		exposureSubmissionService.fakeRequest { _ in
-			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
-			self.present(alert, animated: true) {}
+	private var keys = [SAP_External_Exposurenotification_TemporaryExposureKey]() {
+		didSet {
+			keys = self.keys.sorted()
 		}
 	}
 
-	private func makeBackendConfigurationViewController() -> DMBackendConfigurationViewController {
-		return DMBackendConfigurationViewController(
-			serverEnvironmentProvider: store
-		)
+	@objc
+	private func sendFakeRequest() {
+		FakeRequestService(client: client, restServiceProvider: restServiceProvider).fakeRequest {
+			let alert = self.setupErrorAlert(title: "Info", message: "Fake request was sent.")
+			self.present(alert, animated: true) {}
+		}
 	}
 
 	private func manuallyRequestRisk() {
@@ -205,7 +233,8 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
 				title: "Purge Cache and request Risk",
 				style: .destructive
 			) { _ in
-				self.store.riskCalculationResult = nil
+				self.store.enfRiskCalculationResult = nil
+				self.store.checkinRiskCalculationResult = nil
 				self.riskProvider.requestRisk(userInitiated: true)
 			}
 		)
@@ -219,8 +248,7 @@ final class DMViewController: UITableViewController, RequiresAppDependencies {
     private func makeServerEnvironmentViewController() -> DMServerEnvironmentViewController {
 		return DMServerEnvironmentViewController(
 			store: store,
-			downloadedPackagesStore: downloadedPackagesStore,
-			serverEnvironment: serverEnvironment
+			downloadedPackagesStore: downloadedPackagesStore
 		)
 	}
 }

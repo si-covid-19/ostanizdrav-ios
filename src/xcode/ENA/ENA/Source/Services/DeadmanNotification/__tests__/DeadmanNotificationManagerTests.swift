@@ -3,16 +3,36 @@
 //
 
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
-class DeadmanNotificationManagerTests: XCTestCase {
+class DeadmanNotificationManagerTests: CWATestCase {
 
 	func testSchedulingDeadmanNotification() {
+		let client = ClientMock()
 		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -41,13 +61,31 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationReschedulingOnReset() {
+		let client = ClientMock()
 		let store = MockTestStore()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -59,13 +97,31 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledTwice() {
+		let client = ClientMock()
 		let store = MockTestStore()
-
+		let appConfiguration = CachedAppConfigurationMock()
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -77,13 +133,33 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledIfPositiveTestResultWasShown() {
+		let client = ClientMock()
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		let appConfiguration = CachedAppConfigurationMock()
+
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -95,14 +171,34 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationIsNotRescheduledIfPositiveTestResultWasShown() {
+		let client = ClientMock()
 		let store = MockTestStore()
-		store.positiveTestResultWasShown = true
+		let appConfiguration = CachedAppConfigurationMock()
+
+		store.pcrTest = PCRTest.mock(positiveTestResultWasShown: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -114,13 +210,33 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationIsNotScheduledIfKeysWereSubmitted() {
+		let client = ClientMock()
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		let appConfiguration = CachedAppConfigurationMock()
+
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 
@@ -132,14 +248,34 @@ class DeadmanNotificationManagerTests: XCTestCase {
 	}
 
 	func testDeadmanNotificationIsNotRescheduledIfKeysWereSubmitted() {
+		let client = ClientMock()
 		let store = MockTestStore()
-		store.lastSuccessfulSubmitDiagnosisKeyTimestamp = 12345678
+		let appConfiguration = CachedAppConfigurationMock()
+
+		store.pcrTest = PCRTest.mock(keysSubmitted: true)
 
 		let notificationCenter = MockUserNotificationCenter()
 		notificationCenter.notificationRequests = [deadmanNotificationRequest]
 
 		let manager = DeadmanNotificationManager(
-			store: store,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			userNotificationCenter: notificationCenter
 		)
 

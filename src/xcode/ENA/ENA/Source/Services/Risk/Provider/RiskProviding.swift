@@ -9,12 +9,13 @@ typealias RiskProviderResult = Result<Risk, RiskProviderError>
 
 enum RiskProviderError: Error {
 	case inactive
+	case deactivatedDueToActiveTest
 	case timeout
 	case riskProviderIsRunning
 	case missingAppConfig
 	case failedKeyPackageDownload(KeyPackageDownloadError)
-	case failedRiskCalculation
 	case failedRiskDetection(ExposureDetection.DidEndPrematurelyReason)
+	case failedTraceWarningPackageDownload(TraceWarningError)
 
 	var isAlreadyRunningError: Bool {
 		switch self {
@@ -23,7 +24,7 @@ enum RiskProviderError: Error {
 		case .failedKeyPackageDownload(let keyPackageDownloadError):
 			return keyPackageDownloadError == .downloadIsRunning
 		case .failedRiskDetection(let didEndPrematuralyReason):
-			if case let .noExposureWindows(exposureWindowsError) = didEndPrematuralyReason {
+			if case let .noExposureWindows(exposureWindowsError, _) = didEndPrematuralyReason {
 				if let exposureDetectionError = exposureWindowsError as? ExposureDetectionError {
 					return exposureDetectionError == .isAlreadyRunning
 				}
@@ -35,29 +36,18 @@ enum RiskProviderError: Error {
 		return false
 	}
 
-	var shouldBeDisplayedToUser: Bool {
-		!isENError16DataInaccessible
-	}
-
-	private var isENError16DataInaccessible: Bool {
-		guard case let .failedRiskDetection(didEndPrematuralyReason) = self,
-			  case let .noExposureWindows(noExposureWindowsError) = didEndPrematuralyReason,
-			  let enError = noExposureWindowsError as? ENError else {
-			return false
-		}
-
-		return enError.code == .dataInaccessible
-	}
 }
 
-enum RiskProviderActivityState {
+enum RiskProviderActivityState: Int {
 	case idle
+	case onlyDownloadsRequested
 	case riskRequested
+	case riskManuallyRequested
 	case downloading
 	case detecting
 
 	var isActive: Bool {
-		self == .downloading || self == .detecting
+		self == .downloading || self == .detecting || self == .riskManuallyRequested
 	}
 }
 

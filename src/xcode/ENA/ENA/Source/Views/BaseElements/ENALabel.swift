@@ -6,20 +6,28 @@ import Foundation
 import UIKit
 
 @IBDesignable
-class ENALabel: DynamicTypeLabel {
+class ENALabel: UILabel {
 
 	// MARK: - Init
+
+	convenience init(style: Style = .body) {
+		self.init()
+		self.style = style
+		applyStyle()
+	}
 
 	// MARK: - Overrides
 
 	override func prepareForInterfaceBuilder() {
-		self.applyStyle()
 		super.prepareForInterfaceBuilder()
+
+		self.applyStyle()
 	}
 
 	override func awakeFromNib() {
-		self.applyStyle()
 		super.awakeFromNib()
+
+		self.applyStyle()
 	}
 
 	override func accessibilityElementDidBecomeFocused() {
@@ -28,12 +36,20 @@ class ENALabel: DynamicTypeLabel {
 		onAccessibilityFocus?()
 	}
 
-	// MARK: - Public
-
 	// MARK: - Internal
 
-	var style: Style = .body { didSet { applyStyle() } }
+	var style: Style? {
+		didSet {
+			applyStyle()
+		}
+	}
 	var onAccessibilityFocus: (() -> Void)?
+
+	override var text: String? {
+		didSet {
+			applyHighlighting()
+		}
+	}
 
 	// MARK: - Private
 
@@ -42,16 +58,46 @@ class ENALabel: DynamicTypeLabel {
 			if let style = Style(rawValue: ibEnaStyle) {
 				self.style = style
 			} else {
-				self.style = .body
 				Log.error("Invalid text style set for \(String(describing: ENALabel.self)): \(ibEnaStyle)", log: .ui)
 			}
 		}
 	}
+
+	private func fontForStyle(_ style: Style, weight: UIFont.Weight? = nil) -> UIFont {
+		let metrics = UIFontMetrics(forTextStyle: style.textStyle)
+		let systemFont = UIFont.systemFont(ofSize: style.fontSize, weight: weight ?? UIFont.Weight(style.fontWeight))
+		return metrics.scaledFont(for: systemFont)
+	}
 	
 	private func applyStyle() {
-		self.font = UIFont.preferredFont(forTextStyle: self.style.textStyle)
-		self.dynamicTypeSize = self.style.fontSize
-		self.dynamicTypeWeight = self.style.fontWeight
+		adjustsFontForContentSizeCategory = true
+		applyHighlighting()
+	}
+
+	private func applyHighlighting() {
+		guard let text = text, let style = style else {
+			return
+		}
+
+		let components = text.components(separatedBy: "**")
+
+		guard components.count > 1 else {
+			self.font = fontForStyle(style)
+			return
+		}
+
+		let sequence = components.enumerated()
+		let attributedString = NSMutableAttributedString()
+
+		attributedText = sequence.reduce(into: attributedString) { string, pair in
+			let isHighlighted = !pair.offset.isMultiple(of: 2)
+			let font = fontForStyle(style, weight: isHighlighted ? style.highlightedWeight : style.nonHighlightedWeight)
+
+			string.append(NSAttributedString(
+				string: pair.element,
+				attributes: [.font: font]
+			))
+		}
 	}
 	
 }
@@ -68,6 +114,7 @@ extension ENALabel {
 }
 
 extension ENALabel.Style {
+
 	var fontSize: CGFloat {
 		switch self {
 		case .title1: return 28
@@ -100,6 +147,29 @@ extension ENALabel.Style {
 		case .footnote: return .footnote
 		}
 	}
+
+	var nonHighlightedWeight: UIFont.Weight {
+		switch self {
+		case .title1: return .light
+		case .title2: return .light
+		case .headline: return .light
+		case .body: return .regular
+		case .subheadline: return .regular
+		case .footnote: return .regular
+		}
+	}
+
+	var highlightedWeight: UIFont.Weight {
+		switch self {
+		case .title1: return .bold
+		case .title2: return .bold
+		case .headline: return .semibold
+		case .body: return .bold
+		case .subheadline: return .bold
+		case .footnote: return .bold
+		}
+	}
+
 }
 
 

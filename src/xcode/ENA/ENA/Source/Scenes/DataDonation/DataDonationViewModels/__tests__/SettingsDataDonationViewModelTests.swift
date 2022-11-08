@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class SettingsDataDonationViewModelTests: XCTestCase {
+class SettingsDataDonationViewModelTests: CWATestCase {
 
 	/// test if the view model will format empty texts correct
 	func testGIVEN_ViewModelWithoutStoredData_WHEN_getFriendlyTexts_THEN_ValuesAreEqualToStore() throws {
@@ -44,11 +44,13 @@ class SettingsDataDonationViewModelTests: XCTestCase {
 		let dynamicTableViewModel = viewModel.dynamicTableViewModel
 
 		// THEN
-		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 4)
+		XCTAssertEqual(dynamicTableViewModel.numberOfSection, 5)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 0), 1)
 		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 1), 2)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 2)
-		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 2)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 2), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 3), 1)
+		XCTAssertEqual(dynamicTableViewModel.numberOfRows(section: 4), 2)
+
 	}
 
 	func testGIVEN_DataDonationModel_WHEN_TapSelectState_THEN_ClosureGetsCalled() throws {

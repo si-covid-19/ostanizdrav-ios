@@ -5,9 +5,9 @@
 import XCTest
 @testable import ENA
 
-class CountryTests: XCTestCase {
+class CountryTests: CWATestCase {
 
-	/// Identifier for the 'EU' region and coutries
+	/// Identifier for the 'EU' region and countries
 	let allCountryIDs = ["EU", "DE", "UK", "FR", "IT", "ES", "PL", "RO", "NL", "BE", "CZ", "EL", "SE", "PT", "HU", "AT", "CH", "BG", "DK", "FI", "SK", "NO", "IE", "HR", "SI", "LT", "LV", "EE", "CY", "LU", "MT", "IS"]
 
     func testCountryInit() throws {
@@ -67,7 +67,7 @@ class CountryTests: XCTestCase {
 			XCTAssertEqual(sortedList[2].id, "FR")
 			XCTAssertEqual(sortedList[3].id, "DE")
 		default:
-			XCTFail("unknow language code")
+			XCTFail("unknown language code")
 		}
 	}
 

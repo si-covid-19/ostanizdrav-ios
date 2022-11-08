@@ -10,8 +10,14 @@ class ExposureSubmissionCoordinatorModel {
 
 	// MARK: - Init
 
-	init(exposureSubmissionService: ExposureSubmissionService) {
+	init(
+		exposureSubmissionService: ExposureSubmissionService,
+		coronaTestService: CoronaTestService,
+		eventProvider: EventProviding
+	) {
 		self.exposureSubmissionService = exposureSubmissionService
+		self.coronaTestService = coronaTestService
+		self.eventProvider = eventProvider
 
 		// Try to load current country list initially to make it virtually impossible the user has to wait for it later.
 		exposureSubmissionService.loadSupportedCountries { _ in
@@ -24,7 +30,41 @@ class ExposureSubmissionCoordinatorModel {
 	// MARK: - Internal
 
 	let exposureSubmissionService: ExposureSubmissionService
+	let coronaTestService: CoronaTestService
+	let eventProvider: EventProviding
+	
+	var coronaTestType: CoronaTestType?
+	var markNewlyAddedCoronaTestAsUnseen: Bool = false
 
+	var coronaTest: CoronaTest? {
+		guard let coronaTestType = coronaTestType else {
+			return nil
+		}
+
+		return coronaTestService.coronaTest(ofType: coronaTestType)
+	}
+
+	func shouldShowOverrideTestNotice(for coronaTestType: CoronaTestType) -> Bool {
+		if let oldTest = coronaTestService.coronaTest(ofType: coronaTestType),
+		   oldTest.testResult != .expired,
+		   !(oldTest.type == .antigen && coronaTestService.antigenTestIsOutdated) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	func shouldShowTestCertificateScreen(with testRegistrationInformation: CoronaTestRegistrationInformation) -> Bool {
+		switch testRegistrationInformation {
+		case .pcr:
+			return true
+		case .antigen(qrCodeInformation: let qrCodeInformation, qrCodeHash: _):
+			return qrCodeInformation.certificateSupportedByPointOfCare ?? false
+		case .teleTAN:
+			return false
+		}
+	}
+	
 	var shouldShowSymptomsOnsetScreen = false
 
 	func symptomsOptionSelected(
@@ -66,9 +106,14 @@ class ExposureSubmissionCoordinatorModel {
 		onSuccess: @escaping () -> Void,
 		onError: @escaping (ExposureSubmissionError) -> Void
 	) {
+		guard let coronaTestType = coronaTestType else {
+			onError(.noCoronaTestTypeGiven)
+			return
+		}
+
 		isLoading(true)
 
-		exposureSubmissionService.submitExposure { error in
+		exposureSubmissionService.submitExposure(coronaTestType: coronaTestType) { error in
 			isLoading(false)
 
 			switch error {
@@ -80,7 +125,7 @@ class ExposureSubmissionCoordinatorModel {
 			case .none, .noKeysCollected:
 				onSuccess()
 
-			// We don't show an error if the submission consent was not given, because we assume that the submission already happend in the background.
+			// We don't show an error if the submission consent was not given, because we assume that the submission already happened in the background.
 			case .noSubmissionConsent:
 				Log.info("Consent Not Given", log: .ui)
 				onSuccess()
@@ -92,23 +137,85 @@ class ExposureSubmissionCoordinatorModel {
 		}
 	}
 
-	func getTestResults(
-		for key: DeviceRegistrationKey,
+	func registerTestAndGetResult(
+		for registrationInformation: CoronaTestRegistrationInformation,
+		isSubmissionConsentGiven: Bool,
+		certificateConsent: TestCertificateConsent,
 		isLoading: @escaping (Bool) -> Void,
 		onSuccess: @escaping (TestResult) -> Void,
-		onError: @escaping (ExposureSubmissionError) -> Void
+		onError: @escaping (CoronaTestServiceError) -> Void
 	) {
 		isLoading(true)
 		// QR code test fetch
-		exposureSubmissionService.getTestResult(forKey: key, useStoredRegistration: false, completion: { result in
-			isLoading(false)
-
-			switch result {
-			case let .failure(error):
-				onError(error)
-			case let .success(testResult):
-				onSuccess(testResult)
-			}
-		})
+		switch registrationInformation {
+		case let .pcr(guid: guid, qrCodeHash: qrCodeHash):
+			coronaTestService.registerPCRTestAndGetResult(
+				guid: guid,
+				qrCodeHash: qrCodeHash,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
+				certificateConsent: certificateConsent,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		case let .antigen(qrCodeInformation: qrCodeInformation, qrCodeHash: qrCodeHash):
+			coronaTestService.registerAntigenTestAndGetResult(
+				with: qrCodeInformation.hash,
+				qrCodeHash: qrCodeHash,
+				pointOfCareConsentDate: qrCodeInformation.pointOfCareConsentDate,
+				firstName: qrCodeInformation.firstName,
+				lastName: qrCodeInformation.lastName,
+				dateOfBirth: qrCodeInformation.dateOfBirthString,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				markAsUnseen: markNewlyAddedCoronaTestAsUnseen,
+				certificateSupportedByPointOfCare: qrCodeInformation.certificateSupportedByPointOfCare ?? false,
+				certificateConsent: certificateConsent,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		case .teleTAN(let teleTAN):
+			coronaTestService.registerPCRTestAndGetResult(
+				teleTAN: teleTAN,
+				isSubmissionConsentGiven: isSubmissionConsentGiven,
+				completion: { result in
+					isLoading(false)
+					
+					switch result {
+					case let .failure(error):
+						onError(error)
+					case let .success(testResult):
+						onSuccess(testResult)
+					}
+				}
+			)
+		}
 	}
+
+	func setSubmissionConsentGiven(_ isSubmissionConsentGiven: Bool) {
+		switch coronaTestType {
+		case .pcr:
+			coronaTestService.pcrTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .antigen:
+			coronaTestService.antigenTest?.isSubmissionConsentGiven = isSubmissionConsentGiven
+		case .none:
+			fatalError("Cannot set submission consent, no corona test type is set")
+		}
+	}
+
 }

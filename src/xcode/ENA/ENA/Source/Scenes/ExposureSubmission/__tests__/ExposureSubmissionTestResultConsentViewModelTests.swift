@@ -4,14 +4,37 @@
 
 import Foundation
 import XCTest
+import HealthCertificateToolkit
 @testable import ENA
 
-class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
+class ExposureSubmissionTestResultConsentViewModelTests: CWATestCase {
 
 	func testCellsInSection0() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -39,9 +62,31 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 	}
 	
 	func testCellsInSection1() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)
@@ -57,9 +102,31 @@ class ExposureSubmissionTestResultConsentViewModelTests: XCTestCase {
 	}
 	
 	func testCellsInSection2() {
+		let client = ClientMock()
+		let store = MockTestStore()
+		let appConfiguration = CachedAppConfigurationMock()
+
 		let viewModel = ExposureSubmissionTestResultConsentViewModel(
 			supportedCountries: [],
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			testResultAvailability: .availableAndPositive,
 			dismissCompletion: nil
 		)

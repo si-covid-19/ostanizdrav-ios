@@ -7,13 +7,19 @@ import Foundation
 /// Reads large files
 /// Modernized version of this implementation: https://stackoverflow.com/a/24648951/194585
 class StreamReader {
+	/// The maximum number of bytes to be displayed from a log file
+	static let logSizeThreshold = 100_000
+
 	private let encoding: String.Encoding
 	private let chunkSize: Int
 	private let buffer: NSMutableData
 	private let delimData: Data
 
 	private var fileHandle: FileHandle
-	private var atEof: Bool = false
+	private var atEOF = false
+
+	/// Simple indicator if the log is truncated
+	private(set) var isLogTruncated = false
 
 	/// A StreamReader for large files. Reads them line by line.
 	///
@@ -23,20 +29,37 @@ class StreamReader {
 	///   - encoding: the file encoding to expect; defaults to `.utf8`
 	///   - chunkSize: the buffer size during the read process; defaults to 4096 bytes
 	init?(at url: URL, delimiter: String = "\n", encoding: String.Encoding = .utf8, chunkSize: Int = 4096) {
-		guard
-			let fileHandle = try? FileHandle(forReadingFrom: url),
-			let delimData = delimiter.data(using: encoding),
-			let buffer = NSMutableData(capacity: chunkSize)
-		else {
-			preconditionFailure("Cannot initialize StreamReader for file at \(url)")
+		do {
+			let fileHandle = try FileHandle(forReadingFrom: url)
+			guard
+				let delimData = delimiter.data(using: encoding),
+				let buffer = NSMutableData(capacity: chunkSize)
+			else {
+				Log.error("Cannot initialize StreamReader for file at \(url)", log: .localData)
+				return nil
+			}
+			self.chunkSize = chunkSize
+			self.encoding = encoding
+			self.fileHandle = fileHandle
+			self.delimData = delimData
+			self.buffer = buffer
+
+			// start at $endOfFile - foo
+			let data = try Data(contentsOf: url)
+			let offset = UInt64(max(data.count - StreamReader.logSizeThreshold, 0))
+			if offset > 0 {
+				isLogTruncated = true
+				// offset the handle to show just the last `logSizeThreshold` bytes
+				if #available(iOS 13.0, *) {
+					try fileHandle.seek(toOffset: offset)
+				} else {
+					// Fallback?
+				}
+			}
+		} catch {
+			Log.error("StreamReader error: \(error.localizedDescription)", log: .localData, error: error)
 			return nil
 		}
-
-		self.chunkSize = chunkSize
-		self.encoding = encoding
-		self.fileHandle = fileHandle
-		self.delimData = delimData
-		self.buffer = buffer
 	}
 
 	/// A StreamReader for large files. Reads them line by line.
@@ -57,7 +80,7 @@ class StreamReader {
 
 	/// Return next line, or nil on EOF.
 	func nextLine() -> String? {
-		if atEof {
+		if atEOF {
 			return nil
 		}
 
@@ -67,7 +90,7 @@ class StreamReader {
 			let tmpData = fileHandle.readData(ofLength: chunkSize)
 			if tmpData.isEmpty {
 				// EOF or read error.
-				atEof = true
+				atEOF = true
 				if buffer.length > 0 {
 					// Buffer contains last line in file (not terminated by delimiter).
 					let line = String(data: buffer as Data, encoding: encoding)
@@ -95,7 +118,7 @@ class StreamReader {
 	func rewind() {
 		fileHandle.seek(toFileOffset: 0)
 		buffer.length = 0
-		atEof = false
+		atEOF = false
 	}
 
 	/// Close the underlying file. No reading must be done after calling this method.

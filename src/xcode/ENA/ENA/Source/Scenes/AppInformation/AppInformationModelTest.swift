@@ -6,7 +6,7 @@ import Foundation
 import XCTest
 @testable import ENA
 
-class AppInformationModelTest: XCTestCase {
+class AppInformationModelTest: CWATestCase {
 	
 	func testAboutModel() {
 		let dynamicTable = AppInformationModel.aboutModel
@@ -25,6 +25,6 @@ class AppInformationModelTest: XCTestCase {
 		let section = AppInformationModel.contactModel.section(0)
 		let numberOfCells = section.cells.count
 		
-		XCTAssertEqual(numberOfCells, 6)
+		XCTAssertEqual(numberOfCells, 8)
 	}
 }

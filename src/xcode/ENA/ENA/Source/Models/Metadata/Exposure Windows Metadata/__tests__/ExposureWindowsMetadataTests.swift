@@ -5,22 +5,18 @@
 import XCTest
 @testable import ENA
 
-class ExposureWindowsMetadataTests: XCTestCase {
+class ExposureWindowsMetadataTests: CWATestCase {
 
 	// MARK: - Internal
 
 	func testWindowsCollectionFirstTime_whenNotInitialized() {
 		
-		guard let riskCalculation = riskCalculationMock().first else {
-			XCTFail("riskCalculationMock is nil")
-			return
-		}
 		let store = MockTestStore()
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
-
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
+		
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedExposureWindowsMock())))
 		guard let metadata = store.exposureWindowsMetadata else {
 			XCTFail("Windows metadata should be initialized")
 			return
@@ -33,39 +29,34 @@ class ExposureWindowsMetadataTests: XCTestCase {
 
 	func testWindowsCollection_AlreadyInitialized_alreadyExistingHashsAreNotAppended() {
 		
-		guard let firstRiskCalculation = riskCalculationMock().first else {
-			XCTFail("riskCalculationMock is nil")
-			return
-		}
-		
 		let store = MockTestStore()
 		Analytics.setupMock(store: store)
 		store.isPrivacyPreservingAnalyticsConsentGiven = true
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedExposureWindowsMock())))
 
 		guard let oldMetadata = store.exposureWindowsMetadata else {
 			XCTFail("oldMetadata should be initialized")
 			return
 		}
 		// try to add the same windows again
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedExposureWindowsMock())))
 
 		guard let newMetadata = store.exposureWindowsMetadata else {
 			XCTFail("newMetadata should be initialized")
 			return
 		}
 
-		XCTAssertEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should be the same because no new hashs are added")
-		XCTAssertEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should be the same because no new hashs are added")
+		XCTAssertEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should be the same because no new hashes are added")
+		XCTAssertEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should be the same because no new hashes are added")
 	}
 	
 	func testWindowsCollection_AlreadyInitialized_newHashsAreAppended() {
 		
-		guard let firstRiskCalculation = riskCalculationMock().first,
-			  let lastRiskCalculation = riskCalculationMock().last else {
+		guard let firstRiskCalculation = mappedExposureWindowsMock().first,
+			  let lastRiskCalculation = mappedExposureWindowsMock().last else {
 			XCTFail("riskCalculationMock is nil")
 			return
 		}
@@ -76,28 +67,28 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows([firstRiskCalculation])))
 
 		guard let oldMetadata = store.exposureWindowsMetadata else {
 			XCTFail("oldMetadata should be initialized")
 			return
 		}
 		// add new windows
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows([lastRiskCalculation])))
 
 		guard let newMetadata = store.exposureWindowsMetadata else {
 			XCTFail("newMetadata should be initialized")
 			return
 		}
 
-		XCTAssertNotEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should not be the same because new hashs are added")
-		XCTAssertNotEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should not be the same because new hashs are added")
+		XCTAssertNotEqual(newMetadata.newExposureWindowsQueue.count, oldMetadata.newExposureWindowsQueue.count, "The count should not be the same because new hashes are added")
+		XCTAssertNotEqual(newMetadata.reportedExposureWindowsQueue.count, oldMetadata.reportedExposureWindowsQueue.count, "The count should not be the same because new hashes are added")
 	}
 	
 	func testWindowsCollection_AlreadyInitialized_ReportedEntriesOlderThan15DaysAreDeleted() {
 		
-		guard let firstRiskCalculation = riskCalculationMock().first,
-			  let lastRiskCalculation = riskCalculationMock().last else {
+		guard let firstRiskCalculation = mappedExposureWindowsMock().first,
+			  let lastRiskCalculation = mappedExposureWindowsMock().last else {
 			XCTFail("riskCalculationMock is nil")
 			return
 		}
@@ -108,7 +99,7 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		XCTAssertNil(store.exposureWindowsMetadata, "Windows metadata should not be initialized")
 
 		// initialize
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(firstRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows([firstRiskCalculation])))
 
 		guard let dateLastMonth = Calendar.current.date(byAdding: .month, value: -1, to: Date()) else {
 			XCTFail("date from last month is nil")
@@ -119,7 +110,7 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		store.exposureWindowsMetadata?.reportedExposureWindowsQueue.append(submissionExposureWindow)
 
 		XCTAssertEqual(store.exposureWindowsMetadata?.reportedExposureWindowsQueue.count, 2, "The expected coundshould be 2")
-		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(lastRiskCalculation)))
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows([lastRiskCalculation])))
 		XCTAssertEqual(store.exposureWindowsMetadata?.reportedExposureWindowsQueue.count, 2, "The expected coundshould still be 2 as  the entry older than 15 days is removed")
 	}
 	
@@ -142,24 +133,18 @@ class ExposureWindowsMetadataTests: XCTestCase {
 		)
 	}
 	
-	private func riskCalculationMock() -> [RiskCalculation] {
-		
-		let testCases = testCasesWithConfiguration.testCases
-		var riskCalculations = [RiskCalculation]()
-		
-		for testCase in testCases {
-			do {
-				let riskCalculation = RiskCalculation()
-				_ = try riskCalculation.calculateRisk(
-					exposureWindows: testCase.exposureWindows,
+	private func mappedExposureWindowsMock() -> [RiskCalculationExposureWindow] {
+		var mappedWindows = [RiskCalculationExposureWindow]()
+		for testCase in testCasesWithConfiguration.testCases {
+			let windows = testCase.exposureWindows.map {
+				RiskCalculationExposureWindow(
+					exposureWindow: $0,
 					configuration: testCasesWithConfiguration.defaultRiskCalculationConfiguration
 				)
-				riskCalculations.append(riskCalculation)
-			} catch {
-				XCTFail("Caught error decoding the riskCalculations, Error: \(error.localizedDescription)")
 			}
+			mappedWindows.append(contentsOf: windows)
 		}
-		return riskCalculations
+		return mappedWindows
 	}
 	
 	private lazy var testCasesWithConfiguration: TestCasesWithConfiguration = {

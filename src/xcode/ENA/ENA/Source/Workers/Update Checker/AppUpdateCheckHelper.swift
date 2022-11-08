@@ -69,8 +69,7 @@ final class AppUpdateCheckHelper {
 	func createAlert(_ type: UpdateAlertType, vc: UIViewController?) -> UIAlertController? {
 		let alert = UIAlertController(title: AppStrings.UpdateMessage.title, message: AppStrings.UpdateMessage.text, preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: NSLocalizedString(AppStrings.UpdateMessage.actionUpdate, comment: ""), style: .cancel, handler: { _ in
-			 let url = URL(staticString: "https://apps.apple.com/us/app/ostanizdrav/id1527561313")
-			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			LinkHelper.open(urlString: "https://apps.apple.com/us/app/ostanizdrav/id1527561313")
 		}))
 		switch type {
 		case .update:

@@ -9,28 +9,37 @@ extension HTTPClient {
 		
 		// MARK: Default Instances
 
-		static func makeDefaultConfiguration(serverEnvironmentProvider: ServerEnvironmentProviding) -> Configuration {
+		static func makeDefaultConfiguration(environmentProvider: EnvironmentProviding) -> Configuration {
 			let endpoints = Configuration.Endpoints(
 				distribution: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.distributionURL,
+					baseURL: environmentProvider.currentEnvironment().distributionURL,
 					requiresTrailingSlash: false
 				),
 				submission: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.submissionURL,
+					baseURL: environmentProvider.currentEnvironment().submissionURL,
 					requiresTrailingSlash: false
 				),
 				verification: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.verificationURL,
+					baseURL: environmentProvider.currentEnvironment().verificationURL,
 					requiresTrailingSlash: false
 				),
 				dataDonation: .init(
-					baseURL: serverEnvironmentProvider.selectedServerEnvironment.dataDonationURL,
+					baseURL: environmentProvider.currentEnvironment().dataDonationURL,
+					requiresTrailingSlash: false
+				),
+				errorLogSubmission: .init(
+					baseURL: environmentProvider.currentEnvironment().errorLogSubmissionURL,
+					requiresTrailingSlash: false
+				),
+				dcc: .init(
+					baseURL: environmentProvider.currentEnvironment().dccURL,
 					requiresTrailingSlash: false
 				)
 			)
 
 			return Configuration(
 				apiVersion: "v1",
+				encryptedApiVersion: "v2",
 				country: "SI",
 				endpoints: endpoints
 			)
@@ -39,6 +48,7 @@ extension HTTPClient {
 		// MARK: Properties
 
 		let apiVersion: String
+		let encryptedApiVersion: String
 		let country: String
 		let endpoints: Endpoints
 
@@ -114,7 +124,7 @@ extension HTTPClient {
 				.distribution
 				.appending(
 					"version",
-					apiVersion,
+					"v2",
 					"app_config_ios"
 			)
 		}
@@ -129,6 +139,16 @@ extension HTTPClient {
 			)
 		}
 
+		func localStatisticsURL(groupID: StatisticsGroupIdentifier) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"local_stats_\(groupID)"
+			)
+		}
+
 		var submissionURL: URL {
 			endpoints
 				.submission
@@ -138,38 +158,18 @@ extension HTTPClient {
 					"diagnosis-keys"
 			)
 		}
-
-		var registrationURL: URL {
+		
+		var onBehalfCheckinSubmissionURL: URL {
 			endpoints
-				.verification
+				.submission
 				.appending(
 					"version",
 					apiVersion,
-					"registrationToken"
+					"submission-on-behalf"
 			)
 		}
 
-		var testResultURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"testresult"
-			)
-		}
-
-		var tanRetrievalURL: URL {
-			endpoints
-				.verification
-				.appending(
-					"version",
-					apiVersion,
-					"tan"
-			)
-		}
-
-		var otpAuthorizationURL: URL {
+		var otpEdusAuthorizationURL: URL {
 			endpoints
 				.dataDonation
 				.appending(
@@ -177,6 +177,17 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"otp"
+				)
+		}
+
+		var otpElsAuthorizationURL: URL {
+			endpoints
+				.dataDonation
+				.appending(
+					"version",
+					apiVersion,
+					"ios",
+					"els"
 			)
 		}
 
@@ -188,8 +199,127 @@ extension HTTPClient {
 					apiVersion,
 					"ios",
 					"dat"
+				)
+		}
+		
+		func traceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+		
+		func traceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"twp",
+					"country",
+					country,
+					"hour",
+					String(packageId)
+				)
+		}
+
+		/// API for Encrypted Hour Package Discovery
+		func encryptedTraceWarningPackageDiscoveryURL(country: String) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					encryptedApiVersion,
+					"twp",
+					"country",
+					country,
+					"hour"
+				)
+		}
+
+		/// API for Encrypted Hour Package Download
+		func encryptedTraceWarningPackageDownloadURL(country: String, packageId: Int) -> URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					encryptedApiVersion,
+					"twp",
+					"country",
+					country,
+					"hour",
+					String(packageId)
+				)
+		}
+
+		var qrCodePosterTemplateURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"qr_code_poster_template_ios"
 			)
 		}
+
+		var logUploadURL: URL {
+			endpoints
+				.errorLogSubmission
+				.appending(
+					"api",
+					"logs"
+			)
+		}
+		
+		var vaccinationValueSetsURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					"en",
+					"value-sets"
+				)
+		}
+
+		var dccPublicKeyURL: URL {
+			endpoints
+				.dcc
+				.appending(
+					"version",
+					apiVersion,
+					"publicKey"
+				)
+		}
+		
+		var DCCURL: URL {
+			endpoints
+				.dcc
+				.appending(
+					"version",
+					apiVersion,
+					"dcc"
+				)
+		}
+		
+		var DSCListURL: URL {
+			endpoints
+				.distribution
+				.appending(
+					"version",
+					apiVersion,
+					"ehn-dgc",
+					"dscs"
+				)
+		}
+
 	}
 }
 
@@ -233,5 +363,7 @@ extension HTTPClient.Configuration {
 		let submission: Endpoint
 		let verification: Endpoint
 		let dataDonation: Endpoint
+		let errorLogSubmission: Endpoint
+		let dcc: Endpoint
 	}
 }

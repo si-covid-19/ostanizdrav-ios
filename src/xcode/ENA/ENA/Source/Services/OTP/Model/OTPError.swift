@@ -4,8 +4,8 @@
 
 import Foundation
 
-enum OTPError: Error {
-	case generalError
+enum OTPError: Error, Equatable, LocalizedError {
+	case generalError(underlyingError: Error? = nil)
 	case invalidResponseError
 	case internalServerError
 	case otpAlreadyUsedThisMonth
@@ -16,11 +16,16 @@ enum OTPError: Error {
 	case deviceTokenInvalid
 	case deviceTokenRedeemed
 	case deviceTokenSyntaxError
+	case noNetworkConnection
 
 	var description: String {
 		switch self {
-		case .generalError:
-			return "generalError"
+		case .generalError(let error):
+			if let e = error?.localizedDescription {
+				return "generalError with underlying: \(e)"
+			} else {
+				return "generalError"
+			}
 		case .invalidResponseError:
 			return "invalidResponseError"
 		case .internalServerError:
@@ -41,6 +46,21 @@ enum OTPError: Error {
 			return "deviceTokenRedeemed"
 		case .deviceTokenSyntaxError:
 			return "deviceTokenSyntaxError"
+		case .noNetworkConnection:
+			return "noNetworkConnection"
 		}
+	}
+	
+	var errorDescription: String? {
+		switch self {
+		case .noNetworkConnection:
+			return AppStrings.Common.noNetworkConnection
+		default:
+			return description
+		}
+	}
+
+	static func == (lhs: OTPError, rhs: OTPError) -> Bool {
+		return lhs.description == rhs.description
 	}
 }

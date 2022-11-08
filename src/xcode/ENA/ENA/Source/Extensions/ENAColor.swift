@@ -8,8 +8,11 @@ import UIKit
 public enum ENAColor: String, CaseIterable {
 	// MARK: - Background Colors
 	case background = "ENA Background Color"
+	case backgroundLightGray = "ENA Background Light Gray Color"
 	case darkBackground = "ENA Dark Background Color"
 	case cellBackground = "ENA Cell Background Color"
+	case cellBackground2 = "ENA Cell Background Color 2"
+	case cellBackground3 = "ENA Cell Background Color 3"
 	case hairline = "ENA Hairline Color"
 	case hairlineContrast = "ENA Hairline Contrast Color"
 	case separator = "ENA Separator Color"
@@ -23,6 +26,12 @@ public enum ENAColor: String, CaseIterable {
 	case buttonDestructive = "ENA Button Destructive Color"
 	case buttonHighlight = "ENA Button Highlight Color"
 	case buttonPrimary = "ENA Button Primary Color"
+	case selectedSegmentTint = "ENA Selected Segment Tint Color"
+
+	// MARK: - Card Colors
+	case dashedCardBorder = "ENA Dashed Card Border Color"
+	case cardBorder = "ENA Card Border Color"
+	case cardShadow = "ENA Card Shadow Color"
 
 	// MARK: - Miscellaneous Colors
 	case chevron = "ENA Chevron Color"
@@ -48,9 +57,14 @@ public enum ENAColor: String, CaseIterable {
 	case textSemanticGreen = "ENA Text Semantic Green Color"
 	case textSemanticRed = "ENA Text Semantic Red Color"
 	case textTint = "ENA Text Tint Color"
+	case iconWithText = "IconWithText"
 
 	// MARK: - Textfield
 	case textField = "ENA Textfield Color"
+
+	// MARK: - Certificate-PDF
+	case certificatePDFBlue = "Certificate-PDF Blue"
+
 }
 
 public extension UIColor {
@@ -67,6 +81,7 @@ public extension UIColor {
 	static func enaColor(for style: ENAColor, interface: UIUserInterfaceStyle = .unspecified) -> UIColor {
 		switch style {
 		case .background: return UIColor(rgb: 0xFFFFFF, alpha: 1.0)
+		case .backgroundLightGray: return UIColor(rgb: 0xF8F8F8, alpha: 1.0)
 		case .buttonPrimary: return UIColor(rgb: 0x007FAD, alpha: 1.0)
 		case .buttonHighlight: return UIColor(rgb: 0x17191A, alpha: 0.1)
 		case .listHighlight: return UIColor(rgb: 0x17191A, alpha: 0.2)

@@ -5,22 +5,25 @@
 import ExposureNotification
 import Foundation
 
-/// Describes how to interfact with the backend.
+/// Describes how to interact with the backend.
 protocol Client {
 	// MARK: Types
 
 	typealias Failure = URLSession.Response.Failure
-	typealias KeySubmissionResponse = (Result<Void, Error>) -> Void
+	typealias KeySubmissionResponse = (Result<Void, SubmissionError>) -> Void
 	typealias AvailableDaysCompletionHandler = (Result<[String], Failure>) -> Void
 	typealias AvailableHoursCompletionHandler = (Result<[Int], Failure>) -> Void
-	typealias RegistrationHandler = (Result<String, Failure>) -> Void
-	typealias TestResultHandler = (Result<Int, Failure>) -> Void
+	typealias TestResultHandler = (Result<FetchTestResultResponse, Failure>) -> Void
 	typealias TANHandler = (Result<String, Failure>) -> Void
 	typealias DayCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias HourCompletionHandler = (Result<PackageDownloadResponse, Failure>) -> Void
 	typealias CountryFetchCompletion = (Result<[Country], Failure>) -> Void
 	typealias OTPAuthorizationCompletionHandler = (Result<Date, OTPError>) -> Void
 	typealias PPAnalyticsSubmitionCompletionHandler = (Result<Void, PPASError>) -> Void
+	typealias TraceWarningPackageDiscoveryCompletionHandler = (Result<TraceWarningDiscovery, TraceWarningError>) -> Void
+	typealias TraceWarningPackageDownloadCompletionHandler = (Result<PackageDownloadResponse, TraceWarningError>) -> Void
+	typealias DigitalCovid19CertificateCompletionHandler = (Result<DCCResponse, DCCErrors.DigitalCovid19CertificateError>) -> Void
+	typealias DCCRegistrationCompletionHandler = (Result<Void, DCCErrors.RegistrationError>) -> Void
 
 	// MARK: Interacting with a Client
 
@@ -45,30 +48,6 @@ protocol Client {
 		completion: @escaping DayCompletionHandler
 	)
 
-	// MARK: Getting the Configuration
-
-	/// Gets the registration token
-	func getRegistrationToken(
-		forKey key: String,
-		withType type: String,
-		isFake: Bool,
-		completion completeWith: @escaping RegistrationHandler
-	)
-
-	// getTestResultForDevice
-	func getTestResult(
-		forDevice registrationToken: String,
-		isFake: Bool,
-		completion completeWith: @escaping TestResultHandler
-	)
-
-	// getTANForDevice
-	func getTANForExposureSubmit(
-		forDevice registrationToken: String,
-		isFake: Bool,
-		completion completeWith: @escaping TANHandler
-	)
-
 	// MARK: Submit keys
 
 	/// Submits exposure keys to the backend. This makes the local information available to the world so that the risk of others can be calculated on their local devices.
@@ -77,25 +56,48 @@ protocol Client {
 	///   - isFake: flag to indicate a fake request
 	///   - completion: the completion handler of the submission call
 	func submit(
-		payload: CountrySubmissionPayload,
+		payload: SubmissionPayload,
 		isFake: Bool,
 		completion: @escaping KeySubmissionResponse
 	)
-
+	
+	/// Submits Checkins to the backend on behalf.
+	/// - Parameters:
+	///   - payload: A set of properties to provide during the submission process
+	///   - isFake: flag to indicate a fake request
+	///   - completion: the completion handler of the submission call
+	func submitOnBehalf(
+		payload: SubmissionPayload,
+		isFake: Bool,
+		completion: @escaping KeySubmissionResponse
+	)
+	
 	// MARK: OTP Authorization
 
-	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// Authorizes an edus otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
-	///   - otp: the otp to authorize
+	///   - otpEdus: the edus otp to authorize
 	///   - ppacToken: the ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
 	func authorize(
-		otp: String,
+		otpEdus: String,
 		ppacToken: PPACToken,
 		isFake: Bool,
 		forceApiTokenHeader: Bool,
+		completion: @escaping OTPAuthorizationCompletionHandler
+	)
+
+
+	/// Authorizes an els otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
+	/// - Parameters:
+	///   - otpEls: the els otp to authorize
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
+	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
+	func authorize(
+		otpEls: String,
+		ppacToken: PPACToken,
 		completion: @escaping OTPAuthorizationCompletionHandler
 	)
 
@@ -104,7 +106,7 @@ protocol Client {
 	/// Authorizes an otp at our servers with a tuple of device token and api token as authentication and the otp as payload.
 	/// - Parameters:
 	///   - payload: SAP_Internal_Ppdd_PPADataRequestIOS, which contains several metrics data
-	///   - ppacToken: the ppac token which is generated previously by the PPACService
+	///   - ppacToken: The ppac token which is generated previously by the PPACService
 	///   - isFake: Flag to indicate a fake request
 	///   - forceApiTokenHeader: A Flag that indicates, if a special header flag is send to enforce to accept the API Token. ONLY executable for non release builds
 	///   - completion: The completion handler of the submission call, which contains the expirationDate of the otp as String
@@ -115,10 +117,74 @@ protocol Client {
 		forceApiTokenHeader: Bool,
 		completion: @escaping PPAnalyticsSubmitionCompletionHandler
 	)
+
+	// MARK: ELS Submit (Error Log Sharing)
+
+	/// Log file upload for the ELS  Service
+	/// - Parameters:
+	///   - logFile: The compressed log `Data` to upload
+	///   - uploadToken: The 'ota token'; used for grouping multiple uploads per installation
+	///   - completion: He completion handler of the submission call, which contains the log `id` and `hash` value of the uploaded item
+	func submit(
+		errorLogFile: Data,
+		otpEls: String,
+		completion: @escaping ErrorLogSubmitting.ELSSubmissionResponse
+	)
+	
+	// MARK: Event / Check-In (aka traceWarning)
+	
+	/// GET call to load the IDs from the traceWarnings from CDN. It eventually returns the ID of the the first and last TraceWarningPackage that is available on CDN. The return is the set of all integers between (and including) first and last.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - completion: The completion handler of the get call, which contains the set of availablePackagesOnCDN.
+	func traceWarningPackageDiscovery(
+		unencrypted: Bool,
+		country: String,
+		completion: @escaping TraceWarningPackageDiscoveryCompletionHandler
+	)
+	
+	/// GET call to load the package to the corresponding ID of a traceWarning from CDN. It returns the downloaded package. But it can also be empty. This is indicates by a specific http header field and is mapped into a property of the PackageDownloadResponse.
+	/// - Parameters:
+	///   - country: The country.ID for which country we want the IDs.
+	///   - packageId: The packageID for the package we want to download
+	///   - completion: The completion handler of the get call, which contains a PackageDownloadResponse
+	func traceWarningPackageDownload(
+		unencrypted: Bool,
+		country: String,
+		packageId: Int,
+		completion: @escaping TraceWarningPackageDownloadCompletionHandler
+	)
+
+	// MARK: DccTestResultRegistration
+
+	/// POST call to register DCCPublicKey
+	/// - Parameters:
+	///   - isFake: Flag to indicate a fake request
+	///   - token: our token we want to register
+	///   - publicKey: our public RSA key to enable secure connection
+	///   - completion: completionHandler of post call with a void response
+	func dccRegisterPublicKey(
+		isFake: Bool,
+		token: String,
+		publicKey: String,
+		completion: @escaping DCCRegistrationCompletionHandler
+	)
+
+	/// POST call to get the digital covid19 certificate. Expects the registration token and returns an object, that contains the data encryption key and the cretificate as cose-object. Both are of type bas64 encoded String and have to be transformed further.
+	/// - Parameters:
+	///   - registrationToken: The registration token
+	///   - isFake: Flag to indicate a fake request
+	///   - completion: The completion handler of the call, which contains a DCCResponse or a DCCErrors.DigitalCovid19CertificateError
+	func getDigitalCovid19Certificate(
+		registrationToken token: String,
+		isFake: Bool,
+		completion: @escaping DigitalCovid19CertificateCompletionHandler
+	)
+	
 }
 
-enum SubmissionError: Error {
-	case other(Error)
+enum SubmissionError: Error, Equatable {
+	case other(URLSession.Response.Failure)
 	case invalidPayloadOrHeaders
 	case invalidTan
 	case serverError(Int)
@@ -162,18 +228,40 @@ extension SubmissionError: LocalizedError {
 	}
 }
 
+struct FetchTestResultResponse: Codable {
+	let testResult: Int
+	let sc: Int?
+	let labId: String?
+
+	static func fake(
+		testResult: Int = 0,
+		sc: Int? = nil,
+		labId: String? = nil
+	) -> FetchTestResultResponse {
+		FetchTestResultResponse(
+			testResult: testResult,
+			sc: sc,
+			labId: labId
+		)
+	}
+}
+
 /// A container for a downloaded `SAPDownloadedPackage` and its corresponding `ETag`, if given.
 struct PackageDownloadResponse {
-	let package: SAPDownloadedPackage
+	let package: SAPDownloadedPackage?
 
 	/// The response ETag
 	///
 	/// This is used to identify and revoke packages.
 	let etag: String?
+	
+	var isEmpty: Bool {
+		return package == nil
+	}
 }
 
 /// Combined model for a submit keys request
-struct CountrySubmissionPayload {
+struct SubmissionPayload {
 
 	/// The exposure keys to submit
 	let exposureKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]
@@ -181,8 +269,14 @@ struct CountrySubmissionPayload {
 	/// the list of countries to check for any exposures
 	let visitedCountries: [Country]
 
+	let checkins: [SAP_Internal_Pt_CheckIn]
+
+	let checkinProtectedReports: [SAP_Internal_Pt_CheckInProtectedReport]
+
 	/// a transaction number
 	let tan: String
+
+	let submissionType: SAP_Internal_SubmissionPayload.SubmissionType
 }
 
 struct DaysResult {

@@ -9,10 +9,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Init
 
 	init(
-		onSecondaryButtonTap: @escaping () -> Void,
+		onPrimaryButtonTap: @escaping () -> Void,
 		dismiss: @escaping () -> Void
 	) {
-		self.onSecondaryButtonTap = onSecondaryButtonTap
+		self.onPrimaryButtonTap = onPrimaryButtonTap
 
 		super.init(nibName: nil, bundle: nil)
 		navigationItem.rightBarButtonItem = CloseBarButtonItem(onTap: dismiss)
@@ -29,13 +29,12 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		super.viewDidLoad()
 
 		view.backgroundColor = .enaColor(for: .background)
-		title = AppStrings.ExposureSubmissionHotline.title
+		navigationItem.title = AppStrings.ExposureSubmissionHotline.title
 
 		setupTableView()
 		setupBackButton()
 		
 		footerView?.primaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.primaryButton
-		footerView?.secondaryButton.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmissionHotline.secondaryButton
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -50,25 +49,19 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
 
 	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		callHotline()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		self.onSecondaryButtonTap()
+		self.onPrimaryButtonTap()
 	}
 
 	// MARK: - Private
 	
-	private let onSecondaryButtonTap: () -> Void
+	private let onPrimaryButtonTap: () -> Void
 
 	private lazy var navigationFooterItem: ENANavigationFooterItem = {
 		let item = ENANavigationFooterItem()
-		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.callButtonTitle
+		item.primaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
 		item.isPrimaryButtonEnabled = true
-		item.secondaryButtonTitle = AppStrings.ExposureSubmissionHotline.tanInputButtonTitle
-		item.isSecondaryButtonEnabled = true
-		item.isSecondaryButtonHidden = false
-		item.title = AppStrings.ExposureSubmissionHotline.title
+		item.isSecondaryButtonEnabled = false
+		item.isSecondaryButtonHidden = true
 		return item
 	}()
 
@@ -80,20 +73,26 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		dynamicTableViewModel = DynamicTableViewModel(
 			[
 				.section(
-					header: .image(UIImage(named: "Illu_Submission_Kontakt"),
-								   accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
-								   accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription),
+					header: .image(
+						UIImage(named: "Illu_Submission_Kontakt"),
+						accessibilityLabel: AppStrings.ExposureSubmissionHotline.imageDescription,
+						accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.imageDescription
+					),
 					cells: [
-						.body(text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
-							  accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description) { _, cell, _ in
-								cell.textLabel?.accessibilityTraits = .header
-							}
+						.body(
+							text: [AppStrings.ExposureSubmissionHotline.description, AppStrings.Common.tessRelayDescription].joined(separator: "\n\n"),
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.description
+						) { _, cell, _ in
+							cell.textLabel?.accessibilityTraits = .header
+						}
 					]
 				),
 				DynamicSection.section(
 					cells: [
-						.title2(text: AppStrings.ExposureSubmissionHotline.sectionTitle,
-								accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle),
+						.title2(
+							text: AppStrings.ExposureSubmissionHotline.sectionTitle,
+							accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionHotline.sectionTitle
+						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription1,
@@ -103,22 +102,22 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 							bottomSpacing: .normal
 						),
 						ExposureSubmissionDynamicCell.stepCell(
-							style: .headline,
+							style: .title1,
 							color: .enaColor(for: .textTint),
-							title: AppStrings.ExposureSubmissionHotline.phoneNumber,
+							title: AppStrings.ExposureSubmissionHotline.phoneNumberDomestic,
 							accessibilityLabel: AppStrings.ExposureSubmissionHotline.callButtonTitle,
 							accessibilityTraits: [.button],
 							hairline: .topAttached,
-							bottomSpacing: .normal,
+							bottomSpacing: .small,
 							action: .execute { [weak self] _, _ in self?.callHotline() }
 						),
-//						ExposureSubmissionDynamicCell.stepCell(
-//							style: .footnote,
-//							title: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
-//							accessibilityLabel: AppStrings.ExposureSubmissionHotline.hotlineDetailDescription,
-//							hairline: .topAttached,
-//							bottomSpacing: .large
-//						),
+						ExposureSubmissionDynamicCell.stepCell(
+							style: .footnote,
+							title: AppStrings.ExposureSubmissionHotline.phoneDetailsDomestic,
+							accessibilityLabel: AppStrings.ExposureSubmissionHotline.phoneDetailsDomestic,
+							hairline: .topAttached,
+							bottomSpacing: .small
+						),
 						ExposureSubmissionDynamicCell.stepCell(
 							style: .body,
 							title: AppStrings.ExposureSubmissionHotline.sectionDescription2,
@@ -131,15 +130,10 @@ class ExposureSubmissionHotlineViewController: DynamicTableViewController, ENANa
 		)
 	}
 
-	private func callHotline() {
-		guard let url = URL(string: AppStrings.ExposureSubmission.hotlineNumber),
-			  UIApplication.shared.canOpenURL(url) else {
-			Log.error("Call failed: telprompt:\(AppStrings.ExposureSubmission.hotlineNumber) failed")
-			return
-		}
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+	private func callHotline(foreign: Bool = false) {
+		let phoneNumber = foreign ? AppStrings.ExposureSubmission.hotlineNumberForeign : AppStrings.ExposureSubmission.hotlineNumber
+		LinkHelper.open(urlString: "\(phoneNumber)")
 	}
-
 }
 
 // MARK: - Cell reuse identifiers.

@@ -2,12 +2,11 @@
 
 # A list of devices you want to take the screenshots from
 devices([
-    "iPhone 8",
-    "iPhone 11 Pro"
+    "iPhone 13"
 ])
 
 ios_version(
-  "14.4"
+  "15.0"
 )
 
 # Languages are set individually in CI
@@ -32,13 +31,17 @@ clear_previous_screenshots(false)
 
 # Because the simulator is a wonderful but unstable tool
 stop_after_first_error(true)
-number_of_retries(2)
+
+# Keep this above zero to mitigate random failures from bugs in the testing framework!
+number_of_retries(0)
+
+reinstall_app(true)
 
 headless(false)
 erase_simulator(true)
 
 # Remove the '#' to set the status bar to 9:41 AM, and show full battery and reception.
-override_status_bar(true)
+# override_status_bar(true)
 
 localize_simulator(true)
 

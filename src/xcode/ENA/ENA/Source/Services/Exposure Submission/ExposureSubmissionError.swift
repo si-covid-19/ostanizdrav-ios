@@ -9,14 +9,17 @@ enum ExposureSubmissionError: Error, Equatable {
 	case noRegistrationToken
 	case enNotEnabled
 	case notAuthorized
+	case coronaTestServiceError(CoronaTestServiceError)
 
-	/// User has not granted acces to their keys
+	/// User has not granted access to their keys
 	case keysNotShared
 
 	/// Access to keys was granted but no keys were collected by the exposure notification framework
 	case noKeysCollected
 
 	case noSubmissionConsent
+	case noCoronaTestTypeGiven
+	case noCoronaTestOfGivenType
 	case noDevicePairingConsent
 	case noAppConfiguration
 	case invalidTan
@@ -36,6 +39,9 @@ enum ExposureSubmissionError: Error, Equatable {
 	case invalidPayloadOrHeaders
 	case requestCouldNotBeBuilt
 	case qrExpired
+	case positiveTestResultNotShown // User has never seen his positive TestResult
+	case malformedDateOfBirthKey
+	case invalidRequest
 
 	/// **[Deprecated]** Legacy state to indicate no (meaningful) response was given.
 	///
@@ -72,8 +78,6 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmissionError.qrNotExist
 		case .teleTanAlreadyUsed:
 			return AppStrings.ExposureSubmissionError.teleTanAlreadyUsed
-		case .regTokenNotExist:
-			return AppStrings.ExposureSubmissionError.regTokenNotExist
 		case .noKeysCollected:
 			return AppStrings.ExposureSubmissionError.noKeysCollected
 		case .internal:
@@ -96,7 +100,7 @@ extension ExposureSubmissionError: LocalizedError {
 			return AppStrings.ExposureSubmission.qrCodeExpiredAlertText
 		default:
 			Log.error("\(self)", log: .api)
-			return AppStrings.ExposureSubmissionError.defaultError
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
 		}
 	}
 }

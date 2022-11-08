@@ -161,7 +161,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 				startDownloadPackages(for: countryId, downloadMode: downloadMode) { result in
 					switch result {
 					case .success:
-						Log.info("KeyPackageDownload: Succeded downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
+						Log.info("KeyPackageDownload: Succeeded downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
 					case .failure(let error):
 						Log.info("KeyPackageDownload: Failed downloading \(downloadMode.title) key packages for country id: \(countryId).", log: .riskDetection)
 						errors.append(error)
@@ -356,6 +356,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					Log.info("KeyPackageDownload: Server data is available for day packages.", log: .riskDetection)
 					completion(.success(days))
 				case .failure:
+					Log.info("KeyPackageDownload: No network connection or no response from server", log: .riskDetection)
 					completion(.failure(.uncompletedPackages))
 				}
 			}
@@ -367,6 +368,7 @@ class KeyPackageDownload: KeyPackageDownloadProtocol {
 					let packageKeys = hours.map { String($0) }
 					completion(.success(packageKeys))
 				case .failure:
+					Log.info("KeyPackageDownload: No network connection or no response from server", log: .riskDetection)
 					completion(.failure(.uncompletedPackages))
 				}
 			}

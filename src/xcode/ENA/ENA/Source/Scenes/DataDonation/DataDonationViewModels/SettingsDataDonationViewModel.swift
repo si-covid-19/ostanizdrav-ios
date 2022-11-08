@@ -25,8 +25,22 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		var dynamicTableViewModel = DynamicTableViewModel.with {
 			$0.add(
 				.section(
+					header: .image(
+						UIImage(named: "Illustration_Datenspendedatenspende_heart"),
+						accessibilityLabel: AppStrings.NotificationSettings.imageDescriptionOn,
+						accessibilityIdentifier: AccessibilityIdentifiers.NotificationSettings.DeltaOnboarding.imageOn,
+						height: 250
+					),
 					cells: [
-						.headline(text: AppStrings.DataDonation.Info.introductionText)
+						.title1(text: AppStrings.DataDonation.Info.title)
+					]
+				)
+			)
+			$0.add(
+				.section(
+					cells: [
+						.headline(text: AppStrings.DataDonation.Info.description),
+						.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil)
 					]
 				)
 			)
@@ -35,7 +49,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		/// section to show input fields with already given data
 		/// this will change numer of cells by the already entered data
 		let sectionCells: [DynamicCell] = [
-			.footnote(text: AppStrings.DataDonation.Info.settingsSubHeadline, accessibilityIdentifier: nil),
 			.body(
 				text: AppStrings.Settings.Datadonation.label,
 				style: .label,
@@ -69,18 +82,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 					}):
 				nil,
 
-			dataDonationModel.isConsentGiven == true ?
-				.body(
-					text: friendlyRegionName,
-					style: .label,
-					accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionName,
-					accessibilityTraits: .button,
-					action: .execute(block: { [weak self] _, _ in
-						self?.didTapSelectRegionButton()
-					}),
-					configure: { _, cell, _ in
-						cell.accessoryType = .disclosureIndicator
-					}) :
 				nil,
 
 			dataDonationModel.isConsentGiven == true ?
@@ -102,6 +103,7 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 
 		dynamicTableViewModel.add(
 			.section(
+				separators: .all,
 				cells: sectionCells
 			)
 		)
@@ -110,7 +112,6 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 		dynamicTableViewModel.add(
 			.section(
 				cells: [
-					.headline(text: AppStrings.DataDonation.Info.description),
 					.legalExtendedDataDonation(
 						title: NSAttributedString(string: AppStrings.DataDonation.Info.legalTitle),
 						description: NSAttributedString(
@@ -118,20 +119,21 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 							attributes: [.font: UIFont.preferredFont(forTextStyle: .body)]),
 						bulletPoints: [
 							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint1),
-							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint2),
-							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint3)],
+							NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint2)
+							//NSAttributedString(string: AppStrings.DataDonation.Info.legalAcknowledgementBulletPoint3)
+						],
 						accessibilityIdentifier: AppStrings.DataDonation.Info.legalTitle
 					)
 				]
 			)
 		)
 
-//		dynamicTableViewModel.add(
-//			.section(separators: .all, cells: [
-//				.dataProcessingDetails(),
-//				.space(height: 12)
-//			])
-//		)
+		dynamicTableViewModel.add(
+			.section(separators: .all, cells: [
+				.dataProcessingDetails(),
+				.space(height: 12)
+			])
+		)
 
 		return dynamicTableViewModel
 	}
@@ -149,7 +151,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.allFederalStateNames,
 			title: AppStrings.DataDonation.ValueSelection.Title.FederalState,
 			preselected: dataDonationModel.federalStateName,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.federalStateCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue.sink { [weak self] federalState in
 			guard self?.dataDonationModel.federalStateName != federalState else {
@@ -174,7 +177,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			dataDonationModel.allRegions(by: federalStateName),
 			title: AppStrings.DataDonation.ValueSelection.Title.Region,
 			preselected: dataDonationModel.region,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.regionCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] region in
 			guard self?.dataDonationModel.region != region else {
@@ -194,7 +198,8 @@ final class SettingsDataDonationViewModel: BaseDataDonationViewModel {
 			presorted: true,
 			title: AppStrings.DataDonation.ValueSelection.Title.Age,
 			preselected: dataDonationModel.age,
-			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell
+			accessibilityIdentifier: AccessibilityIdentifiers.DataDonation.ageGroupCell,
+			selectionCellIconType: .checkmark
 		)
 		selectValueViewModel.$selectedValue .sink { [weak self] age in
 			guard self?.dataDonationModel.age != age else {

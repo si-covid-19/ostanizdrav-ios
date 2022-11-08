@@ -7,52 +7,48 @@ import OpenCombine
 
 typealias DiaryStoringProviding = DiaryStoring & DiaryProviding
 
-enum DiaryStoringError: Error {
-	case database(SQLiteErrorCode)
-	case timeout
-}
-
 protocol DiaryStoring {
 
-	typealias DiaryStoringResult = Result<Int, DiaryStoringError>
-	typealias DiaryStoringVoidResult = Result<Void, DiaryStoringError>
+	@discardableResult
+	func addContactPerson(name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.IdResult
+	@discardableResult
+	func addLocation(name: String, phoneNumber: String, emailAddress: String, traceLocationId: Data?) -> SecureSQLStore.IdResult
+	@discardableResult
+	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> SecureSQLStore.IdResult
+	@discardableResult
+	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String, checkinId: Int?) -> SecureSQLStore.IdResult
+	@discardableResult
+	func addCoronaTest(testDate: String, testType: Int, testResult: Int) -> SecureSQLStore.IdResult
 
 	@discardableResult
-	func addContactPerson(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult
+	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func addLocation(name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringResult
+	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringResult
+	func updateContactPersonEncounter(id: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringResult
+	func updateLocationVisit(id: Int, date: String, durationInMinutes: Int, circumstances: String) -> SecureSQLStore.VoidResult
 
 	@discardableResult
-	func updateContactPerson(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult
+	func removeContactPerson(id: Int) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func updateLocation(id: Int, name: String, phoneNumber: String, emailAddress: String) -> DiaryStoringVoidResult
+	func removeLocation(id: Int) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func updateContactPersonEncounter(id: Int, date: String, duration: ContactPersonEncounter.Duration, maskSituation: ContactPersonEncounter.MaskSituation, setting: ContactPersonEncounter.Setting, circumstances: String) -> DiaryStoringVoidResult
+	func removeContactPersonEncounter(id: Int) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func updateLocationVisit(id: Int, date: String, durationInMinutes: Int, circumstances: String) -> DiaryStoringVoidResult
-
+	func removeLocationVisit(id: Int) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeContactPerson(id: Int) -> DiaryStoringVoidResult
+	func removeAllLocations() -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeLocation(id: Int) -> DiaryStoringVoidResult
+	func removeAllContactPersons() -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeContactPersonEncounter(id: Int) -> DiaryStoringVoidResult
+	func removeAllCoronaTests() -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeLocationVisit(id: Int) -> DiaryStoringVoidResult
+	func cleanup() -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeAllLocations() -> DiaryStoringVoidResult
+	func cleanup(timeout: TimeInterval) -> SecureSQLStore.VoidResult
 	@discardableResult
-	func removeAllContactPersons() -> DiaryStoringVoidResult
-	@discardableResult
-	func cleanup() -> DiaryStoringVoidResult
-	@discardableResult
-	func cleanup(timeout: TimeInterval) -> DiaryStoringVoidResult
-	@discardableResult
-	func reset() -> DiaryStoringVoidResult
+	func reset() -> SecureSQLStore.VoidResult
 	func close()
 
 }
@@ -60,23 +56,23 @@ protocol DiaryStoring {
 extension DiaryStoring {
 
 	@discardableResult
-	func addContactPerson(name: String) -> DiaryStoringResult {
+	func addContactPerson(name: String) -> SecureSQLStore.IdResult {
 		return addContactPerson(name: name, phoneNumber: "", emailAddress: "")
 	}
 
 	@discardableResult
-	func addLocation(name: String) -> DiaryStoringResult {
-		return addLocation(name: name, phoneNumber: "", emailAddress: "")
+	func addLocation(name: String) -> SecureSQLStore.IdResult {
+		return addLocation(name: name, phoneNumber: "", emailAddress: "", traceLocationId: nil)
 	}
 
 	@discardableResult
-	func addContactPersonEncounter(contactPersonId: Int, date: String) -> DiaryStoringResult {
+	func addContactPersonEncounter(contactPersonId: Int, date: String) -> SecureSQLStore.IdResult {
 		return addContactPersonEncounter(contactPersonId: contactPersonId, date: date, duration: .none, maskSituation: .none, setting: .none, circumstances: "")
 	}
 
 	@discardableResult
-	func addLocationVisit(locationId: Int, date: String) -> DiaryStoringResult {
-		return addLocationVisit(locationId: locationId, date: date, durationInMinutes: 0, circumstances: "")
+	func addLocationVisit(locationId: Int, date: String) -> SecureSQLStore.IdResult {
+		return addLocationVisit(locationId: locationId, date: date, durationInMinutes: 0, circumstances: "", checkinId: nil)
 	}
 
 }
@@ -93,7 +89,7 @@ protocol DiaryProviding {
 
 /**
 This extension provides a default implementation for the properties.
-So we make sure to not declare the properties in any other implementations of this protocol, expecially in the unit tests. So the values are always the same.
+So we make sure to not declare the properties in any other implementations of this protocol, especially in the unit tests. So the values are always the same.
 */
 
 extension DiaryProviding {

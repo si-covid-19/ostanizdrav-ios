@@ -13,6 +13,7 @@ enum ExposureNotificationError: Error {
 	case exposureNotificationUnavailable
 	/// Typically occurs when `activate()` is called more than once.
 	case apiMisuse
+	case notResponding
 	case unknown(String)
 }
 
@@ -38,7 +39,7 @@ struct ExposureManagerState: Equatable {
 			self.authorized = true
 			self.enabled = true
 
-			switch UserDefaults.standard.integer(forKey: "ENStatus") {
+			switch LaunchArguments.common.ENStatus.intValue {
 			case ENStatus.active.rawValue:
 				self.status = .active
 			case ENStatus.disabled.rawValue:
@@ -190,6 +191,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				}
 			}
 		}
+		
+		#if DEBUG
+		if isUITesting {
+			self.enable { _ in }
+		}
+		#endif
 	}
 
 	func observeExposureNotificationStatus(observer: ENAExposureManagerObserver) {
@@ -213,13 +220,32 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	/// Activates `ENManager`
 	/// Needs to be called before `ExposureManager.enable()`
 	func activate(completion: @escaping CompletionHandler) {
+		guard manager.exposureNotificationStatus != .active else {
+			Log.error("ENF is already enabled - do not trigger it twice")
+			completion(nil)
+			return
+		}
+
+		Log.info("Trying to activate ENManager")
+		var isActive = false
+		
 		manager.activate { activationError in
 			if let activationError = activationError {
 				Log.error("Failed to activate ENManager: \(activationError.localizedDescription)", log: .api)
 				self.handleENError(error: activationError, completion: completion)
 				return
 			}
+			Log.info("Activated ENManager successfully.")
 			completion(nil)
+			isActive = true
+		}
+
+		// Sometimes the ENF is broken. So we check after 3 seconds if it was activated until we proceed with a deactivated ENF and log an error. Mostly, the ENF is activated instantly, so 3 seconds should be enough time to wait.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+			if !isActive {
+				Log.error("Could not activate ENManager within 3 seconds. Proceed with deactivated ENManager")
+				completion(ExposureNotificationError.notResponding)
+			}
 		}
 	}
 
@@ -238,16 +264,28 @@ final class ENAExposureManager: NSObject, ExposureManager {
 	}
 
 	private func changeEnabled(to status: Bool, completion: @escaping CompletionHandler) {
+		Log.info("Trying to change ENManager.setExposureNotificationEnabled to \(status).")
+
+		var hasChanged = false
 		manager.setExposureNotificationEnabled(status) { error in
 			if let error = error {
 				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status): \(error.localizedDescription)", log: .api)
 				self.handleENError(error: error, completion: completion)
 				return
 			}
+			Log.error("Successfully changed ENManager.setExposureNotificationEnabled to \(status).", log: .api)
+			hasChanged = true
 			completion(nil)
 		}
+		
+		// Sometimes the ENF framework is broken. So we wait 1 seconds to ensure that the changed has been applied. Mostly, the ENF framework responds instantly, so we check after 1 seconds and show then an alert.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+			if !hasChanged {
+				Log.error("Failed to change ENManager.setExposureNotificationEnabled to \(status) within 1 seconds. Show alert.")
+				completion(ExposureNotificationError.notResponding)
+			}
+		}
 	}
-
 
 	private func disableIfNeeded(completion:@escaping CompletionHandler) {
 		manager.exposureNotificationEnabled ? disable(completion: completion) : completion(nil)
@@ -305,9 +343,18 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		let progress = manager.getExposureWindows(from: summary) { [weak self] exposureWindows, error in
 			guard let self = self else { return }
 			Log.info("ENAExposureManager: Completed getting exposure windows.", log: .riskDetection)
+			Log.info("ENAExposureManager: ExposureWindows before filtering: \(String(describing: exposureWindows?.count)) .", log: .riskDetection)
+			
+			// Seems like ENF gives us exposure Windows back that are older than 14 Days https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-9552
+			guard let thresholdDate = Calendar.current.date(byAdding: .day, value: -15, to: Date()) else {
+				fatalError("Can't create a date 15 days in the past, time to bail")
+			}
+			
+			let filteredExposureWindows = exposureWindows?.filter { $0.date > thresholdDate }
+			Log.info("ENAExposureManager: ExposureWindows after filtering: \(String(describing: filteredExposureWindows?.count)) .", log: .riskDetection)
 
 			self.getExposureWindowsProgress = nil
-			completionHandler(exposureWindows, error)
+			completionHandler(filteredExposureWindows, error)
 		}
 
 		getExposureWindowsProgress = progress
@@ -383,6 +430,9 @@ final class ENAExposureManager: NSObject, ExposureManager {
 				Log.error(errorMsg, log: .api)
 				completion(ExposureNotificationError.unknown(error.localizedDescription))
 			}
+		} else {
+			Log.error("Casting error from error to ENError", error: error)
+			completion(ExposureNotificationError.unknown("Could not cast ENError to Error: \(error.localizedDescription)"))
 		}
 	}
 
@@ -402,7 +452,12 @@ final class ENAExposureManager: NSObject, ExposureManager {
 		disableIfNeeded { _ in
 			self.exposureManagerObserver = nil
 			self.invalidate {
+				#if COMMUNITY
+				self.manager = MockENManager()
+				#else
 				self.manager = ENManager()
+				#endif
+
 				handler?()
 			}
 		}
@@ -483,12 +538,7 @@ extension ENAExposureManager {
 			let completionHandler: (UIAlertAction, @escaping () -> Void) -> Void = { action, completion in
 				switch action.style {
 				case .default:
-					guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-						return
-					}
-					if UIApplication.shared.canOpenURL(settingsUrl) {
-						UIApplication.shared.open(settingsUrl, completionHandler: nil)
-					}
+					LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 				case .cancel, .destructive:
 					completion()
 				@unknown default:

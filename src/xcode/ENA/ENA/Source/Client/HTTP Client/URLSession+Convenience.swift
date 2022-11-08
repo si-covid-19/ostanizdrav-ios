@@ -15,7 +15,7 @@ extension URLSession {
 	// This method executes HTTP POST requests.
 	func POST(_ url: URL, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 
 		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)
 	}
@@ -23,7 +23,7 @@ extension URLSession {
 	// This method executes HTTP POST with HTTP BODY requests.
 	func POST(_ url: URL, _ body: Data, extraHeaders: [String: String]? = nil, completion: @escaping Completion) {
 		var request = URLRequest(url: url)
-		request.httpMethod = "POST"
+		request.httpMethod = HttpMethod.post
 		request.httpBody = body
 		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 		response(for: request, isFake: false, extraHeaders: extraHeaders, completion: completion)
@@ -59,21 +59,25 @@ extension URLSession {
 			if let error = error as NSError?,
 			   error.domain == NSURLErrorDomain,
 			   error.code == NSURLErrorNotConnectedToInternet {
+				Log.error("No network connection", log: .api, error: error)
 				completion(.failure(.noNetworkConnection))
 				return
 			}
 
 			guard let response = response as? HTTPURLResponse else {
+				Log.error("No server request response", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
 
 			if let error = error {
-				completion(.failure(.httpError(error, response)))
+				Log.error("Server request error", log: .api, error: error)
+				completion(.failure(.httpError(error.localizedDescription, response)))
 				return
 			}
 
 			guard let data = data else {
+				Log.error("No server response data", log: .api)
 				completion(.failure(.noResponse))
 				return
 			}
@@ -112,14 +116,12 @@ extension URLSession {
 typealias URLSessionError = URLSession.Response.Failure
 
 extension URLSession.Response {
-	enum Failure: Error {
+	enum Failure: Error, Equatable {
 		/// The session received an `Error`.
-		case httpError(Error, HTTPURLResponse)
-		case teleTanAlreadyUsed
-		case qrAlreadyUsed
+		case httpError(String, HTTPURLResponse)
 		case qrDoesNotExist
-		case regTokenNotExist
 		case invalidResponse
+		case invalidRequest
 		case noNetworkConnection
 		case serverError(Int)
 		case fakeResponse
@@ -134,4 +136,26 @@ extension URLSession.Response {
 	}
 
 	typealias Completion = (Result<URLSession.Response, Failure>) -> Void
+}
+
+extension URLSession.Response.Failure: LocalizedError {
+	var errorDescription: String? {
+		switch self {
+		case let .serverError(code):
+			return "\(AppStrings.ExposureSubmissionError.other)\(code)\(AppStrings.ExposureSubmissionError.otherend)"
+		case let .httpError(desc, _):
+			return "\(AppStrings.ExposureSubmissionError.httpError)\n\(desc)"
+		case .invalidResponse:
+			return AppStrings.ExposureSubmissionError.invalidResponse
+		case .noResponse:
+			return AppStrings.ExposureSubmissionError.noResponse
+		case .noNetworkConnection:
+			return AppStrings.ExposureSubmissionError.noNetworkConnection
+		case .qrDoesNotExist:
+			return AppStrings.ExposureSubmissionError.qrNotExist
+		default:
+			Log.error("\(self)", log: .api)
+			return AppStrings.ExposureSubmissionError.defaultError + "\n(\(String(describing: self)))"
+		}
+	}
 }

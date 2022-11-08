@@ -48,8 +48,8 @@ struct DiaryDayEntryCellModel {
 	let accessibilityTraits: UIAccessibilityTraits
 
 	let durationValues: [SegmentedControlValue<ContactPersonEncounter.Duration>] = [
-		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan15Minutes, value: .lessThan15Minutes),
-		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan15Minutes, value: .moreThan15Minutes)
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.lessThan10Minutes, value: .lessThan10Minutes),
+		SegmentedControlValue(title: AppStrings.ContactDiary.Day.Encounter.moreThan10Minutes, value: .moreThan10Minutes)
 	]
 
 	var selectedDurationSegmentIndex: Int {
@@ -143,15 +143,6 @@ struct DiaryDayEntryCellModel {
 		updateContactPersonEncounter(setting: setting)
 	}
 
-	func updateCircumstances(_ circumstances: String) {
-		switch entryType {
-		case .contactPerson:
-			updateContactPersonEncounter(circumstances: circumstances)
-		case .location:
-			updateLocationVisit(circumstances: circumstances)
-		}
-	}
-
 	func updateContactPersonEncounter(
 		duration: ContactPersonEncounter.Duration? = nil,
 		maskSituation: ContactPersonEncounter.MaskSituation? = nil,
@@ -173,8 +164,8 @@ struct DiaryDayEntryCellModel {
 	}
 
 	func updateLocationVisit(
-		durationInMinutes: Int? = nil,
-		circumstances: String? = nil
+		durationInMinutes: Int,
+		circumstances: String
 	) {
 		guard case .location(let location) = entry, let visit = location.visit else {
 			fatalError("Cannot update non-existent visit.")
@@ -183,8 +174,8 @@ struct DiaryDayEntryCellModel {
 		store.updateLocationVisit(
 			id: visit.id,
 			date: visit.date,
-			durationInMinutes: durationInMinutes ?? visit.durationInMinutes,
-			circumstances: circumstances ?? visit.circumstances
+			durationInMinutes: durationInMinutes,
+			circumstances: circumstances
 		)
 	}
 

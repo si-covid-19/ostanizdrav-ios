@@ -7,7 +7,7 @@ import ExposureNotification
 import Foundation
 import XCTest
 
-final class ExposureDetectionExecutorTests: XCTestCase {
+final class ExposureDetectionExecutorTests: CWATestCase {
 
 	private var dummyAppConfigMetadata: AppConfigMetadata {
 		AppConfigMetadata(
@@ -74,10 +74,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				exposureWindowsHandler: ([mockExposureWindow], nil)
 			)
 		)
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		_ = sut.detectExposureWindows(
@@ -108,10 +110,12 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 		let completionExpectation = expectation(description: "Expect that the completion handler is called.")
 		let expectedError = ENError(.notAuthorized)
 		let sut = ExposureDetectionExecutor.makeWith(exposureDetector: MockExposureDetector(exposureWindowsHandler: (nil, expectedError)))
+		let store = MockTestStore()
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: MockTestStore())
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		_ = sut.detectExposureWindows(
@@ -122,7 +126,7 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				defer { completionExpectation.fulfill() }
 
 				guard case .failure(let error) = result else {
-					XCTFail("Completion handler indicated succeess though it should have failed!")
+					XCTFail("Completion handler indicated success though it should have failed!")
 					return
 				}
 
@@ -163,10 +167,11 @@ final class ExposureDetectionExecutorTests: XCTestCase {
 				detectionHandler: (nil, expectedError)
 			)
 		)
+		let config = SAP_Internal_V2_ApplicationConfigurationIOS()
 		let exposureDetection = ExposureDetection(
 			delegate: sut,
-			appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS(),
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			appConfiguration: config,
+			deviceTimeCheck: DeviceTimeCheck(store: store, appFeatureProvider: AppFeatureDeviceTimeCheckDecorator.mock(store: store, config: config))
 		)
 
 		XCTAssertNotEqual(packageStore.allDays(country: "DE").count, 0)

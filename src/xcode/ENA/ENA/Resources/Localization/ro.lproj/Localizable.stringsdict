@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Instalat astăzi</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Instalat acum %u zi</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Instalat acum %u zile</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Instalat acum %u zile</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Instalat acum %u zile</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Instalat acum %u de zile</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Nicio expunere</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Expuneri cu risc redus în 1 zi</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Expuneri cu risc redus în %u zile</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Expuneri cu risc redus în %u de zile</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Expuneri cu risc redus în %u de zile</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Expuneri cu risc redus în %u de zile</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Expuneri cu risc crescut în %u de zile</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Expuneri cu risc crescut în 1 zi</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Expuneri cu risc crescut în %u zile</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Expuneri cu risc crescut în %u de zile</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Expuneri cu risc crescut în %u de zile</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Expuneri cu risc crescut în %u de zile</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Status_Counter_Label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@%#</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Actualizare în %02u:%2$#@seconds@ secunde</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Actualizare în %02u:%2$#@seconds@ minut</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Actualizare în %02u:%2$#@seconds@ minute</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Actualizare în %02u:%2$#@seconds@ de minute</string>
+		</dict>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>%02u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>%02u</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>%02u</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>%02u</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>%02u</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Aplicația Corona-Warn a fost instalată astăzi. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zi. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u de zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Aplicația Corona-Warn a fost instalată astăzi. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zi. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Aplicația Corona-Warn a fost instalată acum %u de zile. Riscul dvs. de infectare este calculat pentru perioadele în care înregistrarea în jurnal a expunerilor a fost activă. Dacă v-ați întâlnit cu alte persoane și înregistrarea în jurnal a expunerilor a fost activă, este calculat riscul dvs. de infectare.</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă mai puțin de o zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zi. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Înregistrarea în jurnal a expunerilor a fost activă %u de zile. O verificare a expunerii poate fi de încredere doar dacă înregistrarea în jurnal a expunerilor este activată permanent.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>În prezent nu sunt disponibile reguli de intrare pentru țara selectată și ora selectată pentru acest tip de certificat. Rețineți următoarele:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>%u regulă a țării de destinație a fost verificată cu succes.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>%u reguli ale țării de destinație au fost verificate cu succes.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>%u de reguli ale țării de destinație au fost verificate cu succes.</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă până mâine.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u zile.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Acum ați efectuat toate vaccinările planificate curente. Totuși, protecția prin vaccinare nu va fi completă timp de încă %u de zile.</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Ultima vaccinare astăzi</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Ultima vaccinare: acum %u zi</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Ultima vaccinare: acum %u zile</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Ultima vaccinare: acum %u zile</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Ultima vaccinare: acum %u zile</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Ultima vaccinare: acum %u de zile</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

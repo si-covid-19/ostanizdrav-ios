@@ -11,12 +11,13 @@ class HomeCardView: UIView {
 	override func awakeFromNib() {
 		super.awakeFromNib()
 
+		translatesAutoresizingMaskIntoConstraints = false
 		clipsToBounds = false
 		layer.cornerRadius = cornerRadius
 
 		layer.shadowColor = UIColor.enaColor(for: .shadow).cgColor
 		layer.shadowOffset = .init(width: 0.0, height: 10.0)
-		layer.shadowRadius = 36.0
+		layer.shadowRadius = 12.0
 		layer.shadowOpacity = 1
 
 		highlightView.backgroundColor = .clear
@@ -33,6 +34,11 @@ class HomeCardView: UIView {
 			highlightView.trailingAnchor.constraint(equalTo: trailingAnchor),
 			highlightView.bottomAnchor.constraint(equalTo: bottomAnchor)
 		])
+
+		if #available(iOS 13.0, *) {
+			layer.cornerCurve = .continuous
+			highlightView.layer.cornerCurve = .continuous
+		}
 	}
 
 	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -5,13 +5,14 @@
 import Foundation
 import XCTest
 
-class iOS13TestCase: XCTestCase {
+class iOS13TestCase: CWATestCase {
 
 	override func invokeTest() {
 		if #available(iOS 13, *) {
 			return super.invokeTest()
 		} else {
-			print("Skipping test because it's iOS13+ only.")
+			// swiftlint:disable:next no_plain_print
+			print("Skipping test \(self) because it's iOS13+ only.")
 			return
 		}
 	}

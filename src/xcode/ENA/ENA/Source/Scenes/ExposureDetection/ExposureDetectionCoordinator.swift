@@ -5,23 +5,17 @@
 import UIKit
 
 final class ExposureDetectionCoordinator {
-
-	private let appConfigurationProvider: AppConfigurationProviding
-	private let rootViewController: UIViewController
-	private var navigationController: ENANavigationControllerWithFooter?
-	private let store: Store
-	private let homeState: HomeState
-	private let exposureManager: ExposureManager
-	private let otpService: OTPServiceProviding
-	private let surveyURLProvider: SurveyURLProviding
-
+	
+	// MARK: - Init
+	
 	init(
 		rootViewController: UIViewController,
 		store: Store,
 		homeState: HomeState,
 		exposureManager: ExposureManager,
 		appConfigurationProvider: AppConfigurationProviding,
-		otpService: OTPServiceProviding
+		otpService: OTPServiceProviding,
+		ppacService: PrivacyPreservingAccessControl
 	) {
 		self.rootViewController = rootViewController
 		self.store = store
@@ -29,18 +23,16 @@ final class ExposureDetectionCoordinator {
 		self.exposureManager = exposureManager
 		self.appConfigurationProvider = appConfigurationProvider
 		self.otpService = otpService
-
-		let ppacService = PPACService(
-			store: store,
-			deviceCheck: PPACDeviceCheck()
-		)
+		
 		self.surveyURLProvider = SurveyURLProvider(
 			configurationProvider: appConfigurationProvider,
 			ppacService: ppacService,
 			otpService: otpService
 		)
 	}
-
+	
+	// MARK: - Internal
+	
 	func start() {
 		let exposureDetectionController = ExposureDetectionViewController(
 			viewModel: ExposureDetectionViewModel(
@@ -51,14 +43,34 @@ final class ExposureDetectionCoordinator {
 						return
 					}
 
-					if self.otpService.isOTPAvailable {
+					if self.otpService.isOTPEdusAvailable {
 						self.showSurveyWebpage()
 					} else {
 						self.showSurveyConsent()
 					}
 				},
-				onInactiveButtonTap: { [weak self] completion in
-					self?.setExposureManagerEnabled(true, then: completion)
+				onInactiveButtonTap: { [weak self] in
+					guard let self = self else {
+						return
+					}
+
+					let vc = ExposureNotificationSettingViewController(
+						initialEnState: self.homeState.enState,
+						store: self.store,
+						appConfigurationProvider: self.appConfigurationProvider,
+						setExposureManagerEnabled: { [weak self] newState, completion in
+							self?.setExposureManagerEnabled(newState, then: completion)
+						}
+					)
+					self.navigationController?.pushViewController(vc, animated: true)
+				},
+				onHygieneRulesInfoButtonTap: { [weak self] in
+					self?.showHygieneRulesInfoScreen()
+				},
+				onRiskOfContagionInfoButtonTap: { [weak self] in
+					let url = URL(string: "https://www.nijz.si/izolacija")!
+					UIApplication.shared.open(url, options: [:], completionHandler: nil)
+					//self?.showRiskOfContagionInfoScreen()
 				}
 			),
 			store: store
@@ -70,7 +82,38 @@ final class ExposureDetectionCoordinator {
 		
 		rootViewController.present(_navigationController, animated: true)
 	}
-
+	
+	// MARK: - Private
+	
+	private let appConfigurationProvider: AppConfigurationProviding
+	private let rootViewController: UIViewController
+	private var navigationController: ENANavigationControllerWithFooter?
+	private let store: Store
+	private let homeState: HomeState
+	private let exposureManager: ExposureManager
+	private let otpService: OTPServiceProviding
+	private let surveyURLProvider: SurveyURLProviding
+	
+	private func showHygieneRulesInfoScreen() {
+		let viewController = HygieneRulesInfoViewController(
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
+		navigationController?.present(infoNavigationController, animated: true)
+	}
+	
+	private func showRiskOfContagionInfoScreen() {
+		let viewController = ContagionInfoViewController(
+			dismiss: { [weak self] in
+				self?.navigationController?.dismiss(animated: true)
+			}
+		)
+		let infoNavigationController = UINavigationController(rootViewController: viewController)
+		navigationController?.present(infoNavigationController, animated: true)
+	}
+	
 	private func showSurveyConsent() {
 		setNavigationBarHidden(false)
 
@@ -104,9 +147,7 @@ final class ExposureDetectionCoordinator {
 	}
 
 	private func showSurveyWebpage(with url: URL) {
-		if UIApplication.shared.canOpenURL(url) {
-			UIApplication.shared.open(url)
-		}
+		LinkHelper.open(url: url)
 	}
 
 	private func setExposureManagerEnabled(_ enabled: Bool, then completion: @escaping (ExposureNotificationError?) -> Void) {

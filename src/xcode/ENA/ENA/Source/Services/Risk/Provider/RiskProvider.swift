@@ -2,11 +2,11 @@
 // 🦠 Corona-Warn-App
 //
 
-import Foundation
 import ExposureNotification
 import UIKit
 import OpenCombine
 
+// swiftlint:disable:next type_body_length
 final class RiskProvider: RiskProviding {
 
 	// MARK: - Init
@@ -17,20 +17,29 @@ final class RiskProvider: RiskProviding {
 		appConfigurationProvider: AppConfigurationProviding,
 		exposureManagerState: ExposureManagerState,
 		targetQueue: DispatchQueue = .main,
-		riskCalculation: RiskCalculationProtocol = RiskCalculation(),
+		enfRiskCalculation: ENFRiskCalculationProtocol = ENFRiskCalculation(),
+		checkinRiskCalculation: CheckinRiskCalculationProtocol,
 		keyPackageDownload: KeyPackageDownloadProtocol,
-		exposureDetectionExecutor: ExposureDetectionDelegate
+		traceWarningPackageDownload: TraceWarningPackageDownloading,
+		exposureDetectionExecutor: ExposureDetectionDelegate,
+		coronaTestService: CoronaTestService
 	) {
 		self.riskProvidingConfiguration = configuration
 		self.store = store
 		self.appConfigurationProvider = appConfigurationProvider
 		self.exposureManagerState = exposureManagerState
 		self.targetQueue = targetQueue
-		self.riskCalculation = riskCalculation
+		self.enfRiskCalculation = enfRiskCalculation
+		self.checkinRiskCalculation = checkinRiskCalculation
 		self.keyPackageDownload = keyPackageDownload
+		self.traceWarningPackageDownload = traceWarningPackageDownload
 		self.exposureDetectionExecutor = exposureDetectionExecutor
+		self.coronaTestService = coronaTestService
+		self.keyPackageDownloadStatus = .idle
+		self.traceWarningDownloadStatus = .idle
+		self.rateLimitLogger = RateLimitLogger(store: store)
 
-		self.registerForPackageDownloadStatusUpdate()
+		self.registerForPackagesDownloadStatusUpdates()
 	}
 
 	// MARK: - Protocol RiskProviding
@@ -48,14 +57,14 @@ final class RiskProvider: RiskProviding {
 
 	var manualExposureDetectionState: ManualExposureDetectionState? {
 		riskProvidingConfiguration.manualExposureDetectionState(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
 	/// Returns the next possible date of a exposureDetection
 	var nextExposureDetectionDate: Date {
 		riskProvidingConfiguration.nextExposureDetectionDate(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: riskCalculationDate
 		)
 	}
 
@@ -84,46 +93,83 @@ final class RiskProvider: RiskProviding {
 			return
 		}
 
-		guard store.lastSuccessfulSubmitDiagnosisKeyTimestamp == nil else {
-			Log.info("RiskProvider: Keys were already submitted. Don't start new risk detection.", log: .riskDetection)
+		guard !coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+			Log.info("RiskProvider: At least one registered test has an already shown positive test result or keys submitted. Don't start new risk detection.", log: .riskDetection)
 
-			// Keep downloading key packages for plausible deniability
-			downloadKeyPackages()
+			// Keep downloading key packages and trace warning packages for plausible deniability
+			updateActivityState(.onlyDownloadsRequested)
 
-			return
-		}
+			downloadKeyPackages { [weak self] result in
+				guard let self = self else {
+					return
+				}
+				
+				switch result {
+				case .success:
+					self.appConfigurationProvider.appConfiguration().sink { appConfiguration in
+						self.downloadTraceWarningPackages(with: appConfiguration) { result in
+							self.updateActivityState(.idle)
 
-		guard !WarnOthersReminder(store: store).positiveTestResultWasShown else {
-			Log.info("RiskProvider: Positive test result was already shown. Don't start new risk detection.", log: .riskDetection)
+							// Check that the shown positive or submitted test wasn't deleted in the meantime.
+							// If it was deleted, start a new risk detection.
+							guard self.coronaTestService.hasAtLeastOneShownPositiveOrSubmittedTest else {
+								self.requestRisk(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
+								return
+							}
 
-			// Keep downloading key packages for plausible deniability
-			downloadKeyPackages()
+							switch result {
+							case .success:
+								// Try to obtain already calculated risk.
+								if let risk = self.previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
+									Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+
+									self.successOnTargetQueue(risk: risk)
+								} else {
+									self.failOnTargetQueue(error: .deactivatedDueToActiveTest)
+								}
+							case .failure(let error):
+								self.failOnTargetQueue(error: error)
+							}
+						}
+					}.store(in: &self.subscriptions)
+				case .failure(let error):
+					Log.info("RiskProvider: Failed to download key packages", log: .riskDetection)
+					self.failOnTargetQueue(error: error)
+				}
+			}
 
 			return
 		}
 
 		queue.async {
-			self.updateActivityState(.riskRequested)
+			self.updateActivityState(userInitiated ? .riskManuallyRequested : .riskRequested)
 			self._requestRiskLevel(userInitiated: userInitiated, timeoutInterval: timeoutInterval)
 		}
 	}
 
 	// MARK: - Private
+	
     private typealias Completion = (RiskProviderResult) -> Void
 
 	private let store: Store
 	private let appConfigurationProvider: AppConfigurationProviding
 	private let targetQueue: DispatchQueue
-	private let riskCalculation: RiskCalculationProtocol
+	private let enfRiskCalculation: ENFRiskCalculationProtocol
+	private let checkinRiskCalculation: CheckinRiskCalculationProtocol
 	private let exposureDetectionExecutor: ExposureDetectionDelegate
-
+	private let coronaTestService: CoronaTestService
+	
 	private let queue = DispatchQueue(label: "com.sap.RiskProvider")
 	private let consumersQueue = DispatchQueue(label: "com.sap.RiskProvider.consumer")
 
 	private var keyPackageDownload: KeyPackageDownloadProtocol
-	private var exposureDetection: ExposureDetection?
+	private var traceWarningPackageDownload: TraceWarningPackageDownloading
 
+	private var exposureDetection: ExposureDetection?
 	private var subscriptions = [AnyCancellable]()
+	private var keyPackageDownloadStatus: KeyPackageDownloadStatus
+	private var traceWarningDownloadStatus: TraceWarningDownloadStatus
+	private var rateLimitLogger: RateLimitLogger
 	
 	private var _consumers: Set<RiskConsumer> = Set<RiskConsumer>()
 	private var consumers: Set<RiskConsumer> {
@@ -131,9 +177,30 @@ final class RiskProvider: RiskProviding {
 		set { consumersQueue.sync { _consumers = newValue } }
 	}
 
+	private var previousRisk: Risk? {
+		guard let enfRiskCalculationResult = store.enfRiskCalculationResult,
+			  let checkinRiskCalculationResult = store.checkinRiskCalculationResult else {
+				  return nil
+			  }
+		 return Risk(
+			 enfRiskCalculationResult: enfRiskCalculationResult,
+			 checkinCalculationResult: checkinRiskCalculationResult
+		 )
+	}
+
+	private var riskCalculationDate: Date? {
+		if let enfRiskCalculationResult = store.enfRiskCalculationResult,
+		   let checkinRiskCalculationResult = store.checkinRiskCalculationResult {
+			let risk = Risk(enfRiskCalculationResult: enfRiskCalculationResult, checkinCalculationResult: checkinRiskCalculationResult)
+			return risk.details.calculationDate
+		} else {
+			return nil
+		}
+	}
+
 	private var shouldDetectExposureBecauseOfNewPackages: Bool {
 		let lastKeyPackageDownloadDate = store.lastKeyPackageDownloadDate
-		let lastExposureDetectionDate = store.riskCalculationResult?.calculationDate ?? .distantPast
+		let lastExposureDetectionDate = store.enfRiskCalculationResult?.calculationDate ?? .distantPast
 		let didDownloadNewPackagesSinceLastDetection = lastKeyPackageDownloadDate > lastExposureDetectionDate
 		let hoursSinceLastDetection = -lastExposureDetectionDate.hoursSinceNow
 		let lastDetectionMoreThan24HoursAgo = hoursSinceLastDetection > 24
@@ -144,37 +211,51 @@ final class RiskProvider: RiskProviding {
 	private func _requestRiskLevel(userInitiated: Bool, timeoutInterval: TimeInterval) {
 		let group = DispatchGroup()
 		group.enter()
-		appConfigurationProvider.appConfiguration().sink { [weak self] appConfiguration in
-			guard let self = self else { return }
-			
-			self.updateRiskProvidingConfiguration(with: appConfiguration)
-			
-			self.downloadKeyPackages { result in
-				switch result {
-				case .success:
-					self.determineRisk(
-						userInitiated: userInitiated,
-						appConfiguration: appConfiguration
-					) { result in
-						
-						switch result {
-						case .success(let risk):
-							self.successOnTargetQueue(risk: risk)
-						case .failure(let error):
-							self.failOnTargetQueue(error: error)
-						}
+		appConfigurationProvider
+			.appConfiguration()
+			.receive(on: DispatchQueue.main.ocombine)
+			.sink { [weak self] appConfiguration in
+				guard let self = self else {
+					Log.error("RiskProvider: Error at creating self. Cancel download packages and calculate risk.", log: .riskDetection)
+					return
+				}
+
+				self.updateRiskProvidingConfiguration(with: appConfiguration)
+
+				// First, download the diagnosis keys
+				self.downloadKeyPackages { result in
+					switch result {
+					case .success:
+						// If key download succeeds, continue with the download of the trace warning packages
+						self.downloadTraceWarningPackages(with: appConfiguration, completion: { result in
+							switch result {
+							case .success:
+								// And only if both downloads succeeds, we can determine a risk.
+								self.determineRisk(userInitiated: userInitiated, appConfiguration: appConfiguration) { result in
+									switch result {
+									case .success(let risk):
+										self.successOnTargetQueue(risk: risk)
+									case .failure(let error):
+										self.failOnTargetQueue(error: error)
+									}
+									group.leave()
+								}
+							case .failure(let error):
+								self.failOnTargetQueue(error: error)
+								group.leave()
+							}
+						})
+					case .failure(let error):
+						self.failOnTargetQueue(error: error)
 						group.leave()
 					}
-				case .failure(let error):
-					self.failOnTargetQueue(error: error)
-					group.leave()
 				}
-			}
-		}.store(in: &subscriptions)
+			}.store(in: &subscriptions)
 
 		guard group.wait(timeout: DispatchTime.now() + timeoutInterval) == .success else {
 			updateActivityState(.idle)
 			exposureDetection?.cancel()
+			exposureDetection = nil
 			Log.info("RiskProvider: Canceled risk calculation due to timeout", log: .riskDetection)
 			failOnTargetQueue(error: .timeout)
 			return
@@ -193,12 +274,15 @@ final class RiskProvider: RiskProviding {
 	}
 
 	private func downloadDayPackages(completion: @escaping (Result<Void, RiskProviderError>) -> Void) {
-		keyPackageDownload.startDayPackagesDownload(completion: { result in
+		keyPackageDownload.startDayPackagesDownload(completion: { [weak self] result in
 			switch result {
 			case .success:
 				completion(.success(()))
 			case .failure(let error):
-				completion(.failure(.failedKeyPackageDownload(error)))
+				// we need this delay so the user can see something happened
+				self?.targetQueue.asyncAfter(deadline: .now() + 1.0) {
+					completion(.failure(.failedKeyPackageDownload(error)))
+				}
 			}
 		})
 	}
@@ -206,6 +290,20 @@ final class RiskProvider: RiskProviding {
 	private func downloadHourPackages(completion: @escaping () -> Void) {
 		keyPackageDownload.startHourPackagesDownload(completion: { _ in
 			completion()
+		})
+	}
+	
+	private func downloadTraceWarningPackages(
+		with appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
+		completion: @escaping (Result<Void, RiskProviderError>) -> Void
+	) {
+		traceWarningPackageDownload.startTraceWarningPackageDownload(with: appConfiguration, completion: { result in
+			switch result {
+			case .success:
+				completion(.success(()))
+			case let .failure(error):
+				completion(.failure(.failedTraceWarningPackageDownload(error)))
+			}
 		})
 	}
 
@@ -227,6 +325,8 @@ final class RiskProvider: RiskProviding {
 		// 2. There is a previous risk that is still valid and should not be recalculated
 		if let risk = previousRiskIfExistingAndNotExpired(userInitiated: userInitiated) {
 			Log.info("RiskProvider: Using risk from previous detection", log: .riskDetection)
+			// update the risk exposure metadatas if new risk calculations are not done in the meanwhile
+			Analytics.collect(.riskExposureMetadata(.update))
 			completion(.success(risk))
 			return
 		}
@@ -252,7 +352,7 @@ final class RiskProvider: RiskProviding {
 
 	private func previousRiskIfExistingAndNotExpired(userInitiated: Bool) -> Risk? {
 		let enoughTimeHasPassed = riskProvidingConfiguration.shouldPerformExposureDetection(
-			lastExposureDetectionDate: store.riskCalculationResult?.calculationDate
+			lastExposureDetectionDate: store.enfRiskCalculationResult?.calculationDate
 		)
 		let shouldDetectExposures = (riskProvidingConfiguration.detectionMode == .manual && userInitiated) || riskProvidingConfiguration.detectionMode == .automatic
 
@@ -266,9 +366,9 @@ final class RiskProvider: RiskProviding {
 		Log.info("RiskProvider: Precondition fulfilled for fresh risk detection: shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode = \(shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode)", log: .riskDetection)
 		
 		if !enoughTimeHasPassed || !shouldDetectExposures || !shouldDetectExposureBecauseOfNewPackagesConsideringDetectionMode,
-		   let riskCalculationResult = store.riskCalculationResult {
+		   let previousRisk = previousRisk {
 			Log.info("RiskProvider: Not calculating new risk, using result of most recent risk calculation", log: .riskDetection)
-			return Risk(activeTracing: store.tracingStatusHistory.activeTracing(), riskCalculationResult: riskCalculationResult)
+			return previousRisk
 		}
 
 		return nil
@@ -278,15 +378,25 @@ final class RiskProvider: RiskProviding {
 		appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS,
 		completion: @escaping (Result<[ExposureWindow], RiskProviderError>) -> Void
 	) {
+		guard exposureDetection == nil else {
+			// in the future someone should debug why this function is called twice in the first place.
+			completion(.failure(.riskProviderIsRunning))
+			return
+		}
+		
 		self.updateActivityState(.detecting)
 
-		let _exposureDetection = ExposureDetection(
+		let softBlocking = rateLimitLogger.logBlocking(configuration: riskProvidingConfiguration)
+		store.referenceDateForRateLimitLogger = Date()
+
+		exposureDetection = ExposureDetection(
 			delegate: exposureDetectionExecutor,
 			appConfiguration: appConfiguration,
-			deviceTimeCheck: DeviceTimeCheck(store: store)
+			deviceTimeCheck: appConfigurationProvider.deviceTimeCheck
 		)
 
-		_exposureDetection.start { result in
+		exposureDetection?.start { [weak self] result in
+			self?.rateLimitLogger.logEffect(result: result, blocking: softBlocking)
 			switch result {
 			case .success(let detectedExposureWindows):
 				Log.info("RiskProvider: Detect exposure completed", log: .riskDetection)
@@ -298,9 +408,8 @@ final class RiskProvider: RiskProviding {
 
 				completion(.failure(.failedRiskDetection(error)))
 			}
+			self?.exposureDetection = nil
 		}
-
-		self.exposureDetection = _exposureDetection
 	}
 
 	private func calculateRiskLevel(exposureWindows: [ExposureWindow], appConfiguration: SAP_Internal_V2_ApplicationConfigurationIOS, completion: Completion) {
@@ -308,37 +417,54 @@ final class RiskProvider: RiskProviding {
 
 		let configuration = RiskCalculationConfiguration(from: appConfiguration.riskCalculationParameters)
 
-		do {
-			let riskCalculationResult = try riskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
-			Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(riskCalculation)))
-			let risk = Risk(
-				activeTracing: store.tracingStatusHistory.activeTracing(),
-				riskCalculationResult: riskCalculationResult,
-				previousRiskCalculationResult: store.riskCalculationResult
-			)
+		let enfRiskCalculationResult = enfRiskCalculation.calculateRisk(exposureWindows: exposureWindows, configuration: configuration)
+		let mappedWindows = exposureWindows.map { RiskCalculationExposureWindow(exposureWindow: $0, configuration: configuration) }
+		Analytics.collect(.exposureWindowsMetadata(.collectExposureWindows(mappedWindows)))
+		Analytics.collect(.testResultMetadata(.collectCurrentExposureWindows(mappedWindows)))
 
-			store.riskCalculationResult = riskCalculationResult
-			checkIfRiskStatusLoweredAlertShouldBeShown(risk)
-			Analytics.collect(.riskExposureMetadata(.updateRiskExposureMetadata(riskCalculationResult)))
+		let checkinRiskCalculationResult = checkinRiskCalculation.calculateRisk(with: appConfiguration)
 
-			completion(.success(risk))
+		let risk = Risk(
+			enfRiskCalculationResult: enfRiskCalculationResult,
+			previousENFRiskCalculationResult: store.enfRiskCalculationResult,
+			checkinCalculationResult: checkinRiskCalculationResult,
+			previousCheckinCalculationResult: store.checkinRiskCalculationResult
+		)
 
-			/// We were able to calculate a risk so we have to reset the DeadMan Notification
-			DeadmanNotificationManager(store: store).resetDeadmanNotification()
-		} catch {
-			completion(.failure(.failedRiskCalculation))
-		}
+		store.enfRiskCalculationResult = enfRiskCalculationResult
+		store.checkinRiskCalculationResult = checkinRiskCalculationResult
+
+		checkIfRiskLevelHasChangedForNotifications(risk)
+		checkIfRiskStatusLoweredAlertShouldBeShown(risk)
+		Analytics.collect(.riskExposureMetadata(.update))
+		completion(.success(risk))
+
+		/// We were able to calculate a risk so we have to reset the DeadMan Notification
+		DeadmanNotificationManager(coronaTestService: coronaTestService).resetDeadmanNotification()
 	}
+	
 
 	private func _provideRiskResult(_ result: RiskProviderResult, to consumer: RiskConsumer?) {
 		#if DEBUG
-		if isUITesting && UserDefaults.standard.string(forKey: "riskLevel") == "inactive" {
+		if isUITesting && LaunchArguments.risk.riskLevel.stringValue == "inactive" {
 			consumer?.provideRiskCalculationResult(.failure(.inactive))
 			return
 		}
 		#endif
 		
 		consumer?.provideRiskCalculationResult(result)
+	}
+	
+	private func checkIfRiskLevelHasChangedForNotifications(_ risk: Risk) {
+		/// Triggers a notification for every risk level change.
+		if risk.riskLevelHasChanged {
+			Log.info("Trigger notification about changed risk level", log: .riskDetection)
+			UNUserNotificationCenter.current().presentNotification(
+				title: AppStrings.LocalNotifications.detectExposureTitle,
+				body: AppStrings.LocalNotifications.detectExposureBody,
+				identifier: ActionableNotificationIdentifier.riskDetection.identifier
+			)
+		}
 	}
 
 	private func checkIfRiskStatusLoweredAlertShouldBeShown(_ risk: Risk) {
@@ -350,7 +476,6 @@ final class RiskProvider: RiskProviding {
 				store.shouldShowRiskStatusLoweredAlert = true
 			case .high:
 				store.shouldShowRiskStatusLoweredAlert = false
-				store.dateOfConversionToHighRisk = Date()
 			}
 		}
 	}
@@ -386,9 +511,32 @@ final class RiskProvider: RiskProviding {
 
 	private func failOnTargetQueue(error: RiskProviderError, updateState: Bool = true) {
 		Log.info("RiskProvider: Failed with error: \(error)", log: .riskDetection)
-		
+
 		if updateState {
 			updateActivityState(.idle)
+		}
+
+		/// special handling for error 13
+		/// https://jira-ibs.wbs.net.sap/browse/EXPOSUREAPP-11706
+		///
+
+		if  /// check if error 13 or 16 occurs
+			case let .failedRiskDetection(didEndPrematurelyReason) = error,
+			case let .noExposureWindows(reason, _) = didEndPrematurelyReason,
+			let enError = reason as? ENError,
+			enError.code == .rateLimited || enError.code == .dataInaccessible,
+			/// only if a previous risk exists we can try to give a fallback
+			let previousRisk = previousRisk,
+			/// if previous risk is 48h old it's a valid fallback
+			let calculationDate = previousRisk.details.calculationDate,
+			let validityDate = Calendar.current.date(byAdding: riskProvidingConfiguration.exposureDetectionValidityDuration, to: calculationDate),
+			validityDate >= Date() {
+			
+			Log.error("ENError reached Code: \(enError.code.rawValue) - skip error and use previous risk", log: .riskDetection)
+			for consumer in consumers {
+				_provideRiskResult(.success(previousRisk), to: consumer)
+			}
+			return
 		}
 
 		for consumer in consumers {
@@ -398,6 +546,10 @@ final class RiskProvider: RiskProviding {
 
 	private func updateActivityState(_ state: RiskProviderActivityState) {
 		Log.info("RiskProvider: Update activity state to: \(state)", log: .riskDetection)
+
+		guard self.activityState != state else {
+			return
+		}
 
 		self.activityState = state
 
@@ -418,19 +570,29 @@ final class RiskProvider: RiskProviding {
 		}
 	}
 
-	private func registerForPackageDownloadStatusUpdate() {
-		self.keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
-			guard let self = self else { return }
-
-			switch downloadStatus {
-			case .downloading:
-				self.updateActivityState(.downloading)
-			/// In end-of-life state we only download the keys, therefore the activity state needs to be reset to idle when the download is finished
-			case .idle where self.store.lastSuccessfulSubmitDiagnosisKeyTimestamp != nil || WarnOthersReminder(store: self.store).positiveTestResultWasShown:
-				self.updateActivityState(.idle)
-			default:
-				break
+	private func registerForPackagesDownloadStatusUpdates() {
+		keyPackageDownload.statusDidChange = { [weak self] downloadStatus in
+			guard let self = self else {
+				Log.error("RiskProvider: Error at creating strong self.", log: .riskDetection)
+				return
 			}
+			self.keyPackageDownloadStatus = downloadStatus
+			self.updateRiskProviderActivityState()
+		}
+		
+		traceWarningPackageDownload.statusDidChange = { [weak self] downloadStatus in
+			guard let self = self else {
+				Log.error("RiskProvider: Error at creating strong self.", log: .riskDetection)
+				return
+			}
+			self.traceWarningDownloadStatus = downloadStatus
+			self.updateRiskProviderActivityState()
+		}
+	}
+	
+	private func updateRiskProviderActivityState() {
+		if keyPackageDownloadStatus == .downloading || traceWarningDownloadStatus == .downloading {
+			self.updateActivityState(.downloading)
 		}
 	}
 }
@@ -454,17 +616,16 @@ private extension RiskConsumer {
 extension RiskProvider {
 	private func _requestRiskLevel_Mock(userInitiated: Bool) {
 		let risk = Risk.mocked
-
-		let dateFormatter = ISO8601DateFormatter.contactDiaryUTCFormatter
+		let dateFormatter = ISO8601DateFormatter.justUTCDateFormatter
 		let todayString = dateFormatter.string(from: Date())
 		guard let today = dateFormatter.date(from: todayString),
 			  let someDaysAgo = Calendar.current.date(byAdding: .day, value: -3, to: today) else {
 			fatalError("Could not create date test data for riskLevelPerDate.")
 		}
-
+		let calculationDate = Calendar.autoupdatingCurrent.date(bySettingHour: 9, minute: 6, second: 0, of: Date()) ?? Date()
 		switch risk.level {
 		case .high:
-			store.riskCalculationResult = RiskCalculationResult(
+			store.enfRiskCalculationResult = ENFRiskCalculationResult(
 				riskLevel: .high,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
@@ -472,7 +633,7 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: risk.details.numberOfDaysWithRiskLevel,
-				calculationDate: Date(),
+				calculationDate: calculationDate,
 				riskLevelPerDate: [
 					today: .high,
 					someDaysAgo: .low
@@ -482,8 +643,13 @@ extension RiskProvider {
 					someDaysAgo: 1
 				]
 			)
+			store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+				calculationDate: calculationDate,
+				checkinIdsWithRiskPerDate: [:],
+				riskLevelPerDate: [:]
+			)
 		default:
-			store.riskCalculationResult = RiskCalculationResult(
+			store.enfRiskCalculationResult = ENFRiskCalculationResult(
 				riskLevel: .low,
 				minimumDistinctEncountersWithLowRisk: 0,
 				minimumDistinctEncountersWithHighRisk: 0,
@@ -491,7 +657,7 @@ extension RiskProvider {
 				mostRecentDateWithHighRisk: risk.details.mostRecentDateWithRiskLevel,
 				numberOfDaysWithLowRisk: risk.details.numberOfDaysWithRiskLevel,
 				numberOfDaysWithHighRisk: 0,
-				calculationDate: Date(),
+				calculationDate: calculationDate,
 				riskLevelPerDate: [
 					today: .low,
 					someDaysAgo: .low
@@ -501,8 +667,14 @@ extension RiskProvider {
 					someDaysAgo: 1
 				]
 			)
+			store.checkinRiskCalculationResult = CheckinRiskCalculationResult(
+				calculationDate: calculationDate,
+				checkinIdsWithRiskPerDate: [:],
+				riskLevelPerDate: [:]
+			)
 		}
 		successOnTargetQueue(risk: risk)
 	}
 }
+// swiftlint:disable:next file_length
 #endif

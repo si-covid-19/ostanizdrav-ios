@@ -10,7 +10,7 @@ import ExposureNotification
 /// This protocol ensures that a given ErrorType can be transformed into an
 /// `ExposureSubmissionError`.
 /// For the future, if other transformations are needed, it is advised to create
-/// a corrseponding protocol specific to the destination error type.
+/// A corresponding protocol specific to the destination error type.
 protocol ExposureSubmissionErrorTransformable {
 	func toExposureSubmissionError() -> ExposureSubmissionError
 }
@@ -44,7 +44,8 @@ extension ExposureNotificationError: ExposureSubmissionErrorTransformable {
 		switch self {
 		case .exposureNotificationRequired,
 			 .exposureNotificationAuthorization,
-			 .exposureNotificationUnavailable:
+			 .exposureNotificationUnavailable,
+			 .notResponding:
 			return .enNotEnabled
 		case .apiMisuse, .unknown:
 			return .other("ENErrorCodeAPIMisuse")
@@ -75,20 +76,12 @@ extension SubmissionError: ExposureSubmissionErrorTransformable {
 
 extension URLSessionError: ExposureSubmissionErrorTransformable {
 
-	// swiftlint:disable cyclomatic_complexity
-	/// no clue why we still have this…
 	func toExposureSubmissionError() -> ExposureSubmissionError {
 		switch self {
-		case let .httpError(wrapped, _):
-			return .httpError(wrapped.localizedDescription)
+		case let .httpError(localizedDescription, _):
+			return .httpError(localizedDescription)
 		case .invalidResponse:
 			return .invalidResponse
-		case .teleTanAlreadyUsed:
-			return .teleTanAlreadyUsed
-		case .qrAlreadyUsed:
-			return .qrAlreadyUsed
-		case .regTokenNotExist:
-			return .regTokenNotExist
 		case .qrDoesNotExist:
 			return .qrDoesNotExist
 		case .noResponse:
@@ -101,7 +94,8 @@ extension URLSessionError: ExposureSubmissionErrorTransformable {
 			return .serverError(304)
 		case .fakeResponse:
 			return .fakeResponse
+		case .invalidRequest:
+			return .invalidRequest
 		}
 	}
-	// swiftlint:enable cyclomatic_complexity
 }

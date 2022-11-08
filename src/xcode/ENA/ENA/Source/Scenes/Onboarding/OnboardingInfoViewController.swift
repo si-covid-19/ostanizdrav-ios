@@ -6,11 +6,13 @@ import UIKit
 import OpenCombine
 import UserNotifications
 import ExposureNotification
+import WebKit
 
 // swiftlint:disable:next type_body_length
 final class OnboardingInfoViewController: UIViewController {
 
 	@IBOutlet var scrollView: UIScrollView!
+	@IBOutlet var containerView: UIView!
 	@IBOutlet var stackView: UIStackView!
 	
 	// MARK: - Init
@@ -82,7 +84,7 @@ final class OnboardingInfoViewController: UIViewController {
 	private var pageType: OnboardingPageType
 	private var exposureManager: ExposureManager
 	private var store: Store
-	private var htmlTextView: HtmlTextView?
+	private var webView: HTMLView?
 	private var onboardingInfo: OnboardingInfo?
 	private var supportedCountries: [Country]?
 	private var client: Client
@@ -110,16 +112,11 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 
 	private func setupNavigationBar() {
-		if #available(iOS 13, *) {
-			navigationItem.largeTitleDisplayMode = .always
-		} else {
-			navigationItem.largeTitleDisplayMode = .never
-		}
+		navigationItem.largeTitleDisplayMode = .never
 	}
 	
 	private func openSettings() {
-		guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 	}
 
 	private func showError(_ error: ExposureNotificationError, from viewController: UIViewController, completion: (() -> Void)?) {
@@ -144,50 +141,48 @@ final class OnboardingInfoViewController: UIViewController {
 	}
 	
 	private func gotoDataDonationScreen() {
-		finishOnBoarding()
+		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
+			preconditionFailure("missing json file")
+		}
+
+		let dataDonationViewModel = DefaultDataDonationViewModel(
+			store: store,
+			presentSelectValueList: { [weak self] selectValueViewModel in
+				let selectValueViewController = SelectValueTableViewController(
+					selectValueViewModel,
+					dismiss: { [weak self] in
+						self?.navigationController?.dismiss(animated: true)
+					})
+				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
+				self?.navigationController?.present(selectValueNavigationController, animated: true)
+			},
+			datadonationModel: DataDonationModel(
+				store: store,
+				jsonFileURL: jsonFileURL
+			)
+		)
+
+		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
+
+		let containerViewController = TopBottomContainerViewController(
+			topController: dataDonationViewController,
+			bottomController: FooterViewController(
+				FooterViewModel(
+					primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
+					secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
+				),
+				didTapPrimaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: true)
+					self?.finishOnBoarding()
+				},
+				didTapSecondaryButton: { [weak self] in
+					dataDonationViewModel.save(consentGiven: false)
+					self?.finishOnBoarding()
+				}
+			)
+		)
 		
-//		deltaOnboardingNavigationController.finished?()
-//		guard let jsonFileURL = Bundle.main.url(forResource: "ppdd-ppa-administrative-unit-set-ua-approved", withExtension: "json") else {
-//			preconditionFailure("missing json file")
-//		}
-//
-//		let dataDonationViewModel = DefaultDataDonationViewModel(
-//			store: store,
-//			presentSelectValueList: { [weak self] selectValueViewModel in
-//				let selectValueViewController = SelectValueTableViewController(
-//					selectValueViewModel,
-//					dismiss: { [weak self] in
-//						self?.navigationController?.dismiss(animated: true)
-//					})
-//				let selectValueNavigationController = UINavigationController(rootViewController: selectValueViewController)
-//				self?.navigationController?.present(selectValueNavigationController, animated: true)
-//			},
-//			datadonationModel: DataDonationModel(
-//				store: store,
-//				jsonFileURL: jsonFileURL
-//			)
-//		)
-//
-//		let dataDonationViewController = DataDonationViewController(viewModel: dataDonationViewModel)
-//		let footerViewModel = FooterViewModel(
-//			primaryButtonName: AppStrings.DataDonation.Info.buttonOK,
-//			secondaryButtonName: AppStrings.DataDonation.Info.buttonNOK
-//		)
-//
-//		let containerViewController = TopBottomContainerViewController(
-//			topController: dataDonationViewController,
-//			bottomController: FooterViewController(
-//				footerViewModel,
-//				didTapPrimaryButton: { [weak self] in
-//					dataDonationViewModel.save(consentGiven: true)
-//					self?.finishOnBoarding()
-//				},
-//				didTapSecondaryButton: { [weak self] in
-//					dataDonationViewModel.save(consentGiven: false)
-//					self?.finishOnBoarding()
-//				}),
-//			bottomHeight: 140.0)
-//		navigationController?.pushViewController(containerViewController, animated: true)
+		navigationController?.pushViewController(containerViewController, animated: true)
 	}
 
 	private func loadCountryList() {
@@ -227,7 +222,7 @@ final class OnboardingInfoViewController: UIViewController {
 			let textAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .body).scaledFont(size: 15, weight: .regular), .link: onboardingInfo.link]
 
 			let attributedString = NSMutableAttributedString(string: onboardingInfo.linkDisplayText, attributes: textAttributes)
-					
+
 			linkTextView.attributedText = attributedString
 			linkTextView.dataDetectorTypes = UIDataDetectorTypes.all
 			linkTextView.isScrollEnabled = false
@@ -237,6 +232,7 @@ final class OnboardingInfoViewController: UIViewController {
 			linkTextView.textContainerInset = .zero
 			linkTextView.textContainer.lineFragmentPadding = .zero
 			linkTextView.backgroundColor = .clear
+			linkTextView.delegate = self
 		} else {
 			linkTextView.isHidden = true
 		}
@@ -284,18 +280,24 @@ final class OnboardingInfoViewController: UIViewController {
 			)
 		case .privacyPage:
 			innerStackView.isHidden = true
-			let textView = HtmlTextView()
-			textView.layoutMargins = .zero
-			textView.delegate = self
+			let htmlView = HTMLView()
+			htmlView.translatesAutoresizingMaskIntoConstraints = false
+			htmlView.navigationDelegate = self // used to size the webview after loading HTML
 			if let url = Bundle.main.url(forResource: "privacy-policy", withExtension: "html") {
-				do {
-					try textView.load(from: url)
-				} catch {
-					Log.error("Could not load url \(url)", log: .ui, error: error)
-				}
+				htmlView.load(URLRequest(url: url))
+			} else {
+				Log.error("Could not load privacy-policy.html", log: .ui, error: nil)
 			}
-			stackView.addArrangedSubview(textView)
-			htmlTextView = textView
+			containerView.addSubview(htmlView)
+			webView = htmlView
+
+			NSLayoutConstraint.activate([
+				htmlView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
+				htmlView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+				htmlView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0),
+				htmlView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16)
+			])
+			
 			addSkipAccessibilityActionToHeader()
 		default:
 			break
@@ -447,7 +449,7 @@ final class OnboardingInfoViewController: UIViewController {
 		let actionName = AppStrings.Onboarding.onboardingContinue
 		let skipAction = UIAccessibilityCustomAction(name: actionName, target: self, selector: #selector(skip(_:)))
 		titleLabel.accessibilityCustomActions = [skipAction]
-		htmlTextView?.accessibilityCustomActions = [skipAction]
+		webView?.accessibilityCustomActions = [skipAction]
 	}
 
 	@objc
@@ -455,4 +457,32 @@ final class OnboardingInfoViewController: UIViewController {
 		didTapNextButton(sender)
 	}
 	
+}
+
+extension OnboardingInfoViewController: WKNavigationDelegate {
+
+	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+		webView.evaluateJavaScript("document.readyState", completionHandler: { complete, error in
+			if complete != nil {
+				self.webView?.evaluateJavaScript("document.body.scrollHeight", completionHandler: { [weak self] height, error in
+					if let height = height as? CGFloat {
+						Log.debug("Set content height to \(height) @\(UIScreen.main.scale)x")
+						self?.webView?.heightAnchor.constraint(equalToConstant: height).isActive = true
+						self?.webView?.sizeToFit()
+					} else {
+						Log.error("Could not get website height! \(error?.localizedDescription ?? "")", error: error)
+					}
+				})
+			}
+		})
+	}
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		if navigationAction.navigationType == .linkActivated, let url = navigationAction.request.url {
+			LinkHelper.open(url: url)
+			decisionHandler(.cancel)
+		} else {
+			decisionHandler(.allow)
+		}
+	}
 }

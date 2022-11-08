@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DMKeyValueTableViewCell: UITableViewCell, DMConfigureableCell {
+class DMKeyValueTableViewCell: UITableViewCell, ConfigureableCell {
 
 	// MARK: - Init
 
@@ -25,7 +25,7 @@ class DMKeyValueTableViewCell: UITableViewCell, DMConfigureableCell {
 
 	func configure<T>(cellViewModel: T) {
 		guard let cellViewModel = cellViewModel as? DMKeyValueCellViewModel else {
-			fatalError("CellViewModel doesn't macht expecations")
+			fatalError("CellViewModel doesn't match expectations")
 		}
 		keyLabel.text = cellViewModel.key
 		valueLabel.text = cellViewModel.value

@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class FooterViewModelTests: XCTestCase {
+class FooterViewModelTests: CWATestCase {
 
 	func testGIVEN_FooterViewModel_THEN_AllValuesSetAsGiven() {
 		// GIVEN
@@ -21,6 +21,7 @@ class FooterViewModelTests: XCTestCase {
 		XCTAssertTrue(viewModel.isSecondaryButtonEnabled)
 		XCTAssertFalse(viewModel.isPrimaryButtonHidden)
 		XCTAssertFalse(viewModel.isSecondaryButtonHidden)
+		XCTAssertNotNil(viewModel.primaryButtonColor)
+		XCTAssertNotNil(viewModel.secondaryButtonColor)
 	}
-
 }

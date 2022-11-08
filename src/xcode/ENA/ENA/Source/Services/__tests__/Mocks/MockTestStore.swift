@@ -3,27 +3,18 @@
 //
 
 import Foundation
-@testable import ENA
+import OpenCombine
 
-final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, PPAnalyticsData {
+#if !RELEASE
 
-	var warnOthersNotificationOneTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
-	var warnOthersNotificationTwoTimer: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
-
-	var positiveTestResultWasShown: Bool = false
-	var isAllowedToPerformBackgroundFakeRequests = false
+final class MockTestStore: Store, PPAnalyticsData {
 	var firstPlaybookExecution: Date?
 	var lastBackgroundFakeRequest: Date = .init()
 	var hasSeenBackgroundFetchAlert: Bool = false
-	var riskCalculationResult: RiskCalculationResult?
+	var referenceDateForRateLimitLogger: Date?
+	var enfRiskCalculationResult: ENFRiskCalculationResult?
+	var checkinRiskCalculationResult: CheckinRiskCalculationResult?
 	var shouldShowRiskStatusLoweredAlert: Bool = false
-	var tracingStatusHistory: TracingStatusHistory = []
-	var testResultReceivedTimeStamp: Int64?
-	func clearAll(key: String?) {}
-	var hasSeenSubmissionExposureTutorial: Bool = false
-	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
-	var numberOfSuccesfulSubmissions: Int64?
-	var initialSubmitCompleted: Bool = false
 	var exposureActivationConsentAcceptTimestamp: Int64?
 	var exposureActivationConsentAccept: Bool = false
 	var isOnboarded: Bool = false
@@ -34,39 +25,31 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var developerSubmissionBaseURLOverride: String?
 	var developerDistributionBaseURLOverride: String?
 	var developerVerificationBaseURLOverride: String?
-	var teleTan: String?
-	var tan: String?
-	var testGUID: String?
-	var devicePairingConsentAccept: Bool = false
-	var devicePairingConsentAcceptTimestamp: Int64?
-	var devicePairingSuccessfulTimestamp: Int64?
-	var registrationToken: String?
-	var allowRiskChangesNotification: Bool = true
-	var allowTestsStatusNotification: Bool = true
+	var appInstallationDate: Date? = Date()
 	var userNeedsToBeInformedAboutHowRiskDetectionWorks = false
-	var selectedServerEnvironment: ServerEnvironmentData = ServerEnvironment().defaultEnvironment()
+	var shouldShowQRScannerTooltip = false
+	var selectedServerEnvironment: EnvironmentData = Environments().defaultEnvironment()
 	var wasRecentDayKeyDownloadSuccessful = false
 	var wasRecentHourKeyDownloadSuccessful = false
 	var lastKeyPackageDownloadDate: Date = .distantPast
 	var deviceTimeLastStateChange: Date = Date()
 	var deviceTimeCheckResult: DeviceTimeCheck.TimeCheckResult = .correct
 	var wasDeviceTimeErrorShown = false
-	var isSubmissionConsentGiven = false
 	var submissionKeys: [SAP_External_Exposurenotification_TemporaryExposureKey]?
+	var submissionCheckins: [Checkin] = []
 	var submissionCountries: [Country] = [.defaultCountry()]
 	var submissionSymptomsOnset: SymptomsOnset = .noInformation
 	var journalWithExposureHistoryInfoScreenShown: Bool = false
-	var dateOfConversionToHighRisk: Date?
-	var testRegistrationDate: Date?
-
-
+	var lastBoosterNotificationsExecutionDate: Date?
+	
+	func wipeAll(key: String?) {}
 	#if !RELEASE
 	// Settings from the debug menu.
 	var fakeSQLiteError: Int32?
-	var mostRecentRiskCalculation: RiskCalculation?
+	var mostRecentRiskCalculation: ENFRiskCalculation?
 	var mostRecentRiskCalculationConfiguration: RiskCalculationConfiguration?
-	var dmKillDeviceTimeCheck = false
 	var forceAPITokenAuthorization = false
+	var recentTraceLocationCheckedInto: DMRecentTraceLocationCheckedInto?
 	#endif
 
 	// MARK: - AppConfigCaching
@@ -76,13 +59,18 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	// MARK: - StatisticsCaching
 
 	var statistics: StatisticsMetadata?
+	
+	// MARK: - LocalStatisticsCaching
+
+	var localStatistics: [LocalStatisticsMetadata] = []
+	var selectedLocalStatisticsRegions: [LocalStatisticsRegion] = []
 
 	// MARK: - PrivacyPreservingProviding
 
 	var isPrivacyPreservingAnalyticsConsentGiven: Bool = false
-	var otpToken: OTPToken?
-	var otpAuthorizationDate: Date?
-	var ppacApiToken: TimestampedToken?
+	var otpTokenEdus: OTPToken?
+	var otpEdusAuthorizationDate: Date?
+	var ppacApiTokenEdus: TimestampedToken?
 	var userData: UserMetadata?
 
 	// MARK: - PPAnalyticsData
@@ -90,11 +78,123 @@ final class MockTestStore: Store, AppConfigCaching, PrivacyPreservingProviding, 
 	var lastSubmissionAnalytics: Date?
 	var lastAppReset: Date?
 	var lastSubmittedPPAData: String?
-	var currentRiskExposureMetadata: RiskExposureMetadata?
-	var previousRiskExposureMetadata: RiskExposureMetadata?
+	var currentENFRiskExposureMetadata: RiskExposureMetadata?
+	var previousENFRiskExposureMetadata: RiskExposureMetadata?
+	var currentCheckinRiskExposureMetadata: RiskExposureMetadata?
+	var previousCheckinRiskExposureMetadata: RiskExposureMetadata?
 	var userMetadata: UserMetadata?
 	var clientMetadata: ClientMetadata?
-	var keySubmissionMetadata: KeySubmissionMetadata?
-	var testResultMetadata: TestResultMetadata?
+	var pcrKeySubmissionMetadata: KeySubmissionMetadata?
+	var antigenKeySubmissionMetadata: KeySubmissionMetadata?
+	var pcrTestResultMetadata: TestResultMetadata?
+	var antigenTestResultMetadata: TestResultMetadata?
 	var exposureWindowsMetadata: ExposureWindowsMetadata?
+	var currentExposureWindows: [SubmissionExposureWindow]? = []
+	var dateOfConversionToENFHighRisk: Date?
+	var dateOfConversionToCheckinHighRisk: Date?
+
+	// MARK: - ErrorLogProviding
+
+	var lastLoggedAppVersionNumber: Version?
+	var lastLoggedAppVersionTimestamp: Date?
+	var ppacApiTokenEls: TimestampedToken?
+	var otpTokenEls: OTPToken?
+	var otpElsAuthorizationDate: Date?
+	#if !RELEASE
+	var elsLoggingActiveAtStartup: Bool = true
+	#endif
+
+	// MARK: - ErrorLogHistory
+
+	var elsUploadHistory: [ErrorLogUploadReceipt] = []
+
+	// MARK: - EventRegistrationCaching
+
+	var wasRecentTraceWarningDownloadSuccessful: Bool = false
+	var checkinInfoScreenShown: Bool = false
+	var traceLocationsInfoScreenShown: Bool = false
+	var shouldAddCheckinToContactDiaryByDefault = true
+	var qrCodePosterTemplateMetadata: QRCodePosterTemplateMetadata?
+
+	// MARK: - WarnOthersTimeIntervalStoring
+
+	var warnOthersNotificationOneTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalOne
+	var warnOthersNotificationTwoTimeInterval: TimeInterval = WarnOthersNotificationsTimeInterval.intervalTwo
+
+	// MARK: - CoronaTestStoring
+
+	var pcrTest: PCRTest?
+	var antigenTest: AntigenTest?
+
+	// MARK: - AntigenTestProfileStoring
+
+	lazy var antigenTestProfileSubject = {
+		CurrentValueSubject<AntigenTestProfile?, Never>(antigenTestProfile)
+	}()
+	var antigenTestProfile: AntigenTestProfile? {
+		didSet {
+			antigenTestProfileSubject.value = antigenTestProfile
+		}
+	}
+	var antigenTestProfileInfoScreenShown: Bool = false
+
+	// MARK: - HealthCertificateStoring
+
+	var healthCertificateInfoScreenShown: Bool = false
+	var healthCertifiedPersons: [HealthCertifiedPerson] = []
+	// assign current version so that existing tests skip migration
+	var healthCertifiedPersonsVersion: Int? = kCurrentHealthCertifiedPersonsVersion
+	var testCertificateRequests: [TestCertificateRequest] = []
+	var lastSelectedValidationCountry: Country = .defaultCountry()
+	var lastSelectedValidationDate: Date = Date()
+
+	// MARK: - Protocol VaccinationCaching
+
+	var vaccinationCertificateValueDataSets: VaccinationValueDataSets?
+
+	// MARK: - CoronaTestStoringLegacy
+
+	var registrationToken: String?
+	var teleTan: String?
+	var tan: String?
+	var testGUID: String?
+	var devicePairingConsentAccept: Bool = false
+	var devicePairingConsentAcceptTimestamp: Int64?
+	var devicePairingSuccessfulTimestamp: Int64?
+	var testResultReceivedTimeStamp: Int64?
+	var testRegistrationDate: Date?
+	var lastSuccessfulSubmitDiagnosisKeyTimestamp: Int64?
+	var positiveTestResultWasShown: Bool = false
+	var isSubmissionConsentGiven = false
+
+	// MARK: - Protocol DSCListCaching
+
+	var dscList: DSCListMetaData?
+
+	// MARK: - Protocol AppFeaturesStoring
+	var dmKillDeviceTimeCheck = false
+	var unencryptedCheckinsEnabled = false
+
+	// MARK: - TicketValidationStoring
+	var skipAllowlistValidation: Bool = false
+
+	// MARK: - Protocol RecycleBinStoring
+
+	lazy var recycleBinItemsSubject = {
+		CurrentValueSubject<Set<RecycleBinItem>, Never>(recycleBinItems)
+	}()
+	var recycleBinItems: Set<RecycleBinItem> = [] {
+		didSet {
+			recycleBinItemsSubject.value = recycleBinItems
+		}
+	}
+
+	// MARK: - HomeBadgeStoring
+	var badgesData: [HomeBadgeWrapper.BadgeType: Int?] = [:]
+
+	// MARK: - KeyValueCacheStoring
+	var keyValueCacheVersion: Int = 0
+
 }
+
+#endif

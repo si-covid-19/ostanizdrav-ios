@@ -21,26 +21,36 @@ or alternatively using `brew install fastlane`
 fastlane ios update_licenses
 ```
 Update license file
-### ios build
+### ios build_for_testing
 ```
-fastlane ios build
+fastlane ios build_for_testing
 ```
-Build project
+Build project for testing
+### ios test_without_building
+```
+fastlane ios test_without_building
+```
+Runs unit tests without building
 ### ios build_community
 ```
 fastlane ios build_community
 ```
 Build project (Community)
+### ios lint
+```
+fastlane ios lint
+```
+Lint code
 ### ios test
 ```
 fastlane ios test
 ```
 Run tests
-### ios test_community
+### ios screenshot
 ```
-fastlane ios test_community
+fastlane ios screenshot
 ```
-Run smoke tests (Community)
+Create (localized) screenshots
 ### ios betaRelease
 ```
 fastlane ios betaRelease
@@ -59,6 +69,6 @@ Update GitHub Pages
 
 ----
 
-This README.md is auto-generated and will be re-generated every time [fastlane](https://fastlane.tools) is run.
+This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 More information about fastlane can be found on [fastlane.tools](https://fastlane.tools).
 The documentation of fastlane can be found on [docs.fastlane.tools](https://docs.fastlane.tools).

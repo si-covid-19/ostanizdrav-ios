@@ -1,7 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Nameščeno danes</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Nameščeno včeraj</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Nameščeno %u dni nazaj</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Nameščeno %u dni nazaj</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Nameščeno %u dni nazaj</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Nameščeno %u dni nazaj</string>
+		</dict>
+	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -13,16 +42,22 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
+			<!--Plural form for ZERO.-->
 			<string>Brez izpostavljenosti</string>
 			<key>one</key>
+			<!--Plural form for ONE.-->
 			<string>Izpostavljeni ste bili v 1 dnevu</string>
 			<key>few</key>
+			<!--Plural form for FEW.-->
 			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>many</key>
+			<!--Plural form for MANY.-->
 			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>two</key>
+			<!--Plural form for TWO.-->
 			<string>Izpostavljeni ste bili v %u dneh</string>
 			<key>other</key>
+			<!--Plural form for OTHER.-->
 			<string>Izpostavljeni ste bili v %u dneh</string>
 		</dict>
 	</dict>
@@ -68,22 +103,22 @@
 			<string>u</string>
 			<key>zero</key>
 			<!--Plural form for ZERO.-->
-			<string>Update in %02u:%2$#@seconds@ seconds</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ sekund</string>
 			<key>one</key>
 			<!--Plural form for ONE.-->
-			<string>Update in %02u:%2$#@seconds@ minute</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minuto</string>
 			<key>few</key>
 			<!--Plural form for FEW.-->
-			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minute</string>
 			<key>many</key>
 			<!--Plural form for MANY.-->
-			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minut</string>
 			<key>two</key>
 			<!--Plural form for TWO.-->
-			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minuti</string>
 			<key>other</key>
 			<!--Plural form for OTHER.-->
-			<string>Update in %02u:%2$#@seconds@ minutes</string>
+			<string>Posodobitev čez %02u:%2$#@seconds@ minute</string>
 		</dict>
 		<key>seconds</key>
 		<dict>
@@ -109,6 +144,66 @@
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena danes. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnem.  Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi.  Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevoma.  Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena danes. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnem. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Aplikacija #OstaniZdrav je bila nameščena pred %u dnevi. Vaše tveganje okužbe se izračuna za obdobja, ko se je izvajalo beleženje izpostavljenosti. Če ste srečevali druge osebe in se je ob tem izvajalo beleženje izpostavljenosti, je mogoče izračunati vaše tveganje okužbe.</string>
 		</dict>
 	</dict>
 	<key>ENSetting_Tracing_History</key>
@@ -139,6 +234,96 @@
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Za izbrano državo za to vrsto potrdila trenutno ni na voljo nobenih pravil za vstop. Prosimo, upoštevajte naslednje:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Število uspešno izpolnjenih pravil ciljne države: %u</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Število uspešno izpolnjenih pravil ciljne države: %u</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Število uspešno izpolnjenih pravil ciljne države: %u</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Število uspešno izpolnjenih pravil ciljne države: %u</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Število uspešno izpolnjenih pravil ciljne države: %u</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Prejeli ste vse trenutno predvidene odmerke cepiva</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Zadnje cepljenje danes</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Zadnje cepljenje pred %u dnem</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Zadnje cepljenje pred %u dnevoma</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Zadnje cepljenje pred %u dnevi</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Zadnje cepljenje pred %u dnevi</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Zadnje cepljenje pred %u dnevi</string>
 		</dict>
 	</dict>
 </dict>

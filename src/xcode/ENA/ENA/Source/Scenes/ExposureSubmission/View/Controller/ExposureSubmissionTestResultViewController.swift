@@ -5,7 +5,7 @@
 import UIKit
 import OpenCombine
 
-class ExposureSubmissionTestResultViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild, DismissHandling {
+class ExposureSubmissionTestResultViewController: DynamicTableViewController, FooterViewHandling, DismissHandling {
 
 	// MARK: - Init
 
@@ -17,9 +17,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		self.viewModel = viewModel
 		self.exposureSubmissionService = exposureSubmissionService
 		self.onDismiss = onDismiss
-
 		super.init(nibName: nil, bundle: nil)
-		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
 	}
 
 	@available(*, unavailable)
@@ -34,41 +32,46 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 		setUpView()
 		setUpBindings()
-		
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-		footerView?.isHidden = false
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		
 		viewModel.updateWarnOthers()
+		viewModel.updateTestResultIfPossible()
 	}
-
-	override var navigationItem: UINavigationItem {
-		viewModel.navigationFooterItem
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		setUpNavigationBarAppearance()
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .clear
 	}
 	
 	// MARK: - Protocol ENANavigationControllerWithFooterChild
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapPrimaryButton button: UIButton) {
-		viewModel.didTapPrimaryButton()
-	}
-
-	func navigationController(_ navigationController: ENANavigationControllerWithFooter, didTapSecondaryButton button: UIButton) {
-		viewModel.didTapSecondaryButton()
+	
+	func didTapFooterViewButton(_ type: FooterViewModel.ButtonType) {
+		switch type {
+		case .primary:
+			viewModel.didTapPrimaryButton()
+		case .secondary:
+			viewModel.didTapSecondaryButton()
+		}
 	}
 
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
-		onDismiss(viewModel.testResult) { [weak self] isLoading in
+		onDismiss(viewModel.coronaTest.testResult) { [weak self] isLoading in
 			DispatchQueue.main.async {
 				self?.navigationItem.rightBarButtonItem?.isEnabled = !isLoading
-				self?.navigationFooterItem?.isPrimaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonEnabled = !isLoading
-				self?.navigationFooterItem?.isSecondaryButtonLoading = isLoading
+				self?.footerView?.setLoadingIndicator(isLoading, disable: false, button: .primary)
+				self?.footerView?.setLoadingIndicator(isLoading, disable: isLoading, button: .secondary)
 			}
 		}
 	}
@@ -82,17 +85,37 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 	private var bindings: [AnyCancellable] = []
 
 	private func setUpView() {
+		
+		navigationItem.title = viewModel.title
+		navigationItem.rightBarButtonItem = dismissHandlingCloseBarButton
+		navigationItem.hidesBackButton = true
+		navigationItem.largeTitleDisplayMode = .always
+		
 		view.backgroundColor = .enaColor(for: .background)
 
 		setUpDynamicTableView()
 	}
 
+	private func setUpNavigationBarAppearance() {
+		navigationController?.navigationBar.backgroundView?.backgroundColor = .enaColor(for: .background)
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationItem.largeTitleDisplayMode = .always
+	}
+	
 	private func setUpDynamicTableView() {
 		tableView.separatorStyle = .none
 
 		tableView.register(
 			UINib(nibName: String(describing: ExposureSubmissionTestResultHeaderView.self), bundle: nil),
-			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.testResult.rawValue
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.pcrTestResult.rawValue
+		)
+		tableView.register(
+			HealthCertificateCell.self,
+			forCellReuseIdentifier: CustomCellReuseIdentifiers.healthCertificateCell.rawValue
+		)
+		tableView.register(
+			AntigenExposureSubmissionNegativeTestResultHeaderView.self,
+			forHeaderFooterViewReuseIdentifier: HeaderReuseIdentifier.antigenTestResult.rawValue
 		)
 		tableView.register(
 			ExposureSubmissionStepCell.self,
@@ -137,6 +160,16 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 				self.present(alert, animated: true)
 			}
 			.store(in: &bindings)
+		
+		viewModel.$footerViewModel
+			.dropFirst()
+			.sink { [weak self] footerViewModel in
+				guard let self = self, let footerViewModel = footerViewModel else { return }
+				guard let topBottomViewController = self.parent as? TopBottomContainerViewController<ExposureSubmissionTestResultViewController, FooterViewController> else { return }
+				
+				topBottomViewController.updateFooterViewModel(footerViewModel)
+			}
+			.store(in: &bindings)
 	}
 
 	private func showDeletionConfirmationAlert() {
@@ -155,7 +188,7 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 		)
 
 		let deleteAction = UIAlertAction(
-			title: AppStrings.Common.alertActionRemove,
+			title: AppStrings.ExposureSubmissionResult.removeAlert_ConfirmButtonTitle,
 			style: .destructive,
 			handler: { [weak self] _ in
 				self?.viewModel.deleteTest()
@@ -174,7 +207,8 @@ class ExposureSubmissionTestResultViewController: DynamicTableViewController, EN
 
 extension ExposureSubmissionTestResultViewController {
 	enum HeaderReuseIdentifier: String, TableViewHeaderFooterReuseIdentifiers {
-		case testResult = "testResultCell"
+		case pcrTestResult = "pcrTestResult"
+		case antigenTestResult = "antigenTestResult"
 	}
 }
 
@@ -183,5 +217,6 @@ extension ExposureSubmissionTestResultViewController {
 extension ExposureSubmissionTestResultViewController {
 	enum CustomCellReuseIdentifiers: String, TableViewCellReuseIdentifiers {
 		case stepCell
+		case healthCertificateCell
 	}
 }

@@ -3,21 +3,37 @@
 //
 
 import UIKit
+import OpenCombine
 
-/** a simple container view controller to combine to view controllers vertically (top / bottom */
+protocol FooterViewUpdating {
+	var footerViewHandler: FooterViewHandling? { get }
 
-class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling {
+	func setBackgroundColor(_ color: UIColor)
+	func update(to state: FooterViewModel.VisibleButtons)
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType)
+	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType)
+}
+
+/** a simple container view controller to combine to view controllers vertically (top / bottom) */
+
+class TopBottomContainerViewController<TopViewController: UIViewController, BottomViewController: UIViewController>: UIViewController, DismissHandling, FooterViewUpdating {
 
 	// MARK: - Init
 
+	deinit {
+		subscriptions.forEach { $0.cancel() }
+		keyboardSubscriptions.forEach { $0.cancel() }
+	}
+	
 	init(
 		topController: TopViewController,
-		bottomController: BottomViewController,
-		bottomHeight: CGFloat
+		bottomController: BottomViewController
 	) {
 		self.topViewController = topController
 		self.bottomViewController = bottomController
-		self.initialHeight = bottomHeight
+		
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
+		self.footerViewModel = (bottomViewController as? FooterViewController)?.viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -28,47 +44,56 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 
 	// MARK: - Overrides
 
+	override var navigationItem: UINavigationItem {
+		return self.topViewController.navigationItem
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		// container configuration
-		view.backgroundColor = .enaColor(for: .background)
+		view.backgroundColor = footerViewModel?.backgroundColor
 		navigationController?.navigationBar.prefersLargeTitles = true
 
 		// add top controller
 		addChild(topViewController)
+		topViewController.didMove(toParent: self)
 		let topView: UIView = topViewController.view
 		topView.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(topView)
 
 		// add bottom controller
 		addChild(bottomViewController)
+		bottomViewController.didMove(toParent: self)
 		let bottomView: UIView = bottomViewController.view
 		bottomView.translatesAutoresizingMaskIntoConstraints = false
-
-		bottomViewHeightAnchorConstraint = bottomView.safeAreaLayoutGuide.heightAnchor.constraint(equalToConstant: initialHeight)
 		view.addSubview(bottomView)
+
+		bottomViewBottomConstraint = bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+		
 		NSLayoutConstraint.activate(
 			[
-				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-				topView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-				bottomView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 0),
-				bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
-				bottomViewHeightAnchorConstraint
+				// topView
+				topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				topView.topAnchor.constraint(equalTo: view.topAnchor),
+				topView.bottomAnchor.constraint(equalTo: bottomView.topAnchor),
+				// bottomView
+				bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+				bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+				bottomViewBottomConstraint
 			]
 		)
-		topViewController.didMove(toParent: self)
-		bottomViewController.didMove(toParent: self)
+		subscribeToKeyboardNotifications()
+		
+		// if the the bottom view controller is FooterViewController we use it's viewModel here as well
+		if let viewModel = (bottomViewController as? FooterViewController)?.viewModel {
+			UIView.performWithoutAnimation {
+				self.updateFooterViewModel(viewModel)
+			}
+		}
 	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		title = topViewController.title
-	}
-
+	
 	// MARK: - Protocol DismissHandling
 
 	func wasAttemptedToBeDismissed() {
@@ -78,15 +103,110 @@ class TopBottomContainerViewController<TopViewController: UIViewController, Bott
 		dismissHandler.wasAttemptedToBeDismissed()
 	}
 
-	// MARK: - Public
+	// MARK: - Protocol FooterViewUpdating
+
+	var footerViewHandler: FooterViewHandling? {
+		return topViewController as? FooterViewHandling
+	}
+
+	func update(to state: FooterViewModel.VisibleButtons) {
+		footerViewModel?.update(to: state)
+	}
+
+	func setEnabled(_ isEnabled: Bool, button: FooterViewModel.ButtonType) {
+		footerViewModel?.setEnabled(isEnabled, button: button)
+	}
+
+	func setLoadingIndicator(_ show: Bool, disable: Bool, button: FooterViewModel.ButtonType) {
+		footerViewModel?.setLoadingIndicator(show, disable: disable, button: button)
+	}
+
+	func setBackgroundColor(_ color: UIColor) {
+		footerViewModel?.backgroundColor = color
+	}
+
+	func updateFooterViewModel(_ viewModel: FooterViewModel) {
+		
+		guard let footerViewController = (bottomViewController as? FooterViewController) else {
+			return
+		}
+		// clear
+		
+		subscriptions.forEach { $0.cancel() }
+		subscriptions.removeAll()
+		
+		// setup
+		
+		footerViewModel = viewModel
+		footerViewController.viewModel = viewModel
+	}
 
 	// MARK: - Internal
+
+	private (set) var footerViewModel: FooterViewModel?
 
 	// MARK: - Private
 
 	private let topViewController: TopViewController
 	private let bottomViewController: BottomViewController
-	private let initialHeight: CGFloat
-	private var bottomViewHeightAnchorConstraint: NSLayoutConstraint!
 
+	private var subscriptions: [AnyCancellable] = []
+	private var keyboardSubscriptions: [AnyCancellable] = []
+	private var bottomViewBottomConstraint: NSLayoutConstraint!
+	
+	private func subscribeToKeyboardNotifications() {
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillShowNotification)
+			.append(NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillChangeFrameNotification))
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				self.bottomViewBottomConstraint.constant = -keyboardFrame.height
+				
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.view.layoutIfNeeded()
+				}, completion: nil)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardWillHideNotification)
+			.sink { [weak self] notification in
+				
+				guard let self = self,
+					  let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+					  let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? Int else {
+					return
+				}
+				
+				self.bottomViewBottomConstraint.constant = -self.view.safeAreaInsets.bottom
+				
+				let options = UIView.AnimationOptions(rawValue: (UInt(animationCurve << 16)))
+				UIView.animate(withDuration: animationDuration, delay: 0, options: options, animations: { [weak self] in
+					self?.view.layoutIfNeeded()
+				}, completion: nil)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidShowNotification)
+			.sink { [weak self] notification in
+				guard let self = self,
+					  let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+					return
+				}
+				self.footerViewHandler?.didShowKeyboard(keyboardFrame)
+			}
+			.store(in: &keyboardSubscriptions)
+		
+		NotificationCenter.default.ocombine.publisher(for: UIApplication.keyboardDidHideNotification)
+			.sink { [weak self] _ in
+				self?.footerViewHandler?.didHideKeyboard()
+			}
+			.store(in: &keyboardSubscriptions)
+	}
 }

@@ -9,11 +9,27 @@ import Foundation
 enum PPADataType {
 	case userData(PPAUserMetadata)
 	case riskExposureMetadata(PPARiskExposureMetadata)
-	case clientMetadata(PPAClientMetadata)
 	case testResultMetadata(PPATestResultMetadata)
 	case keySubmissionMetadata(PPAKeySubmissionMetadata)
 	case exposureWindowsMetadata(PPAExposureWindowsMetadata)
 	case submissionMetadata(PPASubmissionMetadata)
+	
+	var description: String {
+		switch self {
+		case .userData:
+			return "userData"
+		case .riskExposureMetadata:
+			return "riskExposureMetadata"
+		case .testResultMetadata:
+			return "testResultMetadata"
+		case .keySubmissionMetadata:
+			return "keySubmissionMetadata"
+		case .exposureWindowsMetadata:
+			return "exposureWindowsMetadata"
+		case .submissionMetadata:
+			return "submissionMetadata"
+		}
+	}
 }
 
 enum PPAUserMetadata {
@@ -21,45 +37,38 @@ enum PPAUserMetadata {
 }
 
 enum PPARiskExposureMetadata {
-	case create(RiskExposureMetadata)
-	case updateRiskExposureMetadata(RiskCalculationResult)
-}
-
-enum PPAClientMetadata {
-	case create(ClientMetadata)
-	case setClientMetaData
+	case update
 }
 
 enum PPATestResultMetadata {
-	case create(TestResultMetadata)
-	case testResult(TestResult)
-	case testResultHoursSinceTestRegistration(Int?)
-	case updateTestResult(TestResult, String)
-	case registerNewTestMetadata(Date, String)
+	case registerNewTestMetadata(Date, String, CoronaTestType)
+	case updateTestResult(TestResult, String, CoronaTestType)
+	case setDateOfConversionToENFHighRisk(Date)
+	case setDateOfConversionToCheckinHighRisk(Date)
+	case collectCurrentExposureWindows([RiskCalculationExposureWindow])
 }
 
 enum PPAKeySubmissionMetadata {
-	case create(KeySubmissionMetadata)
-	case submitted(Bool)
-	case submittedInBackground(Bool)
-	case submittedAfterCancel(Bool)
-	case submittedAfterSymptomFlow(Bool)
-	case submittedWithTeletan(Bool)
-	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?)
-	case advancedConsentGiven(Bool)
-	case hoursSinceTestResult(Int32)
-	case keySubmissionHoursSinceTestRegistration(Int32?)
-	case daysSinceMostRecentDateAtRiskLevelAtTestRegistration(Int32)
-	case hoursSinceHighRiskWarningAtTestRegistration(Int32)
-	case setHoursSinceTestResult
-	case setHoursSinceTestRegistration
-	case setDaysSinceMostRecentDateAtRiskLevelAtTestRegistration
-	case setHoursSinceHighRiskWarningAtTestRegistration
+	case create(KeySubmissionMetadata, CoronaTestType)
+	case submitted(Bool, CoronaTestType)
+	case submittedInBackground(Bool, CoronaTestType)
+	case submittedAfterCancel(Bool, CoronaTestType)
+	case submittedAfterSymptomFlow(Bool, CoronaTestType)
+	case submittedWithTeletan(Bool, CoronaTestType)
+	case submittedWithCheckins(Bool?, CoronaTestType)
+	case lastSubmissionFlowScreen(LastSubmissionFlowScreen?, CoronaTestType)
+	case advancedConsentGiven(Bool, CoronaTestType)
+	case submittedAfterRapidAntigenTest(CoronaTestType)
+	case setHoursSinceTestResult(CoronaTestType)
+	case setHoursSinceTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtENFRiskLevelAtTestRegistration(CoronaTestType)
+	case setHoursSinceENFHighRiskWarningAtTestRegistration(CoronaTestType)
+	case setDaysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration(CoronaTestType)
+	case setHoursSinceCheckinHighRiskWarningAtTestRegistration(CoronaTestType)
 }
 
 enum PPAExposureWindowsMetadata {
-	case create(ExposureWindowsMetadata)
-	case collectExposureWindows(RiskCalculationProtocol)
+	case collectExposureWindows([RiskCalculationExposureWindow])
 }
 
 enum PPASubmissionMetadata {

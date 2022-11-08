@@ -1,0 +1,61 @@
+"OnboardingInfo_togetherAgainstCoronaPage_link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_About_Link" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-leichte-sprache-gebaerdensprache";
+
+"App_Information_Contact_Form_Link" = "https://www.rki.de/SharedDocs/Kontaktformulare/en/Kontaktformulare/weitere/Corona-Warn-App/Corona-Warn-App_Integrator.html";
+
+"InviteFriends_ShareUrl" = "https://www.bundesregierung.de/breg-de/themen/corona-warn-app/corona-warn-app-englisch";
+
+"safari_corona_website" = "https://www.coronawarn.app/en/faq/";
+
+"safari_corona_social_media" = "https://www.coronawarn.app/en/community/#socialmedia";
+
+"General_moreInfo_URL" = "https://www.coronawarn.app/en/faq/";
+
+"General_moreInfo_URL_EN5" = "https://www.coronawarn.app/en/faq/#ENError5";
+
+"General_moreInfo_URL_EN11" = "https://www.coronawarn.app/en/faq/#ENError11";
+
+"General_moreInfo_URL_EN13" = "https://www.coronawarn.app/en/faq/#ENError13";
+
+"Statistics_Info_FAQ_URL" = "https://www.coronawarn.app/en/faq/#further_details";
+
+"ExposureDetection_high_faq_URL" = "https://www.coronawarn.app/en/faq/#red_card_how_to_test";
+
+"errorReport_FAQ_URL" = "https://www.coronawarn.app/en/faq/#error_log";
+
+"Risk_Encounter_Low_FAQ_URL" = "https://www.coronawarn.app/en/faq/#encounter_but_green";
+
+"HealthCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#hc_prefix_invalid";
+
+"HealthCertificate_Info_validation_FAQLink" = "https://www.coronawarn.app/en/faq/#cert_eu_travel";
+
+"HealthCertificate_Info_validation_EULink" = "https://reopen.europa.eu/ro";
+
+"TestCertificate_Error_FAQ_Link" = "https://www.coronawarn.app/en/faq/#test_cert";
+
+"Test_Centers_FAQ_Link" = "https://www.coronawarn.app/en/faq/#where_can_i_get_tested";
+
+"HealthCertificate_InvalidSignature_FAQLink" = "https://www.coronawarn.app/en/faq/#hc_signature_invalid";
+
+"Statistics_Info_Blog_Link" = "https://www.coronawarn.app/en/blog/2021-08-05-statistictiles/";
+
+"HealthCertificate_Print_FAQ_Link" = "https://www.coronawarn.app/en/faq/#eu_dcc_export";
+
+"HealthCertificate_Booster_FAQLink" = "https://www.coronawarn.app/en/faq/#vac_booster";
+
+"HealthCertificate_AdmissionPolicy_FAQLink" = "https://www.coronawarn.app/en/faq/#admission_policy";
+
+"CovPass_Check_FAQLink" = "https://www.coronawarn.app/en/faq/#eu_dcc_check";
+
+"NotificationSettings_FAQLink" = "https://www.coronawarn.app/en/faq/#notification_settings";
+
+"TicketValidation_NoValidDCC_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_no_valid_dcc";
+
+"TicketValidation_ServiceResult_FAQLink" = "https://www.coronawarn.app/en/faq/#val_service_result";
+
+"UniversalQRScanner_MaxPersonAmountAlert_FAQLink" = "https://www.coronawarn.app/en/faq/#eu_dcc_check";
+
+"UniversalQRScanner_MaxPersonAmountAlert_CovPassCheckLink" = "https://apps.apple.com/de/app/covpass-check/id1566140314?mt=8";
+
+"TicketValidation_CoronaWarnAppLink" = "https://apps.apple.com/de/app/corona-warn-app/id1512595757?mt=8";

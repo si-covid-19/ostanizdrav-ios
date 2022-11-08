@@ -7,26 +7,31 @@ import XCTest
 @testable import ENA
 import OpenCombine
 
-class HomeStatisticsCellModelTests: XCTestCase {
+class HomeStatisticsCellModelTests: CWATestCase {
 
 	func testForwardingSupportedKeyFigureCards() throws {
 		let store = MockTestStore()
+		let localStatisticsProvider = LocalStatisticsProvider(
+			client: CachingHTTPClientMock(),
+			store: store
+		)
 
 		let homeState = HomeState(
 			store: store,
 			riskProvider: MockRiskProvider(),
 			exposureManagerState: ExposureManagerState(authorized: true, enabled: true, status: .active),
 			enState: .enabled,
-			exposureSubmissionService: MockExposureSubmissionService(),
 			statisticsProvider: StatisticsProvider(
-				client: CachingHTTPClientMock(store: store),
+				client: CachingHTTPClientMock(),
 				store: store
-			)
+			),
+			localStatisticsProvider: localStatisticsProvider
 		)
 		homeState.statistics.keyFigureCards = []
 
 		let cellModel = HomeStatisticsCellModel(
-			homeState: homeState
+			homeState: homeState,
+			localStatisticsProvider: localStatisticsProvider
 		)
 
 		let sinkExpectation = expectation(description: "keyFigureCards received")
@@ -39,8 +44,8 @@ class HomeStatisticsCellModelTests: XCTestCase {
 		}
 
 		var loadedStatistics = SAP_Internal_Stats_Statistics()
-		loadedStatistics.cardIDSequence = [1, 3, 2, 17]
-		loadedStatistics.keyFigureCards = [keyFigureCard(cardID: 1), keyFigureCard(cardID: 2), keyFigureCard(cardID: 3), keyFigureCard(cardID: 17)]
+		loadedStatistics.cardIDSequence = [1, 3, 10, 2]
+		loadedStatistics.keyFigureCards = [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 10), keyFigureCard(cardID: 2)]
 
 		homeState.statistics = loadedStatistics
 
@@ -48,14 +53,13 @@ class HomeStatisticsCellModelTests: XCTestCase {
 
 		XCTAssertEqual(
 			receivedValues,
-			[[], [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 2)]]
+			[[], [keyFigureCard(cardID: 1), keyFigureCard(cardID: 3), keyFigureCard(cardID: 10)]]
 		)
 
 		subscription.cancel()
 	}
-
+	
 	// MARK: - Private
-
 	private func keyFigureCard(
 		cardID: Int32 = 0
 	) -> SAP_Internal_Stats_KeyFigureCard {
@@ -68,4 +72,15 @@ class HomeStatisticsCellModelTests: XCTestCase {
 		return card
 	}
 
+	private func administrativeUnitData(
+		administrativeUnitShortID: UInt32 = 0
+	) -> SAP_Internal_Stats_AdministrativeUnitData {
+		var administrativeUnitData = SAP_Internal_Stats_AdministrativeUnitData()
+		administrativeUnitData.administrativeUnitShortID = administrativeUnitShortID
+		var sevenDayIncidence = SAP_Internal_Stats_SevenDayIncidenceData()
+		sevenDayIncidence.trend = .increasing
+		sevenDayIncidence.value = 50
+		administrativeUnitData.sevenDayIncidence = sevenDayIncidence
+		return administrativeUnitData
+	}
 }

@@ -1,2 +1,4 @@
-"NSCameraUsageDescription" = "Allow the app to scan QR codes with your camera.";
+"NSCameraUsageDescription" = "Dovolite aplikaciji dostop do kamere, da lahko skenira QR kode.";
+
+"NSPhotoLibraryUsageDescription" = "Dovolite aplikaciji, da dostopa do foto knjižnice, da lahko uvozi shranjene QR kode.";
 

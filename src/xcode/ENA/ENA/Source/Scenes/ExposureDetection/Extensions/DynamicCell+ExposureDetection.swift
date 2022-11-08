@@ -71,23 +71,21 @@ extension DynamicCell {
 		}
 	}
 
-	static func riskStored(activeTracing: ActiveTracing, imageName: String) -> DynamicCell {
-		.risk { viewController, cell, _ in
-			var numberOfDaysStored = viewController.viewModel.riskDetails?.numberOfDaysWithActiveTracing ?? 0
-			cell.textLabel?.text = activeTracing.localizedDuration
-			if numberOfDaysStored < 0 { numberOfDaysStored = 0 }
-			if numberOfDaysStored > 13 {
-				cell.imageView?.image = UIImage(named: "Icons_TracingCircleFull - Dark")
-			} else {
-				cell.imageView?.image = UIImage(named: String(format: imageName, numberOfDaysStored))
-			}
+	static func riskStored(daysSinceInstallation: Int) -> DynamicCell {
+		.risk { _, cell, _ in
+			cell.textLabel?.text = String(format: AppStrings.Home.daysSinceInstallation, daysSinceInstallation)
+			cell.imageView?.image = UIImage(named: "Icons-DaysSinceInstall")
 		}
 	}
 
 	static func riskRefreshed(text: String, image: UIImage?) -> DynamicCell {
 		.risk { viewController, cell, _ in
 			var valueText: String
-			if let date: Date = viewController.store.riskCalculationResult?.calculationDate {
+
+			if	let enfRiskCalulationResult = viewController.store.enfRiskCalculationResult,
+				  let checkinRiskCalculationResult = viewController.store.checkinRiskCalculationResult,
+				  let date = Risk(enfRiskCalculationResult: enfRiskCalulationResult, checkinCalculationResult: checkinRiskCalculationResult).details.calculationDate {
+				
 				valueText = relativeDateTimeFormatter.string(from: date)
 			} else {
 				valueText = AppStrings.ExposureDetection.refreshedNever
@@ -128,11 +126,24 @@ extension DynamicCell {
 		}
 	}
 
-	static func guide(text: String, image: UIImage?) -> DynamicCell {
-		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.guide) { viewController, cell, _ in
-			cell.tintColor = viewController.viewModel.riskTintColor
+	static func guide(
+		text: String,
+		image: UIImage?,
+		accessoryType: UITableViewCell.AccessoryType? = nil,
+		accessoryAction: DynamicAction = .none,
+		accessibilityIdentifier: String? = nil
+	) -> DynamicCell {
+		.exposureDetectionCell(
+			ExposureDetectionViewController.ReusableCellIdentifier.guide,
+			accessoryAction: accessoryAction
+		) { viewController, cell, _ in
+			
+			cell.tintColor = .enaColor(for: .tint)
 			cell.textLabel?.text = text
 			cell.imageView?.image = image
+			cell.imageView?.tintColor = viewController.viewModel.riskTintColor
+			cell.accessibilityIdentifier = accessibilityIdentifier
+			cell.accessoryType = accessoryType ?? .none
 		}
 	}
 
@@ -155,6 +166,17 @@ extension DynamicCell {
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, text: text)
 		}
 	}
+	
+	static func guide(titleText: NSAttributedString, titleImage: UIImage?, linkedTexts: [LinkedText]) -> DynamicCell {
+		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.longGuide) { viewController, cell, _ in
+			cell.tintColor = viewController.viewModel.riskTintColor
+			(cell as? ExposureDetectionLongGuideCell)?.configure(
+				titleText: titleText,
+				titleImage: titleImage,
+				linkedTexts: linkedTexts
+			)
+		}
+	}
 
 	static func guide(image: UIImage?, attributedStrings text: [NSAttributedString]) -> DynamicCell {
 		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.longGuide) { viewController, cell, _ in
@@ -162,17 +184,18 @@ extension DynamicCell {
 			(cell as? ExposureDetectionLongGuideCell)?.configure(image: image, attributedText: text)
 		}
 	}
-
-	static func link(text: String, url: URL?) -> DynamicCell {
+	
+	static func link(text: String, url: URL?, accessibilityIdentifier: String? = nil) -> DynamicCell {
 		.custom(withIdentifier: ExposureDetectionViewController.ReusableCellIdentifier.link, action: .open(url: url)) { _, cell, _ in
 			cell.textLabel?.text = text
+			cell.textLabel?.accessibilityIdentifier = accessibilityIdentifier
 		}
 	}
 
 	static func hotline(number: String) -> DynamicCell {
 		.exposureDetectionCell(ExposureDetectionViewController.ReusableCellIdentifier.hotline) { _, cell, _ in
 			(cell as? ExposureDetectionHotlineCell)?.hotlineContentView.primaryAction = {
-				if let url = URL(string: "tel://\(number)") { UIApplication.shared.open(url) }
+				LinkHelper.open(urlString: "tel://\(number)")
 			}
 		}
 	}

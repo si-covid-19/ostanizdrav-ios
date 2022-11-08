@@ -4,18 +4,42 @@
 
 import XCTest
 import OpenCombine
+import HealthCertificateToolkit
 @testable import ENA
 
-class TestResultAvailableViewModelTest: XCTestCase {
+class TestResultAvailableViewModelTest: CWATestCase {
 	
 	func testGIVEN_ViewModel_WHEN_PrimaryButtonClosureCalled_THEN_ExpectationFulfill() {
 		// GIVEN
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+		
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: MockExposureSubmissionService(),
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -34,13 +58,35 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_getDynamicTableViewModel_THEN_SectionsAndCellMatchExpectation() {
 		// GIVEN
-		let exposureSubmissionService = MockExposureSubmissionService()
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
-
+		
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+		
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationNotFulFill.fulfill()
 			},
@@ -56,7 +102,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 		viewModel.$dynamicTableViewModel.sink { dynamicTableViewModel in
 			resultDynamicTableViewModel = dynamicTableViewModel
 		}.store(in: &bindings)
-
+		
 		// THEN
 		waitForExpectations(timeout: .short)
 		XCTAssertEqual(3, resultDynamicTableViewModel?.numberOfSection)
@@ -67,14 +113,36 @@ class TestResultAvailableViewModelTest: XCTestCase {
 	
 	func testGIVEN_ViewModel_WHEN_GetIconCellActionTigger_THEN_ExpectationFulfill() {
 		// GIVEN
-		let exposureSubmissionService = MockExposureSubmissionService()
 		let expectationFulFill = expectation(description: "primary button code execute")
-		let expectationNotFulFill = expectation(description: "consent cell code excecute")
+		let expectationNotFulFill = expectation(description: "consent cell code execute")
 		expectationNotFulFill.isInverted = true
 		var bindings: Set<AnyCancellable> = []
-
+		
+		let client = ClientMock()
+		let appConfiguration = CachedAppConfigurationMock()
+		let store = MockTestStore()
+		store.pcrTest = PCRTest.mock(testResult: .positive)
+		
 		let viewModel = TestResultAvailableViewModel(
-			exposureSubmissionService: exposureSubmissionService,
+			coronaTestType: .pcr,
+			coronaTestService: CoronaTestService(
+				client: client,
+				store: store,
+				eventStore: MockEventStore(),
+				diaryStore: MockDiaryStore(),
+				appConfiguration: appConfiguration,
+				healthCertificateService: HealthCertificateService(
+					store: store,
+					dccSignatureVerifier: DCCSignatureVerifyingStub(),
+					dscListProvider: MockDSCListProvider(),
+					client: client,
+					appConfiguration: appConfiguration,
+					cclService: FakeCCLService(),
+					recycleBin: .fake()
+				),
+				recycleBin: .fake(),
+				badgeWrapper: .fake()
+			),
 			onSubmissionConsentCellTap: { _ in
 				expectationFulFill.fulfill()
 			},
@@ -90,7 +158,7 @@ class TestResultAvailableViewModelTest: XCTestCase {
 			resultDynamicTableViewModel = dynamicTableViewModel
 			waitForCombineExpectation.fulfill()
 		}.store(in: &bindings)
-	
+		
 		wait(for: [waitForCombineExpectation], timeout: .medium)
 		let iconCell = resultDynamicTableViewModel?.cell(at: IndexPath(row: 0, section: 1))
 		

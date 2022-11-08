@@ -92,7 +92,7 @@ internal extension DynamicCell {
 			guard let cell = cell as? DynamicLegalExtendedCell else {
 				fatalError("could not initialize cell of type `DynamicLegalExtendedCell`")
 			}
-			cell.configure(title: title, description: description, bulletPoints: bulletPoints)
+			cell.configure(title: title, description: description, bulletPoints: bulletPoints, accessibilityIdentifier: accessibilityIdentifier)
 			configure?(viewController, cell, indexPath)
 		}
 	}
@@ -103,13 +103,16 @@ internal extension DynamicCell {
 			style: DynamicCell.TextCellStyle.label,
 			accessibilityIdentifier: AccessibilityIdentifiers.ExposureSubmissionQRInfo.dataProcessingDetailInfo,
 			accessibilityTraits: UIAccessibilityTraits.link,
-			action: .pushDataDonationDetails(model: DataDonationDetailsViewModel().dynamicTableViewModel,
-											 withTitle: AppStrings.DataDonation.DetailedInfo.title,
-											 completion: nil),
+			action: .pushDataDonationDetails(
+				model: DataDonationDetailsViewModel().dynamicTableViewModel,
+				withTitle: AppStrings.DataDonation.DetailedInfo.title,
+				completion: nil
+			),
 			configure: { _, cell, _ in
 				cell.accessoryView = nil
 				cell.accessoryType = .disclosureIndicator
 				cell.selectionStyle = .default
-			})
+			}
+		)
 	}
 }

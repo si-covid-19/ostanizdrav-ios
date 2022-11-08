@@ -9,9 +9,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	// MARK: - Init
 
-	init(
-		viewModel: DataDonationViewModelProtocol
-	) {
+	init(viewModel: DataDonationViewModelProtocol) {
 		self.viewModel = viewModel
 
 		super.init(nibName: nil, bundle: nil)
@@ -26,10 +24,16 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		navigationItem.title = AppStrings.DataDonation.Info.title
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
 		setupTableView()
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.navigationBar.prefersLargeTitles = true
 	}
 
 	// MARK: - Protocol DeltaOnboardingViewControllerProtocol
@@ -62,9 +66,7 @@ class DataDonationViewController: DynamicTableViewController, DeltaOnboardingVie
 			.sink { [weak self] _ in
 				guard let self = self else { return }
 				self.dynamicTableViewModel = self.viewModel.dynamicTableViewModel
-				DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.35) {
-					self.tableView.reloadData()
-				}
+				self.tableView.reloadData()
 			}.store(in: &subscriptions)
 	}
 }

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Heute installiert</string>
+			<key>one</key>
+			<string>Seit %u Tag installiert</string>
+			<key>few</key>
+			<string>Seit %u Tagen installiert</string>
+			<key>many</key>
+			<string>Seit %u Tagen installiert</string>
+			<key>two</key>
+			<string>Seit %u Tagen installiert</string>
+			<key>other</key>
+			<string>Seit %u Tagen installiert</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Keine Risiko-Begegnungen</string>
+			<key>one</key>
+			<string>Begegnungen mit niedrigem Risiko an 1 Tag</string>
+			<key>few</key>
+			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<key>many</key>
+			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<key>two</key>
+			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+			<key>other</key>
+			<string>Begegnungen mit niedrigem Risiko an %u Tagen</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_High_Number_Contacts_Item_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
+			<key>one</key>
+			<string>Begegnungen an 1 Tag mit erhöhtem Risiko</string>
+			<key>few</key>
+			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
+			<key>many</key>
+			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
+			<key>two</key>
+			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
+			<key>other</key>
+			<string>Begegnungen an %u Tagen mit erhöhtem Risiko</string>
+		</dict>
+	</dict>
+	<key>Home_Risk_Status_Counter_Label</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@minutes@%#</string>
+		<key>minutes</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Sekunden</string>
+			<key>one</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Minute</string>
+			<key>few</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+			<key>many</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+			<key>two</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+			<key>other</key>
+			<string>Aktualisierung in %02u:%2$#@seconds@ Minuten</string>
+		</dict>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>one</key>
+			<string>%02u</string>
+			<key>zero</key>
+			<string>%02u</string>
+			<key>few</key>
+			<string>%02u</string>
+			<key>many</key>
+			<string>%02u</string>
+			<key>two</key>
+			<string>%02u</string>
+			<key>other</key>
+			<string>%02u</string>
+		</dict>
+	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Die Corona-Warn-App wurde heute installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>one</key>
+			<string>Die Corona-Warn-App ist seit %u Tag installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>few</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>many</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>two</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>other</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Die Corona-Warn-App wurde heute installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>one</key>
+			<string>Die Corona-Warn-App ist seit %u Tag installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>few</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>many</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>two</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+			<key>other</key>
+			<string>Die Corona-Warn-App ist seit %u Tagen installiert. Das Infektionsrisiko wird für Zeiträume berechnet, in denen die Risiko-Ermittlung aktiv ist. Wenn Sie andere Personen getroffen haben und die Risiko-Ermittlung aktiv war, wird Ihr Infektions-Risiko berechnet.</string>
+		</dict>
+	</dict>
+	<key>ENSetting_Tracing_History</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Risiko-Ermittlung ist seit weniger als einem Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>one</key>
+			<string>Risiko-Ermittlung ist seit %u Tag aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>few</key>
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>many</key>
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>two</key>
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+			<key>other</key>
+			<string>Risiko-Ermittlung ist seit %u Tagen aktiv. Eine verlässliche Risiko-Überprüfung kann nur mit einer dauerhaft aktivierten Risiko-Ermittlung erfolgen.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Für diesen Zertifikattyp sind derzeit keine Einreiseregeln für das gewählte Land und den gewählten Zeitpunkt vorhanden. Bitte beachten Sie die folgenden Hinweise:</string>
+			<key>one</key>
+			<string>Es wurde %u Regel des Reiselandes erfolgreich überprüft.</string>
+			<key>two</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>few</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>many</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+			<key>other</key>
+			<string>Es wurden %u Regeln des Reiselandes erfolgreich überprüft.</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+			<key>one</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst morgen vollständig.</string>
+			<key>two</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+			<key>few</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+			<key>many</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+			<key>other</key>
+			<string>Sie haben nun alle derzeit geplanten Impfungen erhalten. Allerdings ist der Impfschutz erst in %u Tagen vollständig.</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Letzte Impfung heute</string>
+			<key>one</key>
+			<string>Letzte Impfung vor %u Tag</string>
+			<key>two</key>
+			<string>Letzte Impfung vor %u Tagen</string>
+			<key>few</key>
+			<string>Letzte Impfung vor %u Tagen</string>
+			<key>many</key>
+			<string>Letzte Impfung vor %u Tagen</string>
+			<key>other</key>
+			<string>Letzte Impfung vor %u Tagen</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

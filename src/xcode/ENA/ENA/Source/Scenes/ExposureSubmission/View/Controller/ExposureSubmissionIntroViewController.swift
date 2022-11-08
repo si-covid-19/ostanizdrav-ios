@@ -4,8 +4,9 @@
 
 import Foundation
 import UIKit
+import OpenCombine
 
-class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavigationControllerWithFooterChild {
+class ExposureSubmissionIntroViewController: DynamicTableViewController {
 	
 	// MARK: - Init
 
@@ -28,13 +29,11 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupView()
-		footerView?.isHidden = true
-		footerView?.primaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.primaryButton
-		footerView?.secondaryButton?.accessibilityIdentifier = AccessibilityIdentifiers.ExposureSubmission.secondaryButton
-	}
 
-	override var navigationItem: UINavigationItem {
-		navigationFooterItem
+		viewModel.$dynamicTableModel.dropFirst().sink { [weak self] dynamicTableViewModel in
+			self?.dynamicTableViewModel = dynamicTableViewModel
+			self?.tableView.reloadData()
+		}.store(in: &subscriptions)
 	}
 
 	// MARK: - Internal
@@ -44,23 +43,14 @@ class ExposureSubmissionIntroViewController: DynamicTableViewController, ENANavi
 	}
 
 	// MARK: - Private
-	
+
 	private let viewModel: ExposureSubmissionIntroViewModel
-
-	private lazy var navigationFooterItem: ENANavigationFooterItem = {
-		let item = ENANavigationFooterItem()
-
-		item.isPrimaryButtonHidden = true
-		item.isSecondaryButtonHidden = true
-
-		item.title = AppStrings.ExposureSubmissionDispatch.title
-		item.largeTitleDisplayMode = .automatic
-
-		return item
-	}()
+	private var subscriptions = Set<AnyCancellable>()
 
 	private func setupView() {
 		view.backgroundColor = .enaColor(for: .background)
+		navigationItem.title = AppStrings.ExposureSubmissionDispatch.title
+		navigationItem.largeTitleDisplayMode = .automatic
 		hidesBottomBarWhenPushed = true
 		
 		tableView.register(

@@ -18,36 +18,78 @@
 ENV["LC_ALL"] = "de_DE.UTF-8"
 ENV["LANG"] = "de_DE.UTF-8"
 
+ENV["FASTLANE_SKIP_UPDATE_CHECK"] = "True"
+
 default_platform(:ios)
 
 platform :ios do
+
+### PRE-LANE ACTIONS ############################
 
   before_all do
     setup_circle_ci
 
     if is_ci
-      xcversion(version: "~> 12.4.0")
+      xcversion(version: "~> 13.1.0")
     end
   end
+
+### LANES #######################################
 
   desc "Update license file"
   lane :update_licenses do
     update_third_party_notice()
   end
 
-  desc "Build project"
-  lane :build do
-    build_ios_app(
-      skip_codesigning: true,
-      export_method: "ad-hoc",
-      skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.4,name=iPhone 11",
-      scheme: "ENA"
-    )
+  desc "Build project for testing"
+  lane :build_for_testing do
+    # build only, no tests
     run_tests(
-      build_for_testing: true, # build only, no tests
-      scheme: "ENA"
+      build_for_testing: true,
+      output_xctestrun: true,
+      clean: true,
+      scheme: "ENA",
+      derived_data_path: "./DerivedData"
     )
+  end
+
+  desc "Runs unit tests without building"
+  lane :test_without_building do | options |
+    begin
+      # Execute tests for given test plan
+      testPlan = options[:testplan] || "AllTests"
+      run_tests(
+        scheme: "ENA",
+        derived_data_path: "./DerivedData",
+        test_without_building: true,
+        testplan: testPlan,
+        only_test_configurations: ["DE"],
+        devices: ["iPhone 13"],
+        prelaunch_simulator: false,
+        skip_package_dependencies_resolution: true,
+        disable_package_automatic_updates: true,
+        result_bundle: true,
+        code_coverage: true,
+        number_of_retries: 1, #take this you flaky tests
+        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
+        output_types: ""
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
+
+      zip(
+        path: "fastlane/test_output/ENA.xcresult",
+        output_path: "fastlane/test_output/ENA.xcresult.zip",
+        verbose: false
+      )
+    end
   end
 
   desc "Build project (Community)"
@@ -56,64 +98,86 @@ platform :ios do
       skip_codesigning: true,
       export_method: "ad-hoc",
       skip_package_ipa: true,
-      destination: "platform=iOS Simulator,OS=14.4,name=iPhone 11",
+      destination: "platform=iOS Simulator,OS=15.0,name=iPhone 11",
       scheme: "ENACommunity"
     )
   end
 
-  desc "Run tests"
-  lane :test do
+  desc "Lint code"
+  lane :lint do
     swiftlint(
+      executable: "swiftlint",
       mode: :lint,
-      output_file: "swiftlint.result.json",
+      output_file: "swiftlint.html",
       config_file: "ENA/.swiftlint.yml",
       strict: true,
-      raise_if_swiftlint_error: true,
-      reporter: "sonarqube"
+      quiet: true,
+      no_cache: false,
+      reporter: "html"
     )
+  end
 
+  desc "Run tests"
+  lane :test do | options |
     begin
+      # Execute tests for given test plan
+      testPlan = options[:testplan] || "AllTests"
 
-      # Combined Unit & UI Tests
       run_tests(
         scheme: "ENA",
+        derived_data_path: "./DerivedData",
+        test_without_building: false, #`build_for_testing` is required if this is set to `true`!
         xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-        testplan: "AllTests",
+        testplan: testPlan,
         only_test_configurations: ["DE"],
         devices: ["iPhone 11"],
         prelaunch_simulator: true,
         result_bundle: true,
-        code_coverage: true
+        code_coverage: true,
+        number_of_retries: 1, #take this you flaky tests
+        output_style: "raw", # prevents long periods of silence which makes the CI & devs nervous
+        output_types: ""
       )
-
     rescue
-
-      zip(
-        path: "fastlane/test_output/ENA.xcresult",
-        output_path: "fastlane/test_output/ENA.xcresult.zip",
-        verbose: false
-      )
       UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/",
+        path: "fastlane/test_output/",
+        extension: ".junit",
+        fail_build: false
+      )
 
-    end
-      # Needs to be done here and in rescue if test fails rescue will be executed if it succedes this will be called.
       zip(
         path: "fastlane/test_output/ENA.xcresult",
         output_path: "fastlane/test_output/ENA.xcresult.zip",
         verbose: false
       )
-
+    end
   end
 
-  desc "Run smoke tests (Community)"
-  lane :test_community do
-    run_tests(
-      scheme: "ENACommunity",
-      xcargs: "SWIFT_TREAT_WARNINGS_AS_ERRORS=NO",
-      testplan: "SmokeTests",
-      result_bundle: false,
-      code_coverage: false
-    )
+  desc "Create (localized) screenshots"
+  lane :screenshot do |options|
+    begin
+      output_dir = "screenshots/screenshots-#{options[:languages]}-#{options[:mode]}"
+
+      capture_ios_screenshots(
+        languages:  options[:languages],
+        dark_mode: options[:mode] == "dark",
+        output_directory: output_dir,
+        result_bundle: true
+      )
+    rescue
+      UI.user_error!("Tests did fail, please check logs above or ENA.xcresult.zip")
+    ensure
+      trainer(
+        output_directory: "fastlane/test_output/#{options[:languages]}-#{options[:mode]}",
+        path: "#{output_dir}/test_output/#{options[:languages]}",
+        extension: ".junit",
+        fail_build: false
+      )
+      # no xcresult created, so no zip like in the other lanes
+    end
   end
 
   desc "Build and upload for testing"
@@ -152,14 +216,11 @@ platform :ios do
     )
 
     # Upload to Mobile Device Cloud
-    sh("curl --location --request POST '#{ENV["TSI_CLOUD_URL"]}' --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' --form 'file=@../ENA.ipa'")
-
-    appcenter_upload(
-      api_token: ENV["MS_APP_CENTER_TOKEN"],
-      owner_name: "Corona-Warn-App",
-      owner_type: "organization",
-      app_name: "Corona-Warn-App",
-      file: "ENA.ipa"
+    sh("curl \
+      --location \
+      --request POST '#{ENV["TSI_CLOUD_URL"]}' \
+      --header 'Authorization: Bearer #{ENV["TSI_CLOUD_TOKEN"]}' \
+      --form 'file=@../ENA.ipa'"
     )
   end
 

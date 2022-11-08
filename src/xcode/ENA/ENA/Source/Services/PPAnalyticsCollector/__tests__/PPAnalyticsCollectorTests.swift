@@ -5,7 +5,7 @@
 import XCTest
 @testable import ENA
 
-class PPAnalyticsCollectorTests: XCTestCase {
+class PPAnalyticsCollectorTests: CWATestCase {
 	
 	func testGIVEN_NotSetupAnalytics_WHEN_SomethingIsLogged_THEN_NothingIsLogged() {
 		// GIVEN
@@ -71,15 +71,15 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			dateChangedComparedToPreviousSubmission: false
 		)
 		
-		store.currentRiskExposureMetadata = exposureRiskMetadata
-		store.previousRiskExposureMetadata = exposureRiskMetadata
+		store.currentENFRiskExposureMetadata = exposureRiskMetadata
+		store.previousENFRiskExposureMetadata = exposureRiskMetadata
 		store.userMetadata = UserMetadata(federalState: .hessen, administrativeUnit: 91, ageGroup: .ageBelow29)
 		store.lastSubmittedPPAData = "Some Fake Data"
 		store.lastAppReset = Date()
 		store.lastSubmissionAnalytics = Date()
 		store.clientMetadata = ClientMetadata(etag: "FakeTag")
-		store.testResultMetadata = TestResultMetadata(registrationToken: "FakeToken")
-		store.keySubmissionMetadata = KeySubmissionMetadata(
+		store.pcrTestResultMetadata = TestResultMetadata(registrationToken: "FakeToken", testType: .pcr)
+		store.pcrKeySubmissionMetadata = KeySubmissionMetadata(
 			submitted: true,
 			submittedInBackground: false,
 			submittedAfterCancel: true,
@@ -90,7 +90,11 @@ class PPAnalyticsCollectorTests: XCTestCase {
 			hoursSinceTestRegistration: 0901,
 			daysSinceMostRecentDateAtRiskLevelAtTestRegistration: 0901,
 			hoursSinceHighRiskWarningAtTestRegistration: 0901,
-			submittedWithTeleTAN: true
+			submittedWithTeleTAN: false,
+			submittedAfterRapidAntigenTest: false,
+			daysSinceMostRecentDateAtCheckinRiskLevelAtTestRegistration: -1,
+			hoursSinceCheckinHighRiskWarningAtTestRegistration: -1,
+			submittedWithCheckIns: nil
 		)
 		store.exposureWindowsMetadata = ExposureWindowsMetadata(
 			newExposureWindowsQueue: [],
@@ -101,16 +105,21 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		let dummyImplementation = TestDummyPPAnalyticsDataImplementation()
 			
 		let mirror = Mirror(reflecting: dummyImplementation)
-		let countOfPropertiesToDelete = mirror.children.count
+		// -1 because currentExposureWindows list should not be emptied
+		let countOfPropertiesToDelete = mirror.children.count - 1
 		var countOfDeletedProperties = 0
 		
 		// WHEN
 		Analytics.deleteAnalyticsData()
 		
 		// THEN
-		XCTAssertNil(store.currentRiskExposureMetadata)
+		XCTAssertNil(store.currentENFRiskExposureMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.previousRiskExposureMetadata)
+		XCTAssertNil(store.previousENFRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.currentCheckinRiskExposureMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.previousCheckinRiskExposureMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.userMetadata)
 		countOfDeletedProperties += 1
@@ -122,15 +131,136 @@ class PPAnalyticsCollectorTests: XCTestCase {
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.clientMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.testResultMetadata)
+		XCTAssertNil(store.pcrTestResultMetadata)
 		countOfDeletedProperties += 1
-		XCTAssertNil(store.keySubmissionMetadata)
+		XCTAssertNil(store.antigenTestResultMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.pcrKeySubmissionMetadata)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.antigenKeySubmissionMetadata)
 		countOfDeletedProperties += 1
 		XCTAssertNil(store.exposureWindowsMetadata)
 		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToENFHighRisk)
+		countOfDeletedProperties += 1
+		XCTAssertNil(store.dateOfConversionToCheckinHighRisk)
+		countOfDeletedProperties += 1
 		
 		XCTAssertEqual(countOfPropertiesToDelete, countOfDeletedProperties, "The count must match. Did you perhaps forget to delete a property in Analytics.deleteAnalyticsData()?")
-
 	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_YesterdayLow_THEN_mostRecentDateChanged_True() {
+		// GIVEN
 
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		
+		let yesterdayRiskResult = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: Calendar.current.date(byAdding: .day, value: -1, to: Date()),
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayRiskResult = ENFRiskCalculationResult(
+			riskLevel: .low,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = yesterdayRiskResult
+		store.enfRiskCalculationResult = todayRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertTrue(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_TodayHigh_THEN_mostRecentDateChanged_False() {
+		// GIVEN
+		
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		let today = Date()
+		
+		let todayLowRiskMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: today,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayHighRiskResult = ENFRiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: today,
+			mostRecentDateWithHighRisk: today,
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: today,
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = todayLowRiskMetadata
+		store.enfRiskCalculationResult = todayHighRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+		
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertFalse(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
+	
+	func testGIVEN_TodayLowRisk_WHEN_yesterDayDateWasNill_THEN_mostRecentDateChanged_False() {
+		// GIVEN
+		
+		let store = MockTestStore()
+		Analytics.setupMock(store: store)
+		store.isPrivacyPreservingAnalyticsConsentGiven = true
+		
+		let todayLowRiskMetadata = RiskExposureMetadata(
+			riskLevel: .low,
+			riskLevelChangedComparedToPreviousSubmission: false,
+			mostRecentDateAtRiskLevel: nil,
+			dateChangedComparedToPreviousSubmission: false
+		)
+		
+		let todayHighRiskResult = ENFRiskCalculationResult(
+			riskLevel: .high,
+			minimumDistinctEncountersWithLowRisk: 17,
+			minimumDistinctEncountersWithHighRisk: 0,
+			mostRecentDateWithLowRisk: Date(),
+			mostRecentDateWithHighRisk: Date(),
+			numberOfDaysWithLowRisk: 0,
+			numberOfDaysWithHighRisk: 1,
+			calculationDate: Date(),
+			riskLevelPerDate: [:],
+			minimumDistinctEncountersWithHighRiskPerDate: [:]
+		)
+		store.previousENFRiskExposureMetadata = todayLowRiskMetadata
+		store.enfRiskCalculationResult = todayHighRiskResult
+		
+		
+		// WHEN
+		Analytics.collect(.riskExposureMetadata(.update))
+		
+		// THEN
+		guard let currentENFRiskExposureMetadata = store.currentENFRiskExposureMetadata else { return }
+		XCTAssertTrue(currentENFRiskExposureMetadata.dateChangedComparedToPreviousSubmission)
+	}
 }

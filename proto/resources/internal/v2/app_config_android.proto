@@ -3,10 +3,14 @@ syntax = "proto3";
 package SAP.internal.v2;
 
 import "internal/v2/app_features.proto";
+import "internal/v2/corona_test_parameters.proto";
+import "internal/v2/dgc_parameters.proto";
 import "internal/v2/exposure_detection_parameters.proto";
 import "internal/v2/key_download_parameters.proto";
 import "internal/v2/ppdd_edus_parameters.proto";
+import "internal/v2/ppdd_els_parameters.proto";
 import "internal/v2/ppdd_ppa_parameters.proto";
+import "internal/v2/presence_tracing_parameters.proto";
 import "internal/v2/risk_calculation_parameters.proto";
 
 message ApplicationConfigurationAndroid {
@@ -30,6 +34,13 @@ message ApplicationConfigurationAndroid {
 
   PPDDEventDrivenUserSurveyParametersAndroid eventDrivenUserSurveyParameters = 10;
   PPDDPrivacyPreservingAnalyticsParametersAndroid privacyPreservingAnalyticsParameters = 11;
+  PPDDErrorLogSharingParametersAndroid errorLogSharingParameters = 12;
+
+  PresenceTracingParameters presenceTracingParameters = 13;
+
+  CoronaTestParameters coronaTestParameters = 14;
+
+  DGCParameters dgcParameters = 15;
 }
 
 message DiagnosisKeysDataMapping {

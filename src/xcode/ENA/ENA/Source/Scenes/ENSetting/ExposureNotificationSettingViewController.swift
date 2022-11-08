@@ -38,7 +38,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		navigationItem.title = AppStrings.ExposureNotificationSetting.title
 		navigationItem.largeTitleDisplayMode = .always
 		navigationController?.navigationBar.prefersLargeTitles = true
-		
+
 		registerCells()
 
 		tableView.sectionFooterHeight = 0.0
@@ -50,6 +50,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		super.viewWillAppear(animated)
 		
 		navigationItem.largeTitleDisplayMode = .always
+		navigationController?.navigationBar.prefersLargeTitles = true
 		tableView.reloadData()
 	}
 
@@ -100,10 +101,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			return actionCell(for: indexPath, in: tableView)
 		case .euTracingCell:
 			return euTracingCell(for: indexPath, in: tableView)
-		case .tracingCell, .actionDetailCell:
+		case .daysSinceInstallationCell, .actionDetailCell:
 			switch enState {
 			case .enabled, .disabled:
-				return tracingCell(for: indexPath, in: tableView)
+				return daysSinceInstallationCell(for: indexPath, in: tableView)
 			case .bluetoothOff, .restricted, .notAuthorized, .unknown, .notActiveApp:
 				return actionDetailCell(for: indexPath, in: tableView)
 			}
@@ -119,11 +120,6 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 		guard section == .euTracingCell else { return }
 		
-		if #available(iOS 13, *) {
-			navigationItem.largeTitleDisplayMode = .always
-		} else {
-			navigationItem.largeTitleDisplayMode = .never
-		}
 		let vc = EUSettingsViewController(appConfigurationProvider: appConfigurationProvider)
 		navigationController?.pushViewController(vc, animated: true)
 	}
@@ -152,7 +148,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	// MARK: - Internal
 
-	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .tracingCell, .descriptionCell]
+	let sections = [ReusableCellIdentifier.banner, .actionCell, .euTracingCell, .daysSinceInstallationCell, .descriptionCell]
 	let store: Store
 	let appConfigurationProvider: AppConfigurationProviding
 	var enState: ENStateHandler.State
@@ -168,7 +164,7 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		case banner
 		case actionCell
 		case euTracingCell
-		case tracingCell
+		case daysSinceInstallationCell
 		case actionDetailCell
 		case descriptionCell
 	}
@@ -179,8 +175,8 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func registerCells() {
 		tableView.register(
-			TracingHistoryTableViewCell.self,
-			forCellReuseIdentifier: ReusableCellIdentifier.tracingCell.rawValue
+			DaysSinceInstallTableViewCell.self,
+			forCellReuseIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue
 		)
 
 		tableView.register(
@@ -211,12 +207,10 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 
 	private func handleEnableError(_ error: ExposureNotificationError, alert: Bool) {
 		let openSettingsAction = UIAlertAction(title: AppStrings.Common.alertActionOpenSettings, style: .default, handler: { _ in
-			if let settingsUrl = URL(string: UIApplication.openSettingsURLString),
-				UIApplication.shared.canOpenURL(settingsUrl) {
-				UIApplication.shared.open(settingsUrl, completionHandler: nil)
-			}
+			LinkHelper.open(urlString: UIApplication.openSettingsURLString)
 		})
 		var errorMessage = ""
+		var noSettings = false
 		switch error {
 		case .exposureNotificationAuthorization:
 			errorMessage = AppStrings.ExposureNotificationError.enAuthorizationError
@@ -228,9 +222,16 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 			errorMessage = AppStrings.ExposureNotificationError.enUnknownError + message
 		case .apiMisuse:
 			errorMessage = AppStrings.ExposureNotificationError.apiMisuse
+		case .notResponding:
+			errorMessage = AppStrings.ExposureNotificationError.notResponding
+			noSettings = true
 		}
 		if alert {
-			alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
+			if noSettings {
+				alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle)
+			} else {
+				alertError(message: errorMessage, title: AppStrings.ExposureNotificationError.generalErrorTitle, optInActions: [openSettingsAction])
+			}
 		}
 		Log.error(error.localizedDescription + " with message: " + errorMessage, log: .ui)
 
@@ -316,33 +317,14 @@ final class ExposureNotificationSettingViewController: UITableViewController, Ac
 		return euTracingCell
 	}
 
-	private func tracingCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
-		guard let tracingCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.tracingCell.rawValue, for: indexPath) as? TracingHistoryTableViewCell else {
+	private func daysSinceInstallationCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {
+		guard let daysSinceInstallationCell = tableView.dequeueReusableCell(withIdentifier: ReusableCellIdentifier.daysSinceInstallationCell.rawValue, for: indexPath) as? DaysSinceInstallTableViewCell else {
 			fatalError("Cell is not registered")
 		}
 
-		let colorConfig: (UIColor, UIColor) = (self.enState == .enabled) ?
-			(UIColor.enaColor(for: .tint), UIColor.enaColor(for: .hairline)) :
-			(UIColor.enaColor(for: .textPrimary2), UIColor.enaColor(for: .hairline))
-		let activeTracing = store.tracingStatusHistory.activeTracing()
-		let text = [
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph0,
-			activeTracing.exposureDetectionActiveTracingSectionTextParagraph1]
-			.joined(separator: "\n\n")
+		daysSinceInstallationCell.configure(daysSinceInstall: store.appInstallationDate?.ageInDays ?? 0)
 
-		let numberOfDaysWithActiveTracing = activeTracing.inDays
-		let title = NSLocalizedString("ExposureDetection_ActiveTracingSection_Title", comment: "")
-		let subtitle = NSLocalizedString("ExposureDetection_ActiveTracingSection_Subtitle", comment: "")
-
-		tracingCell.configure(
-			progress: CGFloat(numberOfDaysWithActiveTracing),
-			title: title,
-			subtitle: subtitle,
-			text: text,
-			colorConfigurationTuple: colorConfig
-		)
-
-		return tracingCell
+		return daysSinceInstallationCell
 	}
 
 	private func descriptionCell(for indexPath: IndexPath, in tableView: UITableView) -> UITableViewCell {

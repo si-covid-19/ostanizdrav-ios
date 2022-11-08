@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Home_Risk_Days_Since_Installation_Title</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>Installed today</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Installed %u day ago</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Installed %u days ago</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Installed %u days ago</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Installed %u days ago</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Installed %u days ago</string>
+		</dict>
+	</dict>
 	<key>Home_Risk_Low_Number_Contacts_Item_Title</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -116,6 +146,66 @@
 			<string>%02u</string>
 		</dict>
 	</dict>
+	<key>ExposureDetection_ActiveTracingSection_Text_Paragraph1a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>#OstaniZdrav App was installed today. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>#OstaniZdrav App was installed %u day ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+		</dict>
+	</dict>
+	<key>Settings_DaysSinceInstall_P2a</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>#OstaniZdrav App was installed today. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>#OstaniZdrav App was installed %u day ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>#OstaniZdrav App was installed %u days ago. Your risk of infection is calculated for the periods during which exposure logging was active. If you have encountered other people and exposure logging was active, your risk of infection is calculated.</string>
+		</dict>
+	</dict>
 	<key>ENSetting_Tracing_History</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -144,6 +234,96 @@
 			<key>other</key>
 			<!--Plural form for OTHER.-->
 			<string>Exposure logging has been active for %u days. An exposure check can only be reliable if exposure logging is permanently activated.</string>
+		</dict>
+	</dict>
+	<key>HealthCertificate_Validation_Passed_description</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>No entry rules are currently available for the selected country and selected time for this certificate type. Please note the following:</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>Number of destination country rules successfully met: %u </string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Number of destination country rules successfully met: %u</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Number of destination country rules successfully met: %u</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Number of destination country rules successfully met: %u</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Number of destination country rules successfully met: %u</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysUntilCompleteProtection</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>You have now received all currently planned vaccinations.</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>You have now received all currently planned vaccinations.</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>You have now received all currently planned vaccinations.</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>You have now received all currently planned vaccinations.</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>You have now received all the currently planned vaccinations.</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>You have now received all the currently planned vaccinations.</string>
+		</dict>
+	</dict>
+	<key>HealthCertifiedPerson_daysSinceLastVaccination</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@VARIABLE@</string>
+		<key>VARIABLE</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<!--Plural form for ZERO.-->
+			<string>last vaccination today</string>
+			<key>one</key>
+			<!--Plural form for ONE.-->
+			<string>last vaccination %u day ago</string>
+			<key>two</key>
+			<!--Plural form for TWO.-->
+			<string>Last vaccination %u days ago</string>
+			<key>few</key>
+			<!--Plural form for FEW.-->
+			<string>Last vaccination %u days ago</string>
+			<key>many</key>
+			<!--Plural form for MANY.-->
+			<string>Last vaccination %u days ago</string>
+			<key>other</key>
+			<!--Plural form for OTHER.-->
+			<string>Last vaccination %u days ago</string>
 		</dict>
 	</dict>
 </dict>

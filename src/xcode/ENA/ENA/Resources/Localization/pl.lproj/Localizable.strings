@@ -1,0 +1,3468 @@
+/* Hints */
+/* Use a non-breaking space (OPTION + SPACE) to avoid line breaks. */
+/* Write \"z. B.\" always with a non-breaking space (OPTION + SPACE). */
+/* General */
+"Alert_TitleGeneral" = "Wystąpił błąd.";
+
+"Alert_ActionOk" = "OK";
+
+"Alert_ActionYes" = "Tak";
+
+"Alert_ActionNo" = "Nie";
+
+"Alert_ActionRetry" = "Powtórz";
+
+"Alert_ActionCancel" = "Anuluj";
+
+"Alert_ActionRemove" = "Usuń";
+
+"Alert_BluetoothOff_Title" = "Włącz Bluetooth";
+
+"Alert_BluetoothOff_Description" = "Aktywuj Bluetooth w ustawieniach urządzenia, aby korzystać z tej aplikacji.";
+
+"Alert_CancelAction_Later" = "Później";
+
+"Alert_DefaultAction_OpenSettings" = "Otwórz opcję Ustawienia";
+
+"General_BackButtonTitle" = "Wstecz";
+
+"Common_No_Network" = "Proces nie mógł zostać ukończony z powodu problemów z siecią. Spróbuj ponownie.";
+
+"Common_ENError5_Description" = "Błąd 5: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Pracujemy nad rozwiązaniem tego problemu.";
+
+"Common_ENError11_Description" = "Błąd 11: Coś poszło nie tak. Nie można ustalić Twojego poziomu ryzyka. Zrestartuj smartfon i spróbuj ponownie jutro.";
+
+"Common_ENError13_Description" = "Błąd 13: Rejestrowanie narażenia dla bieżącego dnia zostało już wykonane. Spróbuj ponownie za 24 godziny.";
+
+"Common_Alert_Action_moreInfo" = "Dowiedz się więcej";
+
+"Common_BackgroundFetch_AlertMessage" = "Dezaktywowałeś(-aś) odświeżanie aplikacji w tle dla aplikacji Corona-Warn-App. Aktywuj odświeżanie aplikacji w tle, aby korzystać z automatycznego rejestrowania narażenia. Jeśli nie aktywujesz odświeżania aplikacji w tle, możliwe będzie tylko ręczne uruchomienie rejestrowania narażenia w aplikacji. Możesz aktywować odświeżanie aplikacji w tle dla aplikacji w ustawieniach swojego urządzenia.";
+
+"Common_BackgroundFetch_SettingsTitle" = "Otwórz ustawienia urządzenia";
+
+"Common_BackgroundFetch_OKTitle" = "Uruchom rejestrowanie narażenia ręcznie";
+
+"Common_BackgroundFetch_AlertTitle" = "Odświeżanie aplikacji w tle dezaktywowane";
+
+"Common_Deadman_AlertTitle" = "Twój status ryzyka";
+
+"Common_Deadman_AlertBody" = "Pamiętaj, aby regularnie otwierać aplikację Corona-Warn-App w celu sprawdzenia swojego statusu ryzyka.";
+
+"Common_Tess_Relay_Description" = "Osoby niedosłyszące mogą skorzystać z usług Tess Relay (tłumaczenie z pisanego języka niemieckiego na język migowy i odwrotnie) w celu skontaktowania się z infolinią. To oprogramowanie można pobrać ze sklepu App Store.";
+
+/* Accessibility */
+"AccessibilityLabel_Close" = "Zamknij";
+
+"AccessibilityLabel_PhoneNumber" = "Numer telefonu";
+
+/* Exposure Detection */
+"ExposureDetection_Off" = "Rejestrowanie narażenia zatrzymane";
+
+"ExposureDetection_Unknown" = "Nieznane ryzyko";
+
+"ExposureDetection_Low" = "Niskie ryzyko";
+
+"ExposureDetection_Low_Green_Color" = "Zielony";
+
+"ExposureDetection_High" = "Podwyższone ryzyko";
+
+"ExposureDetection_High_Red_Color" = "Czerwony";
+
+"ExposureDetection_LastExposure" = "Ostatnio dnia %@";
+
+"ExposureDetection_LastExposure_One_Risk_Day" = "Dnia %@";
+
+"ExposureDetection_Refreshed" = "Zaktualizowano: %@";
+
+"ExposureDetection_Refreshed_Never" = "Nieznane";
+
+"ExposureDetection_RefreshingIn" = "Aktualizacja za %02d:%02d\U00A0minut(y)";
+
+"ExposureDetection_RefreshIn" = "Aktualizacja za %@";
+
+"ExposureDetection_LastRiskLevel" = "Ostatnie sprawdzenie narażenia: %@";
+
+"ExposureDetection_OffText" = "Aktywuj rejestrowanie narażenia, aby umożliwić obliczenie Twojego aktualnego statusu ryzyka.";
+
+"ExposureDetection_OutdatedText" = "Rejestrowanie obliczenia ryzyka nie było aktualizowane przez okres dłuższy niż 48 godzin. Aktualizuj obliczenie.";
+
+"ExposureDetection_UnknownText" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.";
+
+"ExposureDetection_LoadingText" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
+
+"ExposureDetection_Contact_Journal_Text" = "Więcej informacji na temat narażeń znajdziesz w swoim dzienniku kontaktów.";
+
+"ExposureDetection_Contact_Journal_Text_P2" = "Istnieje zwiększone ryzyko, że zostałeś zakażony(-a). Jeśli doszło do zakażenia, możesz zarazić inne osoby, nawet jeśli zostałeś(-aś) zaszczepiony(-a) lub jesteś ozdrowieńcem bądź jeśli nie masz żadnych objawów.";
+
+"ExposureDetection_Behavior_Title" = "Wytyczne";
+
+"ExposureDetection_Behavior_Subtitle" = "Oto, co powinieneś (powinnaś) zrobić, nawet jeśli jesteś zaszczepiony(-s) lub jesteś ozdrowieńcem bądź jeżeli nie masz żadnych objawów:";
+
+"ExposureDetection_LowRisk_Behavior_Subtitle" = "Zalecenia:";
+
+"ExposureDetection_Guide_Hygiene" = "Zwróć szczególną uwagę na zwykłe zasady higieny.";
+
+"ExposureDetection_Guide_Vaccination" = "Zaszczep się przeciwko wirusowi SARS-CoV-2, jeśli jeszcze tego nie zrobiłeś(-aś).";
+
+"ExposureDetection_Guide_Hands" = "Regularnie myj ręce mydłem przez 20 sekund.";
+
+"ExposureDetection_Guide_Mask" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
+
+"ExposureDetection_Guide_Distance" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
+
+"ExposureDetection_Guide_Sneeze" = "Kichaj i kaszl w łokieć lub chusteczkę.";
+
+"ExposureDetection_Guide_Ventilation" = "Wietrz pomieszczenia kilka razy dziennie. W tym celu maksymalnie otwórz okna na kilka minut („wentylacja szokowa”).";
+
+"ExposureDetection_Guide_Symptoms" = "Zwróć uwagę na typowe objawy. Objawy mogą wystąpić nawet u osób zaszczepionych i ozdrowieńców. Jeśli poczujesz się źle lub zauważysz jakiekolwiek objawy, skontaktuj się z lekarzem rodzinnym.";
+
+"ExposureDetection_Guide_Home" = "Jeśli to możliwe, idź do domu i w nim pozostań. Unikaj wszelkich spotkań poza domem.";
+
+"ExposureDetection_Guide_Hotline" = "W razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
+
+"ExposureDetection_Guide_Vaccination_HighRisk" = "Jeśli nie jesteś jeszcze zaszczepiony(-a), skonsultuj się z lekarzem rodzinnym po wykonaniu testu.";
+
+"ExposureDetection_Guide_Title" = "Przetestuj się, nawet jeśli nie masz żadnych objawów. Jeśli otrzymasz ostrzeżenie o zwiększonym ryzyku („czerwony kafelek”), będziesz mieć prawo do bezpłatnego testu. Nie musi to być test PCR.";
+
+"ExposureDetection_Guide_Point1" = "Możesz zapoznać się z możliwościami testowania w tym miejscu lub skontaktować się z lekarzem rodzinnym lub apteką.";
+
+"ExposureDetection_Guide_Point1_LinkText" = "Możesz zapoznać się z możliwościami testowania w tym miejscu.";
+
+"ExposureDetection_Guide_Point2" = "Więcej informacji na temat procedury testowania można znaleźć na naszej stronie „Często zadawane pytania”.";
+
+"ExposureDetection_Guide_Point2_LinkText" = "Więcej informacji na temat procedury testowania można znaleźć na naszej stronie „Często zadawane pytania”.";
+
+"ExposureDetection_Explanation_Title" = "Ryzyko zakażenia";
+
+"ExposureDetection_Explanation_Subtitle" = "Sposób, w jaki obliczane jest Twoje ryzyko.";
+
+"ExposureDetection_Explanation_Text_Off" = "Ryzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+
+"ExposureDetection_Explanation_Text_Outdated" = "Sprawdzanie narażenia nie było aktualizowane przez okres dłuższy niż 24 godziny. Aktualizuj obliczenie.";
+
+"ExposureDetection_Explanation_Text_Unknown" = "Nie możemy jeszcze podać ryzyka zakażenia, ponieważ nie mamy jeszcze wystarczającej ilości danych.\n\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w smartfonie. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+
+"ExposureDetection_Explanation_Text_Low_No_Encounter" = "Masz niskie ryzyko zakażenia, ponieważ nie zarejestrowano narażenia na kontakt z osobami, u których później zdiagnozowano koronawirusa, lub ponieważ Twoje kontakty trwały krótko przy zachowaniu odpowiednio dużej odległości.";
+
+"ExposureDetection_Explanation_Text_Low_With_Encounter" = "Ryzyko zakażenia jest obliczane lokalnie na Twoim smartfonie na podstawie danych rejestrowania narażenia. Ta kalkulacja uwzględnia również dystans i czas trwania narażenia na kontakt z osobami, u których zdiagnozowano koronawirusa, a także ich potencjalną zakaźność. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+
+"ExposureDetection_Explanation_Text_Low_With_Encounter_FAQ" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"ExposureDetection_Explanation_Text_High_DateOfLastExposure" = "Masz podwyższone ryzyko zakażenia, ponieważ byłeś(-aś) narażony(-a) na dłuższy, bliski kontakt z co najmniej jedną osobą, u której zdiagnozowano koronawirusa.";
+
+"ExposureDetection_Explanation_Text_High" = "Dlatego Twoje ryzyko zakażenia zostało ocenione jako podwyższone.\nRyzyko zakażenia jest obliczane na podstawie danych rejestrowania narażenia (czas trwania i bliskość kontaktu) lokalnie w urządzeniu. Twoje ryzyko zakażenia nie jest widoczne dla nikogo ani nikomu przekazywane.";
+
+"ExposureDetection_LowRiskExposure_Title" = "Narażenia z niskim ryzykiem";
+
+"ExposureDetection_LowRiskExposure_Subtitle" = "Dlaczego Twoje ryzyko zakażenia jest niskie";
+
+"ExposureDetection_LowRiskExposure_Body" = "Byłeś(-aś) narażony(-a) na kontakt z osobą, u której zdiagnozowano koronawirusa. Jednak Twoje ryzyko zakażenia obliczone na podstawie Twoich danych rejestrowania narażenia jest niskie. Ryzyko jest niskie, jeśli Twój kontakt trwał krótko lub zachowany został dystans. Nie musisz się martwić i podejmować żadnych działań. Zalecamy przestrzeganie obowiązujących reguł dotyczących zachowania dystansu i higieny.";
+
+"ExposureDetection_Button_Enable" = "Aktywuj rejestrowanie narażenia";
+
+"ExposureDetection_Button_Refresh" = "Aktualizuj";
+
+"ExposureDetection_Button_Title_Restart" = "Uruchom ponownie";
+
+"ExposureDetection_Risk_Status_Downloading_Title" = "Dane są pobierane...";
+
+"ExposureDetection_Risk_Status_Detecting_Title" = "Sprawdzanie w toku ...";
+
+"ExposureDetection_Risk_Status_Downloading_Body" = "Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
+"ExposureDetection_Risk_Status_Detecting_Body" = "Twoje dane narażenia są sprawdzane. Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
+"ExposureDetection_Risk_Failed_Title" = "Sprawdzanie narażeń nie powiodło się";
+
+"ExposureDetection_Risk_Failed_Body" = "Synchronizacja losowych identyfikatorów z serwerem nie powiodła się. Możesz ponownie uruchomić synchronizację ręcznie.";
+
+"ExposureDetection_Risk_Restart_Button_Title" = "Uruchom ponownie";
+
+"ExposureDetection_Survey_Card_Title" = "Ankieta dotycząca aplikacji Corona-Warn-App";
+
+"ExposureDetection_Survey_Card_Body" = "Pomóż nam ulepszyć aplikację, odpowiadając na kilka prostych pytań.";
+
+"ExposureDetection_Survey_Card_Button" = "Przejdź do ankiety";
+
+"ExposureDetection_Info_HygieneRules_Title" = "Zasady higieny";
+
+"ExposureDetection_Info_HygieneRules_Point1" = "Załóż maseczkę na twarz, mając kontakt z innymi osobami.";
+
+"ExposureDetection_Info_HygieneRules_Point2" = "Zachowuj odległość co najmniej 1,5 metra od innych osób.";
+
+"ExposureDetection_Info_HygieneRules_Point3" = "Kichaj i kaszl w łokieć lub chusteczkę.";
+
+"ExposureDetection_Info_HygieneRules_Point4" = "Regularnie myj ręce mydłem przez co najmniej 20 sekund.";
+
+"ExposureDetection_Info_HygieneRules_Point5" = "Wietrz pomieszczenia kilka razy dziennie. W tym celu maksymalnie otwórz okna na kilka minut („wentylacja szokowa”).";
+
+"ExposureDetection_Info_HygieneRules_TitleImage_Description" = "Kilka osób, które zachowują dystans i mają założone maseczki.";
+
+"ExposureDetection_Info_Contagion_Title" = "Zminimalizuj ryzyko zakażenia";
+
+"ExposureDetection_Info_Contagion_Image_Title" = "Jeśli zostałeś zarażony(-a) nieświadomie, możesz w poniższy sposób zmniejszyć ryzyko zarażenia innych:";
+
+"ExposureDetection_Info_Contagion_TitleImage_Description" = "Osoba siedzi na kanapie i czyta książkę. Inna osoba patrzy na swojego smartfona.";
+
+"ExposureDetection_Info_Contagion_Point1" = "Spotkania i imprezy: Unikaj wizyt i zajęć, które wiążą się z przebywaniem w dużych grupach z innymi osobami (kluby, bary, restauracje, kina, teatry, imprezy sportowe).";
+
+"ExposureDetection_Info_Contagion_Point2" = "Praca zdalna: Jeśli masz taką możliwość, pracuj w domu.";
+
+"ExposureDetection_Info_Contagion_Point3" = "Zakupy: Zamawiaj dostawy zakupy w sklepach spożywczych lub poproś kogoś, aby Ci je zrobił.";
+
+"ExposureDetection_Info_Contagion_Point4" = "Transport publiczny: W miarę możliwości unikaj środków komunikacji publicznej, szczególnie w godzinach szczytu.";
+
+"ExposureDetection_Info_Contagion_Point5" = "Podróżowanie: Nie podróżuj samolotem ani pociągiem.";
+
+"ExposureDetection_Info_Contagion_Point6" = "W przypadku pytań dotyczących kwarantanny skontaktuj się z departamentem zdrowia publicznego. Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
+
+"ExposureDetection_Info_Contagion_Point6_LinkText" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania” dotyczącej kwarantanny.";
+
+"ExposureDetection_Info_Contagion_Footer" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
+
+"ExposureDetection_Info_Contagion_Footer_LinkText" = "Dodatkowe informacje są dostępne na stronie „Często zadawane pytania” dotyczącej dobrowolnej samoizolacji.";
+
+/* Survey Errors */
+"SurveyConsent_Error_Title" = "Błąd";
+
+"SurveyConsent_Error_TryAgainLater" = "W tej chwili nie można pobrać ankiety. Spróbuj ponownie później (kod błędu %@).";
+
+"SurveyConsent_Error_DeviceNotSupported" = "Nie można pobrać ankiety (kod błędu %@).";
+
+"SurveyConsent_Error_ChangeDeviceTime" = "Czas na Twoim smartfonie nie zgadza się z aktualnym czasem. Popraw czas w ustawieniach swojego smartfona (kod błędu %@).";
+
+"SurveyConsent_Error_TryAgainNextMonth" = "Ankiety nie można pobrać ze względów bezpieczeństwa. Możesz ponownie wypełnić ankietę w następnym miesiącu kalendarzowym (kod błędu %@).";
+
+"SurveyConsent_Error_AlreadyParticipated" = "Wypełniłeś(-aś) już ankietę. Ankietę można wypełnić tylko raz w miesiącu (kod błędu %@).";
+
+/* Survey Consent Screen */
+"SurveyConsent_Title" = "Ankieta oceniająca i ulepszająca aplikację Corona-Warn-App.";
+
+"SurveyConsent_Body1" = "Pomóż nam ulepszyć aplikację Corona-Warn-App, wypełniając ankietę na temat swoich doświadczeń z aplikacją. Pomoże to instytutowi RKI ocenić skuteczność aplikacji, ulepszyć aplikację i ustalić wpływ ostrzeżeń wysyłanych przez aplikację na zachowanie osób o podwyższonym ryzyku.";
+
+"SurveyConsent_Body2" = "Ankieta jest przeznaczona wyłącznie dla osób, których aplikacja wskazała na narażenie o podwyższonym ryzyku. Ankieta jest przeprowadzana na stronie internetowej RKI. W następnym kroku zostanie wyświetlony link do ankiety, który przekieruje Cię na tę stronę internetową. Przed jej wyświetleniem musisz potwierdzić autentyczność aplikacji. Będzie to wymagać Twojej zgody.";
+
+"SurveyConsent_Body3" = "Po naciśnięciu linku do ankiety otrzymasz dodatkowe informacje o ankiecie. Zostaniesz również poproszony(-a) o ponowne wyrażenie zgody przed rozpoczęciem ankiety.";
+
+"SurveyConsent_Accept_Button_Title" = "Akceptuj";
+
+/* Survey Consent Legal Details Screen */
+"SurveyConsent_Legal_Details_Title" = "Szczegółowe informacje na temat przetwarzania danych związanego z ankietą";
+
+"SurveyConsent_Details_Headline" = "Informacje o ankiecie RKI";
+
+"SurveyConsent_Details_Body" = "Po zweryfikowaniu autentyczności Twojej aplikacji przekieruje Cię ona do witryny internetowej RKI, korzystając z niestandardowego linku do wygenerowanej dla Ciebie ankiety. Ten link do ankiety zawiera jednorazowe hasło, które jest generowane przez aplikację Corona-Warn-App. Po naciśnięciu linku do ankiety i wywołaniu witryny internetowej z ankietą jednorazowe hasło zostanie tymczasowo zachowane w przeglądarce. Ten ekran zawiera dodatkowe informacje o ankiecie i sposobie jej wypełnienia, na przykład o tym, jak rozpocząć ankietę. Na początku ankiety jednorazowe hasło jest przesyłane do serwerów Corona-Warn-App, gdzie jest oznaczane jako użyte. Następnie serwer sprawdza, czy możesz wypełnić ankietę. Zapewnia się w ten sposób jednorazowe wypełnienie ankiety przez każdego użytkownika.";
+
+/* Exposure detection wrong device time */
+"ExposureDetection_WrongTime_Notification_Title" = "Sprawdzanie narażeń jest niemożliwe";
+
+"ExposureDetection_WrongTime_Notification_Body" = "Czas ustawiony w urządzeniu nie zgadza się z aktualnym czasem. W rezultacie nie można teraz sprawdzić Twojego ryzyka. Ustaw prawidłowy czas w ustawieniach urządzenia.";
+
+"ExposureDetection_WrongTime_Notification_Popover_Title" = "Sprawdzanie narażeń jest niemożliwe";
+
+"ExposureDetection_WrongTime_Notification_Popover_Body" = "Czas ustawiony w urządzeniu nie zgadza się z aktualnym czasem. W rezultacie nie można teraz sprawdzić Twojego ryzyka. Ustaw prawidłowy czas w ustawieniach urządzenia.";
+
+/* Active Tracing Section */
+"ExposureDetection_ActiveTracingSection_Title" = "Okres zarejestrowany";
+
+"ExposureDetection_ActiveTracingSection_Subtitle" = "Ten okres jest uwzględniony w obliczeniu.";
+
+/* There are two paragraphs in this section. The first one just contains text… */
+"ExposureDetection_ActiveTracingSection_Text_Paragraph0" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
+
+"ExposureDetection_ActiveTracingSection_Text_Paragraph1b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
+
+/* Exposure Detection Errors */
+"ExposureDetectionError_Alert_Message" = "Podczas rejestrowania narażenia wystąpił błąd.";
+
+"ExposureDetectionError_Alert_FullDiskSpace_Message" = "Brak wystarczającej ilości pamięci do zapisania bieżących danych.\nZwolnij pamięć w smartfonie, aby umożliwić aktualizację statusu ryzyka.";
+
+/* How Risk Detection Works Alert.\n First introduced due to EXPOSUREAPP-1738.\n The alert only displays a single OK-button. We re-use the localized string\n `Alert_ActionOk` for that. */
+"How_Risk_Detection_Works_Alert_Title" = "Informacje o funkcjonalności rejestrowania narażenia";
+
+"How_Risk_Detection_Works_Alert_Message" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna.\nRejestrowanie narażenia obejmuje ostatnie %1$u dni.\nAplikacja automatycznie usuwa starsze dzienniki, ponieważ nie są one już istotne dla zapobiegania zakażeniom.\n\nWięcej informacji znajduje się na naszej stronie Często zadawane pytania.";
+
+/* Settings */
+"Settings_Notification_StatusActive" = "Wł.";
+
+"Settings_Notification_StatusInactive" = "Wył.";
+
+"Settings_BackgroundAppRefresh_StatusActive" = "Wł.";
+
+"Settings_BackgroundAppRefresh_StatusInactive" = "Wył.";
+
+"Settings_StatusEnable" = "Aktywuj";
+
+"Settings_StatusDisable" = "Dezaktywuj";
+
+"Settings_KontaktProtokollStatusActive" = "Aktywne";
+
+"Settings_KontaktProtokollStatusInactive" = "Zatrzymane";
+
+"Settings_Tracing_Label" = "Rejestrowanie narażenia";
+
+"Settings_Notification_Label" = "Powiadomienia";
+
+"Settings_BackgroundAppRefresh_Label" = "Odświeżanie aplikacji w tle";
+
+"Settings_Reset_Label" = "Resetuj aplikację";
+
+"Settings_Tracing_Description" = "Zezwól na generowanie i udostępnianie losowych identyfikatorów COVID-19.";
+
+"Settings_Notification_Description" = "Zezwól na automatyczne powiadomienia o statusie ryzyka COVID-19";
+
+"Settings_BackgroundAppRefresh_Description" = "Zezwól na automatyczne aktualizacje statusu ryzyka.";
+
+"Settings_Reset_Description" = "Usuń wszystkie swoje dane z aplikacji.";
+
+"Settings_NavTitle" = "Ustawienia";
+
+"Settings_DaysSinceInstall_Title" = "Okres zarejestrowany";
+
+"Settings_DaysSinceInstall_SubTitle" = "Ten okres jest uwzględniony w obliczeniu.";
+
+"Settings_DaysSinceInstall_P1" = "Ryzyko zakażenia można obliczyć tylko dla okresów, w których rejestrowanie narażenia było aktywne. Dlatego też funkcja rejestrowania powinna być stale aktywna. Rejestrowanie narażenia obejmuje 14 ostatnich dni.";
+
+"Settings_DaysSinceInstall_P2b" = "Jeśli rejestrowanie narażenia było aktywne podczas kontaktowania się z innymi ludźmi, można obliczyć ryzyko zakażenia dla tego okresu.";
+
+"Settings_DataDonation_Label" = "Udostępnij dane";
+
+"Settings_DataDonation_Description" = "Zezwalaj na przekazywanie informacji o korzystaniu.";
+
+"Settings_DataDonation_StatusActive" = "Wł.";
+
+"Settings_DataDonation_StatusInactive" = "Wył.";
+
+/* Notification Settings */
+"NotificationSettings_Title" = "Powiadomienia";
+
+"NotificationSettings_ImageDescriptionOn" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
+
+"NotificationSettings_ImageDescriptionOff" = "Kobieta nie może otrzymywać powiadomień od swojej aplikacji Corona-Warn-App.";
+
+"NotificationSettings_SettingsDescription" = "USTAWIENIE";
+
+"NotificationSettings_Notifications" = "Powiadomienia";
+
+"NotificationSettings_NotificationsOn" = "Wł.";
+
+"NotificationSettings_NotificationsOff" = "Wył.";
+
+"NotificationSettings_BulletHeadlineOn" = "Zarządzaj powiadomieniami";
+
+"NotificationSettings_BulletHeadlineOff" = "Aktywuj powiadomienia";
+
+"NotificationSettings_BulletDescOn" = "Tutaj możesz zdefiniować następujące ustawienia:";
+
+"NotificationSettings_BulletDescOff" = "Aby aktywować powiadomienia w aplikacji Corona-Warn-App, musisz zezwolić na powiadomienia w ustawieniach swojego urządzenia.";
+
+"NotificationSettings_BulletPoint1" = "Chcesz otrzymywać powiadomienia";
+
+"NotificationSettings_BulletPoint2" = "Chcesz, aby teksty powiadomień były wyświetlane na ekranie blokady";
+
+"NotificationSettings_BulletPoint3" = "Nie chcesz, aby teksty powiadomień były wyświetlane do momentu odblokowania smartfona";
+
+"NotificationSettings_BulletDesc2" = "Szczegółowe informacje na temat ustawień dla Twojego systemu operacyjnego znajdziesz na naszej stronie %@.";
+
+"NotificationSettings_BulletDesc2_FAQText" = "Często zadawane pytania";
+
+"NotificationSettings_OpenSystemSettings" = "Otwórz ustawienia urządzenia";
+
+"NotificationSettings_DeltaOnboarding_Title" = "Zarządzaj powiadomieniami";
+
+"NotificationSettings_DeltaOnboarding_Description" = "Ustawieniami powiadomień można teraz zarządzać centralnie w ustawieniach urządzenia na smartfonie.";
+
+"NotificationSettings_DeltaOnboarding_PrimaryButtonTitle" = "Kontynuuj";
+
+/* Background App Referesh Settings */
+"BackgroundAppRefreshSettings_Title" = "Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_Image_Description_On" = "Osoba trzyma w dłoni smartfon z aktywowanym odświeżaniem aplikacji w tle.";
+
+"BackgroundAppRefreshSettings_Image_Description_Off" = "Osoba trzyma w dłoni smartfon z dezaktywowanym odświeżaniem aplikacji w tle.";
+
+"BackgroundAppRefreshSettings_Subtitle" = "Aktualizuj status ryzyka w tle";
+
+"BackgroundAppRefreshSettings_Description" = "Gdy odświeżanie aplikacji w tle jest aktywowane, Corona-Warn-App ustala Twój status ryzyka automatycznie.\nNie są naliczane dodatkowe koszty za transfer danych przez sieć komórkową.\nJeśli odświeżanie aplikacji w tle sjest dezaktywowane, konieczne jest codzienne ręczne otwieranie aplikacji w celu aktualizacji statusu ryzyka.";
+
+"BackgroundAppRefreshSettings_Status_Header" = "Ustawienie";
+
+"BackgroundAppRefreshSettings_Status_Title" = "Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_Status_On" = "Wł.";
+
+"BackgroundAppRefreshSettings_Status_Off" = "Wył.";
+
+"BackgroundAppRefreshSettings_InfoBox_Title" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_Description" = "Musisz aktywować odświeżanie aplikacji w tle zarówno w ustawieniach ogólnych iPhone'a, jak i w ustawieniach Corona-Warn-App.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerMode_Description" = "Pamiętaj, że aby można było aktywować odświeżanie aplikacji w tle, tryb niskiego zasilania musi być dezaktywowany.";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Title" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step2" = "Otwórz opcję Bateria";
+
+"BackgroundAppRefreshSettings_InfoBox_LowPowerModeInstruction_Step3" = "Dezaktywuj tryb niskiego zasilania";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle w opcji Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step2" = "Otwórz opcję Ogólne";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step3" = "Otwórz Odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_InfoBox_SystemBackgroundRefreshInstruction_Step4" = "Wybierz sieć Wi-Fi lub sieć Wi-Fi i dane komórkowe";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Title" = "Aktywuj odświeżanie aplikacji w tle dla Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step1" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step2" = "Otwórz aplikację Corona-Warn-App";
+
+"BackgroundAppRefreshSettings_InfoBox_AppBackgroundRefreshInstruction_Step3" = "Aktywuj odświeżanie aplikacji w tle";
+
+"BackgroundAppRefreshSettings_OpenSettingsButton_Title" = "Otwórz opcję Ustawienia";
+
+"BackgroundAppRefreshSettings_ShareButton_Title" = "Instrukcje udostępniania";
+
+/* Onboarding */
+"Onboarding_LetsGo_actionText" = "Zaczynamy";
+
+"Onboarding_Continue_actionText" = "Dalej";
+
+"Onboarding_EnableLogging_actionText" = "Aktywuj rejestrowanie narażenia";
+
+"Onboarding_Continue_actionTextHint" = "Możesz pominąć ten ekran";
+
+"Onboarding_DoNotActivate_actionText" = "Nie aktywuj";
+
+"Onboarding_DeactivateExposureConfirmation_title" = "Jeśli nie aktywujesz funkcji rejestrowania narażenia, aplikacja nie będzie mogła ustalić Twojego statusu ryzyka. Oznacza to, że nie będziesz otrzymywać w aplikacji informacji o Twoim statusie ryzyka.";
+
+"Onboarding_DeactivateExposureConfirmation_message" = "Możesz ponownie aktywować tę funkcję rejestrowania narażenia w dowolnym momencie.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_imageDescription" = "Grupa osób korzysta ze swoich urządzeń na mieście.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_title" = "Razem pokonajmy koronawirusa";
+
+"OnboardingInfo_togetherAgainstCoronaPage_boldText" = "Większa ochrona dla Ciebie i dla nas wszystkich. Korzystając z aplikacji Corona-Warn-App, możemy znacznie szybciej przerwać łańcuchy zakażeń.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_normalText" = "Zmień swoje urządzenie w system ostrzegania przed koronawirusem. Zapoznaj się ze swoim statusem ryzyka i dowiedz się, czy miałeś(-aś) bliski kontakt z osobą, u której w ciągu ostatnich 14 dni zdiagnozowano koronawirusa. \n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.\n\nJeśli chcesz, możesz użyć aplikacji, aby udowodnić swój osobisty status dotyczący zakażenia (na przykład negatywny wynik szybkiego testu). Pamiętaj jednak, że nie masz obowiązku korzystania z aplikacji w celu potwierdzenia swojego statusu dotyczącego zakażenia. Możesz również udowodnić swój status dotyczący zakażenia w inny sposób, zgodny z przepisami prawnymi obowiązującymi w Twoim miejscu zamieszkania.\n\nPonadto możesz udowodnić swój osobisty status szczepienia.\n\nAplikacja rejestruje kontakty między osobami poprzez wymianę zaszyfrowanych, losowych identyfikatorów między ich smartfonami bez uzyskiwania dostępu do danych osobowych.";
+
+"OnboardingInfo_togetherAgainstCoronaPage_linkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
+
+"OnboardingInfo_privacyPage_imageDescription" = "Kobieta używa Corona-Warn-App na swoim smartfonie. Ikona przedstawiająca kłódkę na tle tarczy symbolizuje zaszyfrowane dane.";
+
+"OnboardingInfo_privacyPage_title" = "Prywatność danych";
+
+"OnboardingInfo_privacyPage_boldText" = "";
+
+"OnboardingInfo_privacyPage_normalText" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.\n\nOdpowiedzialny organ: RODO, artykuł 4, paragraf. 7:\n\nRobert Koch-Institute\nNordufer 20\n13353 Berlin\nZapoznaj się z naszymi przepisami o prywatności danych.\n\nInformacje o prywatności danych:";
+
+"OnboardingInfo_enableLoggingOfContactsPage_imageDescription" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich urządzeniach, które będą rejestrować ich wzajemne kontakty.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_title" = "Jak włączyć rejestrowanie narażenia";
+
+"OnboardingInfo_enableLoggingOfContactsPage_boldText" = "Aby ustalić występowanie ryzyka zakażenia, musisz aktywować funkcję rejestrowania narażenia.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_normalText" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój IPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników aplikacji i przekazywaniu Twoich własnych, losowych identyfikatorów do ich urządzeń. Funkcję tę można wyłączyć w dowolnym momencie. \n\nIdentyfikatory przekazują w sposób zaszyfrowany wyłącznie informacje o dacie kontaktu, czasie trwania i odległości (przy wykorzystaniu mocy sygnału) od innych użytkowników aplikacji. Dane osobowe, takie jak nazwisko, adres, lokalizacja, nie są nigdy rejestrowane. Ustalenie tożsamości osób na podstawie losowych identyfikatorów nie jest możliwe.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesTitle" = "Limit wieku: 16 i więcej";
+
+"OnboardingInfo_enableLoggingOfContactsPage_consentUnderagesText" = "Ta aplikacja jest przeznaczona dla osób, które ukończyły 16 lat i mieszkają w Niemczech.";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateHeader" = "Status";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateTitle" = "Rejestrowanie narażenia";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateActive" = "Aktywne";
+
+"OnboardingInfo_enableLoggingOfContactsPage_stateStopped" = "Zatrzymane";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_imageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu, który będzie teraz ostrzegał innych użytkowników.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_title" = "Jeśli zdiagnozowano u Ciebie koronawirusa";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_boldText" = "Jeżeli otrzymasz pozytywny wynik testu, zgłoś ten fakt w aplikacji. Udostępnianie wyników testu jest dobrowolne i bezpieczne. Zrób to ze względu na zdrowie innych osób.";
+
+"OnboardingInfo_howDoesDataExchangeWorkPage_normalText" = "Twoje powiadomienie jest szyfrowane w bezpieczny sposób i przetwarzane na bezpiecznym serwerze. Osoby, których zaszyfrowane losowe identyfikatory zostały zgromadzone przez Twoje urządzenie, otrzymają wtedy ostrzeżenie wraz z informacją na temat dalszych kroków postępowania.";
+
+"OnboardingInfo_alwaysStayInformedPage_imageDescription" = "Kobieta otrzymuje powiadomienie od swojej aplikacji Corona-Warn-App.";
+
+"OnboardingInfo_alwaysStayInformedPage_title" = "Otrzymuj ostrzeżenia i ustal ryzyko";
+
+"OnboardingInfo_alwaysStayInformedPage_boldText" = "Aplikacja może automatycznie wysyłać Ci powiadomienia m.in. o statusie ryzyka i ważności Twoich certyfikatów. Aby włączyć tę opcję, zmień ustawienia powiadomień.";
+
+"OnboardingInfo_alwaysStayInformedPage_normalText" = "Pomoże Ci to chronić siebie i innych, a także kontrolować ważność Twoich certyfikatów.";
+
+/* Onboarding EU Keys */
+"onboardingInfo_enableLoggingOfContactsPage_euTitle" = "Rejestrowanie narażenia w różnych krajach";
+
+"onboardingInfo_enableLoggingOfContactsPage_euDescription" = "Kilka krajów współpracuje w zakresie aktywacji transgranicznych ostrzeżeń. Oznacza to możliwość analizowania informacji o potencjalnym narażeniu na kontakt z użytkownikami oficjalnych aplikacji koronawirusowych we wszystkich współpracujących krajach.\n\nGdy użytkownik prześle pozytywny wynik testu (a dokładniej swój losowy identyfikator), aby ostrzec innych, za pośrednictwem serwera wymiany danych obsługiwanego wspólnie przez współpracujące kraje, ostrzeżenie o potencjalnym narażeniu otrzymają użytkownicy oficjalnych aplikacji koronawirusowych we wszystkich tych krajach.\n\nCodzienne pobieranie list losowych identyfikatorów użytkowników, którzy udostępnili pozytywne wyniki testów, jest z reguły bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+
+"onboardingInfo_enableLoggingOfContactsPage_participatingCountriesTitle" = "Obecnie uczestniczą następujące kraje:";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuTitle" = "Kraje uczestniczące";
+
+"onboardingInfo_enableLoggingOfContactsPage_emptyEuDescription" = "Możesz wyświetlić kraje uczestniczące w danych rejestrowania narażenia.";
+
+/* Exposure Submission */
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number" = "08007540002";
+
+/* phone number; no spacing allowed */
+"ExposureSubmission_Hotline_Number_Foreign" = "+493049875402";
+
+"ExposureSubmission_DataPrivacyTitle" = "Zgoda";
+
+"ExposureSubmission_Continue_actionText" = "Dalej";
+
+"ExposureSubmission_ConfirmDismissPopUpTitle" = "Czy chcesz anulować?";
+
+"ExposureSubmission_ConfirmDismissPopUpText" = "Twoje wpisy nie zostaną zapisane.";
+
+"ExposureSubmission_DataPrivacyDescription" = "By tapping “Accept”, you consent to the app querying the status of your coronavirus test and displaying it in the app. This feature is available to you if you have received a QR code and have consented to your test result being transmitted to the app’s server system. As soon as the testing lab has stored your test result on the server, you will be able to see the result in the app. If you have enabled notifications, you will also receive a notification outside the app telling you that your test result has been received. However, for privacy reasons, the test result itself will only be displayed in the app. You can withdraw this consent at any time by deleting your test registration in the app. Withdrawing your consent will not affect the lawfulness of processing before its withdrawal. Further information can be found in the menu under “Data Privacy”.";
+
+"ExposureSubmissionDataPrivacy_AcceptTitle" = "Zezwól";
+
+"ExposureSubmission_Submit" = "Wpisz TAN";
+
+"ExposureSubmissionTanEntry_Title" = "Wpisz TAN";
+
+"ExposureSubmissionTanEntry_EntryField" = "Pole wpisu numeru TAN";
+
+"ExposureSubmissionTanEntry_Description" = "Wpisz 10-cyfrowy numer TAN, który otrzymałeś(-aś).";
+
+"ExposureSubmissionTanEntry_Submit" = "Dalej";
+
+"ExposureSubmissionTanEntry_InvalidCharacterError" = "Twój wpis zawiera nieprawidłowe znaki, Sprawdź swój wpis.";
+
+"ExposureSubmissionTanEntry_InvalidError" = "Nieprawidłowy TAN, sprawdź swój wpis.";
+
+"ExposureSubmission_NavTitle" = "Wyślij klucz diagnozy";
+
+"ExposureSubmissionConfirmation_Title" = "Diagnoza: zakażenie";
+
+"ExposureSubmission_GeneralErrorTitle" = "Błąd";
+
+/* Exposure Submission Dispatch */
+"ExposureSubmission_DispatchTitle" = "Zarządzaj testami";
+
+"ExposureSubmissionIntroduction_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
+
+"ExposureSubmission_DispatchDescription" = "Pobierz wynik testu za pośrednictwem aplikacji, a następnie ostrzeż innych. Zadbasz o swoje bezpieczeństwo i pomożesz powstrzymać rozprzestrzenianie się koronawirusa.";
+
+"ExposureSubmission_DispatchSectionHeadline" = "Czy wykonano Ci test?";
+
+"ExposureSubmission_DispatchSectionHeadline2" = "Czy wynik Twojego testu PCR był pozytywny?";
+
+"ExposureSubmissionDispatch_QRCodeButtonTitle" = "Skanuj kod QR";
+
+"ExposureSubmissionDispatch_QRCodeButtonDescription" = "Odbierz wynik testu w aplikacji i ostrzegaj innych lub poproś o certyfikat testu na COVID.";
+
+"ExposureSubmissionDispatch_TANButtonTitle" = "Wpisz TAN do testu PCR";
+
+"ExposureSubmissionDispatch_TANButtonDescription" = "Czy masz numer TAN do swojego testu PCR? Naciśnij tutaj, aby go wprowadzić i dzięki temu ostrzegać innych.";
+
+"ExposureSubmissionDispatch_HotlineButtonTitle" = "Poproś o TAN do testu PCR";
+
+"ExposureSubmissionDispatch_HotlineButtonDescription" = "Zadzwoń i odbierz numer TAN do testu PCR.";
+
+"ExposureSubmissionDispatch_FindTestCentersTitle" = "Znajdź ośrodek testujący";
+
+"ExposureSubmissionDispatch_FindTestCentersDescription" = "Znajdź ośrodki testujące w pobliżu. Jeśli wystąpią jakiekolwiek problemy, możesz je zgłosić.\nZostaniesz przekierowany(-a) na zewnętrzną stronę internetową RKI.";
+
+/* Exposure Submission Hotline */
+"ExposureSubmissionHotline_Title" = "Poproś o TAN do testu PCR";
+
+"ExposureSubmissionHotline_Description" = "Przygotuj wynik testu (jeśli jest dostępny) oraz numer telefonu, aby poprosić o numer TAN.";
+
+"ExposureSubmissionHotline_SectionTitle" = "Jak to działa:";
+
+"ExposureSubmissionHotline_SectionDescription1" = "Zadzwoń na infolinię i poproś o numer TAN:";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel1" = "Krok 1 z 2";
+
+"ExposureSubmissionHotline_iconAccessibilityLabel2" = "Krok 2 z 2";
+
+/* UI text; spacing allowed */
+"ExposureSubmission_PhoneNumberDomestic" = "0800 7540002";
+
+"ExposureSubmission_PhoneDetailsDomestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
+
+"ExposureSubmission_PhoneNumberForeign" = "+49 30 498 75402";
+
+"ExposureSubmission_PhoneDetailsForeign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
+
+"ExposureSubmission_PhoneDetailDescription" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nCodziennie (wraz z weekendami): 7:00 – 20:00 (CET)\n\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
+
+"ExposureSubmission_SectionDescription2" = "Zarejestruj swój test PCR poprzez wpisanie numeru TAN w aplikacji.";
+
+"ExposureSubmission_CallButtonTitle" = "Zadzwoń";
+
+"ExposureSubmission_TANInputButtonTitle" = "Wpisz TAN";
+
+"ExposureSubmissionHotline_imageDescription" = "Infolinia przekazuje numer TAN.";
+
+/* Exposure Submission QR Code Info */
+"ExposureSubmissionQRInfo_title" = "Twoja zgoda";
+
+"ExposureSubmissionQRInfo_imageDescription" = "Osoba trzyma smartfon. Kod QR w teście symbolizuje kod do zeskanowania.";
+
+"ExposureSubmissionQRInfo_title_description" = "Zanim pobierzesz wynik testu i będziesz ostrzegać innych musisz wyrazić zgodę.";
+
+"ExposureSubmissionQRInfo_header_section_1" = "Pobierz wynik testu";
+
+"ExposureSubmissionQRInfo_instruction1" = "Test można zeskanować tylko raz. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie.";
+
+"ExposureSubmissionQRInfo_instruction2" = "Jeśli wynik Twojego testu jest negatywny, możesz to potwierdzić oficjalnym certyfikatem testu na COVID. W tym celu poproś o certyfikat testu, wykonując następujące kroki.";
+
+"ExposureSubmissionQRInfo_header_section_2" = "Pomóż osobom, z którymi miałeś(-aś) kontakt, ostrzegając ich!";
+
+"ExposureSubmissionQRInfo_body_section_2" = "Jeśli zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Jeżeli wykonałeś(-aś) szybki test, funkcja ostrzegania działa tylko w Niemczech. Jeśli wykonałeś(-aś) test PCR, funkcja ostrzegania działa w następujących krajach:";
+
+"ExposureSubmissionQRInfo_body_section_3" = "Osoby, które zameldowały swoją obecność w tych samych wydarzeniach lub miejscach w tym samym czasie co Ty, również zostaną ostrzeżone.";
+
+"ExposureSubmissionQRInfo_acknowledgement_3" = "Jeśli udostępnisz wynik testu, pomożesz chronić innych przed zakażeniem.";
+
+"ExposureSubmissionQRInfo_acknowledgement_4" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
+
+"ExposureSubmissionQRInfo_acknowledgement_5" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
+
+"ExposureSubmissionQRInfo_acknowledgement_6" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+
+"ExposureSubmissionQRInfo_acknowledgement_7" = "W kolejnym kroku wyraź zgodę na dostęp do losowych identyfikatorów.";
+
+"ExposureSubmissionQRInfo_primaryButtonTitle" = "Akceptuj";
+
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Title" = "Kod QR stracił ważność";
+
+"ExposureSubmissionQRInfo_QRCodeExpired_Alert_Text" = "Twój test ma więcej niż 21 dni i nie można go już zarejestrować w aplikacji. Jeśli w przyszłości będziesz ponownie poddawać się testowi, zeskanuj kod QR, gdy tylko go otrzymasz.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Title" = "Błąd";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Text" = "Kodu QR nie można dopasować do szybkiego testu. Zeskanuj odpowiedni kod QR.";
+
+"ExposureSubmission_RAT_QR_Invalid_Alert_Button" = "OK";
+
+/* Exposure Submission Success */
+"ExposureSubmissionSuccess_Title" = "Dziękujemy";
+
+"ExposureSubmissionSuccess_AccImageDescription" = "Wszyscy w grupie się cieszą, ponieważ ktoś podzielił się swoim wynikiem testu.";
+
+"ExposureSubmissionSuccess_Button" = "To wszystko!";
+
+"ExposureSubmissionSuccess_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+
+"ExposureSubmissionSuccess_subTitle" = "Inne informacje:";
+
+"ExposureSubmissionSuccess_listTitle" = "Uwaga:";
+
+"ExposureSubmissionSuccess_PCR_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"ExposureSubmissionSuccess_PCR_listItem1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"ExposureSubmissionSuccess_PCR_listItem2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+
+"ExposureSubmissionSuccess_RAT_listItem0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"ExposureSubmissionSuccess_RAT_listItem1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"ExposureSubmissionSuccess_RAT_listItem2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"ExposureSubmissionSuccess_listItem2_1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+
+"ExposureSubmissionSuccess_listItem2_2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+
+"ExposureSubmissionSuccess_listItem2_3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
+
+"ExposureSubmissionSuccess_listItem2_4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu izolacji.";
+
+/* Exposure Submission Testresult available */
+"ExposureSubmissionTestresultAvailable_Title" = "Wynik Twojego testu jest dostępny";
+
+"ExposureSubmissionTestresultAvailable_AccImageDescription" = "Kobieta trzyma w dłoni smartfon, który wysyła sygnał do innego smartfona.";
+
+"ExposureSubmissionTestresultAvailable_Consent_granted" = "Zgoda\nna „Ostrzeganie innych” udzielona";
+
+"ExposureSubmissionTestresultAvailable_Consent_not_given" = "Brak zgody\nna „Ostrzeganie innych”";
+
+"ExposureSubmissionTestresultAvailable_ListItem1WithConsent" = "Dziękujemy za wyrażenie zgody na udostępnienie wyniku testu i pomoc w ostrzeganiu innych osób.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2WithConsent" = "Jeśli nie wyraziłeś swojej zgody na dostęp do losowych identyfikatorów lub jeśli od wyrażenia zgody upłynęło ponad pięć dni, wyraź zgodę w następnym kroku.";
+
+"ExposureSubmissionTestresultAvailable_ListItem1WithoutConsent" = "Zdecydowałeś(-aś) się nie udostępniać wyniku testu. Inne osoby nie zostaną ostrzeżone.";
+
+"ExposureSubmissionTestresultAvailable_ListItem2WithoutConsent" = "W kolejnym kroku możesz zmienić zdanie i udostępnić wynik testu, aby powstrzymać rozprzestrzenianie się koronawirusa i uchronić inne osoby przed zakażeniem.";
+
+"ExposureSubmissionTestresultAvailable_primaryButtonTitle" = "Dalej";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertTitle" = "Po zapoznaniu się z wynikiem testu możesz w razie potrzeby powiadomić innych i przerwać łańcuch zakażeń.";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonCancel" = "Anuluj";
+
+"ExposureSubmissionTestresultAvailable_CloseAlertButtonContinue" = "Wyświetl wynik";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_Title" = "Wynik Twojego testu";
+
+"ExposureSubmissionResult_Title_Antigen" = "Szybki test";
+
+"ExposureSubmissionResult_CardSubTitle" = "Twoja diagnoza";
+
+"ExposureSubmissionResult_CardSubTitle_Antigen" = "Wynik Twojego szybkiego testu";
+
+"ExposureSubmissionResult_CardTitle" = "SARS-CoV-2";
+
+"ExposureSubmissionResult_CardPositive" = "Zakażenie";
+
+"ExposureSubmissionResult_CardNegative" = "Brak zakażenia";
+
+"ExposureSubmissionResult_CardPositive_Antigen" = "Zakażenie";
+
+"ExposureSubmissionResult_CardNegative_Antigen" = "Brak zakażenia";
+
+"ExposureSubmissionResult_CardInvalid" = "Ustalenie wyniku jest niemożliwe";
+
+"ExposureSubmissionResult_CardPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
+
+"ExposureSubmissionResult_Procedure" = "Jak to działa:";
+
+"ExposureSubmissionResult_testAdded" = "Twój test został dodany";
+
+"ExposureSubmissionResult_antigenTestAdded" = "Twój szybki test został dodany";
+
+"ExposureSubmissionResult_antigenTestAddedDesc" = "Wynik testu jest wyświetlany tutaj przez 48 godzin.";
+
+"ExposureSubmissionResult_warnOthers" = "Ostrzegaj innych";
+
+"ExposureSubmissionResult_warnOthersDesc" = "Udostępnij swoje losowe identyfikatory, aby ostrzegać innych.\nPomóż innym dokładniej ocenić ryzyko zakażenia, wysyłając informację, gdy dostrzeżesz u siebie objawy koronawirusa.";
+
+"ExposureSubmissionResult_testNegative" = "Diagnoza: brak zakażenia";
+
+"ExposureSubmissionResult_testNegativeDesc" = "Wynik laboratoryjny nie potwierdza, że masz koronawirusa SARS-CoV-2.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_title" = "Inne informacje:";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_desc" = "Czy masz ostre objawy?";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem1" = "Pozostań w domu tak długo, jak to możliwe, dopóki nie poczujesz się dobrze. Zmniejsz swoje ryzyko zakażenia koronawirusem dodatkowo oprócz innej infekcji.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem2" = "Nie idź do pracy, jeśli nie czujesz się dobrze, aby nie stwarzać zagrożenia dla innych osób.";
+
+"ExposureSubmissionResult_testNegative_furtherInfos_listItem3" = "Jeżeli poczujesz się bardzo źle lub objawy się nasilą, skontaktuj się z lekarzem rodzinnym. Może on również Ci doradzić, czy powinieneś (powinnaś) wykonać kolejny test w kierunku SARS-CoV-2.";
+
+"ExposureSubmissionResult_testInvalid" = "Ustalenie wyniku Twojego testu jest niemożliwe";
+
+"ExposureSubmissionResult_testInvalidDesc" = "Wystąpił problem z ustaleniem wyniku Twojego testu. Skontaktuj się z odpowiednim ośrodkiem wykonującym testy lub laboratorium, aby dowiedzieć się, jak dalej postępować.";
+
+"ExposureSubmissionResult_testExpired" = "Ustalenie wyniku Twojego testu jest niemożliwe";
+
+"ExposureSubmissionResult_testExpiredDesc" = "Podczas ustalania wyniku testu pojawił się błąd. Twój kod QR wygasł.";
+
+"ExposureSubmissionResult_testPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
+
+"ExposureSubmissionResult_testPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.\n\nWynik testu otrzymasz również poza aplikacją. Organ ds. zdrowia publicznego powiadomi Cię, jeśli wynik testu będzie pozytywny.\n\nJeśli otrzymasz powiadomienie o pozytywnym wyniku testu poza aplikacją, usuń test aktualnie zarejestrowany w aplikacji. Zadzwoń na numer podany w sekcji „Poproś o TAN”, aby otrzymać numer TAN. Będziesz mieć wówczas możliwość zarejestrowania swojego wyniku w aplikacji za pomocą tego numeru, aby ostrzegać innych.";
+
+"ExposureSubmissionResult_testCertificate_title" = "Twój certyfikat testu na COVID";
+
+"ExposureSubmissionResult_testCertificate_testCenterNotSupported" = "Oficjalny cyfrowy certyfikat testu na COVID nie może zostać wydany, ponieważ ten punkt testowania nie wydaje certyfikatów testów.";
+
+"ExposureSubmissionResult_testCertificate_Pending" = "Twój oficjalny cyfrowy certyfikat testu na COVID nie jest jeszcze dostępny. Gdy tylko stanie się dostępny, pojawi się w Twojej aplikacji.";
+
+"ExposureSubmissionResult_testCertificate_NotRequested" = "Zgodnie z Twoją prośbą nie zostanie wydany żaden oficjalny cyfrowy certyfikat testu na COVID.";
+
+"ExposureSubmissionResult_testCertificate_AvailableInTab" = "Certyfikat testu dostępny jest w karcie „Certyfikaty”.";
+
+"ExposureSubmissionResult_antigenTestPending" = "Wynik Twojego testu nie jest jeszcze dostępny";
+
+"ExposureSubmissionResult_antigenTestPendingDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournal" = "Wynik Twojego testu zostanie dodany do dziennika kontaktów.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournal" = "Wynik Twojego testu zostanie dodany do dziennika kontaktów.";
+
+"ExposureSubmissionResult_antigenTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_pcrTestPendingContactJournalDesc" = "Wynik testu zostanie wyświetlony w aplikacji, jak tylko będzie dostępny.";
+
+"ExposureSubmissionResult_antigenTestNegativDesc" = "Szybki test nie dostarczył dowodów na to, że masz koronawirusa SARS-CoV-2.";
+
+"ExposureSubmissionResult_WarnOthersConsentGiven" = "Zgoda na „Ostrzeganie innych” udzielona";
+
+"ExposureSubmissionResult_WarnOthersConsentNotGiven" = "Brak zgody na „Ostrzeganie innych”";
+
+"ExposureSubmissionResult_testRemove" = "Usuń test";
+
+"ExposureSubmissionResult_testRemoveDesc" = "Przed zarejestrowaniem nowego testu musisz usunąć ostatni test.";
+
+"ExposureSubmissionResult_primaryButtonTitle" = "Wprowadź objawy";
+
+"ExposureSubmissionResult_secondaryButtonTitle" = "Nie wprowadzaj objawów";
+
+"ExposureSubmissionResult_deleteButton" = "Usuń test";
+
+"ExposureSubmissionResult_refreshButton" = "Aktualizuj";
+
+/* ExposureSubmissionSymptoms */
+"ExposureSubmissionSymptoms_Title" = "Objawy";
+
+"ExposureSubmissionSymptoms_Introduction" = "Możesz podać, czy i kiedy zauważyłeś(-łaś) objawy koronawirusa, aby umożliwić aplikacji dokładniejsze obliczenie ryzyka zakażenia innych osób. Ten krok jest dobrowolny. Jeśli nie chcesz podawać informacji o objawach, wybierz opcję „Brak odpowiedzi”.";
+
+"ExposureSubmissionSymptoms_Description" = "Czy w ciągu ostatnich kilku dni wystąpił u Ciebie jeden lub kilka z wymienionych poniżej objawów?";
+
+"ExposureSubmissionSymptoms_Symptom0" = "Podwyższona temperatura lub gorączka";
+
+"ExposureSubmissionSymptoms_Symptom1" = "Duszności";
+
+"ExposureSubmissionSymptoms_Symptom2" = "Utrata węchu/smaku";
+
+"ExposureSubmissionSymptoms_Symptom3" = "Kaszel";
+
+"ExposureSubmissionSymptoms_Symptom4" = "Katar";
+
+"ExposureSubmissionSymptoms_Symptom5" = "Ból gardła";
+
+"ExposureSubmissionSymptoms_Symptom6" = "Ból głowy i kończyn";
+
+"ExposureSubmissionSymptoms_Symptom7" = "Ogólne osłabienie i wyczerpanie";
+
+"ExposureSubmissionSymptoms_AnswerOptionYes" = "Tak";
+
+"ExposureSubmissionSymptoms_AnswerOptionNo" = "Nie";
+
+"ExposureSubmissionSymptoms_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
+
+"ExposureSubmissionSymptoms_ContinueButton" = "Dalej";
+
+"ExposureSubmissionSymptoms_DoneButton" = "Gotowe";
+
+/* ExposureSubmissionSymptomsOnset */
+"ExposureSubmissionSymptomsOnset_Title" = "Początek wystąpienia objawów";
+
+"ExposureSubmissionSymptomsOnset_Subtitle" = "Kiedy po raz pierwszy zauważyłeś(-aś) objawy?";
+
+"ExposureSubmissionSymptomsOnset_Description" = "Podaj jak najdokładniejszą datę.";
+
+"ExposureSubmissionSymptomsOnset_DatePickerTitle" = "Data";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionLastSevenDays" = "W ciągu ostatnich 7 dni";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionOneToTwoWeeksAgo" = "1-2 tygodnie temu";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionMoreThanTwoWeeksAgo" = "Ponad 2 tygodnie temu";
+
+"ExposureSubmissionSymptomsOnset_AnswerOptionPreferNotToSay" = "Brak odpowiedzi";
+
+"ExposureSubmissionSymptomsOnset_ContinueButton" = "To wszystko!";
+
+/* ExposureSubmissionSymptoms - Cancel alert */
+"ExposureSubmissionSymptoms_CancelAlertTitle" = "Czy chcesz anulować wprowadzanie objawów?";
+
+"ExposureSubmissionSymptoms_CancelAlertMessage" = "Przekazanie informacji o objawach pozwoli Ci na wysyłanie innym bardziej szczegółowych ostrzeżeń.";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonCancel" = "Tak";
+
+"ExposureSubmissionSymptoms_CancelAlertButtonContinue" = "Nie";
+
+/* ExposureSubmissionWarnOthers */
+"ExposureSubmissionWarnOthers_title" = "Ostrzegaj innych";
+
+"ExposureSubmissionWarnOthers_AccImageDescription" = "Zaszyfrowana diagnoza zakażenia jest przesyłana do systemu.";
+
+"ExposureSubmissionWarnOthers_sectionTitle" = "Możesz pomóc!";
+
+"ExposureSubmissionWarnOthers_description" = "Ponieważ zdiagnozowano u Ciebie koronawirusa, możesz ostrzec innych za pośrednictwem aplikacji. Jeżeli wykonałeś(-aś) szybki test, funkcja ostrzegania działa tylko w Niemczech. Jeśli wykonałeś(-aś) test PCR, funkcja ostrzegania działa w następujących krajach:";
+
+"ExposureSubmissionWarnOthers_supportedCountriesTitle" = "Funkcja ostrzegania działa w kilku krajach. Obecnie są to następujące kraje:";
+
+"ExposureSubmissionWarnOthers_consent_bullet1" = "Twoja zgoda jest dobrowolna.";
+
+"ExposureSubmissionWarnOthers_consent_bullet2" = "Jeśli udostępnisz wynik testu, pomożesz chronić innych przed zakażeniem.";
+
+"ExposureSubmissionWarnOthers_consent_bullet3" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
+
+"ExposureSubmissionWarnOthers_consent_bullet4" = "W sekcji „Moje zameldowania” znajdują się wydarzenia i miejsca, których zameldowani goście zostaną ostrzeżeni. Możesz usunąć pojedyncze zameldowania z listy, aby wykluczyć je z procesu ostrzegania.";
+
+"ExposureSubmissionWarnOthers_consent_bullet5" = "Aby wyrazić zgodę, musisz mieć ukończone 16 lat.";
+
+"ExposureSubmissionWarnOthers_continueButton" = "Akceptuj";
+
+/* Exposure Submission Result */
+"ExposureSubmissionResult_RemoveAlert_Title" = "Usunąć wynik testu?";
+
+"ExposureSubmissionResult_RemoveAlert_Text" = "Wynik testu zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu.\nMożesz w tym miejscu trwale usunąć wynik testu lub go odzyskać. Wynik testu zostanie automatycznie usunięty po 30 dniach.";
+
+"ExposureSubmissionResult_RemoveAlert_ConfirmButtonTitle" = "Usuń wynik testu";
+
+"ExposureSubmissionResult_RegistrationDateUnknown" = "Data rejestracji nieznana";
+
+"ExposureSubmissionResult_RegistrationDate" = "Test dodany dnia";
+
+"ExposureSubmissionResult_RegistrationDate_Antigen" = "Data wydania:";
+
+"ExposureSubmissionResult_RegistrationDate_Suffix_Antigen" = ".";
+
+"ExposureSubmissionResult_Person_Birthday_Prefix" = "Data urodzenia";
+
+"ExposureSubmissionResult_Abbreviation_Hours" = "godz.";
+
+"ExposureSubmissionResult_Abbreviation_Minutes" = "min";
+
+"ExposureSubmissionResult_Abbreviation_Seconds" = "sek.";
+
+"ExposureSubmissionResult_Timer_Title" = "Wynik dostępny od";
+
+"ExposureSubmissionResult_Negative_Antigen_Proof_Desc" = "Do rzetelnej weryfikacji wyświetlanego tutaj wyniku wymagany jest unijny cyfrowy certyfikat Covid. Jeśli podczas rejestracji testu zażądałeś(-aś) cyfrowego certyfikatu testu, a punkt testowy wydaje cyfrowe certyfikaty, możesz znaleźć swój cyfrowy certyfikat testu, korzystając z linku podanego powyżej. Znajdziesz go również na karcie „Certyfikaty”.\nProsimy również o zapoznanie się z kryteriami uznawania i ważności certyfikatów testów w kontekście celu, dla którego potrzebujesz dowodu.";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Title" = "Brak funkcji weryfikacji";
+
+"ExposureSubmissionResult_Negative_Antigen_NoProof_Desc" = "Ponieważ ten wynik testu jest anonimizowany, nie może służyć jako dowód negatywnego wyniku szybkiego testu.";
+
+/* Exposure Submission */
+"ExposureSubmissionError_ErrorPrefix" = "Podczas wysyłania Twoim danych pojawił się błąd techniczny. Skontaktuj się z infolinią techniczną. Numer telefonu znajdziesz w sekcji Informacje o aplikacji.";
+
+"ExposureSubmissionError_NoKeys" = "Klucz diagnozy jest niedostępny. Spróbuj ponownie jutro.";
+
+"ExposureSubmissionError_InvalidTan" = "Wygenerowany numer TAN jest nieprawidłowy i nie można go przesłać. Skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
+
+"ExposureSubmissionError_EnNotEnabled" = "Rejestrowanie narażenia jest nieaktywne.";
+
+"ExposureSubmissionError_NoRegistrationToken" = "Nie znaleziono tokena rejestracji na smartfonie.";
+
+"ExposureSubmissionError_InvalidResponse" = "Nie można przetworzyć odpowiedzi.";
+
+"ExposureSubmissionError_NoResponse" = "Odpowiedź nie zawiera żadnej treści.";
+
+"ExposureSubmissionError_QRAlreadyUsed" = "Kod QR jest niepoprawny lub został już zarejestrowany na Twoim smartfonie.\nOtrzymasz swój wynik testu z ośrodka wykonującego testy lub laboratorium niezależnie od ważności kodu QR. W przypadku zdiagnozowania u Ciebie koronawirusa organ ds. zdrowia publicznego zostanie powiadomiony przez ustanowiony prawnie kanał komunikacyjny i skontaktuje się z Tobą.\nPo usunięciu testu z aplikacji możesz go odzyskać z kosza.";
+
+"ExposureSubmissionError_QRAlreadyUsed_Title" = "Niepoprawny kod QR";
+
+"ExposureSubmissionError_TeleTanAlreadyUsed" = "TAN jest nieprawidłowy lub został już użyty. Więcej informacji można uzyskać dzwoniąc na numer wymieniony w sekcji „Poproś o TAN”.";
+
+"ExposureSubmissionError_QRNotExist_Title" = "Kod QR wygasł";
+
+"ExposureSubmissionError_QRNotExist" = "Usuń test z aplikacji.\nPotem możesz dodać nowy test do aplikacji.";
+
+"ExposureSubmissionError_RegTokenNotExist" = "Nie można wygenerować numeru TAN do przesłania. Skontaktuj się z techniczną infolinią, wybierając opcje: Informacje o aplikacji -> Infolinia techniczna.";
+
+"ExposureSubmissionError_other" = "Wystąpił błąd połączenia. Kod błędu dla pomocy technicznej:";
+
+"ExposureSubmissionError_otherend" = "Spróbuj ponownie.";
+
+"ExposureSubmissionError_httpError" = "Nie można nawiązać połączenia.";
+
+"ExposureSubmissionError_declined" = "Udostępnij swoje losowe identyfikatory, aby ostrzec inne osoby.";
+
+"ExposureSubmissionError_unknown" = "Nieznany błąd";
+
+"ExposureSubmissionError_defaultError" = "Błąd podczas przesyłania klucza";
+
+"ExposureSubmissionError_noAppConfiguration" = "Twoje połączenie internetowe zostało utracone. Sprawdź połączenie, a następnie ponownie otwórz aplikację.";
+
+/* ExposureSubmission OverwriteNotice */
+"ExposureSubmission_OverwriteNotice_Title" = "Uwaga";
+
+"ExposureSubmission_OverwriteNotice_PrimaryButton" = "Dalej";
+
+"ExposureSubmission_OverwriteNotice_Image_Description" = "Jeśli wprowadzisz nowy test, zastąpi on wszystkie poprzednie testy.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Headline" = "Zarejestrowano już test PCR.";
+
+"ExposureSubmission_OverwriteNotice_Pcr_Text" = "Zarejestrowano już test PCR. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny test PCR, pierwszy test PCR zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Headline" = "Zarejestrowano już szybki test.";
+
+"ExposureSubmission_OverwriteNotice_Antigen_Text" = "Zarejestrowano już szybki test. Aplikacja może zarządzać maksymalnie jednym szybkim testem i jednym testem PCR jednocześnie. Jeśli zarejestrujesz kolejny szybki test, pierwszy szybki test zostanie przeniesiony do kosza, skąd będziesz mógł go odzyskać lub trwale usunąć.";
+
+/* ExposureSubmission AntigenTest Profile Information */
+"ExposureSubmission_Antigen_Profile_Information_Title" = "Profil szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_Information_Image_Description" = "Przed budynkiem stoi kobieta ze smartfonem w dłoni. Kod QR symbolizuje profil szybkiego testu do zeskanowania.";
+
+"ExposureSubmission_Antigen_Profile_Information_Description_Title" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+
+"ExposureSubmission_Antigen_Profile_Information_DescriptionSubHeadline" = "Dzięki utworzeniu profilu szybkiego testu, nie będziesz musiał(a) ponownie wypełniać swoich danych osobowych przed wykonaniem szybkiego testu.";
+
+"ExposureSubmission_Antigen_Profile_Information_PrimaryButton" = "Kontynuuj";
+
+"ExposureSubmission_Antigen_Profile_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+/* ExposureSubmission AntigenTest Profile */
+"ExposureSubmission_Antigen_Profile_Header_Text" = "Profil szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_QRCode_Image_Description" = "Kod QR z Twoim profilem szybkiego testu";
+
+"ExposureSubmission_Antigen_Profile_Noice_Text" = "Pokaż ten kodu QR w punkcie testowania, aby przyśpieszyć rejestrację danych osobowych. Miej też pod ręką swój dowód osobisty.";
+
+"ExposureSubmission_Antigen_Profile_DateOfBirth_Format" = "Data urodzenia %@";
+
+"ExposureSubmission_Antigen_Profile_Primary_Button" = "Kontynuuj";
+
+"ExposureSubmission_Antigen_Profile_Secondary_Button" = "Edytuj";
+
+/* ExposureSubmission AntigenTest */
+"ExposureSubmission_Profile_CreateProfileTile_Title" = "Utwórz profil szybkiego testu";
+
+"ExposureSubmission_Profile_CreateProfileTile_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+
+"ExposureSubmission_Profile_ProfileTile_Title" = "Profil szybkiego testu";
+
+"ExposureSubmission_Profile_ProfileTile_Description" = "Zaoszczędź czas i przedstaw swój profil szybkiego testu w punkcie testowania.";
+
+/* ExposureSubmission TestCertificate */
+"ExposureSubmission_TestCertificate_Information_Title" = "Certyfikat testu na COVID";
+
+"ExposureSubmission_TestCertificate_Information_PrimaryButton" = "Poproś o certyfikat testu";
+
+"ExposureSubmission_TestCertificate_Information_SecondaryButton" = "Nie, dziękuję";
+
+"ExposureSubmission_TestCertificate_Information_ImageDescription" = "Kobieta ze smartfonem korzysta z aplikacji Corona-Warn-App. Znak kontrolny na pieczęci za nią symbolizuje ważny certyfikat.";
+
+"ExposureSubmission_TestCertificate_Information_Section01" = "Certyfikat testu jest wydawany tylko wtedy, gdy wynik testu jest negatywny.";
+
+"ExposureSubmission_TestCertificate_Information_Section02" = "Certyfikat testu jest ważnym dowodem negatywnego wyniku testu na terenie UE (np. dla celów podróży).";
+
+"ExposureSubmission_TestCertificate_Information_Subheadline" = "Za pomocą aplikacji możesz poprosić o oficjalny unijny cyfrowy certyfikat testu na COVID, który zostanie następnie w niej dodany.";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayPlaceholder" = "Data urodzenia";
+
+"ExposureSubmission_TestCertificate_Information_BirthdayText" = "Ze względów bezpieczeństwa certyfikat testu jest zabezpieczony za pomocą daty urodzenia. Certyfikat testu może zostać wydany tylko po podaniu prawidłowej daty urodzenia.";
+
+"ExposureSubmission_TestCertificate_Information_Dataprivacy_Title" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Title" = "Anuluj rejestrację";
+
+"ExposureSubmission_TestCertificate_Information_Alert_Message" = "Anulowanie rejestracji testu uniemożliwi otrzymanie wyniku testu w aplikacji.";
+
+"ExposureSubmission_TestCertificate_Information_Alert_ContinueRegistration" = "Kontynuuj rejestrację";
+
+"ExposureSubmission_TestCertificate_Information_Alert_CancelRegistration" = "Anuluj rejestrację";
+
+/* Tracing Enable/Disable Settings */
+"ExposureNotificationSetting_TracingSettingTitle" = "Rejestrowanie narażenia";
+
+"ExposureNotificationSetting_EnableTracing" = "Rejestrowanie narażenia";
+
+"ExposureNotificationSetting_Tracing_Limited" = "Ograniczone";
+
+"ExposureNotificationSetting_Tracing_Deactivated" = "Dezaktywowane";
+
+"ExposureNotificationSetting_ActionCell_Header" = "Ustawienie";
+
+"ExposureNotificationSetting_DescriptionTitle_Inactive" = "Aktywuj rejestrowanie narażenia";
+
+"ExposureNotificationSetting_DescriptionTitle" = "Jak działa funkcja rejestrowania narażenia";
+
+"ExposureNotificationSetting_DescriptionText1" = "Musisz włączyć funkcję rejestrowania narażenia, aby aplikacja mogła ustalić, czy dotyczy Cię ryzyko zakażenia po kontakcie z zainfekowanym użytkownikiem aplikacji. Funkcja rejestrowania narażenia działa we wszystkich uczestniczących krajach, co oznacza, że potencjalne narażenie użytkowników jest wykrywane również przez inne oficjalne aplikacje koronawirusowe.";
+
+"ExposureNotificationSetting_DescriptionText2" = "Działanie funkcji rejestrowania narażenia polega na odbieraniu przez Twój iPhone za pomocą Bluetooth zaszyfrowanych, losowych identyfikatorów innych użytkowników aplikacji i przekazywaniu Twoich własnych, losowych identyfikatorów do ich smartfonów. Codziennie aplikacja pobiera listy losowych identyfikatorów – wraz z wszelkimi opcjonalnie podawanymi informacjami o wystąpieniu objawów – wszystkich użytkowników, którzy mieli pozytywny wynik testu na obecność koronawirusa i dobrowolnie udostępnili tę informację (a dokładnie swoje losowe identyfikatory) poprzez swoją aplikację. Listy te są następnie porównywane z losowymi identyfikatorami innych użytkowników, które zarejestrował Twój iPhone, w celu obliczenia prawdopodobieństwa Twojego zakażenia i ostrzeżenia Cię w razie potrzeby.";
+
+"ExposureNotificationSetting_DescriptionText3" = "Funkcję rejestrowania narażenia można wyłączyć w dowolnym momencie.";
+
+"ExposureNotificationSetting_DescriptionText4" = "Dane osobowe, takie jak imię i nazwisko, adres czy lokalizacja, nie są nigdy gromadzone przy rejestrowaniu narażenia, ani nie są przekazywane innym użytkownikom. Nie jest możliwe wykorzystanie losowych identyfikatorów w celu ustalenia tożsamości poszczególnych osób.";
+
+"ExposureNotificationSetting_Activate_Bluetooth" = "Włącz Bluetooth";
+
+"ExposureNotificationSetting_Bluetooth_Description" = "Należy włączyć Bluetooth, aby funkcja rejestrowania narażenia mogła rejestrować kontakty. Włącz Bluetooth w ustawieniach swojego urządzenia.";
+
+"ExposureNotificationSetting_Activate_Internet" = "Otwórz połączenie z Internetem";
+
+"ExposureNotificationSetting_Internet_Description" = "Rejestrowanie narażenia wymaga połączenia z Internetem w celu obliczenia ryzyka zakażenia. Włącz WI-FI lub dane komórkowe w ustawieniach swojego urządzenia.";
+
+"ExposureNotificationSetting_Detail_Action_Button" = "Otwórz ustawienia urządzenia";
+
+"ExposureNotificationSetting_Activate_OSENSetting" = "Włącz powiadomienia o narażeniu";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description" = "Aby rejestrowanie narażenia było możliwe, należy aktywować funkcję powiadamiania o narażeniu w ustawieniach urządzenia w celu umożliwienia rejestracji kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Udostępnij informacje o narażeniu”. Następnie zdefiniuj aplikację jako aktywną dla powiadomień o narażeniu, wybierając opcję „Określ jako region aktywny”.";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Pre13.7" = "Aktywuj powiadomienia o narażeniu na COVID-19";
+
+"ExposureNotificationSetting_Activate_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga aktywacji powiadomień o narażeniu na COVID-19 w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” i aktywuj „Powiadomienia o narażeniu na COVID-19” w ustawieniach.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting" = "Określ region aktywny";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description_Pre13.7" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Ustawienia rejestrowania narażenia na COVID-19” i zaznacz Corona-Warn-App jako aplikacje aktywną.";
+
+"ExposureNotificationSetting_SetActiveApp_OSENSetting_Description" = "Rejestrowanie narażenia wymaga zdefiniowania aplikacji Corona-Warn-App jako aktywnej w ustawieniach urządzenia, aby umożliwić rejestrowanie kontaktów. Wybierz opcję „Otwórz ustawienia urządzenia” -> „Powiadomienia o narażeniu” -> „Określ jako region aktywny”.";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting" = "Włącz rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19";
+
+"ExposureNotificationSetting_ParentalControls_OSENSetting_Description" = "W celu rejestrowania narażenia należy aktywować funkcję rejestrowania i powiadamiania o kontakcie z chorymi na COVID-19 w ustawieniach systemu w celu umożliwienia rejestracji kontaktów. Włącz funkcję „Rejestrowanie i powiadamianie o kontakcie z chorymi na COVID-19” w ustawieniach systemu.";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting" = "Wymagana autoryzacja";
+
+"ExposureNotificationSetting_AuthorizationRequired_OSENSetting_Description" = "Potwierdź korzystanie z funkcji rejestrowania narażenia na COVID-19.";
+
+"ExposureNotificationSetting_AuthorizationRequired_ActionTitle" = "Autoryzacja";
+
+"ExposureNotificationSetting_AccLabel_Enabled" = "Trzy osoby aktywowały rejestrowanie narażenia na swoich smartfonach, które będą rejestrować ich wzajemne kontakty.";
+
+"ExposureNotificationSetting_AccLabel_Disabled" = "Jedna osoba dezaktywowała rejestrowanie narażenia na swoim smartfonie, więc kontakt z dwiema pozostałymi osobami nie jest rejestrowany.";
+
+"ExposureNotificationSetting_AccLabel_BluetoothOff" = "Jedna osoba wyłączyła Bluetooth na swoim smartfonie, więc kontakt z dwiema pozostałymi osobami nie jest rejestrowany.";
+
+"ExposureNotificationSetting_AccLabel_InternetOff" = "Osoba wyłączyła połączenie z Internetem na swoim smartfonie, więc ustalenie jej ostatnich kontaktów jest niemożliwe.";
+
+"ExposureNotificationSetting_Activate_Action" = "Akceptuj";
+
+"ExposureNotificationSetting_Dismiss_Action" = "Anuluj";
+
+"ExposureNotificationSetting_GeneralError_Title" = "Błąd";
+
+"ExposureNotificationSetting_GeneralError_LearnMore_Action" = "Dowiedz się więcej";
+
+"ExposureNotificationSetting_AuthenticationError" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy w swoich ustawieniach masz włączony dziennik narażeń na COVID-19.";
+
+"ExposureNotificationSetting_exposureNotification_Required" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy funkcja powiadamiania o narażeniu na COVID-19 jest aktywna w ustawieniach dla tej aplikacji.";
+
+"ExposureNotificationSetting_exposureNotification_unavailable" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Sprawdź, czy ta aplikacja jest wybrana w Twoich ustawieniach jako aktywna aplikacja do rejestrowania narażenia na COVID-19. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania.";
+
+"ExposureNotificationSetting_unknownError" = "Wystąpił nieznany błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania.";
+
+"ExposureNotificationSetting_apiMisuse" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił wewnętrzny błąd. Aby uzyskać więcej informacji, odwiedź naszą stronę Często zadawane pytania i spróbuj ponownie później.";
+
+"ExposureNotificationSetting_notResponding" = "Podczas aktywacji funkcji rejestrowania narażenia wystąpił błąd. Uruchom ponownie swoje urządzenie. Jeśli błąd nadal występuje, odwiedź stronę internetową z często zadawanymi pytaniami lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+/* EU Settings */
+"ExposureNotificationSetting_EU_Title" = "Rejestrowanie narażenia w różnych krajach";
+
+"ExposureNotificationSetting_EU_Desc_1" = "Kilka krajów współpracuje ze sobą w zakresie aktywacji transgranicznych alertów wysyłanych poprzez wspólny serwer wymiany danych. Podczas rejestrowania narażenia można na przykład uwzględniać również kontakty z użytkownikami oficjalnej aplikacji koronawirusowej z innych współpracujących krajów.";
+
+"ExposureNotificationSetting_EU_Desc_2" = "W tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów za pośrednictwem swojej aplikacji, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój IPhone. \n\nPobieranie list jest zazwyczaj bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych z tego tytułu w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+
+"ExposureNotificationSetting_EU_Desc_3" = "Następujące kraje uczestniczą obecnie w międzynarodowym rejestrowaniu narażenia:";
+
+"ExposureNotificationSetting_EU_Desc_4" = "Informacje aplikacji o prywatności danych (łącznie z wyjaśnieniem dotyczącym przetwarzania danych wykonywanego dla funkcji rejestrowania narażenia) można znaleźć w menu w sekcji „Informacje aplikacji” > „Informacje o ochronie danych”.";
+
+/* EU Tracing Risk decription */
+"ExposureNotificationSetting_euTracingRiskDeterminationTitle" = "Rejestrowanie narażenia w różnych krajach";
+
+"ExposureNotificationSetting_euTracingAllCountriesTitle" = "Kraje uczestniczące";
+
+"ExposureNotificationSetting_EU_Empty_Error_Title" = "Nie można teraz wyświetlić krajów";
+
+"ExposureNotificationSetting_EU_Empty_Error_Desc" = "Twoje połączenie z Internetem mogło zostać utracone. Zadbaj o jego przywrócenie.";
+
+"ExposureNotificationSetting_EU_Empty_Error_Button_Title" = "Otwórz ustawienia urządzenia";
+
+/* Home Navigation Bar */
+"Home_LeftBarButton_description" = "Logo Corona-Warn-App";
+
+"Home_RightBarButton_description" = "Informacje";
+
+/* Home Active card */
+"Home_Activate_Card_On_Title" = "Rejestrowanie narażenia aktywne";
+
+"Home_Activate_Card_Off_Title" = "Rejestrowanie narażenia zatrzymane";
+
+"Home_Activate_Card_Bluetooth_Off_Title" = "Bluetooth wyłączony";
+
+/* Home common card */
+"Home_Risk_Date_Item_Title" = "Zaktualizowano: %@";
+
+"Home_Risk_No_Date_Title" = "Nieznane";
+
+"Home_Risk_Period_Disabled_Button_Title" = "Aktualizacja tylko co %@\U00A0godzin(y)";
+
+"Home_Risk_Last_Contact_Item_Title" = "Ostatnio dnia %@";
+
+"Home_Risk_Last_Contact_Item_Title_One_Risk_Day" = "Dnia %@";
+
+"Home_Risk_Last_Activate_Item_Title" = "Ostatnie sprawdzenie narażenia: %@";
+
+"Home_Risk_Last_Activate_Item_Unknown_Title" = "Nieznane ryzyko";
+
+"Home_Risk_Last_Activate_Item_Low_Title" = "Niskie ryzyko";
+
+"Home_Risk_Last_Activate_Item_High_Title" = "Podwyższone ryzyko";
+
+"Home_RiskCard_Update_Button" = "Aktualizuj";
+
+/* Home Inactive card */
+"Home_Risk_Inactive_NoCalculation_Possible_Title" = "Rejestrowanie narażenia zatrzymane";
+
+"Home_Risk_Inactive_Outdated_Results_Title" = "Rejestrowanie narażenia jest niemożliwe";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Body" = "Aktywuj rejestrowanie narażenia, aby już dziś ocenić swoje ryzyko.";
+
+"Home_Risk_Inactive_Outdated_Results_Body" = "Rejestrowanie narażenia nie mogło zostać zaktualizowane przez okres dłuższy niż 24 godziny.";
+
+"Home_Risk_Inactive_NoCalculation_Possible_Button" = "Aktywuj rejestrowanie narażenia";
+
+"Home_Risk_Inactive_Outdated_Results_Button" = "Aktywuj rejestrowanie narażenia";
+
+/* Home Low card */
+"Home_Risk_Low_Title" = "Niskie ryzyko";
+
+/* Home High card */
+"Home_Risk_High_Title" = "Podwyższone ryzyko";
+
+/* Home Status Check */
+"Home_Risk_Status_Downloading_Title" = "Dane są pobierane...";
+
+"Home_Risk_Status_Detecting_Title" = "Sprawdzanie w toku ...";
+
+"Home_Risk_Status_Downloading_Body" = "Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
+"Home_Risk_Status_Detecting_Body" = "Twoje dane narażenia są sprawdzane. Może to potrwać kilka minut. Dziękujemy za cierpliwość.";
+
+/* Home exposure detection failed card */
+"Home_Risk_Failed_Title" = "Sprawdzanie narażeń nie powiodło się";
+
+"Home_Risk_Failed_Body" = "Synchronizacja losowych identyfikatorów z serwerem nie powiodła się. Możesz ponownie uruchomić synchronizację ręcznie.";
+
+"Home_Risk_Restart_Button_Title" = "Uruchom ponownie";
+
+/* Home Test Result Card */
+"Home_resultCard_PCR_Title" = "Test PCR";
+
+"Home_resultCard_Antigen_Title" = "Szybki test";
+
+"Home_resultCard_LoadingErrorTitle" = "Nie można załadować wyniku Twojego testu.";
+
+/* - Pending */
+"Home_resultCard_ResultUnvailableTitle" = "Wynik Twojego testu nie jest jeszcze dostępny";
+
+"Home_resultCard_Pending_PCR_Desc" = "Ustalanie wyniku Twojego testu PCR jeszcze się nie zakończyło.";
+
+"Home_resultCard_Pending_Antigen_Desc" = "Ustalanie wyniku Twojego szybkiego testu jeszcze się nie zakończyło.";
+
+/* - Available */
+"Home_resultCard_ResultAvailableTitle" = "Pobierz wynik testu";
+
+"Home_resultCard_AvailableDesc" = "Jeśli masz pozytywny wynik testu na obecność koronawirusa, możesz ostrzec innych.";
+
+/* - Negative */
+"Home_resultCard_NegativeCaption" = "Wyniki";
+
+"Home_resultCard_NegativeTitle" = "SARS-CoV-2";
+
+"Home_resultCard_NegativeTitleNegative" = "Wynik negatywny";
+
+"Home_resultCard_NegativeDesc" = "Nie zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
+
+"Home_resultCard_NegativeDatePCR" = "Test zarejestrowany dnia %@";
+
+"Home_resultCard_NegativeDateAntigen" = "Wykonany dnia %@";
+
+/* - Invalid */
+"Home_resultCard_InvalidTitle" = "Nieprawidłowy test";
+
+"Home_resultCard_InvalidDesc" = "Ustalenie wyniku Twojego testu jest niemożliwe.";
+
+/* - Expired */
+"Home_resultCard_ExpiredTitle" = "Utrata ważności";
+
+"Home_resultCard_ExpiredDesc" = "Twój test ma więcej niż 21 dni i stracił ważność. Usuń test. Będziesz mieć wówczas możliwość dodania kolejnego.";
+
+/* - Outdated */
+"Home_resultCard_OutdatedTitle" = "Test nie jest już aktualny";
+
+"Home_resultCard_OutdatedDesc" = "Twój szybki test jest starszy niż 48 godzin i nie będzie już tutaj wyświetlany. ";
+
+/* - Loading */
+"Home_resultCard_LoadingTitle" = "Aktualizacja w toku …";
+
+"Home_resultCard_LoadingBody" = "Bieżące dane są pobierane i sprawdzane. Może to potrwać kilka minut.";
+
+/* - Button */
+"Home_resultCard_ShowResultButton" = "Wyświetl test:";
+
+"Home_resultCard_RetrieveResultButton" = "Pobierz wynik testu";
+
+"Home_resultCard_DeleteTestButton" = "Usuń test";
+
+"Home_resultCard_HideTestButton" = "Nie wyświetlaj ponownie";
+
+/* - Show Positive */
+"Home_Finding_Positive_Card_Status_Title" = "Zakażenie SARS-CoV-2";
+
+"Home_Finding_Positive_Card_Status_Subtitle" = "Zdiagnozowano u Ciebie wirusa SARS-CoV-2.";
+
+"Home_Finding_Positive_Card_Status_DatePCR" = "Test zarejestrowany dnia %@";
+
+"Home_Finding_Positive_Card_Status_DateAntigen" = "Wykonany dnia %@";
+
+"Home_Finding_Positive_Card_Note_Title" = "Uwaga:";
+
+"Home_Finding_Positive_Card_PCR_Item0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"Home_Finding_Positive_Card_PCR_Item1" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"Home_Finding_Positive_Card_PCR_Item2" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+
+"Home_Finding_Positive_Card_RAT_Item0" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"Home_Finding_Positive_Card_RAT_Item1" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"Home_Finding_Positive_Card_RAT_Item2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"Home_Finding_Positive_Card_Button" = "Ostrzegaj innych";
+
+"Home_Finding_Positive_Card_Button_Remove_Test" = "Usuń test";
+
+/* Home Test Registration Card */
+"Home_TestRegistration_Title" = "Zarządzaj testami";
+
+"Home_TestRegistration_Body" = "Znajdź ośrodki testujące w pobliżu i zarejestruj test, aby móc szybciej ostrzegać innych, lub poproś o wydanie cyfrowego certyfikatu testu na COVID.";
+
+"Home_TestRegistration_Button" = "Kontynuuj";
+
+/* Home Trace Locations Card */
+"Home_TraceLocationsCard_Title" = "Planujesz wydarzenie?";
+
+"Home_TraceLocationsCard_Body" = "Planujesz wydarzenie lub prowadzisz firmę? Utwórz kod QR, aby Twoi goście mogli zameldować się po przybyciu na miejsce.";
+
+"Home_TraceLocationsCard_Button" = "Utwórz kod QR";
+
+/* Home More Card */
+"Home_MoreCard_Title" = "Więcej";
+
+"Home_MoreCard_SettingsTitle" = "Ustawienia";
+
+"Home_MoreCard_RecycleBinTitle" = "Kosz";
+
+"Home_MoreCard_AppInformationTitle" = "Informacje o aplikacji";
+
+"Home_MoreCard_FAQTitle" = "Często zadawane pytania";
+
+"Home_MoreCard_SocialMedia" = "Media społecznościowe";
+
+"Home_MoreCard_ShareTitle" = "Udostępnij";
+
+/* Home Alert Risk Lowered */
+"Home_Alert_RiskStatusLowered_Title" = "Zmiana Twojego statusu ryzyka";
+
+"Home_Alert_RiskStatusLowered_Message" = "Ostatnie narażenie, które spowodowało zwiększenie Twojego ryzyka, miało miejsce ponad 14 dni temu. Z tego powodu ryzyko zakażenia zostało ponownie sklasyfikowane jako niskie.\n\nZalecenia:\nJeśli nie masz żadnych objawów zakażenia COVID-19, przestrzegaj nadal obowiązujących zasad dotyczących zachowania dystansu i higieny.\nJeżeli masz objawy zakażenia COVID-19, zalecamy wizytę u lekarza i wykonanie testu.";
+
+"Home_Alert_RiskStatusLowered_PrimaryButtonTitle" = "OK";
+
+/* App Information */
+"App_Information_Title" = "Informacje o aplikacji";
+
+"App_Information_AppVersion" = "Wersja aplikacji: %@";
+
+"App_Information_CCLVersion" = "Wersja CCL: %@";
+
+/* App Information - About */
+"App_Information_About_Navigation" = "O aplikacji";
+
+"App_Information_About_ImageDescription" = "";
+
+"App_Information_About_Title" = "Razem pokonajmy koronawirusa";
+
+"App_Information_About_Description" = "Instytut Roberta Kocha (RKI) to niemiecka federalna instytucja zdrowia publicznego. RKI publikuje aplikację Corona-Warn-App w imieniu rządu federalnego. Aplikacja ta służy jako cyfrowe uzupełnienie już wprowadzonych środków ochrony zdrowia publicznego, takich jak zachowanie dystansu społecznego, dbanie o higienę oraz noszenie maseczek.";
+
+"App_Information_About_Text" = "Osoby korzystające z aplikacji pomagają w śledzeniu i przerwaniu łańcuchów zakażeń. Aplikacja zapisuje kontakty z innymi osobami lokalnie na Twoim urządzeniu. Otrzymasz powiadomienie, jeśli okaże się, że u osób, z którymi miałeś(-aś) kontakt, zdiagnozowano później koronawirusa. Twoja tożsamość i prywatność są zawsze chronione.";
+
+"App_Information_About_LinkText" = "Informacja o aplikacji w języku uproszczonym i języku migowym";
+
+/* App Information - FAQ */
+"App_Information_FAQ_Navigation" = "Często zadawane pytania";
+
+/* App Information - Contact */
+"App_Information_Contact_Navigation" = "Infolinia techniczna";
+
+"App_Information_Contact_ImageDescription" = "Mężczyzna korzystający z zestawu słuchawkowego prowadzi rozmowę telefoniczną.";
+
+"App_Information_Contact_Title" = "Jak możemy Ci pomóc?";
+
+"App_Information_Contact_Description" = "W przypadku pytań technicznych dotyczących Corona-Warn-App prosimy o kontakt z naszą ogólnokrajową infolinią.";
+
+"App_Information_Contact_Hotline_Title" = "Infolinia techniczna:";
+
+"App_Information_Contact_Hotline_Text_Domestic" = "0800 7540001";
+
+"App_Information_Contact_Hotline_Number_Domestic" = "08007540001";
+
+"App_Information_Contact_Hotline_Details_Domestic" = "Dla połączeń z terytorium Niemiec.\nPołączenie jest bezpłatne.";
+
+"App_Information_Contact_Hotline_Text_Foreign" = "+49 30 498 75401";
+
+"App_Information_Contact_Hotline_Number_Foreign" = "+493049875401";
+
+"App_Information_Contact_Hotline_Details_Foreign" = "Dla połączeń spoza Niemiec.\nObowiązują opłaty podane przez operatora telefonicznego.";
+
+"App_Information_Contact_Hotline_Terms" = "Zapewniamy obsługę klienta w następujących językach: \nangielskim, niemieckim, tureckim\n\nGodziny pracy:\nPon.-Sob.: 7:00 – 22:00 (CET)\n(z wyjątkiem świąt)\nW razie jakichkolwiek innych pytań zadzwoń na numer 116 117 (w Niemczech). Następnie w trakcie automatycznego komunikatu naciśnij 2 (punkt Związkowego Ministerstwa Zdrowia). Naciśnij 1 (pogotowie ratunkowe) tylko, jeśli masz objawy.";
+
+/* App Information - Imprint */
+"App_Information_New_Features_Navigation" = "Nowe funkcje";
+
+"App_Information_Imprint_Navigation" = "Impressum";
+
+"App_Information_Imprint_ImageDescription" = "W ręce trzymany jest smartfon z dużą ilością tekstu na ekranie. Obok tekstu znajduje się symbol paragrafu reprezentujący impressum.";
+
+"App_Information_Imprint_Section1_Title" = "Opublikowane przez";
+
+"App_Information_Imprint_Section1_Text" = "(odpowiedzialny zgodnie z § 5 (1) TMG, § 18 (1) MStV)";
+
+"App_Information_Imprint_Section2_Title" = "Robert Koch Institute";
+
+"App_Information_Imprint_Section2_Text" = "Nordufer 20\n13353 Berlin\n\nreprezentowany przez prezesa";
+
+"App_Information_Imprint_Section3_Title" = "Kontakt";
+
+"App_Information_Imprint_Section3_Text" = "E-mail: CoronaWarnApp@rki.de";
+
+"App_Information_Imprint_Section4_Title" = "Numer identyfikacyjny VAT";
+
+"App_Information_Imprint_Section4_Text" = "DE 165 893 430";
+
+"App_Information_Contact_Form_Title" = "Formularz kontaktowy";
+
+/* App Information - Legal */
+"App_Information_Legal_Navigation" = "Informacje prawne";
+
+/* App Information - Privacy */
+"App_Information_Privacy_Navigation" = "Prywatność danych";
+
+"App_Information_Legal_ImageDescription" = "W ręce trzymany jest smartfon z dużą ilością tekstu na ekranie. Obok tekstu znajduje się waga symbolizująca informacje prawne.";
+
+"App_Information_Privacy_Title" = "Prywatność danych";
+
+"App_Information_Privacy_Description" = "Zachowasz anonimowość.\nTwoje dane są w pełni zaszyfrowane i przesyłane pod pseudonimem.";
+
+/* App Information - Terms */
+"App_Information_Terms_Navigation" = "Warunki korzystania";
+
+"App_Information_Terms_ImageDescription" = "W ręce trzymany jest smartfon z dużą ilością tekstu na ekranie. Obok tekstu znajduje się znacznik wyboru symbolizujący zaakceptowanie warunków korzystania.";
+
+"App_Information_Terms_Title" = "Warunki korzystania";
+
+/* App Information - Error Report */
+"ErrorReport_PrivacyInformation" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności";
+
+"ErrorReport_ActiveStatus_Title" = "Analiza błędu w toku";
+
+"ErrorReport_InactiveStatus_Title" = "Nieaktywne";
+
+"ErrorReport_Progress_Description" = "Bieżący rozmiar: %@ (nieskompresowane)";
+
+"ErrorReport_StartButtonTitle" = "Uruchom";
+
+"ErrorReport_StopAndDeleteButtonTitle" = "Zatrzymaj i usuń";
+
+"ErrorReport_SaveButtonTitle" = "Udostępnij i kontynuuj";
+
+"ErrorReport_SendButtonTitle" = "Wyślij raport o błędzie";
+
+"ErrorReport_SendReports_Title" = "Wyślij raport o błędzie";
+
+"ErrorReport_SendReports_Paragraph" = "Wysłanie zarejestrowanego raportu o błędzie do pomocy technicznej RKI wymaga Twojej zgody.\n\nPo wysłaniu raportu otrzymasz identyfikator raportu o błędzie. Możesz podać ten identyfikator, aby na przykład zapewnić personelowi pomocy technicznej więcej informacji i umożliwić przypisanie go do raportu o błędzie. Jeśli nie podasz identyfikatora raportu o błędzie, RKI nie będzie mieć możliwości przypisania raportu do Ciebie.";
+
+"ErrorReport_SendReports_Details" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
+
+"ErrorReport_SendReports_Button_Title" = "Akceptuj i wyślij";
+
+/* Invite Friends */
+"InviteFriends_NavTitle" = "Poleć nas";
+
+"InviteFriends_Subtitle" = "Poleć aplikację Corona-Warn-App";
+
+"InviteFriends_Title" = "Razem pokonajmy koronawirusa";
+
+"InviteFriends_Description" = "Im więcej osób będzie korzystać z aplikacji, tym szybciej będziemy mogli przerwać łańcuchy zakażeń. Zachęć rodzinę i znajomych do pobrania aplikacji.";
+
+"InviteFriends_Button" = "Wyślij link do pobrania";
+
+"InviteFriends_ShareTitle" = "Wspólna walka z koronawirusem. Ja już biorę udział, a Ty?";
+
+"InviteFriends_Illustration_Label" = "Mężczyzna udostępnia aplikację Corona-Warn czterem innym osobom.";
+
+/* Reset View */
+"Reset_NavTitle" = "Resetuj";
+
+"Reset_Header1" = "Czy na pewno chcesz resetować aplikację?";
+
+"Reset_Descrition1" = "Nie będziesz już więcej informowany(-a) o narażeniach i nie będziesz mieć możliwości ostrzegania innych użytkowników.";
+
+"Reset_Button" = "Resetuj aplikację";
+
+"Reset_Discard" = "Anuluj";
+
+"Reset_InfoTitle" = "Usuń dziennik narażeń";
+
+"Reset_InfoDescription" = "Dziennik narażeń należy usunąć osobno w ustawieniach urządzenia.";
+
+"Reset_Subtitle" = "Resetuj aplikację";
+
+"Reset_ImageDescription" = "W ręce trzymany jest smartfon z symbolem, który wskazuje, że aplikacja jest resetowana.";
+
+"Reset_ConfirmDialog_Title" = "Resetuj aplikację";
+
+"Reset_ConfirmDialog_Description" = "Nie będziesz już więcej informowany(-a) o narażeniach i nie będziesz mieć możliwości ostrzegania innych użytkowników. Tej procedury nie można cofnąć.";
+
+"Reset_ConfirmDialog_Cancel" = "Anuluj";
+
+"Reset_ConfirmDialog_Confirm" = "Resetuj";
+
+/* Local Notifications */
+"local_notifications_ignore" = "Ignoruj";
+
+"local_notifications_detectexposure_title" = "Corona-Warn-App";
+
+"local_notifications_detectexposure_body" = "Masz nowe wiadomości od Corona-Warn-App.";
+
+"local_notifications_testresults_title" = "Corona-Warn-App";
+
+"local_notifications_testresults_body" = "Masz nowe wiadomości od Corona-Warn-App.";
+
+"local_notifications_certificate_title" = "Corona-Warn-App";
+
+"local_notifications_certificate_body" = "Masz nowe wiadomości od Corona-Warn-App.";
+
+"local_notifications_certificate_validity_body" = "Sprawdź ważność swoich certyfikatów.";
+
+/* Risk Legend */
+"RiskLegend_Title" = "Przegląd";
+
+"RiskLegend_Subtitle" = "Ważne funkcje i pojęcia";
+
+"RiskLegend_Legend1_Title" = "Rejestrowanie narażenia";
+
+"RiskLegend_Legend1_Text" = "Rejestrowanie narażenia jest jedną z trzech głównych funkcji aplikacji. Po jej aktywacji automatycznie rejestrowane są kontakty ze smartfonami innych osób.";
+
+"RiskLegend_Legend2_Title" = "Ryzyko zakażenia";
+
+"RiskLegend_Legend2_Text" = "Jeśli rejestrowanie narażenia jest aktywne, aplikacja oblicza Twoje osobiste ryzyko zakażenia poprzez pomiar czasu trwania i bliskości Twojego kontaktu z osobami, u których zdiagnozowano koronawirusa w ciągu ostatnich 14 dni.";
+
+"RiskLegend_Legend2_RiskLevels" = "Może wyświetlić się następujący status ryzyka:";
+
+"RiskLegend_Legend2_High" = "Podwyższone ryzyko";
+
+"RiskLegend_Legend2_Low" = "Niskie ryzyko";
+
+"RiskLegend_Legend3_Title" = "Powiadamianie innych użytkowników";
+
+"RiskLegend_Legend3_Text" = "Możesz zarejestrować swój test i pobrać jego wynik w aplikacji. W przypadku zdiagnozowania u Ciebie koronawirusa będziesz mieć możliwość powiadomienia innych i przerwania łańcucha zakażeń.";
+
+"RiskLegend_Definitions_Title" = "Definicja terminów";
+
+"RiskLegend_Store_Title" = "Dziennik narażeń";
+
+"RiskLegend_Store_Text" = "Lista otrzymanych i tymczasowych losowych identyfikatorów zapisanych tymczasowo w pamięci masowej systemu operacyjnego. Lista ta jest odczytywana podczas sprawdzania narażeń. Wszystkie losowe identyfikatory są automatycznie usuwane po 14 dniach.";
+
+"RiskLegend_Check_Title" = "Sprawdzanie narażenia";
+
+"RiskLegend_Check_Text" = "Odczytanie danych dziennika narażeń i porównanie z powiadomieniami o ryzyku otrzymanymi od innych użytkowników. Ryzyko jest sprawdzane automatycznie kilka razy dziennie.";
+
+"RiskLegend_Contact_Title" = "Ryzyko narażenia";
+
+"RiskLegend_Contact_Text" = "Narażenie na kontakt z osobą zakażoną, która udostępniła innym pozytywny wynik swojego testu za pośrednictwem aplikacji. Narażenie musi spełniać określone kryteria dotyczące czasu trwania, odległości i podejrzenia zakaźności drugiej osoby, aby zostało zaklasyfikowane jako narażenie wysokiego ryzyka.";
+
+"RiskLegend_Notification_Title" = "Powiadomienie o narażeniu";
+
+"RiskLegend_Notification_Text" = "Wyświetlanie narażeń w Corona-Warn-App.";
+
+"RiskLegend_Random_Title" = "Identyfikator losowy";
+
+"RiskLegend_Random_Text" = "Losowe identyfikatory są kombinacją cyfr i liter generowanych losowo. Są one wymieniane pomiędzy urządzeniami znajdującymi się w bliskiej odległości od siebie. Losowych identyfikatorów nie można przypisać do konkretnej osoby. Są one automatycznie usuwane po 14 dniach. Osoby, u których zdiagnozowano koronawirusa, mogą zdecydować się na udostępnienie swoich losowych identyfikatorów z ostatnich 14 dni innym użytkownikom aplikacji.";
+
+"RiskLegend_Image1_AccLabel" = "Urządzenie pokazuje różne ponumerowane treści.";
+
+/* Update Message */
+"Update_Message_Title" = "Dostępna aktualizacja";
+
+"Update_Message_Text" = "Dostępna jest aktualizacja dla Corona-Warn-App.";
+
+"Update_Message_Text_Force" = "Aplikacji Corona-Warn-App możesz użyć ponownie dopiero po zainstalowaniu najnowszej aktualizacji.";
+
+"Update_Message_Action_Update" = "Aktualizuj";
+
+"Update_Message_Action_Later" = "Później";
+
+/* ENATanInput */
+"ENATanInput_Empty" = "Puste";
+
+"ENATanInput_InvalidCharacter" = "Nieprawidłowy znak\n\n%@";
+
+"ENATanInput_CharacterIndex" = "Znak %1$u z %2$u";
+
+/* Active Tracing Interval Formatting:\n The following two entries are used together. If tracing was not active (almost) 14 days\n during the last 14 days then `Active_Tracing_Interval_Partially_Active` is used – otherwise\n `Active_Tracing_Interval_Partially_Active` will be used. */
+"Active_Tracing_Interval_Partially_Active" = "Rejestrowanie narażenia było aktywne przez %1$u z ostatnich 14 dni";
+
+"Active_Tracing_Interval_Permanently_Active" = "Rejestrowanie narażenia stale aktywne";
+
+/* Delta Onboarding - New Version Features */
+"DeltaOnboarding_NewVersionFeatures_AccessibilityImageLabel" = "Nowe funkcje w tej wersji";
+
+"DeltaOnboarding_NewVersionFeatures_Title" = "Nowe funkcje";
+
+"DeltaOnboarding_NewVersionFeatures_Release" = "Wersja";
+
+"DeltaOnboarding_NewVersionFeatures_Button_Continue" = "Dalej";
+
+"DeltaOnboarding_NewVersionFeatures_Description" = "Oprócz poprawek błędów ta aktualizacja zawiera również nowe i ulepszone funkcje.";
+
+/* New Version Features */
+"NewVersionFeatures_Info_about_abb_information" = "Dane o zmianach w tej wersji można znaleźć w informacjach o aplikacji w sekcji „Nowe funkcje”.";
+
+/* Version 2.18 */
+"NewVersionFeature_218_centralManagementOfRules_title" = "Centralna administracja reguł";
+
+"NewVersionFeature_218_centralManagementOfRules_description" = "Reguły certyfikatów (odnoszące się na przykład do ich ważności lub priorytetów w przypadku dostępności kilku certyfikatów) i ustalania statusu „G” (zaszczepiony, ozdrowieniec, przetestowany) zostały oddzielone od aplikacji Corona-Warn-App. Te reguły są teraz przechowywane centralnie i dlatego można je dostosowywać niezależnie od wersji aplikacji, co umożliwia szybszą reakcję na zmiany reguł. Po zmianie zaktualizowane reguły zostaną przeniesione do aplikacji automatycznie. Ta centralna administracja reguł nie zmienia sposobu korzystania z aplikacji Corona-Warn-App.";
+
+/* Delta Onboarding */
+"DeltaOnboarding_AccessibilityImageLabel" = "Rejestrowanie narażenia w różnych krajach";
+
+"DeltaOnboarding_Headline" = "Rejestrowanie narażenia w różnych krajach";
+
+"DeltaOnboarding_Description" = "Funkcje aplikacji Corona-Warn-App zostały rozszerzone. Wiele krajów współpracuje w zakresie aktywacji międzynarodowych alertów wysyłanych poprzez wspólnie obsługiwany serwer wymiany danych. Podczas oceny ryzyka narażenia można teraz uwzględniać kontakty z użytkownikami oficjalnych aplikacji koronawirusowych z innych współpracujących krajów.\n\nW tym celu aplikacja pobiera aktualizowane codziennie listy losowych identyfikatorów wszystkich użytkowników, którzy udostępnili swoje wyniki testów poprzez własną aplikację, aby ostrzegać innych. Lista taka jest następnie porównywana z losowymi identyfikatorami zarejestrowanymi przez Twój iPhone.\n\nPobieranie list jest z reguły bezpłatne. Oznacza to, że operatorzy sieci komórkowych nie pobierają opłat za transmisję danych używanych przez aplikację w tym celu ani też nie naliczają opłat roamingowych w innych krajach UE. Aby uzyskać więcej informacji, skontaktuj się ze swoim operatorem sieci komórkowej.";
+
+"DeltaOnboarding_ParticipatingCountries" = "Obecnie uczestniczą następujące kraje:";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable" = "Możesz wyświetlić kraje uczestniczące w danych rejestrowania narażenia.";
+
+"DeltaOnboarding_ParticipatingCountriesList_Unavailable_Title" = "Kraje uczestniczące";
+
+"DeltaOnboarding_PrimaryButton_Continue" = "Dalej";
+
+"DeltaOnboarding_Terms_Description1" = "Warunki korzystania zostały również zaktualizowane w celu uwzględnienia rozszerzeń funkcji w aplikacji,";
+
+"DeltaOnboarding_Terms_Button" = "Wyświetl warunki korzystania";
+
+"DeltaOnboarding_Terms_Description2" = "Warunki korzystania i oświadczenie o ochronie prywatności znajdują się w menu w sekcji „Informacje o aplikacji” oraz w opisie aplikacji w Twoim sklepie z aplikacjami. Zmiany nie będą miały wpływu na korzystanie przez Ciebie z aplikacji. Dalsze korzystanie z aplikacji lub jej ponowne otwarcie będzie oznaczać akceptację zaktualizowanych warunków korzystania.";
+
+/* Warn other notifications */
+"WarnOthersNotification_Title" = "Możesz pomóc!";
+
+"WarnOthersNotification_Description" = "Udostępnij swój wynik testu i ostrzeż innych.";
+
+/* Automatic sharing Consent */
+"AutomaticSharingConsent_Title" = "Twoja zgoda";
+
+"AutomaticSharingConsent_SwitchTitle" = "Ostrzegaj innych";
+
+"AutomaticSharingConsent_SwitchTitleDesc" = "Udzieliłeś(-aś) następującej zgody:";
+
+"AutomaticSharingConsent_DataProcessingDetailInfo" = "Szczegółowe informacje na temat przetwarzania danych i Twojej zgodzie";
+
+/* Thank you screen */
+"Thank_You_Title" = "Dziękujemy";
+
+"Thank_You_SubTitle" = "Dziękujemy za pomoc w powstrzymywaniu rozprzestrzeniania się koronawirusa.";
+
+"Thank_You_Description1" = "Inne osoby zostaną teraz ostrzeżone.";
+
+"Thank_You_Description2" = "Możesz teraz pomóc zwiększyć dokładność ostrzeżeń. Aby to zrobić, w następnym kroku powiedz nam, kiedy wystąpiły u Ciebie pierwsze objawy. Możesz anulować ten krok w dowolnym momencie.";
+
+"Thank_You_Continue_Button" = "Wprowadź objawy";
+
+"Thank_You_Cancel_Button" = "Zakończ";
+
+"Thank_You_AccImageDescription" = "Kilka osób patrzy na ekrany swoich smartfonów.";
+
+/* Test result screen (positive test result) */
+"TestResultPositive_NoConsent_Title" = "Pomóż nam wszystkim!";
+
+"TestResultPositive_NoConsent_Info1" = "Udostępnij swój wynik testu i pomóż chronić innych przed infekcją.";
+
+"TestResultPositive_NoConsent_Info2" = "Twoja tożsamość nie zostanie ujawniona. Inni użytkownicy nie dowiedzą się, kto udostępnił swoje wyniki testów.";
+
+"TestResultPositive_NoConsent_Info3" = "Postępuj zgodnie z poleceniami organu ds. zdrowia publicznego i zostań w domu, aby nie zarażać innych.";
+
+"TestResultPositive_NoConsent_PrimaryButton" = "Ostrzegaj innych";
+
+"TestResultPositive_NoConsent_SecondaryButton" = "Anuluj";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Title" = "Nie chcesz wysłać ostrzeżenia?";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_Description" = "Aby ostrzec inne osoby, musisz udostępnić swój wynik testu.";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonOne" = "Nie ostrzegaj innych";
+
+"TestResultPositive_NoConsent_AlertNotWarnOthers_ButtonTwo" = "Ostrzegaj innych";
+
+"TestResultPositive_WithConsent_Title" = "Dziękujemy za pomoc w powstrzymywaniu rozprzestrzeniania się koronawirusa.";
+
+"TestResultPositive_WithConsent_Info1" = "Inne osoby zostaną teraz ostrzeżone.";
+
+"TestResultPositive_WithConsent_Info2" = "Możesz teraz pomóc zwiększyć dokładność ostrzeżeń. Aby to zrobić, w następnym kroku powiedz nam, kiedy wystąpiły u Ciebie pierwsze objawy. Możesz anulować ten krok w dowolnym momencie.";
+
+"TestResultPositive_WithConsent_PrimaryButton" = "Wprowadź objawy";
+
+"TestResultPositive_WithConsent_SecondaryButton" = "Zakończ";
+
+"TestResultPositive_KeysSubmitted_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+
+"TestResultPositive_KeysSubmitted_Title1" = "Uwaga:";
+
+"TestResultPositive_KeysSubmitted_PCR_Info1" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"TestResultPositive_KeysSubmitted_PCR_Info2" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"TestResultPositive_KeysSubmitted_PCR_Info3" = "Jeśli masz podwyższone ryzyko wystąpienia ciężkiej choroby spowodowanej COVID-19, zasięgnij porady lekarza. Znane czynniki ryzyka obejmują wiek powyżej 60 lat, immunosupresję, cukrzycę i otyłość.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info1" = "Istnieje duże prawdopodobieństwo, że możesz zakażać. Odizoluj się od innych ludzi.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info2" = "Wykonaj test PCR, aby zweryfikować wynik tego testu.";
+
+"TestResultPositive_KeysSubmitted_RAT_Info3" = "Organ ds. zdrowia publicznego może skontaktować się z Tobą w ciągu kilku najbliższych dni.";
+
+"TestResultPositive_KeysSubmitted_Title2" = "Inne informacje:";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo1" = "Okres izolacji wynosi zazwyczaj 10 dni. Obserwuj swoje objawy i monitoruj ich rozwój.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo2" = "Zostaniesz poproszony(-a) przez organ ds. zdrowia publicznego o stworzenie listy osób, z którymi miałeś(-aś) kontakt. Powinna ona obejmować wszystkie osoby, z którymi miałeś(-aś) bliski kontakt (w odległości mniejszej niż 2 metry, rozmowa twarzą w twarz) przez ponad 10 minut w ciągu dwóch dni poprzedzających zachorowanie. Możesz do tego celu wykorzystać swój dziennik kontaktów: po prostu wyeksportuj wpisy, a następnie wydrukuj je lub wyślij pocztą e-mail.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo3" = "Zwróć szczególną uwagę na osoby, które nie zostaną powiadomione bezpośrednio przez aplikację, ponieważ nie posiadają smartfonów lub nie zainstalowały aplikacji.";
+
+"TestResultPositive_KeysSubmitted_FurtherInfo4" = "Nawet jeśli nie masz już żadnych objawów i znów czujesz się dobrze, możesz nadal zarażać, dlatego prosimy o przestrzeganie wyznaczonego okresu izolacji.";
+
+"TestResultPositive_KeysSubmitted_PrimaryButton" = "Usuń test";
+
+/* Contact Diary */
+/* Overview */
+"ContactDiary_Overview_Button_Title_Menu" = "Menu";
+
+"ContactDiary_Overview_Title" = "Dziennik kontaktów";
+
+"ContactDiary_Overview_Description" = "Zapisuj dane spotykanych osób i odwiedzanych miejsc. W przypadku wystąpienia ryzyka w danym dniu możesz ostrzec osoby, z którymi przebywałeś(-aś) w tym dniu, jeśli nie używają one aplikacji Corona-Warn-App.";
+
+"ContactDiary_Overview_Increased_Risk_Title" = "Podwyższone ryzyko";
+
+"ContactDiary_Overview_Low_Risk_Title" = "Niskie ryzyko";
+
+"ContactDiary_Overview_Risk_Text_StandardCause" = "na podstawie kontaktów ocenionych przez aplikację.";
+
+"ContactDiary_Overview_Risk_Text_Disclaimer" = "Niekoniecznie są one związane z zarejestrowanymi przez Ciebie osobami i miejscami.";
+
+"ContactDiary_Overview_Risk_Text_LowRiskEncountersCause" = "na podstawie wielu narażeń o niskim ryzyku.";
+
+"ContactDiary_Overview_PersonEncounter_Duration_LessThan10Minutes" = "Mniej niż 10 min";
+
+"ContactDiary_Overview_PersonEncounter_Duration_MoreThan10Minutes" = "Więcej niż 10 min";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithMask" = "Z maseczką";
+
+"ContactDiary_Overview_PersonEncounter_MaskSituation_WithoutMask" = "Bez maseczki";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Outside" = "Na zewnątrz";
+
+"ContactDiary_Overview_PersonEncounter_Setting_Inside" = "W pomieszczeniu";
+
+"ContactDiary_Overview_LocationVisit_Abbreviation_Hours" = "godz.";
+
+"ContactDiary_Overview_Tests_PCR_Registered" = "Zarejestrowano test PCR";
+
+"ContactDiary_Overview_Tests_Antigen_Done" = "Wykonano szybki test";
+
+"ContactDiary_Overview_Tests_Negative_Result" = "Diagnoza: brak zakażenia";
+
+"ContactDiary_Overview_Tests_Positive_Result" = "Diagnoza: zakażenie";
+
+/* ActionSheet */
+"ContactDiary_Overview_ActionSheet_InfoActionTitle" = "Informacje";
+
+"ContactDiary_Overview_ActionSheet_ExportActionTitle" = "Eksportuj wpisy";
+
+"ContactDiary_Overview_ActionSheet_EditPersonTitle" = "Edytuj osoby";
+
+"ContactDiary_Overview_ActionSheet_EditLocationTitle" = "Edytuj miejsca";
+
+"ContactDiary_Overview_ActionSheet_ExportActionSubject" = "Mój dziennik kontaktów";
+
+/* Checkin Risk */
+"ContactDiaray_Overview_Checkin_Title_HighRisk" = "Podwyższone ryzyko";
+
+"ContactDiaray_Overview_Checkin_Title_LowRisk" = "Niskie ryzyko";
+
+"ContactDiaray_Overview_Checkin_Title_Subheadline" = "Na podstawie Twojej obecności w:";
+
+"ContactDiaray_Overview_Checkin_High_Risk_In_Brackets" = "(podwyższone ryzyko)";
+
+"ContactDiaray_Overview_Checkin_Low_Risk_In_Brackets" = "(niskie ryzyko)";
+
+/* Day */
+"ContactDiary_Day_ContactPersonsSegment" = "Osoby";
+
+"ContactDiary_Day_AddContactPerson" = "Dodaj osobę";
+
+"ContactDiary_Day_ContactPersonsEmptyTitle" = "Nie zdefiniowano jeszcze żadnych osób";
+
+"ContactDiary_Day_ContactPersonsEmptyDescription" = "Utwórz osobę i dodaj ją do dziennika kontaktów.";
+
+"ContactDiary_Day_ContactPersonsEmptyImageDescription" = "Sylwetka kobiety idącej po łące.";
+
+"ContactDiary_Day_LocationsSegment" = "Miejsca";
+
+"ContactDiary_Day_AddLocation" = "Dodaj miejsce";
+
+"ContactDiary_Day_LocationsEmptyTitle" = "Nie zdefiniowano jeszcze żadnych miejsc";
+
+"ContactDiary_Day_LocationsEmptyDescription" = "Utwórz miejsce i dodaj je do dziennika kontaktów.";
+
+"ContactDiary_Day_LocationsEmptyImageDescription" = "Budynek jest oznaczony flagą lokalizacji.";
+
+"ContactDiary_Day_Encounter_LessThan10Minutes" = "Mniej niż 10 min";
+
+"ContactDiary_Day_Encounter_MoreThan10Minutes" = "Więcej niż 10 min";
+
+"ContactDiary_Day_Encounter_WithMask" = "Z maseczką";
+
+"ContactDiary_Day_Encounter_WithoutMask" = "Bez maseczki";
+
+"ContactDiary_Day_Encounter_Outside" = "Na zewnątrz";
+
+"ContactDiary_Day_Encounter_Inside" = "W pomieszczeniu";
+
+"ContactDiary_Day_Encounter_Notes_Placeholder" = "Uwaga (np. bliska odległość)";
+
+"ContactDiary_Day_Visit_Duration" = "Czas trwania";
+
+"ContactDiary_Day_Visit_Notes_Placeholder" = "Uwaga (np. bardzo pełne, słabo wentylowane)";
+
+/* Edit Entries */
+"ContactDiary_EditEntries_ContactPersons_Title" = "Edytuj osoby";
+
+"ContactDiary_EditEntries_ContactPersons_DeleteAllButtonTitle" = "Usuń wszystkie";
+
+"ContactDiary_EditEntries_ContactPersons_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie osoby?";
+
+"ContactDiary_EditEntries_ContactPersons_AlertMessage" = "Jeśli usuniesz wszystkie osoby, wszystkie wpisy dotyczące tych osób zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_ContactPersons_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_ContactPersons_AlertCancelButtonTitle" = "Nie";
+
+"ContactDiary_EditEntries_ContactPerson_AlertTitle" = "Czy na pewno chcesz usunąć tę osobę?";
+
+"ContactDiary_EditEntries_ContactPerson_AlertMessage" = "Jeśli usuniesz osobę, wszystkie wpisy dotyczące tej osoby zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_ContactPerson_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_ContactPerson_AlertCancelButtonTitle" = "Nie";
+
+"ContactDiary_EditEntries_Locations_Title" = "Edytuj miejsca";
+
+"ContactDiary_EditEntries_Locations_DeleteAllButtonTitle" = "Usuń wszystkie";
+
+"ContactDiary_EditEntries_Locations_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie miejsca?";
+
+"ContactDiary_EditEntries_Locations_AlertMessage" = "Jeśli usuniesz wszystkie miejsca, wszystkie wpisy dotyczące tych miejsc zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_Locations_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_Locations_AlertCancelButtonTitle" = "Nie";
+
+"ContactDiary_EditEntries_Location_AlertTitle" = "Czy na pewno chcesz usunąć to miejsce?";
+
+"ContactDiary_EditEntries_Location_AlertMessage" = "Jeśli usuniesz miejsce, wszystkie wpisy dotyczące tego miejsca zostaną usunięte z Twojego dziennika.";
+
+"ContactDiary_EditEntries_Location_AlertConfirmButtonTitle" = "Tak";
+
+"ContactDiary_EditEntries_Location_AlertCancelButtonTitle" = "Nie";
+
+/* Information */
+"ContactDiary_Information_Title" = "Dziennik kontaktów";
+
+"ContactDiary_Information_ImageDescription" = "Kilka osób na dworze patrzy na ekrany swoich smartfonów.";
+
+"ContactDiary_Information_DescriptionTitle" = "Rejestruj swoje kontakty.";
+
+"ContactDiary_Information_DescriptionSubHeadline" = "Utwórz przegląd swoich kontaktów z ostatnich 15 dni, aby w razie potrzeby mieć szybki dostęp do kompletnej listy.";
+
+"ContactDiary_Information_Item_Person_Title" = "Wpisz dane spotkanych osób.";
+
+"ContactDiary_Information_Item_Location_Title" = "Wpisz dane miejsc, w których spotkałeś(-aś) inne osoby.";
+
+"ContactDiary_Information_Item_Lock_Title" = "Jesteś jedyną osobą, która ma dostęp do wpisów w Twoim dzienniku. Twoje wpisy będą zapisywane tylko na Twoim smartfonie.";
+
+"ContactDiary_Information_Item_DeletedAutomatically_Title" = "Możesz w dowolnym momencie usunąć wpisy dotyczące osób i miejsc ze swojego dziennika. Wpisy w dzienniku będą automatycznie usuwane po 16 dniach.";
+
+"ContactDiary_Information_Item_ExportTextFormat_Title" = "Możesz wyeksportować swój dziennik kontaktów w formacie zwykłego tekstu, a następnie wydrukować wpisy, edytować je lub w razie potrzeby przekazać do organu ds. zdrowia publicznego.";
+
+"ContactDiary_Information_Item_ExposureHistory_Title" = "Wskazane narażenia niekoniecznie są związane z zarejestrowanymi przez Ciebie osobami i miejscami. Nie wyciągaj błędnych wniosków.";
+
+"ContactDiary_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+"ContactDiary_Information_PrimaryButton_Title" = "Otwórz dziennik";
+
+/* AddEditEntry */
+"ContactDiary_AddEditEntry_PrimaryButton_Title" = "Zapisz";
+
+/* - Location */
+"ContactDiary_AddEditEntry_LocationTitle" = "Miejsce";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_Name" = "Opis";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_LocationPlaceholder_EmailAddress" = "E-mail";
+
+/* - Person */
+"ContactDiary_AddEditEntry_PersonTitle" = "Osoba";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_Name" = "Imię i nazwisko";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_PhoneNumber" = "Telefon";
+
+"ContactDiary_AddEditEntry_PersonPlaceholder_EmailAddress" = "E-mail";
+
+/* Statistics */
+/* - Trend on Cards */
+"Statistics_Card_Trend_Increasing" = "Trend: Rosnący";
+
+"Statistics_Card_Trend_Decreasing" = "Trend: Malejący";
+
+"Statistics_Card_Trend_Stable" = "Trend: Stabilny";
+
+"Statistics_Card_TrendSemantic_Negative" = "Brak zakażenia";
+
+"Statistics_Card_TrendSemantic_Positive" = "Zakażenie";
+
+"Statistics_Card_TrendSemantic_Neutral" = "Wynik niejednoznaczny";
+
+/* - Number Formatting */
+"Statistics_Card_Million" = "%@ mln";
+
+/* - General Card Texts */
+"Statistics_Card_From_Nationwide" = "W całym kraju";
+
+"Statistics_Card_From_CWA" = "za pośrednictwem Corona-Warn-App";
+
+/* - Add Statistics Card */
+"Statistics_Add_SevenDayIncidence" = "Dodaj lokalną 7-dniową zapadalność";
+
+"Statistics_Add_DisabledAddTitle" = "Osiągnięto maksymalną liczbę wskaźników lokalnej 7-dniowej zapadalności.";
+
+"Statistics_Add_LocalCardTitle" = "Lokalna 7-dniowa zapadalność";
+
+"Statistics_Add_fromTheWholeCountry" = "Cały kraj związkowy";
+
+"Statistics_Card_Manage" = "Edytuj";
+
+/* - 7 Days Incedence */
+"Statistics_Card_CombinedIncidence_Title" = "7-dniowa zapadalność";
+
+"Statistics_Card_CombinedIncidence_Today" = "Do dzisiaj";
+
+"Statistics_Card_CombinedIncidence_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_CombinedIncidence_Date" = "Do %@";
+
+"Statistics_Card_CombinedIncidence_PrimaryLabelSubtitle" = "Nowe zakażenia";
+
+"Statistics_Card_CombinedIncidence_SecondaryLabelSubtitle" = "Hospitalizacje";
+
+/* - Infections Card */
+"Statistics_Card_Infections_Title" = "Potwierdzone nowe zakażenia";
+
+"Statistics_Card_Infections_Today" = "Dzisiaj";
+
+"Statistics_Card_Infections_Yesterday" = "Wczoraj";
+
+"Statistics_Card_Infections_Date" = "%@";
+
+"Statistics_Card_Infections_SecondaryLabelTitle" = "7-dniowa średnia";
+
+"Statistics_Card_Infections_TertiaryLabelTitle" = "Suma";
+
+/* - Incidence Card */
+"Statistics_Card_Region_Today" = "Do dzisiaj";
+
+"Statistics_Card_Region_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_Region_Date" = "Do %@";
+
+"Statistics_Card_Region_PrimaryLabelSubtitle" = "Nowe zakażenia";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_FederalState" = "Hospitalizacje";
+
+"Statistics_Card_Region_SecondaryLabelSubtitle_AdministrativeUnit" = "Hospitalizacje w %@";
+
+/* - Key Submissions Card */
+"Statistics_Card_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
+
+"Statistics_Card_KeySubmissions_Today" = "Dzisiaj";
+
+"Statistics_Card_KeySubmissions_Yesterday" = "Wczoraj";
+
+"Statistics_Card_KeySubmissions_Date" = "%@";
+
+"Statistics_Card_KeySubmissions_SecondaryLabelTitle" = "7-dniowa średnia";
+
+"Statistics_Card_KeySubmissions_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_KeySubmissions_Footnote" = "za pośrednictwem Corona-Warn-App";
+
+/* - Reproduction Number Card */
+"Statistics_Card_ReproductionNumber_Title" = "7-dniowa wartość R";
+
+"Statistics_Card_ReproductionNumber_Today" = "Aktualna";
+
+"Statistics_Card_ReproductionNumber_Yesterday" = "Wczoraj";
+
+"Statistics_Card_ReproductionNumber_Date" = "Do %@";
+
+"Statistics_Card_ReproductionNumber_SecondaryLabelTitle" = "Średnia liczba zakażeń na zakażoną osobę";
+
+/* - At least one person vaccinated card */
+"Statistics_Card_AtLeastOneVaccinated_Title" = "Osoby, które otrzymały co najmniej jedną dawkę szczepionki";
+
+"Statistics_Card_AtLeastOneVaccinated_Today" = "Do dzisiaj";
+
+"Statistics_Card_AtLeastOneVaccinated_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_AtLeastOneVaccinated_Date" = "Do %@";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondaryLabelTitle" = "ogółu populacji";
+
+"Statistics_Card_AtLeastOneVaccinated_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_AtLeastOneVaccinated_SecondarySubtitleLabel" = "ogółu populacji";
+
+/* - Fully vaccinated people card */
+"Statistics_Card_FullyVaccinated_Title" = "Osoby posiadające podstawowe szczepienia";
+
+"Statistics_Card_FullyVaccinated_Today" = "Do dzisiaj";
+
+"Statistics_Card_FullyVaccinated_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_FullyVaccinated_Date" = "Do %@";
+
+"Statistics_Card_FullyVaccinated_SecondaryLabelTitle" = "ogółu populacji";
+
+"Statistics_Card_FullyVaccinated_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_FullyVaccinated_SecondarySubtitleLabel" = "ogółu populacji";
+
+/* - Booster vaccination card */
+"Statistics_Card_BoosterVaccination_Title" = "Osoby, które otrzymały szczepienie przypominające";
+
+"Statistics_Card_BoosterVaccination_Today" = "Do dzisiaj";
+
+"Statistics_Card_BoosterVaccination_Yesterday" = "Do wczoraj";
+
+"Statistics_Card_BoosterVaccination_Date" = "Do %@";
+
+"Statistics_Card_BoosterVaccination_SecondaryLabelTitle" = "ogółu populacji";
+
+"Statistics_Card_BoosterVaccination_TertiaryLabelTitle" = "Suma";
+
+"Statistics_Card_BoosterVaccination_SecondarySubtitleLabel" = "ogółu populacji";
+
+/* - Applied vaccination dose rates card */
+"Statistics_Card_AppliedDoseRates_Title" = "Podane dawki szczepionki";
+
+"Statistics_Card_AppliedDoseRates_Today" = "Dzisiaj";
+
+"Statistics_Card_AppliedDoseRates_Yesterday" = "Wczoraj";
+
+"Statistics_Card_AppliedDoseRates_Date" = "%@";
+
+"Statistics_Card_AppliedDoseRates_SecondaryLabelTitle" = "7-dniowa średnia";
+
+"Statistics_Card_AppliedDoseRates_TertiaryLabelTitle" = "Suma";
+
+/* - Infected People in Intensive Care */
+"Statistics_Card_IntensiveCare_Title" = "Pacjenci z COVID-19 na oddziałach intensywnej terapii";
+
+"Statistics_Card_IntensiveCare_Today" = "Do dzisiaj";
+
+"Statistics_Card_IntensiveCare_Yesterday" = "Wczoraj";
+
+"Statistics_Card_IntensiveCare_Date" = "Do %@";
+
+"Statistics_Card_IntensiveCare_SecondaryLabelTitle" = "Wskaźnik obłożenia wszystkich łóżek intensywnej terapii z powodu COVID-19";
+
+/* Error */
+"Statistics_LoadingError" = "Nie można załadować statystyk. Zamknij aplikację i spróbuj ponownie.";
+
+/* - Info Screen */
+"Statistics_Info_Title" = "Wskaźniki";
+
+"Statistics_Info_Subtitle" = "Objaśnienie statystyk";
+
+"Statistics_Info_Incidence_Title" = "7-dniowa zapadalność";
+
+"Statistics_Info_Local7Days_Title" = "Lokalna 7-dniowa zapadalność";
+
+"Statistics_Info_Local7Days_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty raportowania) na 100 000 mieszkańców w skonfigurowanym okręgu lub kraju związkowym.\nDane dotyczące hospitalizacji odnoszą się do odpowiedniego niemieckiego kraju związkowego.";
+
+"Statistics_Info_NewInfection_Title" = "Potwierdzone nowe zakażenia";
+
+"Statistics_Info_NewInfection_Text" = "Łączna liczba potwierdzonych nowych zakażeń w ciągu ostatnich 7 dni (według daty zgłoszenia) na 100 000 mieszkańców.";
+
+"Statistics_Info_HospitalizationRate_Title" = "Hospitalizacja";
+
+"Statistics_Info_HospitalizationRate_Text" = "Całkowita liczba przyjęć do szpitala z powodu COVID-19 w ciągu ostatnich 7 dni (wg daty raportowania) na 100 000 mieszkańców.";
+
+"Statistics_Info_IntensiveCare_Title" = "Pacjenci z COVID-19 na oddziałach intensywnej terapii";
+
+"Statistics_Info_IntensiveCare_Text" = "Stosunek liczby osób przebywających na oddziałach intensywnej terapii z powodu COVID-19 do całkowitej liczby łóżek OIT.";
+
+"Statistics_Info_Infections_Title" = "Potwierdzone nowe zakażenia";
+
+"Statistics_Info_Infections_Text" = "Liczba osób ze zdiagnozowanym zakażeniem koronawirusem zgłoszonych do RKI.";
+
+"Statistics_Info_KeySubmissions_Title" = "Ostrzeżenia od użytkowników aplikacji";
+
+"Statistics_Info_KeySubmissions_Text" = "Liczba użytkowników aplikacji ze zdiagnozowanym za pomocą testu PCR zakażeniem koronawirusem, którzy ostrzegli innych za pomocą aplikacji.";
+
+"Statistics_Info_ReproductionNumber_Title" = "7-dniowa wartość R";
+
+"Statistics_Info_ReproductionNumber_Text" = "Współczynnik reprodukcji R wskazuje liczbę osób, którą zaraża przeciętna osoba zakażona. Bieżąca wartość uwzględnia dane z ostatnich 5 dni.";
+
+"Statistics_Info_AtLeastOnce_Title" = "Osoby, które otrzymały co najmniej jedną dawkę szczepionki";
+
+"Statistics_Info_AtLeastOnce_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały pierwszą dawkę szczepionki.";
+
+"Statistics_Info_FullyVaccinated_Title" = "Osoby posiadające podstawowe szczepienia";
+
+"Statistics_Info_FullyVaccinated_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały wszystkie dawki szczepionki niezbędne do podstawowego uodpornienia.";
+
+"Statistics_Info_BoosterVaccination_Title" = "Osoby, które otrzymały szczepienie przypominające";
+
+"Statistics_Info_BoosterVaccination_Text" = "Liczba osób zgłoszonych w RKI, które otrzymały szczepienie przypominające.";
+
+"Statistics_Info_DosesAdministered_Title" = "Podane dawki szczepionki";
+
+"Statistics_Info_DosesAdministered_Text" = "Liczba dawek szczepionki podanych do tej pory w całym kraju.";
+
+"Statistics_Info_FAQLink_Text" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
+
+"Statistics_Info_FAQLink_Title" = "Często zadawane pytania dotyczące statystyk";
+
+"Statistics_Info_Definitions_Title" = "Legenda";
+
+"Statistics_Info_Period_Title" = "Okres";
+
+"Statistics_Info_Yesterday_Title" = "Wczoraj/do wczoraj";
+
+"Statistics_Info_Yesterday_Text" = "Liczba dotycząca dnia poprzedniego/okresu do dnia poprzedniego. Jeśli dane liczbowe za poprzedni dzień nie są jeszcze dostępne, wyświetlana jest ostatnia data, dla której istnieją dane.";
+
+"Statistics_Info_Mean_Title" = "7-dniowa średnia";
+
+"Statistics_Info_Mean_Text" = "Średnia wartość z ostatnich 7 dni";
+
+"Statistics_Info_Total_Title" = "Suma";
+
+"Statistics_Info_Total_Text" = "Łączna liczba od początku roku lub wprowadzenia aplikacji na rynek (15 czerwca 2020 r.)";
+
+"Statistics_Info_Trend_Title" = "Trend";
+
+"Statistics_Info_Trend_Text" = "W trendzie porównuje się wartość z poprzedniego dnia z wartością sprzed dwóch dni (dla 7-dniowej zapadalności, 7-dniowego wskaźnika hospitalizacji, liczby pacjentów COVID-19 na oddziałach intensywnej terapii, 7-dniowej wartości R) lub w przypadku 7-dniowych trendów – średnią wartość z ostatnich 7 dni ze średnią wartością z 7 dni poprzedzających (dla 7-dniowej średniej wartości potwierdzonych nowych zakażeń, ostrzeżeń użytkowników aplikacji, podanych dawek szczepionek). Wykorzystywana jest odpowiednia wersja danych opublikowana pierwotnie; późniejsze aktualizacje nie są brane pod uwagę.\n\nKierunek strzałki wskazuje, czy trend jest rosnący, malejący, czy stały – tzn. wykazuje odchylenie mniejsze niż 1% w stosunku do poprzedniego dnia lub 5% w stosunku do poprzedniego tygodnia (z uwzględnieniem miejsc po przecinku). Kolor wskazuje, że trend jest pozytywny (zielony), negatywny (czerwony) lub neutralny (szary). ";
+
+"Statistics_Info_Trends_Title" = "Przykłady wyświetlanych trendów:";
+
+"Statistics_Info_Trends_Increasing" = "Trend: rosnący (negatywny)";
+
+"Statistics_Info_Trends_Decreasing" = "Trend: malejący (pozytywny)";
+
+"Statistics_Info_Trends_Stable" = "Trend: stabilny (neutralny)";
+
+"Statistics_Info_Trends_Footnote" = "Ocena trendu dotyczącego ostrzeżeń wysyłanych przez użytkowników aplikacji zmienia się w zależności od aktualnych poziomów zakażenia, dlatego trend ten jest zawsze wyświetlany jako neutralny.";
+
+"Statistics_Info_Image_AccLabel" = "Abstrakcyjne zdjęcie smartfona z czterema symbolami zastępczymi do celów informacyjnych";
+
+"Statistics_Info_Blog_Description" = "Aby uzyskać więcej informacji dotyczących zawartości poszczególnych wskaźników, przeczytaj nasz %@.";
+
+"Statistics_Info_More_Information_Blog" = "blog";
+
+/* Update OS */
+"UpdateOS_title" = "Zaktualizuj swój iOS.";
+
+"UpdateOS_text" = "Instalacja Corona-Warn-App wymaga posiadania aktualnej wersji iOS.\nJeśli jej nie masz, otwórz ustawienia w swoim iPhonie i wybierz opcje: Ogólne -> Aktualizacja oprogramowania.";
+
+/* Tabbar */
+"Tabbar_Home_Title" = "Status";
+
+"Tabbar_Certificates_Title" = "Certyfikaty";
+
+"Tabbar_Scanner_Title" = "Skaner kodów QR";
+
+"Tabbar_Diary_Title" = "Dziennik";
+
+"Tabbar_CheckIn_Title" = "Zamelduj się";
+
+/* Data Donation */
+"DataDonation_IntroductionText" = "Podziel się z nami informacjami na temat korzystania z aplikacji i pomóż nam ocenić jej skuteczność.";
+
+"DataDonation_AccImageDescription" = "Kobieta trzyma smartfon, który udostępnia jej dane";
+
+"DataDonation_Headline" = "Udostępnij dane";
+
+"DataDonation_Description" = "Możesz pomóc nam ulepszyć aplikację Corona-Warn-App. Udostępnij dane o korzystaniu z aplikacji instytutowi RKI, który będzie mógł wówczas ocenić jej skuteczność. Twoje dane pomogą również ulepszyć funkcje i użyteczność tej aplikacji.";
+
+"DataDonation_SubHead_Settings" = "USTAWIENIE";
+
+"DataDonation_SubHead_YourState" = "Twój kraj związkowy (opcjonalnie)";
+
+"DataDonation_SubHead_AgeGroup" = "Twoja grupa wiekowa (opcjonalnie)";
+
+"DataDonation_State_NoSelection_Text" = "Kraj związkowy";
+
+"DataDonation_Region_NoSelection_Text" = "Okręg (powiat) (opcjonalnie)";
+
+"DataDonation_AgeGroup_NoSelection_Text" = "Twój wiek";
+
+"DataDonation_DetailedInformation_DataProcessing" = "Szczegółowe informacje o ryzyku związanym z przetwarzaniem i ochroną danych w USA i innych krajach trzecich";
+
+"DataDonation_Button_OK" = "Akceptuj";
+
+"DataDonation_Button_NotOK" = "Odrzuć";
+
+/* Value selection */
+"DataDonation_ValueSelection_None" = "Brak odpowiedzi";
+
+"DataDonation_ValueSelection_Title_State" = "Twój kraj związkowy";
+
+"DataDonation_ValueSelection_Title_Region" = "Twój okręg (powiat)";
+
+"DataDonation_ValueSelection_Title_Age" = "Twoja grupa wiekowa";
+
+"DataDonation_ValueSelection_Age_Below29" = "Do 29 lat";
+
+"DataDonation_ValueSelection_Age_Between30And59" = "30-59 lat";
+
+"DataDonation_ValueSelection_Age_Min60OrAbove" = "Powyżej 60 lat";
+
+/* Detailed Infos Data Donation */
+"DetailedInfosDataDonation_Headline" = "Szczegółowe informacje na temat udostępniania danych";
+
+"DetailedInfosDataDonation_SubHead_DataProcessing" = "Przetwarzanie danych w procesie udostępniania danych";
+
+"DetailedInfosDataDonation_DataProcessing_Description" = "Jeśli wyrazisz zgodę na udostępnienie swoich danych, aplikacja będzie codziennie wysyłać różne dane do RKI. Przesłane dane pomogą nam ocenić skuteczność aplikacji i będą analizowane w celu wprowadzenia następujących ulepszeń:";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination_BulletTitle" = "Ulepszone rejestrowanie narażenia";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddRiskDetermination" = "Chcemy poprawić dokładność i wiarygodność technicznych obliczeń ryzyka zakażenia. Aby to osiągnąć, będziemy analizować otrzymywane przez Ciebie informacje o narażeniu na ryzyko i ostrzeżenia. Pozwoli to nam udoskonalić metodę obliczeń.";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation_BulletTitle" = "Ulepszone wskazówki dla użytkownika w aplikacji";
+
+"DetailedInfosDataDonation_BulletPoint_ImproveddUserNavigation" = "Chcemy ułatwić korzystanie z aplikacji. W tym celu będziemy analizować informacje o poszczególnych krokach wykonywanych przez użytkowników w aplikacji. Pozwoli to nam na zwiększenie przejrzystości etykiet i tekstów informacyjnych oraz usprawnienie sposobu wyszukiwania elementów sterujących. Będziemy też mogli dostosować układy do różnych modeli smartfonów.";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport_BulletTitle" = "Zapewnienie informacji i pomocy w aplikacji";
+
+"DetailedInfosDataDonation_BulletPoint_AppSupport" = "Chcemy być w stanie stwierdzić, czy podczas korzystania z aplikacji w niektórych ośrodkach testowych i laboratoriach lub w niektórych regionach mogą wystąpić problemy. Będziemy mogli to ustalić, jeśli na przykład udostępnione dane wskażą, że wyniki testów są dostarczane z opóźnieniem w niektórych regionach. Odpowiednie organy ds. zdrowia publicznego mogą być również powiadamiane o potencjalnych problemach technicznych.";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics_BulletTitle" = "Ulepszenie statystyk dotyczących przebiegu pandemii ";
+
+"DetailedInfosDataDonation_BulletPoint_ImprovedStatistics" = "Twoje dane pomogą nam w zebraniu informacji na temat rozprzestrzeniania się pandemii w czasie i przestrzeni oraz umożliwią szybsze reagowanie na pewne trendy.";
+
+"DetailedInfosDataDonation_SubHead_RKI_DataCollection" = "W tym celu RKI gromadzi następujące dane:";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_Date" = "Data przekazania danych.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_ChangeOfWarnHistory" = "Zmiany w historii ostrzeżeń w porównaniu z poprzednim dniem.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_InfoAboutRisk" = "Informacje o tym, jakie ryzyko wyświetliło Ci się w momencie przekazania danych.";
+
+"DetailedInfosDataDonation_RKI_DataCollection_BulletPoint_RiskStatus_Base" = "Informacje na temat podstawy obliczania statusu ryzyka w związku z narażeniem.";
+
+"DetailedInfosDataDonation_SubHead_RetrievedTestResult" = "Jeśli pobrałeś(-aś) wynik testu za pośrednictwem aplikacji:";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_KindOfTestResult" = "Informacje o tym, czy za pośrednictwem aplikacji otrzymałeś(-aś) pozytywny czy negatywny wynik testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_CalculatedRisk" = "Informacje o ryzyku wyliczonym w momencie rejestracji testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodHighRisk" = "Informacja o czasie, który upłynął między Twoim ostatnim narażeniem o podwyższonym ryzyku a rejestracją testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_PeriodLastInfoHighRisk" = "Informacja o czasie, który upłynął między ostatnim powiadomieniem o podwyższonym ryzyku a rejestracją testu.";
+
+"DetailedInfosDataDonation_RetrievedTestResult_BulletPoint_SharedTestResult" = "Informacja o udostępnieniu wyniku testu i ostrzeżeniu innych osób.";
+
+"DetailedInfosDataDonation_SubHead_WarnOthers" = "Jeśli ostrzegłeś(-aś) innych o potencjalnym narażeniu:";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Canceled" = "Informacja o tym, czy anulowałeś(-aś) działania mające na celu ostrzeżenie innych.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_SymptompsStart" = "Informacja o tym, czy podałeś(-aś) szczegółowe dane na temat wystąpienia objawów.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_Consent" = "Informacja o czasie wyrażenia zgody na ostrzeżenie innych.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HowFar" = "Informacja o otrzymanym powiadomieniu w związku ostrzeżeniem innych osób.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursUntilReceived" = "Informacja o liczbie godzin, w ciągu której otrzymałeś(-aś) wyniku testu.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_DaysElapsed" = "Informacja o liczbie dni, które minęły od ostatniego powiadomienia o podwyższonym ryzyku.";
+
+"DetailedInfosDataDonation_WarnOthers_BulletPoint_HoursSinceRegistration" = "Informacja o liczbie godzin, które minęły od czasu rejestracji testu.";
+
+"DetailedInfosDataDonation_Misc_SubHead_MiscInformation" = "Inne informacje:";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_AgeGroup" = "Informacja o podanej przez Ciebie grupie wiekowej.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_Region" = "Informacja o podanym przez Ciebie regionie.";
+
+"DetailedInfosDataDonation_Misc_SubHead_BulletPoint_TechSpecs" = "Informacje o modelu i wersji smartfona, wersji aplikacji oraz wersji systemu operacyjnego.";
+
+"DetailedInfosDataDonation_General_Privacy_Infos" = "Tych informacji nie można powiązać z Twoją osobą. Twoja tożsamość zostanie zachowana w poufności.\nInformacje zostaną przeanalizowane w celach statystycznych. Nie zostaną zapisane w profilu.";
+
+"Contact_Journal_Notes_Description_Title" = "Uwaga";
+
+"Contact_Journal_Notes_Description" = "Możesz tu wpisać uwagi, które pomogą Ci lepiej oszacować ryzyko zakażenia.\n\nZapisz okoliczności Twojego kontaktu lub przebywania w jakimś miejscu, które mogły zwiększyć ryzyko zakażenia, np. odległość od innych osób lub wykonywane czynności (przykłady: „siedzieliśmy blisko siebie”, „uprawialiśmy sport”, „mało miejsca”, „śpiewaliśmy”).\n\nTe notatki pomogą Ci później odświeżyć pamięć. W razie potrzeby pozwolą Ci również ostrzec osoby, z którymi spędzałeś(-aś) czas na wczesnym etapie, a także pomogą organom ds. zdrowia publicznego w prześledzeniu potencjalnych łańcuchów zakażenia.";
+
+/* Quick Actions a.k.a. shortcuts */
+"QuickAction_newContactDiaryEntry" = "Dodaj wpis do dziennika na dziś";
+
+"QuickAction_eventCheckin" = "Zamelduj się";
+
+/* Checkins */
+"Checkins_Overview_Title" = "Moje zameldowania";
+
+"Checkins_Overview_MenuButtonTitle" = "Menu";
+
+"Checkins_Overview_ScanButtonTitle" = "Skanuj kod QR";
+
+"Checkins_Overview_EmptyTitle" = "Nie ma jeszcze żadnych wpisów";
+
+"Checkins_Overview_EmptyDescription" = "Gdy zeskanujesz kod QR, aby zameldować swoją obecność w wydarzeniu lub miejscu, wpis zostanie utworzony automatycznie.";
+
+"Checkins_Overview_EmptyImageDescription" = "Budynek z symbolem kodu QR w tle";
+
+"Checkins_Overview_DeleteAllButtonTitle" = "Usuń wszystkie";
+
+"Checkins_Overview_DurationTitle" = "Czas trwania";
+
+"Checkins_Overview_CheckinDateTemplate" = "Dnia %@";
+
+"Checkins_Overview_CheckinTimeTemplate" = "%@ - wymelduj automatycznie po %@";
+
+"Checkins_Overview_CheckoutButtonTitle" = "Wymelduj się teraz";
+
+"Checkins_Overview_DeleteOne_AlertTitle" = "Czy usunąć ten wpis?";
+
+"Checkins_Overview_DeleteOne_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tym miejscu lub na tym wydarzeniu, ani one nie będą ostrzegać Ciebie.";
+
+"Checkins_Overview_DeleteOne_AlertConfirmButtonTitle" = "Usuń";
+
+"Checkins_Overview_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
+
+"Checkins_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie osoby?";
+
+"Checkins_Overview_DeleteAll_AlertMessage" = "Nie będziesz mieć możliwości ostrzegania osób, które zameldowały się w tym samym czasie w tych miejscach lub na tych wydarzeniach, ani one nie będą ostrzegać Ciebie.";
+
+"Checkins_Overview_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
+
+"Checkins_Overview_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+"Checkins_Overview_ActionSheet_InfoTitle" = "Informacje";
+
+"Checkins_Overview_ActionSheet_EditTitle" = "Edytuj";
+
+"Checkins_Overview_Item_Prefix_CheckIn" = "Zamelduj się do %@.";
+
+"Checkins_Overview_Item_Prefix_CheckedOut" = "Wymelduj się z %@.";
+
+"Checkin_QR_Scanner_Checkin_Error_Title" = "Nieprawidłowy kod QR";
+
+"Checkin_QR_Scanner_Error_InvalidURL" = "Zeskanowany kod QR nie jest prawidłowy dla zameldowania obecności w wydarzeniu lub miejscu. Zeskanuj odpowiedni kod QR (kod błędu INVALID_URL).";
+
+"Checkin_QR_Scanner_Error_InvalidPayload" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_PAYLOAD).";
+
+"Checkin_QR_Scanner_Error_InvalidURLVendorData" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_VENDOR_DATA).";
+
+"Checkin_QR_Scanner_Error_InvalidDescription" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_DESCRIPTION).";
+
+"Checkin_QR_Scanner_Error_InvalidAddress" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_ADDRESS).";
+
+"Checkin_QR_Scanner_Error_InvalidCryptographicSeed" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_CRYPTO_SEED).";
+
+"Checkin_QR_Scanner_Error_InvalidTimeStamps" = "Zameldowanie niemożliwe z powodu nieprawidłowego kodu QR. Osoba odpowiedzialna musi wygenerować nowy kod QR (kod błędu INVALID_TIMESTAMPS).";
+
+/* TraceLocations */
+"TraceLocations_Overview_Title" = "Moje kody QR";
+
+"TraceLocations_Overview_MenuButtonTitle" = "Menu";
+
+"TraceLocations_Overview_AddButtonTitle" = "Utwórz kod QR";
+
+"TraceLocations_Overview_EmptyTitle" = "Nie utworzono jeszcze kodów QR";
+
+"TraceLocations_Overview_EmptyDescription" = "W tym miejscu wyświetlane są wszystkie kody QR utworzone dla miejsca lub wydarzenia. Możesz usunąć kody QR, których już nie zamierzasz używać.";
+
+"TraceLocations_Overview_EmptyImageDescription" = "Smartfon z symbolem kodu QR";
+
+"TraceLocations_Overview_DeleteAllButtonTitle" = "Usuń wszystkie";
+
+"TraceLocations_Overview_SelfCheckinButtonTitle" = "Zamelduj się";
+
+"TraceLocations_Overview_DeleteOne_AlertTitle" = "Czy chcesz usunąć kod QR?";
+
+"TraceLocations_Overview_DeleteOne_AlertMessage" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być dłużej używany do meldowania się.";
+
+"TraceLocations_Overview_DeleteOne_AlertConfirmButtonTitle" = "Usuń";
+
+"TraceLocations_Overview_DeleteOne_AlertCancelButtonTitle" = "Anuluj";
+
+"TraceLocations_Overview_DeleteAll_AlertTitle" = "Czy na pewno chcesz usunąć wszystkie kody QR?";
+
+"TraceLocations_Overview_DeleteAll_AlertMessage" = "Pamiętaj, że jeśli to zrobisz, te kody QR nie będą mogły być dłużej używane do meldowania się.";
+
+"TraceLocations_Overview_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
+
+"TraceLocations_Overview_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+"TraceLocations_Overview_ActionSheet_InfoTitle" = "Informacje";
+
+"TraceLocations_Overview_ActionSheet_OnBehalfCheckinSubmissionTitle" = "Ostrzegaj w imieniu innych";
+
+"TraceLocations_Overview_ActionSheet_EditTitle" = "Edytuj";
+
+"TraceLocations_Overview_Item_Prefix" = "Kod QR do %@.";
+
+/* Trace Location Details */
+"TraceLocations_Details_PrintVersionButtonTitle" = "Wyświetl wersję do druku";
+
+"TraceLocations_Details_DuplicateButtonTitle" = "Użyj jako szablonu";
+
+/* Selection of a TraceLocations */
+"TraceLocations_TypeSelection_Title" = "Utwórz kod QR";
+
+"TraceLocations_Section_Title_Permanent" = "MIEJSCE";
+
+"TraceLocations_Section_Title_Temporary" = "WYDARZENIE";
+
+"TraceLocations_Type_Title_PermanentOther" = "Inne miejsce";
+
+"TraceLocations_Type_Title_PermanentRetail" = "Handel detaliczny";
+
+"TraceLocations_Title_Type_PermanentFoodService" = "Turystyka i hotelarstwo";
+
+"TraceLocations_Type_Title_PermanentCraft" = "Rzemiosło";
+
+"TraceLocations_Type_Title_PermanentWorkplace" = "Miejsce pracy";
+
+"TraceLocations_Type_Title_PermanentEducationalInstitution" = "Placówka oświatowa";
+
+"TraceLocations_Type_Title_PermanentPublicBuilding" = "Budynek użyteczności publicznej";
+
+"TraceLocations_Type_Subtitle_PermanentRetail" = "Sklep, punkt sprzedaży";
+
+"TraceLocations_Type_Subtitle_PermanentFoodService" = "Kawiarnia, bar, restauracja, hotel";
+
+"TraceLocations_Type_Subtitle_PermanentCraft" = "Fryzjer, stolarz";
+
+"TraceLocations_Type_Subtitle_PermanentWorkplace" = "Biuro, sala konferencyjna, kafeteria";
+
+"TraceLocations_Type_Subtitle_PermanentEducationalInstitution" = "Sala lekcyjna, sala wykładowa, biblioteka";
+
+"TraceLocations_Type_Subtitle_PermanentPublicBuilding" = "Urząd gminy, muzeum";
+
+"TraceLocations_Type_Title_TemporaryOther" = "Inne wydarzenie";
+
+"TraceLocations_Type_Title_TemporaryCulturalEvent" = "Wydarzenie kulturalne";
+
+"TraceLocations_Type_Title_TemporaryClubActivity" = "Zajęcia w klubie";
+
+"TraceLocations_Type_Title_TemporaryPrivateEvent" = "Prywatna impreza";
+
+"TraceLocations_Type_Title_TemporaryWorshipService" = "Nabożeństwo";
+
+"TraceLocations_Type_Subtitle_TemporaryCulturalEvent" = "Koncert, wystawa sztuki";
+
+"TraceLocations_Type_Subtitle_TemporaryClubActivity" = "Trening sportowy, spotkanie ogólne";
+
+"TraceLocations_Type_Subtitle_TemporaryPrivateEvent" = "Urodziny, spotkanie rodzinne";
+
+/* Trace Location Configuration */
+"TraceLocations_Configuration_Title" = "Utwórz kod QR";
+
+"TraceLocations_Configuration_DescriptionPlaceholder" = "Opis";
+
+"TraceLocations_Configuration_AddressPlaceholder" = "Miejsce";
+
+"TraceLocations_Configuration_StartDateTitle" = "Początek";
+
+"TraceLocations_Configuration_EndDateTitle" = "Koniec";
+
+"TraceLocations_Configuration_DefaultCheckinLengthTitle" = "Typowy pobyt";
+
+"TraceLocations_Configuration_DefaultCheckinLengthFootnote" = "Określ, jak długo zazwyczaj przebywają u Ciebie goście.";
+
+"TraceLocations_Configuration_PrimaryButtonTitle" = "Zapisz";
+
+"TraceLocations_Configuration_HoursUnit" = "%@ godz.";
+
+"TraceLocations_Configuration_SavingErrorMessage" = "W tej chwili nie można zapisać kodu QR. Spróbuj ponownie później (kod błędu %@).";
+
+/* On Behalf Checkin Submission */
+/* - Info */
+"OnBehalfCheckinSubmission_Info_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_Info_Subtitle" = "Większe bezpieczeństwo dla Ciebie i Twoich gości";
+
+"OnBehalfCheckinSubmission_Info_Description" = "Możesz ostrzec swoich gości w imieniu osoby, u której zdiagnozowano koronawirusa i która uczestniczyła w wydarzeniu, ale nie zameldowała się za pomocą aplikacji Corona-Warn-App.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint1" = "Jeśli u osoby, która nie zameldowała swojej obecność w takim wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, goście zostaną powiadomieni, jeśli przebywali w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"OnBehalfCheckinSubmission_Info_BulletPoint2" = "Możesz ostrzegać swoich gości w imieniu innych osób tylko po otrzymaniu takiego polecenia od organu ds. zdrowia publicznego. W takim przypadku organ prześle Ci numer TAN.";
+
+"OnBehalfCheckinSubmission_Info_PrimaryButtonTitle" = "Kontynuuj";
+
+/* - Trace Location Selection */
+"OnBehalfCheckinSubmission_TraceLocationSelection_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_Description" = "Wybierz wydarzenie, o którym chcesz ostrzec innych w imieniu osoby, u której zdiagnozowano koronawirusa, lub przywróć usunięte wydarzenie, skanując ponownie kod QR tego wydarzenia.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_ScanButtonTitle" = "Skanuj kod QR";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_PrimaryButtonTitle" = "Kontynuuj";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Title" = "Brak dostępnych wydarzeń";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_Description" = "Zeskanuj ponownie kod QR odpowiedniego wydarzenia, aby ostrzegać w imieniu innych.";
+
+"OnBehalfCheckinSubmission_TraceLocationSelection_EmptyState_ImageDescription" = "Smartfon";
+
+/* - Date Time Selection */
+"OnBehalfCheckinSubmission_DateTimeSelection_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Description" = "Określ długość pobytu osoby ze zdiagnozowanym koronawirusem, w imieniu której chcesz ostrzec innych. Otrzymasz te informacje od organów ds. zdrowia publicznego.";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Start" = "Początek/Przyjazd";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_Duration" = "Czas trwania";
+
+"OnBehalfCheckinSubmission_DateTimeSelection_PrimaryButtonTitle" = "Kontynuuj";
+
+/* - TAN Input */
+"OnBehalfCheckinSubmission_TANInput_Title" = "Ostrzegaj w imieniu innych";
+
+"OnBehalfCheckinSubmission_TANInput_Description" = "Wprowadź otrzymany 10-miejscowy numer TAN.";
+
+"OnBehalfCheckinSubmission_TANInput_PrimaryButtonTitle" = "Wyślij ostrzeżenie";
+
+/* - Thank You */
+"OnBehalfCheckinSubmission_ThankYou_Title" = "Dziękujemy!";
+
+"OnBehalfCheckinSubmission_ThankYou_Description" = "Twoje wsparcie pozwala na ostrzeganie innych osób i daje im możliwość odpowiedniego zareagowania.";
+
+/* - Errors */
+"OnBehalfCheckinSubmissionError_Failed" = "Wystąpił błąd. Skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"OnBehalfCheckinSubmissionError_InvalidTAN" = "Nieprawidłowy numer TAN. Sprawdź swój wpis lub skontaktuj się z organizacją, która przesłała Ci numer TAN.";
+
+"OnBehalfCheckinSubmissionError_TryAgain" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"OnBehalfCheckinSubmissionError_NoNetwork" = "Połączenie internetowe zostało utracone. Sprawdź połączenie i spróbuj ponownie.";
+
+/* Error Reporting */
+"ErrorReport_Title" = "Raporty o błędach";
+
+"ErrorReport_Analysis" = "Analiza błędu";
+
+"ErrorReport_Description1" = "Aby pomóc zespołowi pomocy technicznej aplikacji w analizie błędów, możesz zarejestrować raport o błędzie z CWA. Gdy to zrobisz, poszczególne kroki techniczne i wyniki procesów aplikacji zostaną zarejestrowane. Następnie możesz wysłać raport o błędzie do pomocy technicznej i pomóc w zidentyfikowaniu i usunięciu błędu.\n\nWięcej informacji znajduje się na naszej stronie „Często zadawane pytania”:";
+
+"ErrorReport_FAQ" = "Często zadawane pytania dotyczące raportów o błędach";
+
+"ErrorReport_Description2" = "Wysłanie zarejestrowanego raportu o błędzie do pomocy technicznej RKI wymaga Twojej zgody.\n\nPo wysłaniu raportu otrzymasz identyfikator raportu o błędzie. Możesz podać ten identyfikator, aby na przykład zapewnić personelowi pomocy technicznej więcej informacji i umożliwić przypisanie go do raportu o błędzie. Jeśli nie podasz identyfikatora raportu o błędzie, RKI nie będzie mieć możliwości przypisania raportu do Ciebie.";
+
+"ErrorReport_DetailedInformation_Title" = "Szczegółowe informacje na temat wysyłania raportów o błędach";
+
+"errorReport_DetailedInformation_Headline" = "Weryfikacja autentyczności i przekazywanie danych do krajów trzecich";
+
+"errorReport_DetailedInformation_Content1" = "Aby potwierdzić autentyczność aplikacji, smartfon generuje unikalny identyfikator zawierający informacje o wersji smartfona i aplikacji. Jest to konieczne w celu zapewnienia, by tylko osoby, które faktycznie używają aplikacji Corona-Warn-App mogły wysyłać dane do pomocy technicznej, i wykluczenia zmanipulowanych raportów o błędach. W tym celu identyfikator jest wysyłany do Apple. W tym procesie dane mogą być przekazywane do Stanów Zjednoczonych lub innych krajów trzecich, gdzie poziom prywatności danych może nie odpowiadać prawu europejskiemu i możesz nie być w stanie wyegzekwować swoich europejskich praw do prywatności danych. W szczególności organy ds. bezpieczeństwa w kraju trzecim mogłyby uzyskać dostęp do danych i analizować je przy pomocy Apple, nawet jeśli nie ma podstaw do podejrzeń, i na przykład łączyć te dane z innymi informacjami. Dotyczy to tylko identyfikatora wysyłanego do Apple. Apple nie otrzymuje informacji z Twojego raportu o błędzie, może jednak określić Twoją tożsamość na podstawie identyfikatora i poprzez prześledzenie danych ustalić, że sprawdzanie autentyczności zostało przeprowadzone na Twoim smartfonie.\n\nJeśli nie wyrażasz zgody na przekazanie swoich danych do kraju trzeciego, nie klikaj opcji „Akceptuj i wyślij”. Nadal będziesz mieć możliwość korzystania z aplikacji, ale wysyłanie raportów o błędach będzie niemożliwe.";
+
+"ErrorReport_DetailedInformation_Subheadline" = "Jak RKI analizuje raporty o błędach";
+
+"ErrorReport_DetailedInformation_Content2" = "Po zweryfikowaniu autentyczności aplikacji raport o błędzie jest wysyłany do RKI za pośrednictwem bezpiecznego połączenia. Raporty o błędach będą wykorzystywane wyłącznie do rozwiązywania problemów i korygowania błędów w ramach przyszłych aktualizacji aplikacji. Dostęp do raportów o błędach ma tylko personel pomocy technicznej. Raporty o błędach zawierają różne komunikaty o statusie i dane o zdarzeniach wyzwalanych w aplikacji, ale nie zawierają żadnych informacji, które umożliwiłyby RKI ustalenie Twojej tożsamości. Tylko jeśli podasz identyfikator raportu o błędzie w związku z kolejnymi komunikatami, możliwe będzie powiązanie komunikatu (i na przykład zawartego w nim Twojego nazwiska) z informacjami zawartymi w raporcie o błędzie (takimi jak komunikaty techniczne dotyczące obliczeń w ramach rejestrowania narażenia, wyświetlane informacje i czynności wykonane w aplikacji oraz, w stosownych przypadkach, pobrany wynik testu i losowe identyfikatory udostępniane w ramach powiadamiania innych).";
+
+"ErrorReport_Legal_DetailedInformation_Content2" = "Po zweryfikowaniu autentyczności aplikacji raport o błędzie jest wysyłany do RKI za pośrednictwem bezpiecznego połączenia. Raporty o błędach będą wykorzystywane wyłącznie do rozwiązywania problemów i korygowania błędów w ramach przyszłych aktualizacji aplikacji. Dostęp do raportów o błędach ma tylko personel pomocy technicznej. Raporty o błędach zawierają różne komunikaty o statusie i dane o zdarzeniach wyzwalanych w aplikacji, ale nie zawierają żadnych informacji, które umożliwiłyby RKI ustalenie Twojej tożsamości. Tylko jeśli podasz identyfikator raportu o błędzie w związku z kolejnymi komunikatami, możliwe będzie powiązanie komunikatu (i na przykład zawartego w nim Twojego nazwiska) z informacjami zawartymi w raporcie o błędzie (takimi jak komunikaty techniczne dotyczące obliczeń w ramach rejestrowania narażenia, wyświetlane informacje i czynności wykonane w aplikacji oraz, w stosownych przypadkach, pobrany wynik testu i losowe identyfikatory udostępniane w ramach powiadamiania innych).";
+
+"ErrorReport_History_Title" = "Historia identyfikatorów";
+
+"ErrorReport_History_Description" = "W tym miejscu wyświetlane są identyfikatory dzienników analizy błędów";
+
+"ErrorReport_History_Cell_ID" = "ID %@";
+
+"ErrorReport_History_Navigation_Subline" = "Identyfikatory dotychczas udostępnionych analiz błędów";
+
+"ErrorReport_DEVICE_NOT_SUPPORTED" = "Nie można wysłać raportu o błędzie (kod błędu %@).";
+
+"ErrorReport_TRY_AGAIN_LATER" = "W tej chwili nie można wysłać raportu o błędzie. Spróbuj ponownie później (kod błędu %@).";
+
+/* Checkins */
+"Checkin_Information_Title" = "Zamelduj się";
+
+"Checkin_Information_ImageDescription" = "Trzy osoby stoją przy wysokim stole, dwie z nich patrzą na swoje smartfony.";
+
+"Checkin_Information_DescriptionTitle" = "Przerywaj łańcuchy zakażeń w szybki i skuteczny sposób";
+
+"Checkin_Information_DescriptionSubHeadline" = "Zeskanuj kod QR dla wydarzenia lub miejsca, aby się zameldować i zarejestrować na smartfonie swoją obecność na tym wydarzeniu lub w miejscu.";
+
+"Checkin_Information_Item_RiskStatus_Title" = "Każde zameldowanie jest również brane pod uwagę przy obliczaniu statusu ryzyka. Jeśli u osoby, która zameldowała się na tym wydarzeniu lub w miejscu, zostanie później zdiagnozowany koronawirus, zostaniesz powiadomiony(-a), jeśli przebywałeś(-aś) w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"Checkin_Information_Item_Time_Title" = "Określ długość pobytu jak najdokładniej, aby ostrzeżenia mogły zostać odpowiednio dopasowane.";
+
+"Checkin_Information_Dataprivacy_Title" = "Więcej informacji znajduje się w oświadczeniu o ochronie prywatności.";
+
+"Checkin_Information_PrimaryButton_Title" = "Akceptuj";
+
+/* CheckIn edit */
+"Checkins_Edit_PrimaryButton_Title" = "Zapisz";
+
+"Checkins_Edit_Section_Title" = "Zmień długość pobytu dla:";
+
+"Checkins_Edit_CheckedIn" = "Zameldowano";
+
+"Checkins_Edit_CheckedOut" = "Wymeldowano";
+
+"Checkins_Edit_Notice" = "Długość pobytu nie zostanie automatycznie skorygowana w Twoim dzienniku kontaktów.";
+
+/* Trace Location */
+"TraceLocation_Information_Title" = "Utwórz kod QR";
+
+"TraceLocation_Information_ImageDescription" = "Jedna osoba wskazuje na tablicę flipchart, a dwie inne osoby siedzą obok i patrzą na flipchart.";
+
+"TraceLocation_Information_DescriptionTitle" = "Większe bezpieczeństwo dla Ciebie i Twoich gości";
+
+"TraceLocation_Information_DescriptionSubHeadline" = "Utwórz kod QR, który Twoi goście będą mogli zeskanować po przybyciu. Dzięki temu będą mogli ostrzegać innych gości lub otrzymywać od nich ostrzeżenia, jeśli zajdzie taka potrzeba.";
+
+"TraceLocation_Information_Item_RiskStatus" = "Każde zameldowanie jest również brane pod uwagę przy obliczaniu statusu ryzyka. Jeśli u osoby, która zameldowała swoją obecność w danym wydarzeniu lub miejscu, zostanie później zdiagnozowany koronawirus, goście zostaną powiadomieni, jeśli przebywali w tym samym pomieszczeniu w tym samym czasie lub do 30 minut po opuszczeniu pomieszczenia przez zdiagnozowaną osobę.";
+
+"TraceLocation_Information_Item_Checkin" = "Kod QR możesz przekazać gościom za pomocą smartfona lub w formie drukowanej.";
+
+"TraceLocation_Information_Item_RenewQRCode" = "Używając kodu QR przez dłuższy czas, musisz generować go ponownie każdego dnia poza godzinami pracy.";
+
+"TraceLocation_Information_PrimaryButton_Title" = "Dalej";
+
+/* Checkout */
+"Checkout_Notification_Title" = "Nastąpiło automatyczne wymeldowanie";
+
+"Checkout_Notification_Body" = "W razie potrzeby dostosuj długość pobytu.";
+
+"Checkin_Details_HoursShortVersion" = "%@ godz.";
+
+"Checkin_Details_CheckinFor" = "Zamelduj się na";
+
+"Checkin_Details_SaveToDiary" = "Zapisać w dzienniku kontaktów po wymeldowaniu?";
+
+"Checkin_Details_SaveSwitch" = "Przełącznik";
+
+"Checkin_Details_SaveSwitch_On" = "Wł.";
+
+"Checkin_Details_SaveSwitch_Off" = "Wył.";
+
+"Checkin_Details_AutomaticCheckout" = "Wymelduj automatycznie po";
+
+"Checkin_Details_EventNotStartedYet" = "To wydarzenie zaczyna się dopiero %@ w dniu %@. Czy chcesz się zameldować już teraz?";
+
+"Checkin_Details_EventEnded" = "To wydarzenie już się skończyło. Czy chcesz się zameldować z datą wsteczną?";
+
+"Checkin_Details_CheckIn_Button" = "Zamelduj się";
+
+/* Submission Check-in */
+"Submission_Checkins_Title" = "Udostępnić Twoje zameldowania?";
+
+"Submission_Checkins_Description" = "Ostrzegaj inne osoby, które się zameldowały wraz z Tobą. Twoje dane osobowe nie będą udostępniane.";
+
+"Submission_Checkins_SelectAll" = "Wybierz wszystkie";
+
+"Submission_Checkins_Continue" = "Prześlij";
+
+"Submission_Checkins_Skip" = "Pomiń";
+
+"Submission_Checkins_Alert_Title" = "Czy na pewno nie chcesz udostępniać swoich zameldowań?";
+
+"Submission_Checkins_Alert_Message" = "W przypadku pominięcia tej operacji żadne kontakty zameldowane wraz z Tobą nie otrzymają ostrzeżenia.";
+
+"Submission_Checkins_Alert_Share" = "Udostępnij";
+
+"Submission_Checkins_Alert_DontShare" = "Nie udostępniaj";
+
+/* Create Antigen Profile */
+"AntigenProfile_Create_Title" = "Profil szybkiego testu";
+
+"AntigenProfile_Create_Description" = "Zapisz swoje dane osobowe w postaci kodu QR, aby przyspieszyć rejestrację w punktach testowania.";
+
+"AntigenProfile_Create_FirstNamePlaceholder" = "Imię";
+
+"AntigenProfile_Create_LastNamePlaceholder" = "Nazwisko";
+
+"AntigenProfile_Create_BirthDatePlaceholder" = "Data urodzenia";
+
+"AntigenProfile_Create_StreetPlaceholder" = "Ulica i numer domu";
+
+"AntigenProfile_Create_PostalCodePlaceholder" = "Kod pocztowy";
+
+"AntigenProfile_Create_CityPlaceholder" = "Miasto";
+
+"AntigenProfile_Create_PhoneNumberPlaceholder" = "Numer telefonu";
+
+"AntigenProfile_Create_EmailAddressPlaceholder" = "Adres e-mail";
+
+"AntigenProfile_Create_Save_Button_Title" = "Zapisz";
+
+/* Antigen Profile */
+"AntigenProfile_Info_Action_Title" = "Informacje";
+
+"AntigenProfile_Edit_Action_Title" = "Edytuj profil szybkiego testu";
+
+"AntigenProfile_Delete_Action_Title" = "Usuń profil szybkiego testu";
+
+"AntigenProfile_Cancel_Action_Title" = "Anuluj";
+
+"AntigenProfile_Delete_Alert_Title" = "Czy chcesz usunąć profil szybkiego testu?";
+
+"AntigenProfile_Delete_Alert_Description" = "Pamiętaj, że jeśli to zrobisz, ten kod QR nie będzie mógł być już używany do rejestracji.";
+
+"AntigenProfile_Delete_Alert_Delete_Button_Title" = "Usuń";
+
+/* Health Certificate Validation Info */
+"HealthCertificate_Validation_Info_imageDescription" = "Wyświetlana jest mapa Europy.";
+
+"HealthCertificate_Validation_Info_title" = "Informacje";
+
+"HealthCertificate_Validation_Info_byCar" = "Wprowadź planowany lokalny czas przybycia na granicę kraju docelowego.";
+
+"HealthCertificate_Validation_Info_byPlane" = "Jeśli podróżujesz samolotem, wpisz planowany czas odlotu.";
+
+/* Health Certificate Overview */
+"HealthCertificate_Overview_title" = "Certyfikaty";
+
+"HealthCertificate_Overview_add" = "Dodaj certyfikat";
+
+"HealthCertificate_Overview_EmptyTitle" = "Nie ma jeszcze dostępnych certyfikatów";
+
+"HealthCertificate_Overview_EmptyDescription" = "W tym miejscu wyświetlane są zapisane cyfrowe certyfikaty szczepień, certyfikaty statusu ozdrowieńca i certyfikaty testów.\n\nAby dodać certyfikat, zeskanuj odpowiedni kod QR.";
+
+"HealthCertificate_Overview_EmptyImageDescription" = "Pieczęć certyfikatu z cyfrowym certyfikatem w tle";
+
+"HealthCertificate_Overview_Covid_Title" = "Unijny cyfrowy certyfikat COVID";
+
+"HealthCertificate_Overview_Covid_Certificate_Description" = "Kod QR z certyfikatem";
+
+"HealthCertificate_Overview_AdmissionState_Title" = "Dowód status";
+
+"HealthCertificate_Overview_TwoGCertificate" = "Certyfikat 2G";
+
+"HealthCertificate_Overview_TestCertificate" = "Certyfikat testu";
+
+"HealthCertificate_Overview_News" = "Dostępne są nowe informacje na temat Twoich certyfikatów";
+
+/* - Test Certificate Request */
+"TestCertificateRequest_title" = "Unijny\n**cyfrowy certyfikat testu na COVID**";
+
+"TestCertificateRequest_loadingSubtitle" = "Certyfikat jest tworzony...";
+
+"TestCertificateRequest_errorSubtitle" = "Błąd podczas pobierania certyfikatu";
+
+"TestCertificateRequest_registrationDate" = "Zarejestrowano dnia %@";
+
+"TestCertificateRequest_loadingStateDescription" = "Żądanie dotyczące certyfikatu jest przetwarzane. Może to potrwać kilka minut...";
+
+"TestCertificateRequest_tryAgainButtonTitle" = "Spróbuj ponownie";
+
+"TestCertificateRequest_removeButtonTitle" = "Usuń certyfikat testu";
+
+/* - Test Certificate Request Error Alert */
+"TestCertificateRequest_ErrorAlert_title" = "Nadal występują problemy z żądaniem.";
+
+"TestCertificateRequest_ErrorAlert_Button_title" = "OK";
+
+/* - Test Certificate Request Remove Alert */
+"TestCertificateRequest_RemoveAlert_title" = "Czy chcesz usunąć certyfikat?";
+
+"TestCertificateRequest_RemoveAlert_message" = "Po usunięciu certyfikatu nie można zażądać go ponownie.";
+
+"TestCertificateRequest_RemoveAlert_CancelButton_title" = "Anuluj";
+
+"TestCertificateRequest_RemoveAlert_DeleteButton_title" = "Usuń";
+
+/* Test Certificate Request Errors */
+"TestCertificateRequest_Error_CLIENT_ERROR_CALL_HOTLINE" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_DCC_EXPIRED" = "Ten certyfikat nie jest już aktualny. Możesz go usunąć z aplikacji Corona-Warn-App. (%@)";
+
+"TestCertificateRequest_Error_DCC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_E2E_ERROR_CALL_HOTLINE" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_NO_NETWORK" = "Połączenie internetowe zostało utracone. Sprawdź połączenie i spróbuj ponownie. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN" = "Nie udało się nawiązać połączenia. Spróbuj ponownie. (%@)";
+
+"TestCertificateRequest_Error_TRY_AGAIN_DCC_NOT_AVAILABLE_YET" = "Twój certyfikat nie jest jeszcze dostępny. Spróbuj ponownie. Jeśli błąd będzie nadal występował, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+"TestCertificateRequest_Error_DGC_NOT_SUPPORTED_BY_LAB" = "Nie możesz zażądać wydania certyfikatu testu, ponieważ ten punkt testowania nie wydaje certyfikatów testów. Usuń certyfikat lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna. (%@)";
+
+/* Health Certificate Information */
+"HealthCertificate_Info_Title" = "Dodaj certyfikaty";
+
+"HealthCertificate_Info_imageDescription" = "Uodporniona osoba patrzy na swój smartfon";
+
+"HealthCertificate_Info_description" = "Dodaj unijne cyfrowe certyfikaty COVID w aplikacji. Umożliwi Ci to udowodnienie za pomocą aplikacji posiadania ochrony poszczepiennej, negatywnego wyniku testu lub przebycia infekcji.";
+
+"HealthCertificate_Info_section01" = "W aplikacji można dodawać unijne cyfrowe certyfikaty szczepień przeciwko COVID, certyfikaty testów na COVID i certyfikaty statusu ozdrowieńca COVID.";
+
+"HealthCertificate_Info_section02" = "Takie certyfikaty są uznawane za ważny dowód w UE (np. w przypadku podróży).";
+
+"HealthCertificate_Info_section03" = "Po dodaniu certyfikatu pozostanie on na Twoim smartfonie. Zostanie on udostępniony innym tylko podczas jego okazywania w celu weryfikacji.";
+
+"HealthCertificate_Info_section04" = "Dodaj istniejące certyfikaty dla siebie i członków swojej rodziny.";
+
+"HealthCertificate_Info_primaryButton" = "Kontynuuj";
+
+/* CovPass Info Screen */
+"CovPass_Check_Info_Title" = "Weryfikacja certyfikatów przez osoby trzecie";
+
+"CovPass_Check_Info_body" = "Osoby trzecie mogą korzystać z aplikacji CovPassCheck, aby w wiarygodny sposób ustalić, czy certyfikat szczepienia, certyfikat statusu ozdrowieńca lub certyfikat testu jest ważny.";
+
+"CovPass_Check_Info_faq" = "Często zadawane pytania dotyczące weryfikacji certyfikatu przez osoby trzecie";
+
+"CovPass_Check_Info_text01" = "Ważność certyfikatów możesz sprawdzić przed podróżą samodzielnie w aplikacji Corona-Warn-App bez korzystania z aplikacji CovPassCheck.";
+
+"CovPass_Check_Info_text02" = "Dla osób trzecich nie wystarczy jednak wizualna kontrola certyfikatów. Muszą one korzystać z aplikacji CovPassCheck w Niemczech.";
+
+"CovPass_Check_Info_text03" = "Należy pamiętać, że osoby trzecie w innych krajach mogą używać innych aplikacji do weryfikacji certyfikatów.";
+
+/* Health Certified Person Screen */
+"HealthCertificate_unified_QR_code_notice" = "Ten kod QR można wiarygodnie zweryfikować za pomocą aplikacji CovPassCheck.";
+
+"HealthCertificate_unified_QR_code_infoButton" = "Informacje";
+
+"HealthCertifiedPerson_title" = "Unijny cyfrowy certyfikat COVID";
+
+/* Health Certified Person */
+"HealthCertifiedPerson_faq" = "Więcej informacji znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"HealthCertifiedPerson_dateOfBirth" = "Data urodzenia %@";
+
+"HealthCertifiedPerson_preferredPersonDescription" = "Włącz ten przełącznik, jeśli jesteś %@ oraz głównym użytkownikiem aplikacji. Twoje certyfikaty pojawią się na górze listy.";
+
+"HealthCertifiedPerson_QRCode_Image_Description" = "Kod QR z aktualnym certyfikatem";
+
+"HealthCertifiedPerson_validationButtonTitle" = "Sprawdź ważność na potrzeby podróży";
+
+"HealthCertifiedPerson_VaccinationCertificate_headline" = "Certyfikat szczepienia";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationCount" = "Szczepienie %i %i";
+
+"HealthCertifiedPerson_VaccinationCertificate_vaccinationDate" = "Zaszczepiono dnia %@";
+
+"HealthCertifiedPerson_TestCertificate_headline" = "Certyfikat testu";
+
+"HealthCertifiedPerson_TestCertificate_pcrTest" = "Test PCR";
+
+"HealthCertifiedPerson_TestCertificate_antigenTest" = "Szybki test";
+
+"HealthCertifiedPerson_TestCertificate_sampleCollectionDate" = "Próbka pobrana %@";
+
+"HealthCertifiedPerson_RecoveryCertificate_headline" = "Certyfikat statusu ozdrowieńca";
+
+"HealthCertifiedPerson_RecoveryCertificate_validityDate" = "ważne do %@";
+
+"HealthCertifiedPerson_currentlyUsedCertificate" = "Aktualnie używany certyfikat";
+
+"HealthCertifiedPerson_newlyAddedCertificate" = "Nowe";
+
+/* Vaccination Certificate Details */
+"HealthCertificate_Details_vaccinationCount" = "Szczepienie %i %i";
+
+"HealthCertificate_Details_certificate" = "Certyfikat szczepienia";
+
+"HealthCertificate_Details_EU_Covid_Certificate" = "Unijny cyfrowy certyfikat COVID";
+
+"HealthCertificate_Details_QRCode_Image_Description" = "Kod QR z certyfikatem";
+
+"HealthCertificate_Details_certificateCount" = "Certyfikat szczepienia %i %i";
+
+"HealthCertificate_Details_validity" = "Zaszczepiono %@ - ważne do %@";
+
+"HealthCertificate_Details_dateOfBirth" = "Data urodzenia %@";
+
+"HealthCertificate_Details_dateOfVaccination" = "Data szczepienia";
+
+"HealthCertificate_Details_vaccine" = "Szczepionka";
+
+"HealthCertificate_Details_vaccineType" = "Typ szczepionki";
+
+"HealthCertificate_Details_manufacture" = "Producent";
+
+"HealthCertificate_Details_issuer" = "Wystawca";
+
+"HealthCertificate_Details_country" = "Kraj";
+
+"HealthCertificate_Details_identifier" = "Numer certyfikatu";
+
+"HealthCertificate_Details_validationButtonTitle" = "Sprawdź ważność na potrzeby podróży";
+
+"HealthCertificate_Details_deleteButtonTitle" = "Usuń certyfikat szczepienia";
+
+"HealthCertificate_Details_expirationDateTitle" = "Techniczna data wygaśnięcia";
+
+"HealthCertificate_Details_expirationDatePlaceholder" = "Ważny do %@";
+
+"HealthCertificate_Details_expirationDateDetails" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
+
+"HealthCertificate_Details_moreButtonTitle" = "Więcej";
+
+/* Health Certificate Delete Alert */
+"HealthCertificate_Alert_deleteButton" = "Usuń certyfikat";
+
+"HealthCertificate_Alert_cancelButton" = "Anuluj";
+
+/* Vaccination Certificate Delete Alert */
+"VaccinationCertificate_Alert_title" = "Czy chcesz usunąć certyfikat szczepienia?";
+
+"VaccinationCertificate_Alert_message" = "Certyfikat zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu, gdzie możesz trwale usunąć certyfikat lub go odzyskać. Certyfikat zostanie automatycznie usunięty po 30 dniach.";
+
+/* Test Certificate Details */
+"TestCertificate_Details_title" = "Certyfikat testu";
+
+"TestCertificate_Details_subtitle" = "Ujemny wynik testu na SARS-CoV-2";
+
+"TestCertificate_Details_primaryButton" = "Usuń certyfikat testu";
+
+"TestCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać swój certyfikat testu, znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"TestCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów testów";
+
+/* Test Certificate Delete Alert */
+"TestCertificate_Alert_title" = "Czy chcesz usunąć certyfikat testu?";
+
+"TestCertificate_Alert_message" = "Certyfikat zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu, gdzie możesz trwale usunąć certyfikat lub go odzyskać. Certyfikat zostanie automatycznie usunięty po 30 dniach.";
+
+/* Recovery Certificate Details */
+"RecoveryCertificate_Details_title" = "Certyfikat statusu ozdrowieńca";
+
+"RecoveryCertificate_Details_subtitle" = "Unijny cyfrowy certyfikat COVID";
+
+"RecoveryCertificate_Details_primaryButton" = "Usuń certyfikat statusu ozdrowieńca";
+
+/* Recovery Certificate Delete Alert */
+"RecoveryCertificate_Alert_title" = "Czy chcesz usunąć certyfikat statusu ozdrowieńca?";
+
+"RecoveryCertificate_Alert_message" = "Certyfikat zostanie przeniesiony do kosza. Kosz znajduje się na kafelku „Więcej” na stronie karty statusu, gdzie możesz trwale usunąć certyfikat lub go odzyskać. Certyfikat zostanie automatycznie usunięty po 30 dniach.";
+
+/* Decoding Failed Health Certificate Delete Alert */
+"DecodingFailedHealthCertificate_Alert_title" = "Czy chcesz trwale usunąć certyfikat?";
+
+"DecodingFailedHealthCertificate_Alert_message" = "Nie można było rozszyfrować certyfikatu, dlatego nie można wyświetlić żadnych związanych z nim informacji. Jeśli go usuniesz, nie będziesz mógł go już używać jako dowodu.";
+
+"DecodingFailedHealthCertificate_Alert_deleteButton" = "Usuń trwale certyfikat";
+
+"DecodingFailedHealthCertificate_Alert_cancelButton" = "Anuluj";
+
+/* Health Certificate Print PDF */
+"HealthCertificate_PrintPdf_showPrintableVersion" = "Wyświetl wersję do druku";
+
+"HealthCertificate_PrintPdf_cancelActionSheet" = "Anuluj";
+
+"HealthCertificate_PrintPdf_Info_title" = "Generowanie wydruku UE";
+
+"HealthCertificate_PrintPdf_Info_section01" = "Możesz zapisać certyfikat jako dokument PDF. Ta czynność jest dobrowolna. Na początku tylko Ty masz dostęp do tego dokumentu PDF. Następnie możesz zdecydować, czy chcesz go zapisać w smartfonie, czy zaimportować do innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_section02" = "Należy pamiętać, że dokument PDF zawiera dane wrażliwe. Zalecamy ostrożne obchodzenie się z nim i pokazywanie go tylko zaufanym osobom, które są upoważnione do sprawdzania certyfikatu.";
+
+"HealthCertificate_PrintPdf_Info_section03" = "Zalecamy, aby nie publikować dokumentu PDF, nie wysyłać go pocztą elektroniczną ani nie udostępniać go za pośrednictwem innych aplikacji.";
+
+"HealthCertificate_PrintPdf_Info_primaryButton" = "Kontynuuj";
+
+"HealthCertificate_PrintPdf_Share_title" = "Wersja cyfrowego certyfikatu do druku";
+
+/* Health Certificate Print PDF Error Alert */
+"HealthCertificate_PrintPdf_ErrorAlert_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ certyfikat nie został wydany w Niemczech";
+
+"HealthCertificate_PrintPdf_ErrorAlert_FAQ" = "Często zadawane pytania dotyczące wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_OK" = "OK";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Title" = "Nie można wyświetlić wersji do druku";
+
+"HealthCertificate_PrintPdf_ErrorAlert_ValueSetsFetching_Message" = "Nie można wyświetlić wersji certyfikatu do druku, ponieważ nie można teraz pobrać certyfikatu. Spróbuj ponownie później.";
+
+/* Health Certificate Errors */
+"HealthCertificate_Error_Title" = "Błąd";
+
+"HealthCertificate_Error_FAQ_Description" = "\n\nWięcej informacji na temat tego, jak otrzymać certyfikat, znajduje się na naszej stronie „Często zadawane pytania”.";
+
+"HealthCertificate_Error_FAQ_Button_Title" = "Często zadawane pytania na temat certyfikatów";
+
+"HealthCertificate_Error_HC_ALREADY_REGISTERED" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
+
+"HealthCertificate_Error_HC_INVALID" = "Ten kod QR nie jest ważnym certyfikatem.";
+
+"HealthCertificate_Error_HC_NOT_SUPPORTED" = "Ten certyfikat nie jest obsługiwany.";
+
+"HealthCertificate_Error_HC_QR_CODE_ERROR" = "Kod QR nie mógł zostać wygenerowany. Jeśli błąd będzie nadal występować, skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Error_invalidSignature_title" = "Podpis jest nieprawidłowy";
+
+"HealthCertificate_Error_invalidSignature_msg" = "Podpis certyfikatu jest nieprawidłowy. Certyfikatu nie można używać jako dowodu i w związku z tym nie można go importować.";
+
+"HealthCertificate_Error_invalidSignature_FAQ_Button_Title" = "Często zadawane pytania na temat weryfikacji podpisu";
+
+/* Health Certificate Validation Errors */
+"HealthCertificate_Validation_Error_Title" = "Weryfikacja nie powiodła się";
+
+"HealthCertificate_Validation_Error_TRY_AGAIN" = "Wystąpił błąd. Spróbuj ponownie później lub skontaktuj się z infolinią techniczną, korzystając z opcji: Informacje o aplikacji -> Infolinia techniczna.";
+
+"HealthCertificate_Validation_Error_NO_NETWORK" = "Nastąpiła utrata połączenia z Internetem. Aby zakończyć sprawdzanie ważności certyfikatu, sprawdź połączenie i spróbuj ponownie.";
+
+/* Health Certificate Validation */
+"HealthCertificate_Validation_Title" = "Ważność certyfikatu";
+
+"HealthCertificate_Validation_CountrySelection_Title" = "Kraj";
+
+"HealthCertificate_Validation_DateTimeSelection_Title" = "Data i czas";
+
+"HealthCertificate_Validation_DateTimeSelection_Info" = "Wybierz datę wjazdu i czas lokalny.";
+
+"HealthCertificate_Validation_Body1" = "Sprawdź z wyprzedzeniem, czy Twój certyfikat będzie ważny w kraju docelowym w czasie podróży. Uwzględnione zostaną zasady wjazdu do wybranego kraju docelowego.";
+
+"HealthCertificate_Validation_Headline1" = "Sprawdź";
+
+"HealthCertificate_Validation_Body2" = "Certyfikat COVID jest ważnym dowodem w przypadku podróży na terenie UE.";
+
+"HealthCertificate_Validation_Headline2" = "Uwagi";
+
+"HealthCertificate_Validation_Bullet1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
+
+"HealthCertificate_Validation_Bullet2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
+
+"HealthCertificate_Validation_Bullet4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
+
+"HealthCertificate_Validation_Legal_Title" = "Prywatność i bezpieczeństwo danych";
+
+"HealthCertificate_Validation_Legal_Description" = "Aktualne zasady dotyczące wjazdu są pobierane z serwerów RKI. Wymaga to połączenia z Internetem. Dane dostępowe są przesyłane do RKI.";
+
+"HealthCertificate_Validation_Body4" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"HealthCertificate_Validation_ButtonTitle" = "Sprawdź";
+
+/* Health Certificate Validation Result */
+"HealthCertificate_Validation_Result_validationParameters" = "Wprowadzenie %@ dnia %@\nZweryfikowano dnia %@";
+
+"HealthCertificate_Validation_Result_acceptanceRule" = "To jest zasada obowiązująca w kraju docelowym, %@.";
+
+"HealthCertificate_Validation_Result_invalidationRule" = "To jest zasada obowiązująca w kraju wydającym.";
+
+"HealthCertificate_Validation_Result_moreInformation" = "Więcej informacji można znaleźć w %@ lub %@.";
+
+"HealthCertificate_Validation_Result_moreInformation_placeholder_FAQ" = "Często zadawane pytania";
+
+/* - Passed */
+"HealthCertificate_Validation_Passed_title" = "Certyfikat jest ważny.";
+
+"HealthCertificate_Validation_Passed_unknownTitle" = "Weryfikacja certyfikatu jest niemożliwa";
+
+"HealthCertificate_Validation_Passed_subtitle" = "Twój certyfikat jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_Passed_unknownSubtitle" = "Twój certyfikat nie mógł zostać zweryfikowany";
+
+"HealthCertificate_Validation_Passed_hintsTitle" = "Uwagi";
+
+"HealthCertificate_Validation_Passed_hint1" = "Należy pamiętać, że zasady dotyczące wjazdu mogą ulec zmianie. Dlatego prosimy o sprawdzenie certyfikatu na krótko przed wjazdem do kraju docelowego (maks. 48 godzin).";
+
+"HealthCertificate_Validation_Passed_hint2" = "W poszczególnych regionach mogą obowiązywać dodatkowe zasady i ograniczenia.";
+
+"HealthCertificate_Validation_Passed_hint4" = "Aplikacja Corona-Warn-App nie sprawdza, czy dane zapisane w certyfikacie są ważne.";
+
+"HealthCertificate_Validation_Passed_primaryButtonTitle" = "Sprawdź dla innego kraju";
+
+/* - Open */
+"HealthCertificate_Validation_Open_title" = "Weryfikacja certyfikatu jest niemożliwa";
+
+"HealthCertificate_Validation_Open_subtitle" = "Twój certyfikat nie mógł zostać całkowicie zweryfikowany";
+
+"HealthCertificate_Validation_Open_openSectionTitle" = "Uwagi";
+
+"HealthCertificate_Validation_Open_openSectionDescription" = "Nie udało się sprawdzić poniższych zasad. Upewnij się, że certyfikat jest zgodny z zasadami obowiązującymi w kraju docelowym.";
+
+/* - Failed */
+"HealthCertificate_Validation_Failed_title" = "Certyfikat jest nieważny";
+
+"HealthCertificate_Validation_Failed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_Failed_failedSectionTitle" = "Weryfikacja zakończona";
+
+"HealthCertificate_Validation_Failed_failedSectionDescription" = "Brak zgodności z poniższymi zasadami:";
+
+"HealthCertificate_Validation_Failed_openSectionTitle" = "Weryfikacja nie jest możliwa";
+
+"HealthCertificate_Validation_Failed_openSectionDescription" = "Nie udało się sprawdzić poniższych zasad. Upewnij się, że certyfikat jest zgodny z zasadami obowiązującymi w kraju docelowym.";
+
+/* - Technical Validation Failed */
+"HealthCertificate_Validation_TechnicalFailed_title" = "Certyfikat jest nieważny";
+
+"HealthCertificate_Validation_TechnicalFailed_subtitle" = "Twój certyfikat nie jest ważny w wybranym kraju";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionTitle" = "Kontrola techniczna";
+
+"HealthCertificate_Validation_TechnicalFailed_failedSectionDescription" = "Brak zgodności z poniższymi zasadami:";
+
+"HealthCertificate_Validation_TechnicalFailed_certificateNotValid" = "Podpis certyfikatu musi być ważny.";
+
+"HealthCertificate_Validation_TechnicalFailed_technicalExpirationDatePassed" = "Techniczna data wygaśnięcia certyfikatu nie może upłynąć.";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDateTitle" = "Techniczna data wygaśnięcia";
+
+"HealthCertificate_Validation_TechnicalFailed_expirationDate" = "Ważny do %@";
+
+/* Health Certificate Validity State */
+"HealthCertificate_ValidityState_ExpiringSoon" = "Certyfikat wygasa dnia %@ o godzinie %@";
+
+"HealthCertificate_ValidityState_ExpiringSoon_description" = "Pamiętaj o terminowym pobraniu nowego certyfikatu cyfrowego.";
+
+"HealthCertificate_ValidityState_Expired" = "Certyfikat wygasł";
+
+"HealthCertificate_ValidityState_Expired_description" = "Data wygaśnięcia upłynęła. Pobierz nowy certyfikat cyfrowy.";
+
+"HealthCertificate_ValidityState_Invalid" = "Certyfikat (podpis) jest nieprawidłowy";
+
+"HealthCertificate_ValidityState_Invalid_description" = "Certyfikat został wydany przez nieuprawniony organ lub wydanie przebiegło nieprawidłowo. Zwróć się do uprawnionego organu o wydanie nowego certyfikatu.";
+
+"HealthCertificate_ValidityState_Blocked" = "Certyfikat nieważny";
+
+"HealthCertificate_ValidityState_Blocked_description" = "Certyfikat został wycofany przez urząd wydający. Zdobądź nowy cyfrowy certyfikat.";
+
+/* Universal QR Scanner */
+"UniversalQRScanner_ScannerTitle" = "Skaner kodów QR";
+
+"UniversalQRScanner_InstructionTitle" = "Jakie kody QR można zeskanować?";
+
+"UniversalQRScanner_InstructionDescription" = "Testy, Twoje certyfikaty, zameldowania i walidacja podczas rezerwacji biletów";
+
+"UniversalQRScanner_FileButtonTitle" = "Otwórz plik";
+
+"UniversalQRScanner_CameraFlash" = "Lampa błyskowa aparatu";
+
+"UniversalQRScanner_CameraFlash_On" = "Włączona";
+
+"UniversalQRScanner_CameraFlash_Off" = "Wyłączona";
+
+"UniversalQRScanner_CameraFlash_Enable" = "Włącz lampę błyskową aparatu";
+
+"UniversalQRScanner_CameraFlash_Disable" = "Wyłącz lampę błyskową aparatu";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_title" = "Niedozwolony dostęp";
+
+"UniversalQRScanner_Error_cameraPermissionDenied" = "Zezwól aplikacji na użycie aparatu do skanowania kodu QR.";
+
+"UniversalQRScanner_Error_cameraPermissionDenied_settingsButton" = "Ustawienia";
+
+"UniversalQRScanner_Error_unsupportedQRCode" = "Ten kod QR nie jest obsługiwany przez aplikację Corona-Warn-App. Zeskanuj odpowiedni kod QR.";
+
+"UniversalQRScanner_RestoredFromBinAlert_Title" = "Odzyskaj certyfikat";
+
+"UniversalQRScanner_RestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Certyfikat zostanie odzyskany z kosza.";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Title" = "Odzyskaj test";
+
+"UniversalQRScanner_TestRestoredFromBinAlert_Message" = "Kod QR został już zarejestrowany na Twoim smartfonie. Test zostanie odzyskany z kosza.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningTitle" = "Ostrzeżenie";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorTitle" = "Błąd";
+
+"UniversalQRScanner_MaxPersonAmountAlert_warningMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Po osiągnięciu tego limitu nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat weryfikacji certyfikatów znajdziesz na naszej stronie „Często zadawane pytania”.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_errorMessage" = "Aplikacja Corona-Warn-App nie może być używana do weryfikacji zewnętrznych certyfikatów. Do tego celu należy użyć aplikacji CovPassCheck.\n\nMożesz dodać certyfikaty dla maksymalnie %i osób. Nie możesz skanować nowych certyfikatów dla kolejnych osób.\n\nWięcej informacji na temat weryfikacji certyfikatów znajdziesz na naszej stronie „Często zadawane pytania”.";
+
+"UniversalQRScanner_MaxPersonAmountAlert_covPassCheckButton" = "Pobierz aplikację CovPassCheck";
+
+"UniversalQRScanner_MaxPersonAmountAlert_faqButton" = "Strona „Często zadawane pytania” dotyczące weryfikacji certyfikatów ";
+
+"UniversalQRScanner_Info_title" = "Informacje o kodach QR";
+
+"UniversalQRScanner_Info_bulletPoint1" = "Twoje certyfikaty testów, certyfikaty szczepień, certyfikaty statusu ozdrowieńca oraz certyfikaty dla członków Twojej rodziny";
+
+"UniversalQRScanner_Info_bulletPoint2" = "Zameldowania obecności w wydarzeniu lub miejscu";
+
+"UniversalQRScanner_Info_bulletPoint3" = "Testy PCR i szybkie testy";
+
+"UniversalQRScanner_Info_bulletPoint4" = "Weryfikacja certyfikatów podczas rezerwacji biletów";
+
+"UniversalQRScanner_Info_body1" = "Odczytywane są dane z odpowiedniego kodu.";
+
+"UniversalQRScanner_Info_body2" = "Podczas skanowania kodów QR w celu weryfikacji certyfikatów w procesie rezerwacji biletów pobierane są dodatkowe informacje o dostawcy rezerwacji.";
+
+"UniversalQRScanner_Info_dataPrivacy" = "Informacje na temat przetwarzania danych znajdują się w oświadczeniu o ochronie prywatności.";
+
+/* File Scanner */
+"FileScanner_sheet_photos" = "Biblioteka zdjęć";
+
+"FileScanner_sheet_documents" = "Dokument";
+
+"FileScanner_sheet_cancel" = "Anuluj";
+
+"FileScanner_AccessError_title" = "Niedozwolony dostęp";
+
+"FileScanner_AccessError_message" = "Aplikacja Corona-Warn-App nie ma dostępu do Twojej biblioteki zdjęć. Możesz przyznać dostęp w ustawieniach urządzenia.";
+
+"FileScanner_AccessError_cancel" = "Anuluj";
+
+"FileScanner_AccessError_settings" = "Ustawienia";
+
+"FileScanner_HUD_text" = "Odczytywanie kodu QR…";
+
+"FileScanner_PasswordEntry_title" = "Plik jest chroniony hasłem";
+
+"FileScanner_PasswordEntry_message" = "Wprowadź hasło.";
+
+"FileScanner_PasswordEntry_placeholder" = "Hasło";
+
+"FileScanner_PasswordError_title" = "Nieprawidłowe hasło";
+
+"FileScanner_AlreadyRegistered_title" = "Certyfikat już zarejestrowany";
+
+"FileScanner_AlreadyRegistered_message" = "Certyfikat jest już zarejestrowany w Twojej aplikacji.";
+
+"FileScanner_PasswordError_message" = "Wprowadź prawidłowe hasło.";
+
+"FileScanner_InvalidQRCode_title" = "Brak odpowiedniego kodu QR";
+
+"FileScanner_InvalidQRCode_message" = "Ten kod QR nie jest obsługiwany przez aplikację Corona-Warn-App. Wybierz odpowiedni kod QR.";
+
+"FileScanner_FileNotReadable_title" = "Nie można odczytać pliku";
+
+"FileScanner_FileNotReadable_message" = "Wybrany plik może być uszkodzony lub chroniony hasłem i nie można go odczytać. Wybierz odpowiedni plik.";
+
+"FileScanner_NoQRCodeFound_title" = "Nie wykryto kodu QR";
+
+"FileScanner_NoQRCodeFound_message" = "Nie wykryto kodu QR w wybranym pliku. Wybierz inny plik.";
+
+"UniversalQRScanner_Tooltip_title" = "Skaner kodów QR";
+
+"UniversalQRScanner_Tooltip_description" = "Skaner ten służy do skanowania testów, certyfikatów i zameldowań.";
+
+/* Federal State Names */
+"FederalState_BadenWuerttemberg" = "Badenia-Wirtembergia";
+
+"FederalState_Bayern" = "Bawaria";
+
+"FederalState_Berlin" = "Berlin";
+
+"FederalState_Brandenburg" = "Brandenburgia";
+
+"FederalState_Bremen" = "Brema";
+
+"FederalState_Hamburg" = "Hamburg";
+
+"FederalState_Hessen" = "Hesja";
+
+"FederalState_MecklenburgVorpommern" = "Meklemburgia-Pomorze Zachodnie";
+
+"FederalState_Niedersachsen" = "Dolna Saksonia";
+
+"FederalState_NordrheinWestfalen" = "Nadrenia Północna-Westfalia";
+
+"FederalState_RheinlandPfalz" = "Nadrenia-Palatynat";
+
+"FederalState_Saarland" = "Saara";
+
+"FederalState_Sachsen" = "Saksonia";
+
+"FederalState_SachsenAnhalt" = "Saksonia-Anhalt";
+
+"FederalState_SchleswigHolstein" = "Szlezwik-Holsztyn";
+
+"FederalState_Thueringen" = "Turyngia";
+
+/* Recycle Bin */
+"RecycleBin_title" = "Kosz";
+
+"RecycleBin_description" = "Dotknij element, aby go odzyskać. Elementy zostaną automatycznie usunięte po 30 dniach.";
+
+"RecycleBin_deleteAllButtonTitle" = "Usuń trwale wszystko";
+
+"RecycleBin_expirationDateTime" = "zostanie trwale usunięty dnia %@ o %@";
+
+/* - Vaccination Certificate */
+"RecycleBin_VaccinationCertificate_headline" = "Certyfikat szczepienia";
+
+"RecycleBin_VaccinationCertificate_vaccinationCount" = "Szczepienie %i %i";
+
+"RecycleBin_VaccinationCertificate_vaccinationDate" = "zaszczepiono dnia %@";
+
+/* - Test Certificate */
+"RecycleBin_TestCertificate_headline" = "Certyfikat testu";
+
+"RecycleBin_TestCertificate_pcrTest" = "Test PCR";
+
+"RecycleBin_TestCertificate_antigenTest" = "Szybki test";
+
+"RecycleBin_TestCertificate_sampleCollectionDate" = "Próbka pobrana %@";
+
+/* - Recovery Certificate */
+"RecycleBin_RecoveryCertificate_headline" = "Certyfikat statusu ozdrowieńca";
+
+"RecycleBin_RecoveryCertificate_validityDate" = "ważne do %@";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_headline" = "Test";
+
+"RecycleBin_CoronaTest_pcrTest" = "Test PCR";
+
+"RecycleBin_CoronaTest_antigenTest" = "Szybki test";
+
+"RecycleBin_CoronaTest_registrationDate" = "Zarejestrowano dnia %@";
+
+"RecycleBin_CoronaTest_sampleCollectionDate" = "Wykonano dnia %@";
+
+/* - Empty State */
+"RecycleBin_EmptyState_title" = "Kosz jest pusty";
+
+"RecycleBin_EmptyState_description" = "Usunięte certyfikaty i testy są przenoszone do kosza i wyświetlane tutaj.";
+
+"RecycleBin_EmptyState_imageDescription" = "Kosz";
+
+/* - Restore Certificate Alert */
+"RecycleBin_RestoreCertificate_AlertTitle" = "Odzyskaj certyfikat";
+
+"RecycleBin_RestoreCertificate_AlertMessage" = "Odzyskany certyfikat zostanie przeniesiony do pierwotnej lokalizacji. Znajdziesz go wtedy na stronie karty „Certyfikaty”.";
+
+"RecycleBin_RestoreCertificate_AlertConfirmButtonTitle" = "Odzyskaj";
+
+"RecycleBin_RestoreCertificate_AlertCancelButtonTitle" = "Anuluj";
+
+/* - Corona Test */
+"RecycleBin_CoronaTest_AlertTitle" = "Odzyskaj test";
+
+"RecycleBin_CoronaTest_AlertMessage" = "Odzyskany test zostanie przeniesiony do pierwotnej lokalizacji. Znajdziesz go wtedy na stronie karty „Status”.";
+
+"RecycleBin_CoronaTest_AlertConfirmButtonTitle" = "Odzyskaj";
+
+"RecycleBin_CoronaTest_AlertCancelButtonTitle" = "Anuluj";
+
+/* - Delete All Alert */
+"RecycleBin_DeleteAll_AlertTitle" = "Czy chcesz opróżnić kosz?";
+
+"RecycleBin_DeleteAll_AlertMessage" = "Odzyskanie jego zawartości nie będzie już możliwe.";
+
+"RecycleBin_DeleteAll_AlertConfirmButtonTitle" = "Usuń";
+
+"RecycleBin_DeleteAll_AlertCancelButtonTitle" = "Anuluj";
+
+/* Ticket Validation */
+/* - Cancel Alert */
+"TicketValidation_CancelAlert_title" = "Czy chcesz anulować weryfikację?";
+
+"TicketValidation_CancelAlert_message" = "Jeśli anulujesz weryfikację, certyfikat nie będzie mógł zostać zweryfikowany.";
+
+"TicketValidation_CancelAlert_cancelButtonTitle" = "Anuluj weryfikację";
+
+"TicketValidation_CancelAlert_continueButtonTitle" = "Wznów weryfikację";
+
+/* - Error */
+"TicketValidation_Error_title" = "Błąd";
+
+"TicketValidation_Error_serviceProviderErrorNoName" = "Podczas łączenia się z dostawcą wystąpił błąd. Skontaktuj się z dostawcą, jeśli problem nie zostanie rozwiązany.";
+
+"TicketValidation_Error_serviceProviderError" = "Podczas łączenia się z dostawcą „%@” wystąpił błąd. Skontaktuj się z dostawcą, jeśli problem nie zostanie rozwiązany.";
+
+"TicketValidation_Error_tryAgain" = "Podczas przetwarzania danych wystąpił błąd. Spróbuj ponownie później.";
+
+"TicketValidation_Error_OutdatedApp" = "Obecna wersja Twojej aplikacji Corona-Warn-App nie obsługuje już sprawdzania biletów. Zaktualizuj aplikację i ponownie rozpocząć sprawdzanie biletów.";
+
+"TicketValidation_Error_UpdateAction" = "Przejdź do App Store";
+
+"TicketValidation_Error_serviceProviderErrorNoMatchTitle" = "Uwaga dotycząca bezpieczeństwa";
+
+"TicketValidation_Error_serviceProviderErrorNoMatch" = "Ten dostawca nie jest nam znany. Ze względów bezpieczeństwa weryfikacji podczas rezerwacji biletów jest możliwa tylko w przypadku znanych dostawców. Skontaktuj się z dostawcą, który przekazał Ci ten kod QR i spróbuj zaktualizować aplikację do najnowszej wersji.";
+
+/* - First Consent */
+"TicketValidation_FirstConsent_title" = "Twoja zgoda";
+
+"TicketValidation_FirstConsent_imageDescription" = "Certyfikat jest przekazywany na potrzeby zakupu biletu";
+
+"TicketValidation_FirstConsent_subtitle" = "Weryfikacja certyfikatów podczas rezerwacji biletów";
+
+"TicketValidation_FirstConsent_serviceProvider" = "Dostawca:";
+
+"TicketValidation_FirstConsent_subject" = "Rezerwacja:";
+
+"TicketValidation_FirstConsent_explination" = "Dostawca chce mieć pewność, że dla Twojej rezerwacji dostępny jest ważny certyfikat. Twoja zgoda jest wymagana do pobrania od dostawcy danych dotyczących biletu i udostępnienia zapisanych certyfikatów.";
+
+"TicketValidation_FirstConsent_BulletPoint1" = "Nie musisz zezwalać na weryfikację Twojego certyfikatu za pomocą aplikacji Corona-Warn-App. Możesz również przedstawić dowód swojego szczepienia, testu lub statusu ozdrowieńca w inny sposób.";
+
+"TicketValidation_FirstConsent_BulletPoint2" = "Wymagania dotyczące certyfikatu są określane przez dostawcę. RKI nie ma wpływu na ten proces. Aby uzyskać więcej informacji na temat wymagań dotyczących certyfikatu, skontaktuj się z dostawcą.";
+
+"TicketValidation_FirstConsent_BulletPoint3" = "Identyfikacja odpowiednich certyfikatów odbywa się lokalnie na Twoim smartfonie. Żadne dane nie są przesyłane do RKI ani do dostawcy.";
+
+"TicketValidation_FirstConsent_BulletPoint4" = "RKI nie otrzymuje żadnych danych dotyczących Twoich biletów ani zapisanych przez Ciebie certyfikatów.";
+
+"TicketValidation_FirstConsent_DataPrivacyTitle" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"TicketValidation_FirstConsent_primaryButtonTitle" = "Akceptuj";
+
+"TicketValidation_FirstConsent_secondaryButtonTitle" = "Anuluj";
+
+/* Certificate Selection */
+"TicketValidation_CertificateSelection_title" = "Wybierz certyfikat";
+
+"TicketValidation_CertificateSelection_serviceProviderRequirementsHeadline" = "Wymagania dostawcy:";
+
+"TicketValidation_CertificateSelection_serviceProviderRelevantCertificatesHeadline" = "Poniższe certyfikaty spełniają wymagania dostawcy i mogą być wykorzystane jako dowód:";
+
+"TicketValidation_CertificateSelection_serviceProviderRequiredCertificateHeadline" = "Wymagany jest następujący certyfikat:";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateHeadline" = "Nie jest dostępny odpowiedni certyfikat.";
+
+"TicketValidation_CertificateSelection_noSupportedCertificateDescription" = "Nie posiadasz certyfikatu, który spełnia wymagania systemu biletowego. Upewnij się, że pisownia Twojego nazwiska w systemie biletowym jest zgodna z nazwiskiem na Twoich certyfikatach. Jeśli potrzebujesz dodatkowych certyfikatów, które nie są jeszcze dostępne w aplikacji, dodaj je teraz, a następnie rozpocznij weryfikację ponownie.";
+
+"TicketValidation_CertificateSelection_faqDescription" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"TicketValidation_CertificateSelection_faq" = "Często zadawane pytania";
+
+"TicketValidation_CertificateSelection_dateOfBirth" = "\nData urodzenia: %@";
+
+"TicketValidation_SupportedCertificateType_Vaccination_Certificate" = "Certyfikat szczepienia";
+
+"TicketValidation_SupportedCertificateType_RecoveryCertificate" = "Certyfikat statusu ozdrowieńca";
+
+"TicketValidation_SupportedCertificateType_TestCertificate" = "Certyfikat szybkiego testu, certyfikat testu PCR";
+
+"TicketValidation_SupportedCertificateType_PCRTestCertificate" = "Certyfikat testu PCR";
+
+"TicketValidation_SupportedCertificateType_RATTestCertificate" = "Certyfikat szybkiego testu";
+
+/* - Second Consent */
+"TicketValidation_SecondConsent_title" = "Twoja zgoda";
+
+"TicketValidation_SecondConsent_subtitle" = "Wysyłanie certyfikatu do weryfikacji";
+
+"TicketValidation_SecondConsent_serviceIdentity" = "Partner weryfikacyjny:";
+
+"TicketValidation_SecondConsent_serviceProvider" = "Dostawca:";
+
+"TicketValidation_SecondConsent_explination" = "Wybrany certyfikat i informacje o Twojej rezerwacji zostaną teraz wysłane do partnera weryfikacyjnego dostawcy. Przesłanie Twoich danych do partnera weryfikacyjnego wymaga Twojej zgody.";
+
+"TicketValidation_SecondConsent_BulletPoint1" = "Partner weryfikacyjny sprawdza, czy podpis elektroniczny jest ważny i czy techniczna data wygaśnięcia certyfikatu jeszcze nie minęła. Możesz sprawdzić techniczną datę wygaśnięcia i przesłaną zawartość certyfikatu w szczegółowym widoku certyfikatu w aplikacji.";
+
+"TicketValidation_SecondConsent_BulletPoint2" = "Certyfikaty zawierają wrażliwe dane dotyczące zdrowia. Z tego względu zezwalaj na weryfikację certyfikatów tylko tym dostawcom, których znasz i którym ufasz.";
+
+"TicketValidation_SecondConsent_BulletPoint3" = "RKI nie ponosi odpowiedzialności za przetwarzanie danych przez dostawcę i partnera weryfikacyjnego. Zapoznaj się z ich oświadczeniami o ochronie prywatności, aby dowiedzieć się, w jaki sposób wykorzystywane są Twoje dane i do jakich celów.";
+
+"TicketValidation_SecondConsent_BulletPoint4" = "Partner weryfikacyjny natychmiast powiadamia dostawcę o wyniku. Partner jedynie informuje, czy weryfikacja się powiodła, czy nie.";
+
+"TicketValidation_SecondConsent_DataPrivacyTitle" = "Więcej informacji na temat przetwarzania danych znajduje się w oświadczeniu o ochronie prywatności.";
+
+"TicketValidation_SecondConsent_primaryButtonTitle" = "Akceptuj";
+
+"TicketValidation_SecondConsent_secondaryButtonTitle" = "Anuluj";
+
+/* - Result */
+"TicketValidation_Result_validationParameters" = "Sprawdzone przez partnera weryfikacyjnego w dniu %@";
+
+"TicketValidation_Result_moreInformation" = "Więcej informacji znajduje się na naszej stronie %@.";
+
+"TicketValidation_Result_moreInformation_placeholder_FAQ" = "Często zadawane pytania";
+
+"TicketValidation_Result_Passed_title" = "Weryfikacja powiodła się";
+
+"TicketValidation_Result_Passed_subtitle" = "Twój certyfikat został pomyślnie zweryfikowany";
+
+"TicketValidation_Result_Passed_description" = "Dostawca „%@” został powiadomiony, że weryfikacja powiodła się.";
+
+"TicketValidation_Result_Open_title" = "Weryfikacja certyfikatu jest niemożliwa";
+
+"TicketValidation_Result_Open_subtitle" = "Twój certyfikat nie mógł zostać zweryfikowany przez partnera weryfikacyjnego";
+
+"TicketValidation_Result_Open_description" = "W przypadku pytań skontaktuj się z dostawcą „%@”.";
+
+"TicketValidation_Result_Failed_title" = "Certyfikat nierozpoznany";
+
+"TicketValidation_Result_Failed_subtitle" = "Twój certyfikat nie spełnia wymagań dostawcy.";
+
+"TicketValidation_Result_Failed_description" = "W przypadku pytań skontaktuj się z dostawcą „%@”.";
+

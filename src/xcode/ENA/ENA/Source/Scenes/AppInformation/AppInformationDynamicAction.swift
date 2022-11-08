@@ -6,8 +6,8 @@ import UIKit
 
 extension DynamicAction {
 	static var safari: Self {
-		.execute { viewController, _ in
-			LinkHelper.showWebPage(from: viewController, urlString: AppStrings.SafariView.targetURL)
+		.execute { _, _ in
+			LinkHelper.open(urlString: AppStrings.SafariView.targetURL)
 		}
 	}
 	
@@ -63,6 +63,18 @@ extension DynamicAction {
 	static func push(viewController toViewController: UIViewController) -> Self {
 		.execute { viewController, _ in
 			viewController.navigationController?.pushViewController(toViewController, animated: true)
+		}
+	}
+	
+	static func pushErrorLogsCoordinator(
+		elsService: ErrorLogSubmissionProviding
+	) -> Self {
+		.execute { viewController, _ in
+			let coordinator = ErrorReportsCoordinator(
+				rootViewController: viewController,
+				elsService: elsService
+			)
+			coordinator.start()
 		}
 	}
 }

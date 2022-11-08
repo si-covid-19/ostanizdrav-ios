@@ -62,7 +62,7 @@ extension MockExposureManager: ExposureManager {
 
 	func detectExposures(configuration _: ENExposureConfiguration, diagnosisKeyURLs _: [URL], completionHandler: @escaping ENDetectExposuresHandler) -> Progress {
 		DispatchQueue.main.async {
-			// assuming successfull execution and no exposures
+			// assuming successful execution and no exposures
 			completionHandler(ENExposureDetectionSummary(), nil)
 		}
 		return Progress()
@@ -70,7 +70,7 @@ extension MockExposureManager: ExposureManager {
 
 	func getExposureWindows(summary: ENExposureDetectionSummary, completionHandler: @escaping ENGetExposureWindowsHandler) -> Progress {
 		DispatchQueue.main.async {
-			// assuming successfull execution and empty list of exposure windows
+			// assuming successful execution and empty list of exposure windows
 			completionHandler([], nil)
 		}
 		return Progress()
@@ -91,9 +91,6 @@ extension MockExposureManager: ExposureManager {
 	}
 
 	func alertForBluetoothOff(completion: @escaping () -> Void) -> UIAlertController? {
-		DispatchQueue.main.async {
-			completion()
-		}
 		return nil
 	}
 

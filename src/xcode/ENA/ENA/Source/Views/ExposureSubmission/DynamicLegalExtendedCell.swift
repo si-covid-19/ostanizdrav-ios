@@ -5,17 +5,16 @@
 import UIKit
 
 @IBDesignable
-class DynamicLegalExtendedCell: UITableViewCell {
+class DynamicLegalExtendedCell: UITableViewCell, ReuseIdentifierProviding {
 
 	@IBOutlet private var cardView: UIView!
 	@IBOutlet private var titleLabel: ENALabel!
 	@IBOutlet private var descriptionLabel1: ENALabel!
 	@IBOutlet private var descriptionLabel2: ENALabel!
 
+	@IBOutlet private var containerStackView: UIStackView!
 	@IBOutlet private var contentStackView1: UIStackView!
 	@IBOutlet private var contentStackView2: UIStackView!
-	
-	static let reuseIdentifier = "DynamicLegalExtendedCell"
 
 	override func prepareForInterfaceBuilder() {
 		super.prepareForInterfaceBuilder()
@@ -48,6 +47,23 @@ class DynamicLegalExtendedCell: UITableViewCell {
 	/// Configure a legal extended cell:
 	/// - Parameters:
 	/// - title, (bold)
+	/// - subheadline1 (bold)
+	/// - bulletPoints1
+	/// - subheadline2 (bold)
+	/// - bulletPoints2
+	func configure(title: NSAttributedString, subheadline1: NSAttributedString?, bulletPoints: [NSAttributedString]?, subheadline2: NSAttributedString?, accessibilityIdentifier: String? = nil, spacing: CGFloat) {
+		
+		containerStackView.spacing = 10
+
+		let label = ENALabel() // get the default font – create fake label
+		let textBlocks1 = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
+
+		configure(title: title, description1: subheadline1, description2: subheadline2, textBlocks1: textBlocks1, textBlocks2: [], accessibilityIdentifier: accessibilityIdentifier)
+	}
+	
+	/// Configure a legal extended cell:
+	/// - Parameters:
+	/// - title, (bold)
 	/// - description (bold)
 	/// - bulletPoints
 	func configure(title: NSAttributedString, description: NSAttributedString?, bulletPoints: [NSAttributedString]?, accessibilityIdentifier: String? = nil) {
@@ -61,11 +77,99 @@ class DynamicLegalExtendedCell: UITableViewCell {
 		configure(title: title, description1: description, description2: description2, textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
 	}
 	
-	func configure(title: NSAttributedString, description1: NSAttributedString?, description2: NSAttributedString?, textBlocks1: [NSAttributedString], textBlocks2: [NSAttributedString], accessibilityIdentifier: String? = nil) {
+	/// Configure a legal extended cell:
+	/// - Parameters:
+	/// - title, (bold)
+	/// - description (bold)
+	/// - bulletPoints (attributed string)
+	/// - description (normal font)
+	func configure(title: NSAttributedString, description: NSAttributedString?, description2: NSAttributedString?, bulletPoints: [NSAttributedString]?, accessibilityIdentifier: String? = nil) {
+		
+		let label = ENALabel() // get the default font – create fake label
+		
+		let textBlocks1 = bulletPoints?.map({ $0.bulletPointString(bulletPointFont: label.font) }) ?? []
+		var textBlocks2 = [NSAttributedString]()
+		if let text = description2 {
+			textBlocks2.append(text)
+		}
+		
+		configure(title: title, description1: description, description2: NSAttributedString(), textBlocks1: textBlocks1, textBlocks2: textBlocks2, accessibilityIdentifier: accessibilityIdentifier)
+	}
+	
+	/// Configure a legal extended cell with bullet points and sub bullet points:
+	/// - Parameters:
+	/// - title, (bold)
+	/// - description
+	/// - bulletPoints
+	/// - subBulletPoints
+	func configure(
+		title: NSAttributedString,
+		description: NSAttributedString,
+		bulletPoints: [NSAttributedString],
+		subBulletPoints: [NSAttributedString],
+		accessibilityIdentifier: String
+	) {
+		let label = ENALabel() // get the default font – create fake label
+		
+		let formattedBulletPoints = bulletPoints.map({ $0.bulletPointString(bulletPointFont: label.font) })
+		let formattedSubBulletPoints = subBulletPoints.map({ $0.bulletPointString(
+				bulletPointFont: .systemFont(ofSize: 9),
+				indentationTabs: 1
+			)
+		})
+		
+		titleLabel.attributedText = title
+		descriptionLabel1.attributedText = description
+
+		descriptionLabel1.isHidden = false
+		descriptionLabel2.isHidden = true
+		
+		self.accessibilityIdentifier = accessibilityIdentifier
+		
+		// pruning stack view before setting (new) label
+		contentStackView1.removeAllArrangedSubviews()
+		contentStackView2.removeAllArrangedSubviews()
+		
+		formattedBulletPoints.forEach { string in
+			let label = ENALabel()
+			label.style = .body
+			label.numberOfLines = 0
+			label.lineBreakMode = .byWordWrapping
+			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
+			contentStackView1.addArrangedSubview(label)
+		}
+		
+		formattedSubBulletPoints.forEach { string in
+			let label = ENALabel()
+			label.style = .body
+			label.numberOfLines = 0
+			label.lineBreakMode = .byWordWrapping
+			label.attributedText = string
+			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
+			contentStackView2.addArrangedSubview(label)
+		}
+
+		cardView.layoutIfNeeded()
+	}
+
+	private func configure(
+		title: NSAttributedString,
+		description1: NSAttributedString?,
+		description2: NSAttributedString?,
+		textBlocks1: [NSAttributedString],
+		textBlocks2: [NSAttributedString],
+		accessibilityIdentifier: String? = nil
+	) {
 		
 		titleLabel.attributedText = title
 		descriptionLabel1.attributedText = description1
 		descriptionLabel2.attributedText = description2
+
+		descriptionLabel1.isHidden = description1 == nil
+		descriptionLabel2.isHidden = description2 == nil
 		
 		self.accessibilityIdentifier = accessibilityIdentifier
 		
@@ -80,6 +184,7 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
 			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView1.addArrangedSubview(label)
 		}
 		
@@ -90,12 +195,15 @@ class DynamicLegalExtendedCell: UITableViewCell {
 			label.lineBreakMode = .byWordWrapping
 			label.attributedText = string
 			label.setContentCompressionResistancePriority(.required, for: .vertical)
+			label.setContentHuggingPriority(.required, for: .vertical)
 			contentStackView2.addArrangedSubview(label)
 		}
-		
+		cardView.layoutIfNeeded()
 	}
 
 	private func setup() {
 		cardView.layer.cornerRadius = 16
+		backgroundColor = .enaColor(for: .background)
 	}
+
 }

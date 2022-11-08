@@ -7,7 +7,7 @@ import ExposureNotification
 import XCTest
 
 // swiftlint:disable:next type_body_length
-final class HTTPClientDaysAndHoursTests: XCTestCase {
+final class HTTPClientDaysAndHoursTests: CWATestCase {
 	let binFileSize = 501
 	let sigFileSize = 144
 	let mockUrl = URL(staticString: "http://example.com")
@@ -126,10 +126,10 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 					hours,
 					[1, 2, 3, 4, 5]
 				)
-				expectation.fulfill()
 			case let .failure(error):
 				XCTFail("a valid response should never yield an error like \(error)")
 			}
+			expectation.fulfill()
 		}
 		waitForExpectations(timeout: .medium)
 	}
@@ -533,8 +533,10 @@ final class HTTPClientDaysAndHoursTests: XCTestCase {
 	}
 
 	private func assertPackageFormat(for response: PackageDownloadResponse) {
+		// Packages for key download are never empty
+		XCTAssertFalse(response.isEmpty)
 		XCTAssertNotNil(response.etag)
-		XCTAssertEqual(response.package.bin.count, binFileSize)
-		XCTAssertEqual(response.package.signature.count, sigFileSize)
+		XCTAssertEqual(response.package?.bin.count, binFileSize)
+		XCTAssertEqual(response.package?.signature.count, sigFileSize)
 	}
 }

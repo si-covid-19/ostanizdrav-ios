@@ -16,8 +16,7 @@ struct DataDonationModel {
 		self.isConsentGiven = store.isPrivacyPreservingAnalyticsConsentGiven
 
 		let userMetadata = store.userData
-		Analytics.collect(.userData(.create(userMetadata)))
-		self.federalStateName = userMetadata?.federalState?.rawValue
+		self.federalStateName = userMetadata?.federalState?.localizedName
 		self.age = userMetadata?.ageGroup?.text
 
 		do {
@@ -41,12 +40,12 @@ struct DataDonationModel {
 	var age: String?
 
 	var allFederalStateNames: [String] {
-		FederalStateName.allCases.map { $0.rawValue }
+		FederalStateName.allCases.map { $0.localizedName }
 	}
 
 	func allRegions(by federalStateName: String) -> [String] {
 		allDistricts.filter { district -> Bool in
-			district.federalStateName.rawValue == federalStateName
+			district.federalStateName.localizedName == federalStateName
 		}
 		.map { $0.districtName }
 	}
@@ -56,13 +55,12 @@ struct DataDonationModel {
 	mutating func save() {
 		store.isPrivacyPreservingAnalyticsConsentGiven = isConsentGiven
 
-		// If user has not given or revoked his consent, delete all analytics data. If he gives not the consent, delete all analytics data to have a clean state.
-		Analytics.deleteAnalyticsData()
-
+		// If user has not given or revoked his consent, delete all analytics data and the userData.
 		guard isConsentGiven else {
 			region = nil
 			federalStateName = nil
 			age = nil
+			Analytics.deleteAnalyticsData()
 			return
 		}
 		let ageGroup = AgeGroup(from: self.age)
@@ -73,7 +71,7 @@ struct DataDonationModel {
 
 		var federalStateNameEnum: FederalStateName?
 		if let federalStateName = federalStateName {
-			federalStateNameEnum = FederalStateName(rawValue: federalStateName)
+			federalStateNameEnum = FederalStateName.byLocalizedName(federalStateString: federalStateName)
 		}
 
 		let userdata = UserMetadata(
